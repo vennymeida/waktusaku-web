@@ -20,7 +20,7 @@ class MenuGroupSeeder extends Seeder
             [
                 [
                     'name' => 'Dashboard',
-                    'icon' => 'fas fa-tachometer',
+                    'icon' => 'fas fa-tachometer-alt',
                     'permission_name' => 'dashboard',
                 ],
                 [
