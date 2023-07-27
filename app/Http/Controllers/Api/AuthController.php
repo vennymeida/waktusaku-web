@@ -44,6 +44,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|unique:users',
             'password' => ['required', 'string', 'min:8', 'confirmed', Password::defaults()],
             'device_name' => 'required',
+            'role' => 'required|in:perusahaan,pencari_kerja', // Memastikan role hanya boleh 'perusahaan' atau 'pencari_kerja'
         ]);
 
         $user = User::create([

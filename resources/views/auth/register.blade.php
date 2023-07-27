@@ -102,6 +102,24 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="role">Daftar Sebagai</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="role" id="as_perusahaan"
+                                                value="perusahaan" required>
+                                            <label class="form-check-label" for="as_perusahaan">Perusahaan</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="role" id="as_pencari_kerja"
+                                                value="pencari_kerja" required>
+                                            <label class="form-check-label" for="as_pencari_kerja">Pencari Kerja</label>
+                                        </div>
+                                        @error('role')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                        </div>
+                                    <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">
                                             Register
                                         </button>
@@ -110,7 +128,7 @@
                             </div>
                         </div>
                         <div class="simple-footer">
-                            Copyright &copy; Stisla 2018
+                            Copyright &copy; Hummatech Kelompok 2 Jaya Jaya
                         </div>
                     </div>
                 </div>
