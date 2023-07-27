@@ -37,6 +37,15 @@
                 <li><a class="nav-link " href="{{ route('menu-item.index') }}">Menu Item</a></li>
             </ul>
         </li>
+    </li>
+    <li class="nav-item dropdown">
+        <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-list"></i>
+            <span>Beranda</span></a>
+        <ul class="dropdown-menu">
+            <li><a class="nav-link " href="{{ route('menu-group.index') }}">Menu Group</a></li>
+            <li><a class="nav-link " href="{{ route('menu-item.index') }}">Menu Item</a></li>
+        </ul>
+    </li>
     </ul>
 
 </aside>

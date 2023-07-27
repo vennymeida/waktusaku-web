@@ -73,4 +73,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('assing-user/{user}/edit', [AssignUserToRoleController::class, 'edit'])->name('assign.user.edit');
         Route::put('assign-user/{user}', [AssignUserToRoleController::class, 'update'])->name('assign.user.update');
     });
+    
+    Route::get('/beranda', function () {
+        return view('beranda', ['users' => User::get(),]);
+    });
 });

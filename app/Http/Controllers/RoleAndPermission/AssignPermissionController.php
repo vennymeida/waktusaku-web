@@ -83,7 +83,7 @@ class AssignPermissionController extends Controller
         //
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('permissions.assign.edit', compact('role', 'roles', 'permissions'));
+        return view('permissions.assign.edit', compact('role','roles', 'permissions'));
     }
 
     /**
