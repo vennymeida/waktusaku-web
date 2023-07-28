@@ -111,7 +111,7 @@
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="role" id="as_pencari_kerja"
                                                 value="pencari_kerja" required>
-                                            <label class="form-check-label" for="as_pencari_kerja">Pencari Kerja</label>
+                                            <label class="form-check-label" for="as_pencari_kerja">Pelamar</label>
                                         </div>
                                         @error('role')
                                                     <div class="invalid-feedback">
