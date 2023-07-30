@@ -16,13 +16,11 @@ return new class extends Migration
         Schema::create('profile_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('nik')->nullable();
-            $table->date('tanggal_lahir')->nullable();
             $table->string('alamat')->nullable();
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
             $table->string('no_hp')->nullable();
             $table->string('foto')->nullable();
-            $table->string('ktp')->nullable();
+            $table->string('resume')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();
         });

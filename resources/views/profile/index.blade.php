@@ -24,42 +24,13 @@
                                 src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
                                 class="rounded-circle profile-widget-picture img-fluid"
                                 style="width: 150px; height: 150px;">
-
-                            <!-- <div class="profile-widget-items">
-                                <div class="profile-widget-item">
-                                    <div class="profile-widget-item-label">Unggahan</div>
-                                    <div class="profile-widget-item-value">187</div>
-                                </div>
-                                <div class="profile-widget-item">
-                                    <div class="profile-widget-item-label">Pengikut</div>
-                                    <div class="profile-widget-item-value">6,8K</div>
-                                </div>
-                                <div class="profile-widget-item">
-                                    <div class="profile-widget-item-label">Mengikuti</div>
-                                    <div class="profile-widget-item-value">2,1K</div>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="profile-widget-description">
                             <div class="profile-widget-name">{{ Auth::user()->name }}</div>
-
+                            
                             {{ Auth::user()->bio }}
                         </div>
-                        <!-- <div class="card-footer text-center">
-                            <div class="font-weight-bold mb-2">Ikuti {{ Auth::user()->name }} Aktif</div>
-                            <a href="#" class="btn btn-social-icon btn-facebook mr-1">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="btn btn-social-icon btn-twitter mr-1">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="btn btn-social-icon btn-github mr-1">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="btn btn-social-icon btn-instagram">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                        </div> -->
+
                     </div>
                     <div class="card">
                         <form method="POST" action="{{ route('user-password.update') }}" class="needs-validation"
@@ -180,32 +151,6 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>NIK</label>
-                                        <input name="nik" type="text"
-                                            class="form-control @error('nik') is-invalid @enderror"
-                                            value="{{ Auth::user()->profile ? Auth::user()->profile->nik : '' }}">
-                                        @error('nik')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-
-
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Tanggal Lahir</label>
-                                        <input name="tanggal_lahir" type="date"
-                                            class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                                            value="{{ Auth::user()->profile ? Auth::user()->profile->tanggal_lahir : '' }}">
-                                        @error('tanggal_lahir')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="form-group col-md-12 col-12">
                                         <label>Alamat</label>
                                         <input name="alamat" type="text"
@@ -268,10 +213,10 @@
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="show_ktp"
-                                                id="show_ktp">
-                                            <label class="form-check-label" for="show_ktp">
-                                                Perbarui KTP
+                                            <input class="form-check-input" type="checkbox" name="show_resume"
+                                                id="show_resume">
+                                            <label class="form-check-label" for="show_resume">
+                                                Perbarui Resume
                                             </label>
                                         </div>
                                     </div>
@@ -290,14 +235,14 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-12 col-12" id="ktp_upload_form"
-                                        style="{{ old('show_ktp') ? '' : 'display: none' }}">
+                                    <div class="form-group col-md-12 col-12" id="resume_upload_form"
+                                        style="{{ old('show_resume') ? '' : 'display: none' }}">
                                         <div class="form-group">
-                                            <label>Unggah KTP</label>
-                                            <input name="ktp" type="file"
-                                                class="form-control @error('ktp') is-invalid @enderror">
+                                            <label>Unggah Resume</label>
+                                            <input name="resume" type="file"
+                                                class="form-control @error('resume') is-invalid @enderror">
                                         </div>
-                                        @error('ktp')
+                                        @error('resume')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -323,9 +268,9 @@
             fotoUploadForm.style.display = this.checked ? 'block' : 'none';
         });
 
-        document.getElementById('show_ktp').addEventListener('change', function() {
-            var fotoUploadForm = document.getElementById('ktp_upload_form');
-            fotoUploadForm.style.display = this.checked ? 'block' : 'none';
+        document.getElementById('show_resume').addEventListener('change', function() {
+            var resumeUploadForm = document.getElementById('resume_upload_form');
+            resumeUploadForm.style.display = this.checked ? 'block' : 'none';
         });
 
         function submitDel(id) {
@@ -335,18 +280,18 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var showFotoCheckbox = document.getElementById("show_foto");
-            var showKtpCheckbox = document.getElementById("show_ktp");
+            var showResumeCheckbox = document.getElementById("show_resume");
             var fotoUploadForm = document.getElementById('foto_upload_form');
-            var ktpUlploadForm = document.getElementById('ktp_upload_form');
+            var resumeUlploadForm = document.getElementById('resume_upload_form');
 
             if ({{ Auth::user()->profile ? json_encode(Auth::user()->profile->foto) : 'null' }} === null) {
                 showFotoCheckbox.checked = true;
                 fotoUploadForm.style.display = 'block';
             }
 
-            if ({{ Auth::user()->profile ? json_encode(Auth::user()->profile->ktp) : 'null' }} === null) {
-                showKtpCheckbox.checked = true;
-                ktpUlploadForm.style.display = 'block';
+            if ({{ Auth::user()->profile ? json_encode(Auth::user()->profile->resume) : 'null' }} === null) {
+                showResumeCheckbox.checked = true;
+                resumeUlploadForm.style.display = 'block';
             }
         });
     </script>
