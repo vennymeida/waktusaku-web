@@ -1,0 +1,59 @@
+@extends('layouts.app')
+
+@section('content')
+    <section class="section">
+        <div class="section-header">
+            <h1>Table Kelurahan</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                <div class="breadcrumb-item"><a href="#">Components</a></div>
+                <div class="breadcrumb-item">Table</div>
+            </div>
+        </div>
+        <div class="section-body">
+            <h2 class="section-title">Tambah Kelurahan</h2>
+
+            <div class="card">
+                <div class="card-header">
+                    <h4>Validasi Tambah Kelurahan</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('kelurahan.store') }}" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <label>Kecamatan</label>
+                            <select class="form-control select2 @error('id_kecamatan') is-invalid @enderror"
+                                name="id_kecamatan" data-id="select-kecamatan" id="id_kecamatan">
+                                <option value="">-- select kecamatan --</option>
+                                @foreach ($kecamatans as $kecamatan)
+                                    <option value="{{ $kecamatan->id }}">
+                                        {{ $kecamatan->kecamatan }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_kecamatan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Kelurahan</label>
+                            <input type="text" id="kelurahan" name="kelurahan"
+                                class="form-control @error('kelurahan') is-invalid @enderror"
+                                placeholder="Masukan Kelurahan" autocomplete="off">
+                            @error('kelurahan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                </div>
+                <div class="card-footer text-right">
+                    <button class="btn btn-primary">Submit</button>
+                    <a class="btn btn-secondary" href="{{ route('kelurahan.index') }}">Cancel</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </section>
+@endsection

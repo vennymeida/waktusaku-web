@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
@@ -72,5 +74,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('assign-user', [AssignUserToRoleController::class, 'store'])->name('assign.user.store');
         Route::get('assing-user/{user}/edit', [AssignUserToRoleController::class, 'edit'])->name('assign.user.edit');
         Route::put('assign-user/{user}', [AssignUserToRoleController::class, 'update'])->name('assign.user.update');
+    });
+
+    Route::prefix('location-management')->group(function () {
+        // kecamatan
+        Route::resource('kecamatan', KecamatanController::class);
+        Route::post('kecamtan/import', [KecamatanController::class, 'import'])->name('kecamatan.import');
+
+        // kelurahan
+        Route::resource('kelurahan', KelurahanController::class);
+        Route::post('kelurahan/import', [KelurahanController::class, 'import'])->name('kelurahan.import');
     });
 });
