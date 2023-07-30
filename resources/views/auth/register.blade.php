@@ -100,25 +100,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="role">Daftar Sebagai</label><br>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="role" id="as_perusahaan"
-                                                value="perusahaan" required>
-                                            <label class="form-check-label" for="as_perusahaan">Perusahaan</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="role" id="as_pelamar"
-                                                value="pelamar" required>
-                                            <label class="form-check-label" for="as_pelamar">Pelamar</label>
-                                        </div>
-                                        @error('role')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                        </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">
                                             Register

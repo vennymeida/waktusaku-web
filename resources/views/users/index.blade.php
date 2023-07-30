@@ -75,18 +75,27 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Created At</th>
+                                            <th>Roles</th>
+                                            <th class="text-right">Update Roles</th>
                                             <th class="text-right">Action</th>
+                                            <th class="text-right">Verify</th>
                                         </tr>
                                         @foreach ($users as $key => $user)
                                             <tr>
                                                 <td>{{ ($users->currentPage() - 1) * $users->perPage() + $key + 1 }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ $user->created_at }}</td>
+                                                <td>
+                                                    @if ($user->email_verified_at)
+                                                        {{ $user->email_verified_at }}
+                                                    @else
+                                                        Access Denied
+                                                    @endif
+                                                </td>
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <a href="{{ route('user.edit', $user->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon "><i
+                                                            class="btn btn-sm btn-info btn-icon"><i
                                                                 class="fas fa-edit"></i>
                                                             Edit</a>
                                                         <form action="{{ route('user.destroy', $user->id) }}"
@@ -99,6 +108,39 @@
                                                         </form>
                                                     </div>
                                                 </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-end">
+                                                        @if (is_null($user->email_verified_at))
+                                                            <form
+                                                                action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}"
+                                                                method="POST" class="d-inline-block"
+                                                                id="vel-<?= $user->id ?>">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-sm btn-primary ml-2"
+                                                                    data-confirm="Verifikasi Data User |Apakah Kamu Yakin Verifikasi ?"
+                                                                    data-confirm-yes="submitVeri(<?= $user->id ?>)"
+                                                                    data-id="vel-{{ $user->id }}">Verify Email</button>
+                                                            </form>
+                                                        @else
+                                                            <form
+                                                                action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}"
+                                                                method="POST" class="d-inline-block"
+                                                                id="vel-<?= $user->id ?>">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-sm btn-danger ml-2"
+                                                                    data-confirm="Verifikasi Data User |Apakah Kamu Yakin Batalkan Verifikasi ?"
+                                                                    data-confirm-yes="submitVeri(<?= $user->id ?>)"
+                                                                    data-id="vel-{{ $user->id }}">Hapus Verify
+                                                                    Email</button>
+                                                            </form>
+                                                        @endif
+                                                        {{-- <button class="btn btn-sm btn-info btn-icon toggle-details ml-2"
+                                                            data-target="#details-{{ $user->profile_id }}">
+                                                            <i class="fas fa-chevron-down"></i>
+                                                        </button> --}}
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -108,10 +150,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>
@@ -142,4 +180,14 @@
 @endpush
 
 @push('customStyle')
+
+<script>
+ function submitDel(id) {
+            $('#del-' + id).submit()
+        }
+
+        function submitVeri(id) {
+            $('#vel-' + id).submit()
+        }
+</script>
 @endpush

@@ -73,10 +73,20 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'menu-item.destroy']);
 
         // create roles 
+        $roleUser = Role::create(['name' => 'Jobseeker']);
+        $roleUser->givePermissionTo([
+            'dashboard',
+            'user.index',
+        ]);
         $roleUser = Role::create(['name' => 'user']);
         $roleUser->givePermissionTo([
             'dashboard',
-            'user.management',
+            'user.index',
+        ]);
+        // create roles 
+        $roleUser = Role::create(['name' => 'Employer']);
+        $roleUser->givePermissionTo([
+            'dashboard',
             'user.index',
         ]);
 
@@ -87,7 +97,7 @@ class RoleAndPermissionSeeder extends Seeder
         //assign user id 1 ke super admin
         $user = User::find(1);
         $user->assignRole('super-admin');
-        $user = User::find(2);
-        $user->assignRole('user');
+        
+
     }
 }

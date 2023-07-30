@@ -45,6 +45,8 @@ class UserController extends Controller
                 return $query->where('name', 'like', '%' . $name . '%');
             })
             ->select('id', 'name', 'email', DB::raw("DATE_FORMAT(created_at, '%d %M %Y') as created_at"))
+            ->select('id', 'name', 'email', DB::raw("DATE_FORMAT(users.email_verified_at, '%d %M %Y') as email_verified_at"))
+            
             ->paginate(10);
         return view('users.index', compact('users'));
     }
@@ -135,17 +137,24 @@ class UserController extends Controller
         return Excel::download(new UsersExport, 'users.xlsx');
     }
 
-    public function import(Request $request)
+    public function verifyEmail($id, $hash)
     {
-        // import excel ke data tables
-        $users = Excel::toCollection(new UsersImport, $request->import_file);
-        foreach ($users[0] as $user) {
-            User::where('id', $user[0])->update([
-                'name' => $user[1],
-                'email' => $user[2],
-                'password' => $user[3],
-            ]);
+        $user = User::findOrFail($id);
+
+        if (sha1($user->email) !== $hash) {
+            abort(404);
         }
-        return redirect()->route('user.index');
+
+        if (is_null($user->email_verified_at)) {
+            $user->email_verified_at = now();
+            $user->save();
+
+            return redirect()->route('user.index')->with('success', 'Email verified successfully');
+        } else {
+            $user->email_verified_at = null;
+            $user->save();  
+
+            return redirect()->route('user.index')->with('success', 'Email verification deleted successfully');
+        }
     }
 }
