@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
         return [
             'email' => 'required|email|unique:users',
             'name' => 'required|string|max:50',
-            'password' => 'required|min:6', // Mengasumsikan panjang minimal password adalah 6 karakter
+            'password' => 'required|min:8',
         ];
     }
 
