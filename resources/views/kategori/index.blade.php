@@ -27,31 +27,11 @@
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('kategori.create') }}">Create
                                     Kategori Pekerjaan Baru</a>
-                                {{-- <a class="btn btn-info btn-primary active import">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    Import dataName</a> --}}
-                                {{-- <a class="btn btn-info btn-primary active" href="{{ route('menu-group.export') }}">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                    Export dataName</a> --}}
                                 <a class="btn btn-info btn-primary active search"> <i class="fa fa-search"
                                         aria-hidden="true"></i> Search Kategori Pekerjaan</a>
                             </div>
                         </div>
                         <div class="card-body">
-                            {{-- <div class="show-import" style="display: none">
-                                <div class="custom-file">
-                                    <form action="{{ route('menu-group.import') }}" method="post"
-                                        enctype="multipart/form-data">
-                                        {{ csrf_field() }}
-                                        <label class="custom-file-label" for="file-upload">Choose File</label>
-                                        <input type="file" id="file-upload" class="custom-file-input" name="import_file">
-                                        <br /> <br />
-                                        <div class="footer text-right">
-                                            <button class="btn btn-primary">Import File</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div> --}}
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('kategori.index') }}">
                                     <div class="form-row">
@@ -71,18 +51,17 @@
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <tr>
-
                                             <th>Nomer</th>
                                             <th>Kategori Pekerjaan</th>
-                                            <th class="text-right">Action</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                         @foreach ($kategoris as $key => $kategori)
                                             <tr>
                                                 <td>{{ ($kategoris->currentPage() - 1) * $kategoris->perPage() + $key + 1 }}
                                                 </td>
                                                 <td>{{ $kategori->kategori }}</td>
-                                                <td class="text-right">
-                                                    <div class="d-flex justify-content-end">
+                                                <td class="text-center">
+                                                    <div class="d-flex justify-content-center">
                                                         <a href="{{ route('kategori.edit', $kategori->id) }}"
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
@@ -146,4 +125,14 @@
 @endpush
 
 @push('customStyle')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('customScript')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+    </script>
 @endpush

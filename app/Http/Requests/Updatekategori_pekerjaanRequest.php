@@ -23,18 +23,17 @@ class Updatekategori_pekerjaanRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('kategori')->id;
         return [
-            'kategori' => 'required|regex:/^[a-zA-Z]+$/u|unique:kategori_pekerjaans,kategori,' . $id
+            'kategori' => 'required|regex:/^[a-zA-Z\s]+$/u|unique:kategori_pekerjaans,kategori,'
         ];
     }
 
     public function messages()
     {
         return [
-            'kategori.required' => 'Data Kategori cannot be empty',
-            'kategori.unique' => 'Data Kategori already exists',
-            'kategori.regex' => 'Data Kategori cannot be characters @!_?',
+            'kategori.required' => 'Data Kategori Tidak Boleh Kosong',
+            'kategori.unique' => 'Data Kategori Sudah Tersedia',
+            'kategori.regex' => 'Data Kategori Harus Kata',
         ];
     }
 }
