@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('export', [UserController::class, 'export'])->name('user.export');
         Route::get('demo', DemoController::class)->name('user.demo');
         Route::post('user/update-roles/{user}', [UserController::class, 'updateRoles'])->name('user.update-roles'); // <- Add this line
+        Route::get('/user/show/{user}', [UserController::class, 'view'])->name('user.view');
+
     });
 
     Route::prefix('menu-management')->group(function () {

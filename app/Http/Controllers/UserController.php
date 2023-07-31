@@ -12,6 +12,8 @@ use App\Imports\UsersImport;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class UserController extends Controller
@@ -40,15 +42,27 @@ class UserController extends Controller
         ]);
 
         // mengambil data
-        $users = DB::table('users')
-            ->when($request->input('name'), function ($query, $name) {
-                return $query->where('name', 'like', '%' . $name . '%');
-            })
+        $users = User::with('roles') // Eager load the 'roles' relationship
+        ->when($request->input('name'), function ($query, $name) {
+            return $query->where('name', 'like', '%' . $name . '%');
+        })
+        ->when($request->input('roles'), function ($query, $roles) {
+            // The $roles parameter is an array of selected roles
+            // Filter users based on the selected roles
+            return $query->whereHas('roles', function (Builder $query) use ($roles) {
+                $query->whereIn('name', $roles);
+            });
+        })
             ->select('id', 'name', 'email', DB::raw("DATE_FORMAT(created_at, '%d %M %Y') as created_at"))
             ->select('id', 'name', 'email', DB::raw("DATE_FORMAT(users.email_verified_at, '%d %M %Y') as email_verified_at"))
-            
+
             ->paginate(10);
-        return view('users.index', compact('users'));
+
+        // Get all roles for the filter dropdown
+        $roles = Role::all();
+        
+
+        return view('users.index', compact('users','roles'));
     }
 
     /**
@@ -98,8 +112,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit')
-            ->with('user', $user);
+        $roles = Role::all();
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -111,12 +125,16 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //mengupdate data user ke database
-        $validate = $request->validated();
+        $validatedData = $request->validated();
+        $user->update($validatedData);
 
-        $user->update($validate);
-        return redirect()->route('user.index')->with('success', 'User Berhasil Diupdate');
+        if ($request->has('roles')) {
+            $user->syncRoles($request->roles);
+        }
+
+        return redirect()->route('user.index')->with('success', 'User Updated Successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -152,9 +170,14 @@ class UserController extends Controller
             return redirect()->route('user.index')->with('success', 'Email verified successfully');
         } else {
             $user->email_verified_at = null;
-            $user->save();  
+            $user->save();
 
             return redirect()->route('user.index')->with('success', 'Email verification deleted successfully');
         }
+    }
+    public function view(User $user)
+    {
+        // Load any additional data related to the user if needed
+        return view('users.view', compact('user'));
     }
 }

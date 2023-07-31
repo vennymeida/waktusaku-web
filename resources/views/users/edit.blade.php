@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <section class="section">
         <div class="section-header">
@@ -39,6 +40,19 @@
                                 </div>
                             @enderror
                         </div>
+
+                        <!-- Add role assignment form with select2 library -->
+                        <div class="form-group">
+                            <label for="roles">Assign Roles</label>
+                            <select name="roles[]" class="form-control select2" multiple>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                        {{ $role->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                     </div>
                     <div class="card-footer text-right">
                         <button class="btn btn-primary">Submit</button>
@@ -50,3 +64,19 @@
         </div>
     </section>
 @endsection
+
+@push('customStyle')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('customScript')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+    </script>
+@endpush
+
+
+

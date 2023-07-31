@@ -27,59 +27,54 @@
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.create') }}">Create New
                                     User</a>
-                                <a class="btn btn-info btn-primary active import">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    Import User</a>
-                                <a class="btn btn-info btn-primary active" href="{{ route('user.export') }}">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                    Export User</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search User</a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="show-import" style="display: none">
-                                <div class="custom-file">
-                                    <form action="{{ route('user.import') }}" method="post" enctype="multipart/form-data">
-                                        {{ csrf_field() }}
-                                        <label class="custom-file-label" for="file-upload">Choose File</label>
-                                        <input type="file" id="file-upload" class="custom-file-input" name="import_file">
-                                        <br /> <br />
-                                        <div class="footer text-right">
-                                            <button class="btn btn-primary">Import File</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                             <div class="show-search mb-3" style="display: none">
-                                <form id="search" method="GET" action="{{ route('user.index') }}">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="role">User</label>
-                                            <input type="text" name="name" class="form-control" id="name"
-                                                placeholder="User Name">
+                                <form action="{{ route('user.index') }}" method="GET">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="name">Search by Name</label>
+                                                <input type="text" class="form-control" name="name"
+                                                    value="{{ request()->query('name') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="roles">Filter by Roles</label>
+                                                <select name="roles[]" class="form-control select2" multiple>
+                                                    @foreach ($roles as $role)
+                                                        <option value="{{ $role->name }}" {{ in_array($role->name, request()->query('roles', [])) ? 'selected' : '' }}>
+                                                            {{ $role->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                                        <a class="btn btn-secondary" href="{{ route('user.index') }}">Reset</a>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                    <a href="{{ route('user.index') }}" class="btn btn-danger">Clear Filters</a>
                                 </form>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
-                                    <tbody>
+                                    <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Created At</th>
-                                            <th>Roles</th>
+                                            <th>Roles</th> <!-- Add a new column for displaying roles -->
                                             <th class="text-right">Update Roles</th>
-                                            <th class="text-right">Action</th>
-                                            <th class="text-right">Verify</th>
+                                            <th class="text-right">Verify Email</th>
+                                            <th class="text-right">Show</th> <!-- Add a new column for Actions -->
                                         </tr>
+                                    </thead>
+                                    <tbody>
                                         @foreach ($users as $key => $user)
                                             <tr>
                                                 <td>{{ ($users->currentPage() - 1) * $users->perPage() + $key + 1 }}</td>
@@ -92,6 +87,11 @@
                                                         Access Denied
                                                     @endif
                                                 </td>
+                                                <td>
+                                                    @foreach ($user->roles as $role)
+                                                        {{ $role->name }}
+                                                    @endforeach
+                                                </td>
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <a href="{{ route('user.edit', $user->id) }}"
@@ -100,9 +100,8 @@
                                                             Edit</a>
                                                         <form action="{{ route('user.destroy', $user->id) }}"
                                                             method="POST" class="ml-2">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}">
+                                                            @csrf
+                                                            @method('DELETE')
                                                             <button class="btn btn-sm btn-danger btn-icon confirm-delete">
                                                                 <i class="fas fa-times"></i> Delete </button>
                                                         </form>
@@ -135,10 +134,14 @@
                                                                     Email</button>
                                                             </form>
                                                         @endif
-                                                        {{-- <button class="btn btn-sm btn-info btn-icon toggle-details ml-2"
-                                                            data-target="#details-{{ $user->profile_id }}">
-                                                            <i class="fas fa-chevron-down"></i>
-                                                        </button> --}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-end">
+                                                        <!-- Show button to view user details -->
+                                                        <a href="{{ route('user.view', $user->id) }}" class="btn btn-sm btn-primary btn-icon">
+                                                            <i class="fas fa-eye"></i> Show
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -156,6 +159,7 @@
         </div>
     </section>
 @endsection
+
 @push('customScript')
     <script>
         $(document).ready(function() {
@@ -180,7 +184,6 @@
 @endpush
 
 @push('customStyle')
-
 <script>
  function submitDel(id) {
             $('#del-' + id).submit()
@@ -189,5 +192,18 @@
         function submitVeri(id) {
             $('#vel-' + id).submit()
         }
+
 </script>
+@endpush
+@push('customStyle')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('customScript')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+    </script>
 @endpush
