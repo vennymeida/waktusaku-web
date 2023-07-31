@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Search</button>
-                                    <a href="{{ route('user.index') }}" class="btn btn-danger">Clear Filters</a>
+                                    <a href="{{ route('user.index') }}" class="btn btn-danger">Reset</a>
                                 </form>
                             </div>
                             <div class="table-responsive">
