@@ -31,9 +31,9 @@ class StoreKecamatanRequest extends FormRequest
     public function messages()
     {
         return [
-            'kecamatan.required' => 'Data Kecamatan cannot be empty',
-            'kecamatan.unique' => 'Data Kecamatan already exists',
-            'kecamatan.regex' => 'Data Kecamatan cannot be characters @!_?',
+            'kecamatan.required' => 'Data Kecamatan tidak boleh kosong',
+            'kecamatan.unique' => 'Data Kecamatan sudah digunakan sebelumnya',
+            'kecamatan.regex' => 'Data Kecamatan tidak boleh mengandug @!_?',
         ];
     }
 }

@@ -21,18 +21,13 @@
                             <h4>Kelurahan List</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('kelurahan.create') }}">Create
-                                    New</a>
+                                    New Kelurahan</a>
                                 <a class="btn btn-info btn-primary active import">
                                     <i class="fa fa-download" aria-hidden="true"></i>
-                                    Import</a>
-                                {{-- <a class="btn btn-info btn-primary active" href="">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                    Export</a> --}}
+                                    Import Kelurahan</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search</a>
-                                <a class="btn btn-info btn-primary active" href="{{ route('kelurahan.index') }}">
-                                    <i class="fas fa-sync-alt"></i> Reset</a>
+                                    Search Kelurahan</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -64,17 +59,22 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="show-search mb-3" style="display: none">
+                            <div class="show-search mb-3" style="display: none;">
                                 <form id="search" method="GET" action="{{ route('kelurahan.index') }}">
                                     <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <input type="text" name="kelurahan" class="form-control" id="kelurahan"
-                                                placeholder="Search....">
-                                        </div>
+                                        <select name="kelurahans[]" class="form-control select2" multiple>
+                                            @foreach ($kelurahansAll as $kelurahan)
+                                                <option value="{{ $kelurahan->kelurahan }}"
+                                                    {{ in_array($kelurahan->kelurahan, request()->query('kelurahans', [])) ? 'selected' : '' }}>
+                                                    {{ $kelurahan->kelurahan }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                    <br />
                                     <div class="text-right">
                                         <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                                        {{-- <a class="btn btn-secondary" href="{{ route('kelurahan.index') }}">Reset</a> --}}
+                                        <a class="btn btn-secondary" href="{{ route('kelurahan.index') }}">Reset</a>
                                     </div>
                                 </form>
                             </div>
@@ -148,4 +148,14 @@
 @endpush
 
 @push('customStyle')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('customScript')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endpush

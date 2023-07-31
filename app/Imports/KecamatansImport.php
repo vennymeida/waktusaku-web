@@ -22,7 +22,7 @@ class KecamatansImport implements ToModel, WithHeadingRow, WithUpserts, SkipsOnE
                 'kecamatan' => $row['kecamatan'],
             ]);
         }
-        throw new \Exception("Column kecamatan not found in file.");
+        throw new \Exception("Kolom Kecamatan tidak ditemukan dalam file.");
 
     }
 

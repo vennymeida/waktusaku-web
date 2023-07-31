@@ -33,10 +33,10 @@ class UpdateKelurahanRequest extends FormRequest
     public function messages()
     {
         return [
-            'id_kecamatan.required' => 'Data Kecamatan cannot be empty',
-            'kelurahan.required' => 'Data Kelurahan cannot be empty',
-            'kelurahan.unique' => 'Data Kelurahan already exists',
-            'kelurahan.regex' => 'Data Kelurahan cannot be characters @!_?',
+            'id_kecamatan.required' => 'Data Kecamatan tidak boleh kosong',
+            'kelurahan.required' => 'Data Kelurahan tidak boleh kosong',
+            'kelurahan.unique' => 'Data Kelurahan sudah digunakan sebelumnya',
+            'kelurahan.regex' => 'Data Kelurahan tidak boleh mengandung @!_?',
         ];
     }
 }

@@ -24,13 +24,20 @@ class KecamatanController extends Controller
 
     public function index(Request $request)
     {
-        $kecamatans = DB::table('kecamatans')
-            ->when($request->input('kecamatan'), function ($query, $kecamatan) {
-                return $query->where('kecamatan', 'like', '%' . $kecamatan . '%');
-            })
-            ->paginate(10);
-        return view('kecamatan.index', compact('kecamatans'));
+        $query = DB::table('kecamatans');
+
+        if ($request->has('kecamatans')) {
+            $kecamatans = $request->input('kecamatans');
+            $query->whereIn('kecamatan', $kecamatans);
+        }
+
+        $allKecamatans = $query->get();
+
+        $kecamatans = $query->paginate(10);
+
+        return view('kecamatan.index', compact('kecamatans', 'allKecamatans'));
     }
+
 
     public function create()
     {
@@ -42,7 +49,7 @@ class KecamatanController extends Controller
         Kecamatan::create([
             'kecamatan' => $request->kecamatan,
         ]);
-        return redirect()->route('kecamatan.index')->with('success', 'Create data successfully.');
+        return redirect()->route('kecamatan.index')->with('success', 'Data Kecamatan berhasil ditambahkan.');
     }
 
     public function show(Kecamatan $kecamatan)
@@ -64,21 +71,21 @@ class KecamatanController extends Controller
         $kecamatan->update($request->all());
 
         return redirect()->route('kecamatan.index')
-            ->with('success', 'Updated data successfully.');
+            ->with('success', 'Data Kecamatan berhasil diperbarui.');
     }
 
     public function destroy(Kecamatan $kecamatan)
     {
         try {
             $kecamatan->delete();
-            return redirect()->route('kecamatan.index')->with('success', 'Deleted data Kecamatan successfully');
+            return redirect()->route('kecamatan.index')->with('success', 'Data Kecamatan berhasil dihapus.');
         } catch (\Illuminate\Database\QueryException $e) {
             $error_code = $e->errorInfo[1];
             if ($error_code == 1451) {
                 return redirect()->route('kecamatan.index')
-                    ->with('error', 'Data Kecamatan used in another table');
+                    ->with('error', 'Data Kecamatan sedang digunakan ditabel lain.');
             } else {
-                return redirect()->route('kecamatan.index')->with('success', 'Deleted data Kecamatan successfully');
+                return redirect()->route('kecamatan.index')->with('success', 'Data Kecamatan berhasil dihapus.');
             }
         }
     }
@@ -87,7 +94,7 @@ class KecamatanController extends Controller
     {
         try {
             Excel::import(new KecamatansImport, $request->file('import-file')->store('import-files'));
-            return redirect()->route('kecamatan.index')->with('success', 'Import data Kecamatan successfully.');
+            return redirect()->route('kecamatan.index')->with('success', 'File data Kecamatan berhasil diimport.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

@@ -21,18 +21,13 @@
                             <h4>Kecamatan List</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('kecamatan.create') }}">Create
-                                    New</a>
+                                    New Kecamatan</a>
                                 <a class="btn btn-info btn-primary active import">
                                     <i class="fa fa-download" aria-hidden="true"></i>
-                                    Import</a>
-                                {{-- <a class="btn btn-info btn-primary active" href="">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                    Export</a> --}}
+                                    Import Kecamatan</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search</a>
-                                <a class="btn btn-info btn-primary active" href="{{ route('kecamatan.index') }}">
-                                    <i class="fas fa-sync-alt"></i> Reset</a>
+                                    Search Kecamatan</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -64,17 +59,24 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="show-search mb-3" style="display: none">
+                            <div class="show-search mb-3" style="display: none;">
                                 <form id="search" method="GET" action="{{ route('kecamatan.index') }}">
                                     <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <input type="text" name="kecamatan" class="form-control" id="kecamatan"
-                                                placeholder="Search....">
-                                        </div>
+                                        <select name="kecamatans[]" class="form-control select2" multiple>
+                                            @foreach ($allKecamatans as $kecamatan)
+                                                <option value="{{ $kecamatan->kecamatan }}"
+                                                    {{ in_array($kecamatan->kecamatan, request()->query('kecamatans', [])) ? 'selected' : '' }}>
+                                                    {{ $kecamatan->kecamatan }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                    <br />
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                                        {{-- <a class="btn btn-secondary" href="{{ route('kecamatan.index') }}">Reset</a> --}}
+                                        <button id="submit-button" class="btn btn-primary mr-1"
+                                            type="submit">Submit</button>
+                                        <a id="reset-button" class="btn btn-secondary"
+                                            href="{{ route('kecamatan.index') }}">Reset</a>
                                     </div>
                                 </form>
                             </div>
@@ -146,4 +148,14 @@
 @endpush
 
 @push('customStyle')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('customScript')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endpush

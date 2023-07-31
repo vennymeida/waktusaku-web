@@ -31,9 +31,9 @@ class ImportKecamatanRequest extends FormRequest
     public function messages()
     {
         return [
-            'import-file.mimes' => 'Incorrect excel file type',
-            'import-file.required' => 'File Excel cannot be empty',
-            'import-file.max' => 'Excel file more than 10mb',
+            'import-file.mimes' => 'Tipe file yang dimasukkan salah',
+            'import-file.required' => 'File excel tidak boleh kosong',
+            'import-file.max' => 'File excel melebihi 10mb',
         ];
     }
 }
