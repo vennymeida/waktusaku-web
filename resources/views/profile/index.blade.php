@@ -255,6 +255,222 @@
                             </div>
                         </form>
                     </div>
+
+
+
+
+                    <!-- DATA PERUSAHAAN -->
+                    <div class="card">
+                        <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
+                            novalidate="" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="card-header">
+                                <h4>Ubah Data Perusahaan</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Nama Pemilik Perusahaan</label>
+                                        <input name="pemilik" type="text"
+                                            class="form-control @error('pemilik') is-invalid @enderror"
+                                            value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->pemilik : '' }}">
+                                        @error('pemilik')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Nama Perusahaan</label>
+                                        <input name="nama" type="text"
+                                            class="form-control @error('nama') is-invalid @enderror"
+                                            value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->nama : '' }}">
+                                        @error('nama')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-12">
+                                        <label>Alamat Perusahaan</label>
+                                        <input name="alamat" type="text"
+                                            class="form-control @error('alamat') is-invalid @enderror"
+                                            value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat : '' }}">
+                                        @error('alamat')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <!-- ----KECAMATAN KELURAHAN--- -->
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label for="kecamatan">Kecamatan</label>
+                                        <select class="form-control select2 @error('kecamatan') is-invalid @enderror"
+                                            name="kecamatan" id="kecamatan">
+                                            <option value="">Pilih Kecamatan</option>
+                                            <option value="L"
+                                                {{ Auth::user()->perusahaan && Auth::user()->perusahaan->kecamatan_id === 'L' ? 'selected' : '' }}>
+                                                Laki-Laki</option>
+                                            <option value="P"
+                                                {{ Auth::user()->perusahaan && Auth::user()->perusahaan->kecamatan_id === 'P' ? 'selected' : '' }}>
+                                                Perempuan</option>
+                                        </select>
+                                        @error('kecamatan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label for="kecamatan">Kelurahan</label>
+                                        <select class="form-control select2 @error('kecamatan') is-invalid @enderror"
+                                            name="kecamatan" id="kecamatan">
+                                            <option value="">Pilih Kelurahan</option>
+                                            <option value="L"
+                                                {{ Auth::user()->perusahaan && Auth::user()->perusahaan->kecamatan_id === 'L' ? 'selected' : '' }}>
+                                                Laki-Laki</option>
+                                            <option value="P"
+                                                {{ Auth::user()->perusahaan && Auth::user()->perusahaan->kecamatan_id === 'P' ? 'selected' : '' }}>
+                                                Perempuan</option>
+                                        </select>
+                                        @error('kecamatan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <!-- ------------- -->
+                                <div class="row">
+                                    <div class="form-group col-md-4 col-12">
+                                        <label>Email Perusahaan</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-envelope"></i>
+                                                </div>
+                                            </div>
+                                            <input name="email" type="text"
+                                                class="form-control email @error('email') is-invalid @enderror"
+                                                value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->email : '' }}">
+                                        </div>
+                                        @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-4 col-12">
+                                        <label>Website Perusahaan</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-globe"></i>
+                                                </div>
+                                            </div>
+                                            <input name="website" type="text"
+                                                class="form-control website @error('website') is-invalid @enderror"
+                                                value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->website : '' }}">
+                                        </div>
+                                        @error('website')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-4 col-12">
+                                        <label>No Telp Perusahaan</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-phone"></i>
+                                                </div>
+                                            </div>
+                                            <input name="no_hp" type="text"
+                                                class="form-control phone-number @error('no_hp') is-invalid @enderror"
+                                                value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp : '' }}">
+                                        </div>
+                                        @error('no_hp')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <!-- DESKRIPSI PERUSAHAAN -->
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-12">
+                                        <label>Informasi Tentang Perusahaan</label>
+                                        <textarea name="deskripsi" type="text"
+                                            class="form-control @error('deskripsi') is-invalid @enderror"
+                                            value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' }}"></textarea>
+                                        @error('deskripsi')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <!-- ----- -->
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="show_logo"
+                                                id="show_logo">
+                                            <label class="form-check-label" for="show_logo">
+                                                Perbarui Logo Perusahaan
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="show_siu"
+                                                id="show_siu">
+                                            <label class="form-check-label" for="show_siu">
+                                                Perbarui Surat Izin Usaha
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-12" id="logo_upload_form"
+                                        style="{{ old('show_logo') ? '' : 'display: none' }}">
+                                        <div class="form-group">
+                                            <label>Unggah Logo Perusahaan</label>
+                                            <input name="logo" type="file"
+                                                class="form-control @error('logo') is-invalid @enderror">
+                                        </div>
+                                        @error('logo')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-12 col-12" id="siu_upload_form"
+                                        style="{{ old('show_siu') ? '' : 'display: none' }}">
+                                        <div class="form-group">
+                                            <label>Unggah Surat Izin Usaha</label>
+                                            <input name="siu" type="file"
+                                                class="form-control @error('siu') is-invalid @enderror">
+                                        </div>
+                                        @error('siu')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <button class="btn btn-primary" type="submit">Perbarui Data Perusahaan</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -273,6 +489,16 @@
             resumeUploadForm.style.display = this.checked ? 'block' : 'none';
         });
 
+        document.getElementById('show_logo').addEventListener('change', function() {
+            var logoUploadForm = document.getElementById('logo_upload_form');
+            logoUploadForm.style.display = this.checked ? 'block' : 'none';
+        });
+
+        document.getElementById('show_siu').addEventListener('change', function() {
+            var siuUploadForm = document.getElementById('siu_upload_form');
+            siuUploadForm.style.display = this.checked ? 'block' : 'none';
+        });
+
         function submitDel(id) {
             $('#del-' + id).submit()
         }
@@ -281,8 +507,12 @@
         document.addEventListener("DOMContentLoaded", function() {
             var showFotoCheckbox = document.getElementById("show_foto");
             var showResumeCheckbox = document.getElementById("show_resume");
+            var showLogoCheckbox = document.getElementById("show_logo");
+            var showSiuCheckbox = document.getElementById("show_siu");
             var fotoUploadForm = document.getElementById('foto_upload_form');
             var resumeUlploadForm = document.getElementById('resume_upload_form');
+            var logoUploadForm = document.getElementById('logo_upload_form');
+            var siuUlploadForm = document.getElementById('siu_upload_form');
 
             if ({{ Auth::user()->profile ? json_encode(Auth::user()->profile->foto) : 'null' }} === null) {
                 showFotoCheckbox.checked = true;
@@ -292,6 +522,16 @@
             if ({{ Auth::user()->profile ? json_encode(Auth::user()->profile->resume) : 'null' }} === null) {
                 showResumeCheckbox.checked = true;
                 resumeUlploadForm.style.display = 'block';
+            }
+
+            if ({{ Auth::user()->perusahaan ? json_encode(Auth::user()->perusahaan->logo) : 'null' }} === null) {
+                showLogoCheckbox.checked = true;
+                logoUploadForm.style.display = 'block';
+            }
+
+            if ({{ Auth::user()->perusahaan ? json_encode(Auth::user()->perusahaan->siu) : 'null' }} === null) {
+                showSiuCheckbox.checked = true;
+                siuUlploadForm.style.display = 'block';
             }
         });
     </script>
