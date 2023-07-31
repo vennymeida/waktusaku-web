@@ -24,7 +24,7 @@ class ImportKecamatanRequest extends FormRequest
     public function rules()
     {
         return [
-            'import-file' => 'required|mimes:xlsx, csv, xls|max:10240'
+            'import-file' => 'required|mimes:xlsx, csv, xls|max:10240',
         ];
     }
 

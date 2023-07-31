@@ -31,7 +31,7 @@
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search</a>
-                                <a class="btn btn-info btn-primary active" href="{{ route('kelurahan.index') }}">
+                                <a class="btn btn-info btn-primary active" href="{{ route('kecamatan.index') }}">
                                     <i class="fas fa-sync-alt"></i> Reset</a>
                             </div>
                         </div>

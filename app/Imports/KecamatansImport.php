@@ -6,19 +6,24 @@ use App\Models\Kecamatan;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
+use Throwable;
 
-class KecamatansImport implements ToModel, WithHeadingRow, WithUpserts
+class KecamatansImport implements ToModel, WithHeadingRow, WithUpserts, SkipsOnError
 {
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
+    use Importable, SkipsErrors;
+
     public function model(array $row)
     {
-        return new Kecamatan([
-            'kecamatan' => $row['kecamatan'],
-        ]);
+        if (isset($row['kecamatan'])) {
+            return new Kecamatan([
+                'kecamatan' => $row['kecamatan'],
+            ]);
+        }
+        throw new \Exception("Column kecamatan not found in file.");
+
     }
 
     public function uniqueBy()

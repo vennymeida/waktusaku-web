@@ -103,28 +103,11 @@ class KelurahanController extends Controller
 
     public function import(ImportKelurahanRequest $request)
     {
-        $file = $request->file('import-file');
-        $importedData = Excel::toArray(new KelurahansImport, $file);
-
-        if (!array_key_exists('kelurahan', $importedData[0][0]) || !array_key_exists('kecamatan', $importedData[0][0])) {
-            return redirect()->route('kelurahan.index')->with('error', 'Column "kelurahan" or "kecamatan" not found in the imported file.');
+        try {
+            Excel::import(new KelurahansImport, $request->file('import-file')->store('import-files'));
+            return redirect()->route('kelurahan.index')->with('success', 'Tambahkan Data Kelurahan Sukses diimport');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-
-        $duplicateData = [];
-        foreach ($importedData[0] as $row) {
-            $kelurahan = Kelurahan::where('kelurahan', $row['kelurahan'])->first();
-            if ($kelurahan) {
-                $duplicateData[] = $row['kelurahan'];
-            }
-        }
-
-        if (!empty($duplicateData)) {
-            return redirect()->route('kelurahan.index')->with('error', 'Data Kelurahan with names: ' . implode(', ', $duplicateData) . ' already exists in the database.');
-        }
-
-        Excel::import(new KelurahansImport, $file->store('import-files'));
-        return redirect()->route('kelurahan.index')->with('success', 'Import data Kelurahan successfully');
     }
-
-
 }

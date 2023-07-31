@@ -85,28 +85,11 @@ class KecamatanController extends Controller
 
     public function import(ImportKecamatanRequest $request)
     {
-        $file = $request->file('import-file');
-
-        $importedData = Excel::toArray(new KecamatansImport, $file);
-
-        if (!array_key_exists('kecamatan', $importedData[0][0])) {
-            return redirect()->route('kecamatan.index')->with('error', 'Column "kecamatan" not found in the imported file.');
+        try {
+            Excel::import(new KecamatansImport, $request->file('import-file')->store('import-files'));
+            return redirect()->route('kecamatan.index')->with('success', 'Import data Kecamatan successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-
-        $duplicateData = [];
-        foreach ($importedData[0] as $row) {
-            $kecamatan = Kecamatan::where('kecamatan', $row['kecamatan'])->first();
-            if ($kecamatan) {
-                $duplicateData[] = $row['kecamatan'];
-            }
-        }
-
-        if (!empty($duplicateData)) {
-            return redirect()->route('kecamatan.index')->with('error', 'Data Kecamatan with names: ' . implode(', ', $duplicateData) . ' already exists in the database.');
-        }
-
-        Excel::import(new KecamatansImport, $file->store('import-files'));
-        return redirect()->route('kecamatan.index')->with('success', 'Import data Kecamatan successfully');
-
     }
 }

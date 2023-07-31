@@ -25,7 +25,7 @@ class UpdateKecamatanRequest extends FormRequest
     {
         $id = $this->route('kecamatan')->id;
         return [
-            'kecamatan' => 'required|regex:/^[a-zA-Z]+$/u|unique:kecamatans,kecamatan,' . $id
+            'kecamatan' => 'required|regex:/^[a-zA-Z\s]+$/u|unique:kecamatans,kecamatan,' . $id
         ];
     }
 

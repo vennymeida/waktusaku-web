@@ -24,7 +24,7 @@ class StoreKecamatanRequest extends FormRequest
     public function rules()
     {
         return [
-            'kecamatan' => 'required|unique:kecamatans,kecamatan|regex:/^[a-zA-Z]+$/u',
+            'kecamatan' => 'required|unique:kecamatans,kecamatan|regex:/^[a-zA-Z\s]+$/u',
         ];
     }
 

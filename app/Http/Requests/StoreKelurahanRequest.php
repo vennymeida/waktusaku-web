@@ -24,7 +24,7 @@ class StoreKelurahanRequest extends FormRequest
     public function rules()
     {
         return [
-            'kelurahan' => 'required|unique:kelurahans,kelurahan|regex:/^[a-zA-Z]+$/u',
+            'kelurahan' => 'required|unique:kelurahans,kelurahan|regex:/^[a-zA-Z\s]+$/u',
             'id_kecamatan' => 'required'
         ];
     }

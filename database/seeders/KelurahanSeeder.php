@@ -15,9 +15,9 @@ class KelurahanSeeder extends Seeder
      */
     public function run()
     {
-        Kelurahan::create([
-            'kelurahan' => "Dinoyo",
-            'id_kecamatan' => 1,
-        ]);
+        // Kelurahan::create([
+        //     'kelurahan' => "Dinoyo",
+        //     'id_kecamatan' => 1,
+        // ]);
     }
 }

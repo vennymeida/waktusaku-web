@@ -25,7 +25,7 @@ class UpdateKelurahanRequest extends FormRequest
     {
         $id = $this->route('kelurahan')->id;
         return [
-            'kelurahan' => 'required|regex:/^[a-zA-Z]+$/u|unique:kelurahans,kelurahan,' . $id,
+            'kelurahan' => 'required|regex:/^[a-zA-Z\s]+$/u|unique:kelurahans,kelurahan,' . $id,
             'id_kecamatan' => 'required'
         ];
     }

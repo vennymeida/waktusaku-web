@@ -15,8 +15,8 @@ class KecamatanSeeder extends Seeder
      */
     public function run()
     {
-        Kecamatan::create([
-            'kecamatan' => "Lowokwaru",
-        ]);
+        // Kecamatan::create([
+        //     'kecamatan' => "Lowokwaru",
+        // ]);
     }
 }
