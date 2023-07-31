@@ -24,7 +24,16 @@ class Storekategori_pekerjaanRequest extends FormRequest
     public function rules()
     {
         return [
-            'kategori' => 'required'
+            'kategori' => 'required|unique:kategori_pekerjaans,kategori|regex:/^[a-zA-Z]+$/u',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'kategori.required' => 'Data Kategori cannot be empty',
+            'kategori.unique' => 'Data Kategori already exists',
+            'kategori.regex' => 'Data Kategori cannot be characters @!_?',
         ];
     }
 }
