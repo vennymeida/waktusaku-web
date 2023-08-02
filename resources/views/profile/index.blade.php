@@ -20,17 +20,23 @@
                 <div class="col-12 col-md-12 col-lg-5">
                     <div class="card profile-widget">
                         <div class="profile-widget-header">
-                            <img alt="image"
-                                src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
-                                class="rounded-circle profile-widget-picture img-fluid"
-                                style="width: 150px; height: 150px;">
+                            @if(Auth::user()->profile && Auth::user()->profile->foto != '')
+                                <img alt="image"
+                                    src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                    class="rounded-circle profile-widget-picture img-fluid"
+                                    style="width: 150px; height: 150px;">
+                            @else
+                                <img alt="image"
+                                    src="{{asset('assets/img/avatar/avatar-1.png')}}"
+                                    class="rounded-circle profile-widget-picture img-fluid"
+                                    style="width: 150px; height: 150px;">
+                            @endif
                         </div>
                         <div class="profile-widget-description">
                             <div class="profile-widget-name">{{ Auth::user()->name }}</div>
                             
                             {{ Auth::user()->bio }}
                         </div>
-
                     </div>
                     <div class="card">
                         <form method="POST" action="{{ route('user-password.update') }}" class="needs-validation"
