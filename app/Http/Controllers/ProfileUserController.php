@@ -18,7 +18,7 @@ class ProfileUserController extends Controller
             'jenis_kelamin' => 'nullable|in:L,P',
             'no_hp' => 'nullable|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'resume' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'resume' => 'nullable|file|mimes:pdf|max:2048',
         ], [
             'alamat.max' => 'Alamat Melebihi Batas Maksimal',
             'jenis_kelamin.in' => 'Jenis Kelamin Hanya Pada Pilihan L/P',
@@ -26,8 +26,7 @@ class ProfileUserController extends Controller
             'foto.image' => 'Foto Tidak Sesuai Format',
             'foto.mimes' => 'Foto Hanya Mendukung Format jpeg, png, jpg',
             'foto.max' => 'Ukuran Foto Terlalu Besar',
-            'resume.image' => 'Resume Tidak Sesuai Format',
-            'resume.mimes' => 'Resume Hanya Mendukung Format jpeg, png, jpg',
+            'resume.mimes' => 'Resume Hanya Mendukung Format pdf',
             'resume.max' => 'Ukuran Resume Terlalu Besar',
         ]);
 
@@ -60,6 +59,10 @@ class ProfileUserController extends Controller
                 $profileUserBaru->foto = 'database/profile/' . $namaGambar;
                 $profileUserBaru->save();
             } elseif ($request->hasFile('foto')) {
+                // Hapus foto lama dari direktori
+                if ($user->profile && $user->profile->foto) {
+                    Storage::delete('public/' . $user->profile->foto);
+                }
                 $user->profile->foto = 'database/profile/' . $namaGambar;
                 $user->profile->save();
             } else {
@@ -74,10 +77,10 @@ class ProfileUserController extends Controller
         
         if ($request->hasFile('resume')) {
             $resume = $request->file('resume');
-            $validExtensions = ['jpg', 'jpeg', 'png'];
+            $validExtensions = ['pdf'];
 
             if (!in_array(strtolower($resume->getClientOriginalExtension()), $validExtensions)) {
-                return response()->json(['message' => 'The Resume must be a file of type: jpeg, png, jpg.'], 422);
+                return response()->json(['message' => 'The Resume must be a file of type: pdf.'], 422);
             }
             $oriName = $resume->getClientOriginalName();
 
@@ -86,11 +89,13 @@ class ProfileUserController extends Controller
 
             $resumeCheck = DB::table('profile_users')->where('user_id', Auth::user()->id)->first();
             if ($resumeCheck === null) {
-                // $profileResumeBaru = new \App\Models\ProfileUser();
-                // $profileResumeBaru->user_id = Auth::user()->id;
                 $profileUserBaru->resume = 'database/resume/' . $namaResume;
                 $profileUserBaru->save();
             } elseif ($request->hasFile('resume')) {
+                // Hapus resume lama dari direktori
+                if ($user->profile && $user->profile->resume) {
+                    Storage::delete('public/' . $user->profile->resume);
+                }
                 $user->profile->resume = 'database/resume/' . $namaResume;
                 $user->profile->save();
             } else {
