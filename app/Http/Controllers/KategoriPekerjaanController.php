@@ -34,7 +34,7 @@ class KategoriPekerjaanController extends Controller
         ->paginate(10);
 
     return view('kategori.index', compact('kategoris'));
-}
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -80,8 +80,7 @@ class KategoriPekerjaanController extends Controller
      */
     public function edit(KategoriPekerjaan $kategori)
     {
-        return view('kategori.edit')
-            ->with('kategori', $kategori);
+        return view('kategori.edit', compact('kategori'));
     }
 
     /**
@@ -93,10 +92,14 @@ class KategoriPekerjaanController extends Controller
      */
     public function update(Updatekategori_pekerjaanRequest $request, KategoriPekerjaan $kategori)
     {
-        $validate = $request->validated();
+        $request->validate([
+            'kategori' => 'required|unique:kategori_pekerjaans,kategori,' . $kategori->id,
+        ]);
 
-        $kategori->update($validate);
-        return redirect()->route('kategori.index')->with('success', 'User Berhasil Diupdate');
+        $kategori->update($request->all());
+
+        return redirect()->route('kategori.index')
+            ->with('success', 'Kategori Pekerjaan berhasil diperbarui.');
     }
 
     /**
@@ -109,6 +112,6 @@ class KategoriPekerjaanController extends Controller
     {
         //delete data
         $kategori->delete();
-        return redirect()->route('kategori.index')->with('success', 'User Deleted Successfully');
+        return redirect()->route('kategori.index')->with('success', 'Data Kategori Berhasil Di Hapus');
     }
 }

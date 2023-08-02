@@ -23,8 +23,9 @@ class Updatekategori_pekerjaanRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('kategori')->id;
         return [
-            'kategori' => 'required|regex:/^[a-zA-Z\s]+$/u|unique:kategori_pekerjaans,kategori,'
+            'kategori' => 'required|regex:/^[a-zA-Z\s]+$/u|unique:kategori_pekerjaans,kategori,' . $id
         ];
     }
 

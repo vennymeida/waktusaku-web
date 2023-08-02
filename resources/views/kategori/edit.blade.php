@@ -21,8 +21,8 @@
                         @method('PUT')
                         <div class="form-group">
                             <label for="kategori">Kategori</label>
-                            <input type="text" class="form-control @error('kategori') is-invalid @enderror" id="kategori"
-                                name="kategori" value="{{ $kategori->kategori }}">
+                            <input type="text" class="form-control @error('kategori') is-invalid @enderror"
+                            id="kategori"name="kategori" value="{{ $kategori->kategori }}">
                             @error('kategori')
                                 <div class="invalid-feedback">
                                     {{ $message }}

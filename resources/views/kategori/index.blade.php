@@ -35,11 +35,15 @@
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('kategori.index') }}">
                                     <div class="form-row">
-                                        <div class="form-group col-md-4">
+                                        {{-- <div class="form-group col-md-4">
                                             <label for="role">Kategori</label>
                                             <input type="text" name="kategori" class="form-control" id="kategori"
                                                 placeholder=" kategori">
-                                        </div>
+                                        </div> --}}
+                                        <div class="form-group col-md-10">
+                                            <input type="text" name="kategori" class="form-control" id="kategori"
+                                            placeholder="Search...." value="{{ app('request')->input('kategori') }}">
+                                            </div>
                                     </div>
                                     <div class="text-right">
                                         <button class="btn btn-primary mr-1" type="submit">Submit</button>
@@ -66,18 +70,14 @@
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
                                                             Edit</a>
-                                                        <form action="{{ route('kategori.destroy', $kategori->id) }}"
-                                                            method="POST" class="ml-2" id="del-<?= $kategori->id ?>">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}">
-                                                            <button type="submit" id="#submit"
-                                                                class="btn btn-sm btn-danger btn-icon "
-                                                                data-confirm="Hapus Kategori ?|Apakah Kamu Yakin?"
-                                                                data-confirm-yes="submitDel(<?= $kategori->id ?>)"
-                                                                data-id="del-{{ $kategori->id }}">
-                                                                <i class="fas fa-times"> </i> Hapus </button>
-                                                        </form>
+                                                            <form action="{{ route('kategori.destroy', $kategori->id) }}"
+                                                                method="POST" class="ml-2">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token"
+                                                                    value="{{ csrf_token() }}">
+                                                                <button class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                                    <i class="fas fa-times"></i> Hapus </button>
+                                                            </form>
                                                     </div>
                                                 </td>
                                             </tr>
