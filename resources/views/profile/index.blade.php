@@ -13,6 +13,16 @@
                     @include('layouts.alert')
                 </div>
             </div>
+            <!-- Error Messages -->
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <p class="section-lead">
                 Ubah informasi tentang diri Anda di halaman ini.
             </p>
@@ -181,12 +191,12 @@
                                             <option value="P"
                                                 {{ Auth::user()->profile && Auth::user()->profile->jenis_kelamin === 'P' ? 'selected' : '' }}>
                                                 Perempuan</option>
-                                        </select>
                                         @error('jenis_kelamin')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <label>No HP</label>
@@ -199,12 +209,12 @@
                                             <input name="no_hp" type="text"
                                                 class="form-control phone-number @error('no_hp') is-invalid @enderror"
                                                 value="{{ Auth::user()->profile ? Auth::user()->profile->no_hp : '' }}">
-                                        </div>
                                         @error('no_hp')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -234,12 +244,12 @@
                                             <label>Unggah Foto (File type : jpeg,png,jpg | Max size : 2MB)</label>
                                             <input name="foto" type="file"
                                                 class="form-control @error('foto') is-invalid @enderror">
-                                        </div>
                                         @error('foto')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-12 col-12" id="resume_upload_form"
                                         style="{{ old('show_resume') ? '' : 'display: none' }}">
@@ -247,12 +257,12 @@
                                             <label>Unggah Resume (File type : pdf | Max size : 2MB)</label>
                                             <input name="resume" type="file"
                                                 class="form-control @error('resume') is-invalid @enderror">
-                                        </div>
                                         @error('resume')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>
