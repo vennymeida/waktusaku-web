@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\KategoriPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
@@ -82,5 +84,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
     Route::prefix('menu-kategori')->group(function () {
         Route::resource('kategori', KategoriPekerjaanController::class);
+    });
+
+    Route::prefix('location-management')->group(function () {
+        // kecamatan
+        Route::resource('kecamatan', KecamatanController::class);
+        Route::post('kecamtan/import', [KecamatanController::class, 'import'])->name('kecamatan.import');
+
+        // kelurahan
+        Route::resource('kelurahan', KelurahanController::class);
+        Route::post('kelurahan/import', [KelurahanController::class, 'import'])->name('kelurahan.import');
     });
 });
