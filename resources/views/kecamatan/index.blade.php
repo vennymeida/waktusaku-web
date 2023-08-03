@@ -4,7 +4,7 @@
     <!-- Main Content -->
     <section class="section">
         <div class="section-header">
-            <h1>Kecamatan List</h1>
+            <h1>List Kecamatan</h1>
         </div>
         <div class="section-body">
             <h2 class="section-title">Kecamatan Management</h2>
@@ -20,14 +20,14 @@
                         <div class="card-header">
                             <h4>Kecamatan List</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('kecamatan.create') }}">Create
-                                    New Kecamatan</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('kecamatan.create') }}">Tambah
+                                    Kecamatan Baru</a>
                                 <a class="btn btn-info btn-primary active import">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                     Import Kecamatan</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Kecamatan</a>
+                                    Cari Kecamatan</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -43,7 +43,7 @@
                                         @method('POST')
                                         <label
                                             class="custom-file-label @error('import-file', 'ImportKecamatanRequest') is-invalid @enderror"
-                                            for="file-upload">Choose File
+                                            for="file-upload">Pilih File
                                         </label>
                                         <input type="file" id="file-upload" class="custom-file-input" name="import-file"
                                             data-id="send-import">
@@ -69,7 +69,7 @@
                                     <div class="form-row text-center">
                                         <div class="form-group col-md-10">
                                             <input type="text" name="kecamatan" class="form-control" id="kecamatan"
-                                                placeholder="Search...." value="{{ app('request')->input('kecamatan') }}">
+                                                placeholder="Cari...." value="{{ app('request')->input('kecamatan') }}">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <button id="submit-button" class="btn btn-primary mr-1"

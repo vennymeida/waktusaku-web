@@ -18,16 +18,16 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4>Kelurahan List</h4>
+                            <h4>List Kelurahan</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('kelurahan.create') }}">Create
-                                    New Kelurahan</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('kelurahan.create') }}">Tambah
+                                    Kelurahan Baru</a>
                                 <a class="btn btn-info btn-primary active import">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                     Import Kelurahan</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Kelurahan</a>
+                                    Cari Kelurahan</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -44,7 +44,7 @@
                                         @method('POST')
                                         <label
                                             class="custom-file-label @error('import-file', 'ImportKelurahanRequest') is-invalid @enderror"
-                                            for="file-upload">Choose File</label>
+                                            for="file-upload">Pilih File</label>
                                         <input type="file" id="file-upload" class="custom-file-input" name="import-file"
                                             data-id="send-import">
                                 </div>
@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <input type="text" name="kelurahan" class="form-control" id="kelurahan"
-                                                placeholder="Search...." value="{{ app('request')->input('kelurahan') }}">
+                                                placeholder="Cari...." value="{{ app('request')->input('kelurahan') }}">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <button class="btn btn-primary mr-1" type="submit">Submit</button>

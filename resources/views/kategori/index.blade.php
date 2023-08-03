@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Menu Kategori Pekerjaan</h2>
+            <h2 class="section-title">Kategori Pekerjaan</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -23,31 +23,29 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4>Menu Kategori Pekerjaan</h4>
+                            <h4>Tabel Kategori Pekerjaan</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('kategori.create') }}">Create
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('kategori.create') }}">Tambah
                                     Kategori Pekerjaan Baru</a>
                                 <a class="btn btn-info btn-primary active search"> <i class="fa fa-search"
-                                        aria-hidden="true"></i> Search Kategori Pekerjaan</a>
+                                        aria-hidden="true"></i> Cari Kategori Pekerjaan</a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="show-search mb-3" style="display: none">
+                            <div class="show-search mb-3"
+                                style="display: {{ app('request')->input('kategori') ? 'block' : 'none' }};">
                                 <form id="search" method="GET" action="{{ route('kategori.index') }}">
-                                    <div class="form-row">
-                                        {{-- <div class="form-group col-md-4">
-                                            <label for="role">Kategori</label>
-                                            <input type="text" name="kategori" class="form-control" id="kategori"
-                                                placeholder=" kategori">
-                                        </div> --}}
+                                    <div class="form-row text-center">
                                         <div class="form-group col-md-10">
                                             <input type="text" name="kategori" class="form-control" id="kategori"
-                                            placeholder="Search...." value="{{ app('request')->input('kategori') }}">
-                                            </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                                        <a class="btn btn-secondary" href="{{ route('kategori.index') }}">Reset</a>
+                                                placeholder="Cari...." value="{{ app('request')->input('kategori') }}">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <button id="submit-button" class="btn btn-primary mr-1"
+                                                type="submit">Submit</button>
+                                            <a id="reset-button" class="btn btn-secondary"
+                                                href="{{ route('kategori.index') }}">Reset</a>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -55,7 +53,7 @@
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <tr>
-                                            <th>Nomer</th>
+                                            <th>No</th>
                                             <th>Kategori Pekerjaan</th>
                                             <th class="text-center">Action</th>
                                         </tr>
