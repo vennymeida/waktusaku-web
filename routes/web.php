@@ -14,6 +14,8 @@ use App\Http\Controllers\RoleAndPermission\ImportPermissionController;
 use App\Http\Controllers\RoleAndPermission\ImportRoleController;
 use App\Http\Controllers\RoleAndPermission\PermissionController;
 use App\Http\Controllers\RoleAndPermission\RoleController;
+use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\PerusahaanController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\UserController;
@@ -38,6 +40,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', function () {
         return view('home', ['users' => User::get(),]);
     });
+
+    Route::get('/profile', function () {
+        return view('profile.index');
+    })->name('profile.edit');
+    Route::PUT('/update-profile-information', [ProfileUserController::class, 'update'])
+        ->name('profile.user.update');
     //user list
 
     Route::prefix('user-management')->group(function () {

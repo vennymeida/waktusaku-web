@@ -34,19 +34,27 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        //index -> menampilkan tabel data
-
-        Category::create([
-            "name" => "Masuk User Page",
-        ]);
-
-        // mengambil data
-        $users = DB::table('users')
+        $users = DB::table('profile_users')
             ->when($request->input('name'), function ($query, $name) {
-                return $query->where('name', 'like', '%' . $name . '%');
+                return $query->where('users.name', 'like', '%' . $name . '%');
             })
-            ->select('id', 'name', 'email', DB::raw("DATE_FORMAT(created_at, '%d %M %Y') as created_at"))
+            ->select(
+                'users.id',
+                'users.name',
+                'users.email',
+                'profile_users.id as profile_id',
+                'profile_users.alamat',
+                'profile_users.jenis_kelamin',
+                'profile_users.no_hp',
+                'profile_users.foto',
+                'profile_users.resume',
+                DB::raw("DATE_FORMAT(users.created_at, '%d %M %Y') as created_at"),
+                DB::raw("DATE_FORMAT(users.email_verified_at, '%d %M %Y') as email_verified_at")
+            )
+            ->rightJoin('users', 'profile_users.user_id', '=', 'users.id')
+            ->orderBy('profile_users.created_at', 'desc')
             ->paginate(10);
+        // dd($users);
         return view('users.index', compact('users'));
     }
 
@@ -125,9 +133,20 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //delete data
-        $user->delete();
-        return redirect()->route('user.index')->with('success', 'User Deleted Successfully');
+        try {
+            $user->delete();
+            return redirect()->route('user.index')
+                ->with('success', 'Hapus Data User Sukses');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $error_code = $e->errorInfo[1];
+            if ($error_code == 1451) {
+                return redirect()->route('user.index')
+                    ->with('error', 'Tidak Dapat Menghapus Data User Yang Masih Digunakan Oleh Kolom Lain');
+            } else {
+                return redirect()->route('user.index')
+                    ->with('success', 'Hapus Data User Sukses');
+            }
+        }
     }
 
     public function export()
@@ -148,5 +167,26 @@ class UserController extends Controller
             ]);
         }
         return redirect()->route('user.index');
+    }
+
+    public function verifyEmail($id, $hash)
+    {
+        $user = User::findOrFail($id);
+
+        if (sha1($user->email) !== $hash) {
+            abort(404);
+        }
+
+        if (is_null($user->email_verified_at)) {
+            $user->email_verified_at = now();
+            $user->save();
+
+            return redirect()->route('user.index')->with('success', 'Email verified successfully');
+        } else {
+            $user->email_verified_at = null;
+            $user->save();
+
+            return redirect()->route('user.index')->with('success', 'Email verification deleted successfully');
+        }
     }
 }
