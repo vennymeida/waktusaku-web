@@ -25,8 +25,7 @@
         <section class="section">
             <div class="container mt-5">
                 <div class="row">
-                    <div
-                        class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                         <div class="login-brand">
                             <img src="../assets/img/stisla-fill.svg" alt="logo" width="100"
                                 class="shadow-light rounded-circle">
@@ -58,10 +57,8 @@
                                         <div class="form-group col-6">
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input id="email" type="email" class="form-control" name="email"
-                                                    value="{{ old('email') }}"
-                                                    class="form-control @error('email') is-invalid @enderror"
-                                                    placeholder="Masukkan Alamat Email">
+                                                <input id="email" type="email" name="email" value="{{ old('email') }}"
+                                                    class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Alamat Email">
                                                 @error('email')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -99,6 +96,22 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_type">Daftar sebagai:</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="user_type" id="pencari_kerja" value="pencari_kerja" @if(old('user_type') === 'pencari_kerja') checked @endif>
+                                            <label class="form-check-label" for="pencari_kerja">Pencari Kerja</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="user_type" id="perusahaan" value="perusahaan" @if(old('user_type') === 'perusahaan') checked @endif>
+                                            <label class="form-check-label" for="perusahaan">Perusahaan</label>
+                                        </div>
+                                        @error('user_type')
+                                            <div class="invalid-feedback d-block">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">

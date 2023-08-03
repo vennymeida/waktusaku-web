@@ -71,93 +71,74 @@
                                             <th>Roles</th> <!-- Add a new column for displaying roles -->
                                             <th class="text-right">Update Roles</th>
                                             <th class="text-right">Verify Email</th>
-                                            <th class="text-right">Show</th> <!-- Add a new column for Actions -->
+                                            <th class="text-right">Action</th> <!-- Add a new column for Actions -->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($users as $key => $user)
-                                            <tr>
-                                                <td>{{ ($users->currentPage() - 1) * $users->perPage() + $key + 1 }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>
-                                                    @if ($user->email_verified_at)
-                                                        {{ $user->email_verified_at }}
-                                                    @else
-                                                        Access Denied
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @foreach ($user->roles as $role)
-                                                        {{ $role->name }}
-                                                    @endforeach
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="d-flex justify-content-end">
-                                                        <a href="{{ route('user.edit', $user->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon"><i
-                                                                class="fas fa-edit"></i>
-                                                            Edit</a>
-                                                        <form action="{{ route('user.destroy', $user->id) }}"
-                                                            method="POST" class="ml-2">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex justify-content-end">
-                                                        @if (is_null($user->email_verified_at))
-                                                            <form
-                                                                action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}"
-                                                                method="POST" class="d-inline-block"
-                                                                id="vel-<?= $user->id ?>">
-                                                                @csrf
-                                                                <button type="submit" class="btn btn-sm btn-primary ml-2"
-                                                                    data-confirm="Verifikasi Data User |Apakah Kamu Yakin Verifikasi ?"
-                                                                    data-confirm-yes="submitVeri(<?= $user->id ?>)"
-                                                                    data-id="vel-{{ $user->id }}">Verify Email</button>
-                                                            </form>
-                                                        @else
-                                                            <form
-                                                                action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}"
-                                                                method="POST" class="d-inline-block"
-                                                                id="vel-<?= $user->id ?>">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-sm btn-danger ml-2"
-                                                                    data-confirm="Verifikasi Data User |Apakah Kamu Yakin Batalkan Verifikasi ?"
-                                                                    data-confirm-yes="submitVeri(<?= $user->id ?>)"
-                                                                    data-id="vel-{{ $user->id }}">Hapus Verify
-                                                                    Email</button>
-                                                            </form>
-                                                        @endif
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex justify-content-end">
-                                                        <!-- Show button to view user details -->
-                                                        <a href="{{ route('user.view', $user->id) }}" class="btn btn-sm btn-primary btn-icon">
-                                                            <i class="fas fa-eye"></i> Show
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <div class="d-flex justify-content-center">
-                                    {{ $users->withQueryString()->links() }}
+                        <tr>
+                            <td>{{ ($users->currentPage() - 1) * $users->perPage() + $key + 1 }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                @if ($user->email_verified_at)
+                                    {{ $user->email_verified_at }}
+                                @else
+                                    Access Denied
+                                @endif
+                            </td>
+                            <td>
+                                @foreach ($user->roles as $role)
+                                    {{ $role->name }}
+                                @endforeach
+                            </td>
+                            <td class="text-right">
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon"><i class="fas fa-edit"></i> Edit</a>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    @if (is_null($user->email_verified_at))
+                                        <form action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}" method="POST" class="d-inline-block" id="vel-<?= $user->id ?>">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-primary ml-2" data-confirm="Verifikasi Data User |Apakah Kamu Yakin Verifikasi ?" data-confirm-yes="submitVeri(<?= $user->id ?>)" data-id="vel-{{ $user->id }}">Verify Email</button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}" method="POST" class="d-inline-block" id="vel-<?= $user->id ?>">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger ml-2" data-confirm="Verifikasi Data User |Apakah Kamu Yakin Batalkan Verifikasi ?" data-confirm-yes="submitVeri(<?= $user->id ?>)" data-id="vel-{{ $user->id }}">Hapus Verify Email</button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="d-flex justify-content-end">
+                                    <!-- Show button to view user details -->
+                                    <a href="{{ route('user.view', $user->id) }}" class="btn btn-sm btn-primary btn-icon">
+                                        <i class="fas fa-eye"></i> Show
+                                    </a>
+                                    <!-- Move the delete button form here -->
+                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="ml-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                            <i class="fas fa-times"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                {{ $users->withQueryString()->links() }}
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection
 
 @push('customScript')
@@ -184,8 +165,8 @@
 @endpush
 
 @push('customStyle')
-<script>
- function submitDel(id) {
+    <script>
+        function submitDel(id) {
             $('#del-' + id).submit()
         }
 
@@ -193,8 +174,9 @@
             $('#vel-' + id).submit()
         }
 
-</script>
+    </script>
 @endpush
+
 @push('customStyle')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 @endpush

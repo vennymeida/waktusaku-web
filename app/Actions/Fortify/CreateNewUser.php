@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Spatie\Permission\Models\Role;
+use Illuminate\Validation\ValidationException;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -20,6 +22,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+        
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => [
@@ -27,20 +30,39 @@ class CreateNewUser implements CreatesNewUsers
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class),
+                'unique:users',
             ],
             'password' => $this->passwordRules(),
-        ])->validate();
+            'user_type' => ['required', Rule::in(['pencari_kerja', 'perusahaan'])],
+        ], $messages = [
+            'name.required' => 'Kolom nama lengkap harus diisi.',
+            'name.string' => 'Kolom nama lengkap harus berupa teks.',
+            'name.max' => 'Kolom nama lengkap tidak boleh lebih dari :max karakter.',
 
+            'email.required' => 'Kolom email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.max' => 'Kolom email tidak boleh lebih dari :max karakter.',
+            'email.unique' => 'Email sudah digunakan oleh pengguna lain.',
+
+            'password.required' => 'Kolom password harus diisi.',
+            'password.min' => 'Password harus memiliki setidaknya :min karakter.',
+
+            'user_type.required' => 'Pilih jenis pengguna (Pencari Kerja atau Perusahaan).',
+            'user_type.in' => 'Jenis pengguna yang dipilih tidak valid.',
+        ],$messages)->validate(); 
+        
+        // Create the user
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'email_verified_at' => now(), // set email_verified_at to current timestamp
+            'email_verified_at' => now(),
         ]);
 
-        // Assign a role to the new user
-        $user->assignRole('user'); // Change 'user' to the name of the role you want to assign
+        // Assign role based on the selected user_type
+        $roleName = ($input['user_type'] === 'perusahaan') ? 'Perusahaan' : 'Pencari Kerja';
+        $role = Role::where('name', $roleName)->first();
+        $user->assignRole($role);
 
         return $user;
     }
