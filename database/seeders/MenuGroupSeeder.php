@@ -39,11 +39,15 @@ class MenuGroupSeeder extends Seeder
                     'permisison_name' => 'menu.management',
                 ],
                 [
+                    'name' => 'Menu Kategori',
+                    'icon' => 'fas fa-table',
+                    'permisison_name' => 'menu.kategori',
+                ],
+                [
                     'name' => 'Location Management',
                     'icon' => 'fas fa-city',
                     'permisison_name' => 'location.management',
-                ]
-
+                ],
             ]
         );
     }
