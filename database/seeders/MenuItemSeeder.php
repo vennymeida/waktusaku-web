@@ -66,6 +66,24 @@ class MenuItemSeeder extends Seeder
                     'permission_name' => 'menu-item.index',
                     'menu_group_id' => 4,
                 ],
+                [
+                    'name' => 'Kategori',
+                    'route' => 'menu-kategori/kategori',
+                    'permission_name' => 'kategori.index',
+                    'menu_group_id' => 5,
+                ],
+                [
+                    'name' => 'Kecamatan',
+                    'route' => 'location-management/kecamatan',
+                    'permission_name' => 'kecamatan.index',
+                    'menu_group_id' => 6,
+                ],
+                [
+                    'name' => 'Kelurahan',
+                    'route' => 'location-management/kelurahan',
+                    'permission_name' => 'kelurahan.index',
+                    'menu_group_id' => 6,
+                ],
             ]
         );
     }

@@ -16,6 +16,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
 
 
+
 class UserController extends Controller
 {
 
@@ -60,7 +61,7 @@ class UserController extends Controller
 
         // Get all roles for the filter dropdown
         $roles = Role::all();
-        
+
 
         return view('users.index', compact('users','roles'));
     }
@@ -144,9 +145,20 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //delete data
-        $user->delete();
-        return redirect()->route('user.index')->with('success', 'User Deleted Successfully');
+        try {
+            $user->delete();
+            return redirect()->route('user.index')
+                ->with('success', 'Hapus Data User Sukses');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $error_code = $e->errorInfo[1];
+            if ($error_code == 1451) {
+                return redirect()->route('user.index')
+                    ->with('error', 'Tidak Dapat Menghapus Data User Yang Masih Digunakan Oleh Kolom Lain');
+            } else {
+                return redirect()->route('user.index')
+                    ->with('success', 'Hapus Data User Sukses');
+            }
+        }
     }
 
     public function export()
