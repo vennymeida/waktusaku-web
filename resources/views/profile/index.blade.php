@@ -268,7 +268,8 @@
                                     <div class="form-group col-md-12 col-12" id="resume_upload_form"
                                         style="{{ old('show_resume') ? '' : 'display: none' }}">
                                         <div class="form-group">
-                                            <label>Unggah Resume</label>
+                                            <label>Unggah Resume</label> 
+                                            <div class="text small">Buka file PDF unggahan<a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}">sebelumnya</a>.</div>
                                             <div class="text-warning small">(File type : pdf | Max size : 2MB)</div>
                                             <input name="resume" type="file"
                                                 class="form-control @error('resume') is-invalid @enderror">
