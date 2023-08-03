@@ -242,6 +242,19 @@
                                         style="{{ old('show_foto') ? '' : 'display: none' }}">
                                         <div class="form-group">
                                             <label>Unggah Foto</label>
+                                        <div>
+                                        @if(Auth::user()->profile && Auth::user()->profile->foto != '')
+                                            <img alt="image"
+                                                src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                                class="rounded profile-widget-picture img-fluid"
+                                                style="width: 70px; height: 70px;">
+                                        @else
+                                            <img alt="image"
+                                                src="{{asset('assets/img/avatar/avatar-1.png')}}"
+                                                class="rounded profile-widget-picture img-fluid"
+                                                style="width: 70px; height: 70px;">
+                                        @endif
+                                        </div>
                                             <div class="text-warning small">(File type : jpeg,png,jpg | Max size : 2MB)</div>
                                             <input name="foto" type="file"
                                                 class="form-control @error('foto') is-invalid @enderror">
@@ -425,7 +438,7 @@
                                     <div class="form-group col-md-12 col-12">
                                         <label>Informasi Tentang Perusahaan</label>
                                         <textarea name="deskripsi" type="text"
-                                            class="form-control @error('deskripsi') is-invalid @enderror"
+                                            class="summernote-simple @error('deskripsi') is-invalid @enderror"
                                             value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' }}"></textarea>
                                         @error('deskripsi')
                                             <div class="invalid-feedback">
@@ -496,6 +509,7 @@
 @endsection
 @push('customScript')
     <script src="/assets/js/select2.min.js"></script>
+    <script src="/assets/js/summernote-bs4.js"></script>
     <script>
         document.getElementById('show_foto').addEventListener('change', function() {
             var fotoUploadForm = document.getElementById('foto_upload_form');
@@ -557,4 +571,6 @@
 
 @push('customStyle')
     <link rel="stylesheet" href="/assets/css/select2.min.css">
+    <!-- <link rel="stylesheet" href="/assets/css/summernote-bs4.css"> -->
+    <link rel="stylesheet" href="assets/modules/fontawesome/css/all.min.css">
 @endpush
