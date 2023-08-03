@@ -50,6 +50,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     })->name('profile.edit');
     Route::PUT('/update-profile-information', [ProfileUserController::class, 'update'])
         ->name('profile.user.update');
+    Route::PUT('/update-perusahaan-information', [PerusahaanController::class, 'update'])
+    ->name('profile.perusahaan.update');
     //user list
 
     Route::prefix('user-management')->group(function () {
