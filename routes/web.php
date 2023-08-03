@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\KategoriPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
@@ -72,5 +73,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('assign-user', [AssignUserToRoleController::class, 'store'])->name('assign.user.store');
         Route::get('assing-user/{user}/edit', [AssignUserToRoleController::class, 'edit'])->name('assign.user.edit');
         Route::put('assign-user/{user}', [AssignUserToRoleController::class, 'update'])->name('assign.user.update');
+
+        // Route::group(['prefix' => 'menu-kategori'], function () {
+        //     //role
+        //     Route::resource('kategori', KategoriPekerjaanController::class);
+        // });
+
+    });
+    Route::prefix('menu-kategori')->group(function () {
+        Route::resource('kategori', KategoriPekerjaanController::class);
     });
 });

@@ -25,6 +25,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'user.management']);
         Permission::create(['name' => 'role.permission.management']);
         Permission::create(['name' => 'menu.management']);
+        Permission::create(['name' => 'menu.kategori']); 
         //user
         Permission::create(['name' => 'user.index']);
         Permission::create(['name' => 'user.create']);
@@ -71,6 +72,12 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'menu-item.create']);
         Permission::create(['name' => 'menu-item.edit']);
         Permission::create(['name' => 'menu-item.destroy']);
+
+         //menu kategori
+         Permission::create(['name' => 'kategori.index']);
+         Permission::create(['name' => 'kategori.create']);
+         Permission::create(['name' => 'kategori.edit']);
+         Permission::create(['name' => 'kategori.destroy']);
 
         // create roles 
         $roleUser = Role::create(['name' => 'user']);
