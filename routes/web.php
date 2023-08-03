@@ -33,7 +33,11 @@ use App\Models\Category;
 */
 
 Route::get('/', function () {
-    return view('auth/login');
+    if (auth()->check()) {
+        return redirect('/dashboard');
+    } else {
+        return view('auth/login');
+    }
 });
 
 Route::group(['middleware' => ['auth', 'verified']], function () {

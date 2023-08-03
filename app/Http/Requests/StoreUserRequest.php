@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -27,6 +28,7 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|email|unique:users',
             'name' => 'required|string|max:50',
             'password' => 'required|min:8',
+            'user_type' => ['required', Rule::in(['pencari_kerja', 'perusahaan'])],
         ];
     }
 
@@ -48,6 +50,9 @@ class StoreUserRequest extends FormRequest
 
             'password.required' => 'Kolom password harus diisi.',
             'password.min' => 'Password harus memiliki setidaknya 8 karakter.',
+
+            'user_type.required' => 'Pilih jenis pengguna (pencari_kerja atau perusahaan).',
+            'user_type.in' => 'Jenis pengguna yang dipilih tidak valid.',
         ];
     }
 }

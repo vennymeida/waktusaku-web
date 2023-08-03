@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\StoreUserRequest;
+
 
 class AuthController extends Controller
 {
@@ -37,29 +39,25 @@ class AuthController extends Controller
         );
     }
 
-    public function register(Request $request)
+    public function register(StoreUserRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => ['required', 'string', 'min:8', 'confirmed', Password::defaults()],
-            'device_name' => 'required',
-            'role' => 'required|in:perusahaan,pencari_kerja', // Memastikan role hanya boleh 'perusahaan' atau 'pencari_kerja'
-        ]);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'email_verified_at' => now(),
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'email_verified_at' => now(),
-        ]);
-
-        return response()->json(
-            [
-                'token' => $user->createToken($request->device_name)->plainTextToken,
-            ],
-            200
-        );
+            return response()->json(
+                [
+                    'token' => $user->createToken($request->device_name)->plainTextToken,
+                ],
+                200
+            );
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Registration failed. Please try again.'], 500);
+        }
     }
 
     public function logout(Request $request)

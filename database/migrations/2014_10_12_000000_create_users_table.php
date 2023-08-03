@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('perusahaan_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes(); // Menambahkan kolom deleted_at untuk Soft Delete
         });
     }
 

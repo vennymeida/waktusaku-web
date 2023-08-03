@@ -25,8 +25,7 @@
                         <div class="card-header">
                             <h4>User List</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.create') }}">Create New
-                                    User</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.create') }}">Create New User</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search User</a>
@@ -34,18 +33,17 @@
                         </div>
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
-                                <form action="{{ route('user.index') }}" method="GET">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="name">Search by Name</label>
-                                                <input type="text" class="form-control" name="name"
-                                                    value="{{ request()->query('name') }}">
-                                            </div>
+                                <form action="{{ route('user.index') }}" method="GET" class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">Search by Name</label>
+                                            <input type="text" class="form-control" name="name" value="{{ request()->query('name') }}">
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="roles">Filter by Roles</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="roles">Filter by Roles</label>
+                                            <div class="d-flex">
                                                 <select name="roles[]" class="form-control select2" multiple>
                                                     @foreach ($roles as $role)
                                                         <option value="{{ $role->name }}" {{ in_array($role->name, request()->query('roles', [])) ? 'selected' : '' }}>
@@ -53,11 +51,13 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                <div class="ml-2 d-flex">
+                                                    <button type="submit" class="btn btn-primary">Search</button>
+                                                    <a href="{{ route('user.index') }}" class="btn btn-danger ml-2">Reset</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Search</button>
-                                    <a href="{{ route('user.index') }}" class="btn btn-danger">Reset</a>
                                 </form>
                             </div>
                             <div class="table-responsive">
@@ -71,7 +71,7 @@
                                             <th>Roles</th> <!-- Add a new column for displaying roles -->
                                             <th class="text-right">Update Roles</th>
                                             <th class="text-right">Verify Email</th>
-                                            <th class="text-right">Show</th> <!-- Add a new column for Actions -->
+                                            <th class="text-right">Action</th> <!-- Add a new column for Actions -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -94,54 +94,39 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
-                                                        <a href="{{ route('user.edit', $user->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon"><i
-                                                                class="fas fa-edit"></i>
-                                                            Edit</a>
-                                                        <form action="{{ route('user.destroy', $user->id) }}"
-                                                            method="POST" class="ml-2">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete </button>
-                                                        </form>
+                                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon"><i class="fas fa-edit"></i> Edit</a>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex justify-content-end">
                                                         @if (is_null($user->email_verified_at))
-                                                            <form
-                                                                action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}"
-                                                                method="POST" class="d-inline-block"
-                                                                id="vel-<?= $user->id ?>">
+                                                            <form action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}" method="POST" class="d-inline-block" id="vel-<?= $user->id ?>">
                                                                 @csrf
-                                                                <button type="submit" class="btn btn-sm btn-primary ml-2"
-                                                                    data-confirm="Verifikasi Data User |Apakah Kamu Yakin Verifikasi ?"
-                                                                    data-confirm-yes="submitVeri(<?= $user->id ?>)"
-                                                                    data-id="vel-{{ $user->id }}">Verify Email</button>
+                                                                <button type="submit" class="btn btn-sm btn-primary ml-2" data-confirm="Verifikasi Data User |Apakah Kamu Yakin Verifikasi ?" data-confirm-yes="submitVeri(<?= $user->id ?>)" data-id="vel-{{ $user->id }}">Verify Email</button>
                                                             </form>
                                                         @else
-                                                            <form
-                                                                action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}"
-                                                                method="POST" class="d-inline-block"
-                                                                id="vel-<?= $user->id ?>">
+                                                            <form action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}" method="POST" class="d-inline-block" id="vel-<?= $user->id ?>">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-sm btn-danger ml-2"
-                                                                    data-confirm="Verifikasi Data User |Apakah Kamu Yakin Batalkan Verifikasi ?"
-                                                                    data-confirm-yes="submitVeri(<?= $user->id ?>)"
-                                                                    data-id="vel-{{ $user->id }}">Hapus Verify
-                                                                    Email</button>
+                                                                <button type="submit" class="btn btn-sm btn-danger ml-2" data-confirm="Verifikasi Data User |Apakah Kamu Yakin Batalkan Verifikasi ?" data-confirm-yes="submitVeri(<?= $user->id ?>)" data-id="vel-{{ $user->id }}">Hapus Verify Email</button>
                                                             </form>
                                                         @endif
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <!-- Show button to view user details -->
                                                         <a href="{{ route('user.view', $user->id) }}" class="btn btn-sm btn-primary btn-icon">
                                                             <i class="fas fa-eye"></i> Show
                                                         </a>
+                                                        <!-- Move the delete button form here -->
+                                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="ml-2">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                                <i class="fas fa-times"></i> Delete
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -184,8 +169,8 @@
 @endpush
 
 @push('customStyle')
-<script>
- function submitDel(id) {
+    <script>
+        function submitDel(id) {
             $('#del-' + id).submit()
         }
 
@@ -193,8 +178,9 @@
             $('#vel-' + id).submit()
         }
 
-</script>
+    </script>
 @endpush
+
 @push('customStyle')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 @endpush
