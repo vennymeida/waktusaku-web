@@ -83,15 +83,24 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserRequest $request)
-    {
-        //simpan data
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
-        return redirect(route('user.index'))->with('success', 'Data Berhasil Ditambahkan');;
-    }
+{
+    $validatedData = $request->validated();
+    
+    // Create the user
+    $user = User::create([
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'password' => Hash::make($validatedData['password']),
+        'email_verified_at' => now(),
+    ]);
+
+    // Assign roles based on the selected user_type
+    $roleName = ($validatedData['user_type'] === 'perusahaan') ? 'Perusahaan' : 'Pencari Kerja';
+    $role = Role::where('name', $roleName)->first();
+    $user->assignRole($role);
+
+    return redirect(route('user.index'))->with('success', 'Data Berhasil Ditambahkan');
+}
 
     /**
      * Display the specified resource.

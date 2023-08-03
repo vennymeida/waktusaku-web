@@ -53,7 +53,7 @@
                     <div class="form-group">
                         <label for="user_type">Assign Roles</label>
                         <select class="form-control @error('user_type') is-invalid @enderror" id="user_type" name="user_type">
-                            <option value="">Pilih jenis pengguna</option>
+                            <option value="">Pilih Role</option>
                             <option value="pencari_kerja" {{ old('user_type') === 'pencari_kerja' ? 'selected' : '' }}>Pencari Kerja</option>
                             <option value="perusahaan" {{ old('user_type') === 'perusahaan' ? 'selected' : '' }}>Perusahaan</option>
                         </select>
