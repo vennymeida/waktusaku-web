@@ -40,7 +40,7 @@ class MenuGroupSeeder extends Seeder
                 ],
                 [
                     'name' => 'Menu Kategori',
-                    'icon' => 'fas fa-bars',
+                    'icon' => 'fas fa-table',
                     'permisison_name' => 'menu.kategori',
                 ]
             ]
