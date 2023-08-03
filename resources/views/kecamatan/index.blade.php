@@ -33,6 +33,9 @@
                         <div class="card-body">
                             <div class="show-import"
                                 @if ($errors->has('import-file')) style="display: block;" @else style="display: none;" @endif>
+                                <p>Unduh template <a href="{{ asset('assets/format-file/template.xlsx') }}"
+                                        download>disini</a></p>
+                                <span class="text-warning small float-right">type:xlsx, csv, xls|max:10mb</span>
                                 <div class="custom-file">
                                     <form action="{{ route('kecamatan.import') }}" method="POST"
                                         enctype="multipart/form-data">
@@ -40,7 +43,8 @@
                                         @method('POST')
                                         <label
                                             class="custom-file-label @error('import-file', 'ImportKecamatanRequest') is-invalid @enderror"
-                                            for="file-upload">Choose File</label>
+                                            for="file-upload">Choose File
+                                        </label>
                                         <input type="file" id="file-upload" class="custom-file-input" name="import-file"
                                             data-id="send-import">
                                         <br />
@@ -59,24 +63,20 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="show-search mb-3" style="display: none;">
+                            <div class="show-search mb-3"
+                                style="display: {{ app('request')->input('kecamatan') ? 'block' : 'none' }};">
                                 <form id="search" method="GET" action="{{ route('kecamatan.index') }}">
-                                    <div class="form-row">
-                                        <select name="kecamatans[]" class="form-control select2" multiple>
-                                            @foreach ($allKecamatans as $kecamatan)
-                                                <option value="{{ $kecamatan->kecamatan }}"
-                                                    {{ in_array($kecamatan->kecamatan, request()->query('kecamatans', [])) ? 'selected' : '' }}>
-                                                    {{ $kecamatan->kecamatan }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <br />
-                                    <div class="text-right">
-                                        <button id="submit-button" class="btn btn-primary mr-1"
-                                            type="submit">Submit</button>
-                                        <a id="reset-button" class="btn btn-secondary"
-                                            href="{{ route('kecamatan.index') }}">Reset</a>
+                                    <div class="form-row text-center">
+                                        <div class="form-group col-md-10">
+                                            <input type="text" name="kecamatan" class="form-control" id="kecamatan"
+                                                placeholder="Search...." value="{{ app('request')->input('kecamatan') }}">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <button id="submit-button" class="btn btn-primary mr-1"
+                                                type="submit">Submit</button>
+                                            <a id="reset-button" class="btn btn-secondary"
+                                                href="{{ route('kecamatan.index') }}">Reset</a>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -145,17 +145,18 @@
             });
         });
     </script>
-@endpush
-
-@push('customStyle')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-@endpush
-
-@push('customScript')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.select2').select2();
+        const inputElement = document.getElementById('kecamatan');
+        const searchForm = document.getElementById('search');
+        const showSearchElement = document.querySelector('.show-search');
+
+        inputElement.addEventListener('input', function() {
+            const inputValue = inputElement.value.trim();
+            if (inputValue !== '') {
+                showSearchElement.style.display = 'block';
+            } else {
+                showSearchElement.style.display = 'none';
+                searchForm.reset();
+            }
         });
-    </script>
-@endpush
+    @endpush

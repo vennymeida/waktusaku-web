@@ -33,6 +33,10 @@
                         <div class="card-body">
                             <div class="show-import"
                                 @if ($errors->has('import-file')) style="display: block;" @else style="display: none;" @endif>
+                                <p>Unduh template <a href="{{ asset('assets/format-file/template.xlsx') }}" download>disini
+                                    </a></p>
+                                <span class="text-warning small float-right">type:xlsx, csv,
+                                    xls|max:10mb</span>
                                 <div class="custom-file">
                                     <form action="{{ route('kelurahan.import') }}" method="POST"
                                         enctype="multipart/form-data">
@@ -43,38 +47,44 @@
                                             for="file-upload">Choose File</label>
                                         <input type="file" id="file-upload" class="custom-file-input" name="import-file"
                                             data-id="send-import">
-                                        <br />
-                                        @error('import-file')
-                                            <div class="invalid-feedback d-flex mb-10" role="alert">
-                                                <div class="alert_alert-dange_mt-1_mb-1 mt-1 ml-1">
-                                                    {{ $message }}
-                                                </div>
-                                            </div>
-                                        @enderror
-                                        <br />
-                                        <div class="footer text-right">
-                                            <button class="btn btn-primary" data-id="submit-import">Import File</button>
-                                        </div>
-                                        <br>
-                                    </form>
                                 </div>
+                                <br />
+                                @error('import-file')
+                                    <div class="invalid-feedback d-flex" role="alert">
+                                        <div class="alert_alert-dange_mt-1_mb-1 mt-1 ml-1">
+                                            {{ $message }}
+                                        </div>
+                                    </div>
+                                @enderror
+                                <br />
+                                <div class="footer text-right">
+                                    <button class="btn btn-primary" data-id="submit-import">Import File</button>
+                                </div>
+                                <br>
+                                </form>
                             </div>
                             <div class="show-search mb-3" style="display: none;">
-                                <form id="search" method="GET" action="{{ route('kelurahan.index') }}">
-                                    <div class="form-row">
-                                        <select name="kelurahans[]" class="form-control select2" multiple>
-                                            @foreach ($kelurahansAll as $kelurahan)
-                                                <option value="{{ $kelurahan->kelurahan }}"
-                                                    {{ in_array($kelurahan->kelurahan, request()->query('kelurahans', [])) ? 'selected' : '' }}>
-                                                    {{ $kelurahan->kelurahan }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <br />
-                                    <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                                        <a class="btn btn-secondary" href="{{ route('kelurahan.index') }}">Reset</a>
+                                <form id="filter-form" method="GET" action="{{ route('kelurahan.index') }}">
+                                    <div class="form-row text-center">
+                                        <div class="form-group col-md-4">
+                                            <select class="form-control" name="filter_kecamatan" id="filter_kecamatan">
+                                                <option value="">-- Pilih Kecamatan --</option>
+                                                @foreach ($kecamatans as $kecamatan)
+                                                    <option value="{{ $kecamatan->id }}"
+                                                        @if ($kecamatan->id == $kecamatanSelected) selected @endif>
+                                                        {{ $kecamatan->kecamatan }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" name="kelurahan" class="form-control" id="kelurahan"
+                                                placeholder="Search...." value="{{ app('request')->input('kelurahan') }}">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                            <a class="btn btn-secondary" href="{{ route('kelurahan.index') }}">Reset</a>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -145,17 +155,58 @@
             });
         });
     </script>
+
+    <script>
+        const form = document.getElementById('filter-form');
+        const selectKecamatan = document.getElementById('filter_kecamatan');
+
+        selectKecamatan.addEventListener('change', function() {
+            form.submit();
+        });
+    </script>
+
+    <script>
+        const kecamatanSelect = document.getElementById('filter_kecamatan');
+        const kelurahanInput = document.getElementById('kelurahan');
+        const showSearchElement = document.querySelector('.show-search');
+        const resetButton = document.querySelector('.btn-secondary');
+
+        let initialKecamatanValue = kecamatanSelect.value;
+        let initialKelurahanValue = kelurahanInput.value;
+
+        function updateDisplay() {
+            const kecamatanValue = kecamatanSelect.value;
+            const kelurahanValue = kelurahanInput.value.trim();
+
+            if (kecamatanValue !== '' || kelurahanValue !== '') {
+                showSearchElement.style.display = 'block';
+            } else {
+                showSearchElement.style.display = 'none';
+            }
+        }
+
+        kecamatanSelect.addEventListener('change', function() {
+            updateDisplay();
+        });
+
+        kelurahanInput.addEventListener('input', function() {
+            updateDisplay();
+        });
+
+        resetButton.addEventListener('click', function() {
+            initialKecamatanValue = '';
+            initialKelurahanValue = '';
+            kecamatanSelect.value = '';
+            kelurahanInput.value = '';
+            showSearchElement.style.display = 'none';
+        });
+
+        window.addEventListener('load', function() {
+            updateDisplay();
+        });
+    </script>
 @endpush
 
 @push('customStyle')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-@endpush
-
-@push('customScript')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2();
-        });
-    </script>
 @endpush

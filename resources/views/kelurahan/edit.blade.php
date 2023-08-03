@@ -37,10 +37,8 @@
                         </div>
                         <div class="form-group">
                             <label>Kelurahan</label>
-                            <input type="text" id="kelurahan" name="kelurahan"
-                                class="form-control @error('kelurahan') is-invalid @enderror "
-                                placeholder="Masukan Kelurahan" value="{{ old('kelurahan', $kelurahan->kelurahan) }}"
-                                data-id="input_kelurahan" autocomplete="off">
+                            <input type="text" class="form-control @error('kelurahan') is-invalid @enderror"
+                                id="kelurahan" name="kelurahan" value="{{ $kelurahan->kelurahan }}">
                             @error('kelurahan')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -49,8 +47,8 @@
                         </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Kirim</button>
-                    <a class="btn btn-secondary" href="{{ route('kelurahan.index') }}">Batal</a>
+                    <button class="btn btn-primary">Submit</button>
+                    <a class="btn btn-secondary" href="{{ route('kelurahan.index') }}">Cancel</a>
                 </div>
                 </form>
             </div>

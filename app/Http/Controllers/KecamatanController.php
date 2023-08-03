@@ -24,20 +24,13 @@ class KecamatanController extends Controller
 
     public function index(Request $request)
     {
-        $query = DB::table('kecamatans');
-
-        if ($request->has('kecamatans')) {
-            $kecamatans = $request->input('kecamatans');
-            $query->whereIn('kecamatan', $kecamatans);
-        }
-
-        $allKecamatans = $query->get();
-
-        $kecamatans = $query->paginate(10);
-
-        return view('kecamatan.index', compact('kecamatans', 'allKecamatans'));
+        $kecamatans = DB::table('kecamatans')
+            ->when($request->input('kecamatan'), function ($query, $kecamatan) {
+                return $query->where('kecamatan', 'like', '%' . $kecamatan . '%');
+            })
+            ->paginate(10);
+        return view('kecamatan.index', compact('kecamatans'));
     }
-
 
     public function create()
     {
@@ -93,10 +86,12 @@ class KecamatanController extends Controller
     public function import(ImportKecamatanRequest $request)
     {
         try {
-            Excel::import(new KecamatansImport, $request->file('import-file')->store('import-files'));
+            $file = $request->file('import-file');
+            Excel::import(new KecamatansImport, $file);
             return redirect()->route('kecamatan.index')->with('success', 'File data Kecamatan berhasil diimport.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 }

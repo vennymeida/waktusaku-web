@@ -16,34 +16,28 @@ class KelurahanController extends Controller
     public function index(Request $request)
     {
         $kecamatans = Kecamatan::all();
-        $kelurahans = Kelurahan::all(); // Ambil semua data kelurahan dari database
-
-        // Logika pencarian berdasarkan kelurahan jika ada
-        $kelurahanNames = $request->input('kelurahans', []);
+        $kelurahanName = $request->input('kelurahan');
         $kecamatanIds = $request->input('kecamatan');
-        $kelurahan = $request->input('kelurahan');
+        $kecamatanSelected = $request->input('filter_kecamatan');
 
         $query = Kelurahan::select('kelurahans.id', 'kelurahans.id_kecamatan', 'kelurahans.kelurahan', 'kecamatans.kecamatan')
             ->leftJoin('kecamatans', 'kelurahans.id_kecamatan', '=', 'kecamatans.id')
-            ->when($kelurahanNames, function ($query, $kelurahanNames) {
-                return $query->whereIn('kelurahans.kelurahan', $kelurahanNames);
+            ->when($kelurahanName, function ($query, $kelurahan) {
+                return $query->where('kelurahans.kelurahan', 'like', '%' . $kelurahan . '%');
             })
-            ->when($request->input('kecamatan'), function ($query, $kecamatan) {
-                return $query->whereIn('kelurahans.id_kecamatan', $kecamatan);
+            ->when($kecamatanSelected, function ($query, $selectedKecamatan) {
+                return $query->where('kelurahans.id_kecamatan', $selectedKecamatan);
             })
             ->orderBy('kelurahans.id_kecamatan', 'asc')
             ->paginate(10);
-
-        $query->appends(['kelurahans' => $kelurahanNames, 'kecamatan' => $kecamatanIds]);
+        $query->appends(['kelurahan' => $kelurahanName, 'kecamatan' => $kecamatanIds, 'filter_kecamatan' => $kecamatanSelected]);
 
         return view('kelurahan.index')->with([
             'kelurahans' => $query,
             'kecamatans' => $kecamatans,
-            'kelurahansAll' => $kelurahans,
-            // Kirimkan semua data kelurahan ke view
-            'kelurahansSelected' => $kelurahanNames,
+            'kelurahanName' => $kelurahanName,
             'kecamatanIds' => $kecamatanIds,
-            'kelurahan' => $kelurahan,
+            'kecamatanSelected' => $kecamatanSelected,
         ]);
     }
 
@@ -107,7 +101,8 @@ class KelurahanController extends Controller
     public function import(ImportKelurahanRequest $request)
     {
         try {
-            Excel::import(new KelurahansImport, $request->file('import-file')->store('import-files'));
+            $file = $request->file('import-file');
+            Excel::import(new KelurahansImport, $file);
             return redirect()->route('kelurahan.index')->with('success', 'File data Kelurahan dan Kecamatan berhasil diimport.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
