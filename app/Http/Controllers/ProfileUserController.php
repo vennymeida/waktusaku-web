@@ -45,11 +45,6 @@ class ProfileUserController extends Controller
 
         if ($request->hasFile('foto')) {
             $photo = $request->file('foto');
-            $validExtensions = ['jpg', 'jpeg', 'png'];
-
-            if (!in_array(strtolower($photo->getClientOriginalExtension()), $validExtensions)) {
-                return response()->json(['message' => 'The gambar must be a file of type: jpeg, png, jpg.'], 422);
-            }
             $oriName = $photo->getClientOriginalName();
 
             $namaGambar = uniqid() . '.' . $oriName;
@@ -77,11 +72,6 @@ class ProfileUserController extends Controller
         
         if ($request->hasFile('resume')) {
             $resume = $request->file('resume');
-            $validExtensions = ['pdf'];
-
-            if (!in_array(strtolower($resume->getClientOriginalExtension()), $validExtensions)) {
-                return response()->json(['message' => 'The Resume must be a file of type: pdf.'], 422);
-            }
             $oriName = $resume->getClientOriginalName();
 
             $namaResume = uniqid() . '.' . $oriName;

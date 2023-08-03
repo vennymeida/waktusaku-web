@@ -241,7 +241,8 @@
                                     <div class="form-group col-md-12 col-12" id="foto_upload_form"
                                         style="{{ old('show_foto') ? '' : 'display: none' }}">
                                         <div class="form-group">
-                                            <label>Unggah Foto (File type : jpeg,png,jpg | Max size : 2MB)</label>
+                                            <label>Unggah Foto</label>
+                                            <div class="text-warning small">(File type : jpeg,png,jpg | Max size : 2MB)</div>
                                             <input name="foto" type="file"
                                                 class="form-control @error('foto') is-invalid @enderror">
                                         @error('foto')
@@ -254,7 +255,8 @@
                                     <div class="form-group col-md-12 col-12" id="resume_upload_form"
                                         style="{{ old('show_resume') ? '' : 'display: none' }}">
                                         <div class="form-group">
-                                            <label>Unggah Resume (File type : pdf | Max size : 2MB)</label>
+                                            <label>Unggah Resume</label>
+                                            <div class="text-warning small">(File type : pdf | Max size : 2MB)</div>
                                             <input name="resume" type="file"
                                                 class="form-control @error('resume') is-invalid @enderror">
                                         @error('resume')
