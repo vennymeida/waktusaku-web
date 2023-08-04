@@ -157,6 +157,8 @@
                             </div>
                         </form>
                     </div>
+                    <!-- FORM UNTUK ROLE ('Pencari Kerja') -->
+                    @if(Auth::user()->hasRole('Pencari Kerja'))
                     <div class="card">
                         <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
                             novalidate="" enctype="multipart/form-data">
@@ -291,11 +293,119 @@
                             </div>
                         </form>
                     </div>
+                    @endif
+                    <!-- FORM UNTUK ROLE ('Perusahaan | super-admin') -->
+                    @if(Auth::user()->hasRole('Perusahaan') || Auth::user()->hasRole('super-admin'))
+                    <div class="card">
+                        <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
+                            novalidate="" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="card-header">
+                                <h4>Ubah Data Diri</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-12">
+                                        <label>Alamat</label>
+                                        <input name="alamat" type="text"
+                                            class="form-control @error('alamat') is-invalid @enderror"
+                                            value="{{ Auth::user()->profile ? Auth::user()->profile->alamat : '' }}">
+                                        @error('alamat')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                                        <select class="form-control select2 @error('jenis_kelamin') is-invalid @enderror"
+                                            name="jenis_kelamin" id="jenis_kelamin">
+                                            <option value="">Pilih Jenis Kelamin</option>
+                                            <option value="L"
+                                                {{ Auth::user()->profile && Auth::user()->profile->jenis_kelamin === 'L' ? 'selected' : '' }}>
+                                                Laki-Laki</option>
+                                            <option value="P"
+                                                {{ Auth::user()->profile && Auth::user()->profile->jenis_kelamin === 'P' ? 'selected' : '' }}>
+                                                Perempuan</option>
+                                        @error('jenis_kelamin')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>No HP</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-phone"></i>
+                                                </div>
+                                            </div>
+                                            <input name="no_hp" type="text"
+                                                class="form-control phone-number @error('no_hp') is-invalid @enderror"
+                                                value="{{ Auth::user()->profile ? Auth::user()->profile->no_hp : '' }}">
+                                        @error('no_hp')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="show_foto"
+                                                id="show_foto">
+                                            <label class="form-check-label" for="show_foto">
+                                                Perbarui Foto
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-12" id="foto_upload_form"
+                                        style="{{ old('show_foto') ? '' : 'display: none' }}">
+                                        <div class="form-group">
+                                            <label>Unggah Foto</label>
+                                            <div>
+                                            @if(Auth::user()->profile && Auth::user()->profile->foto != '')
+                                                <img alt="image"
+                                                    src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                                    class="rounded profile-widget-picture img-fluid"
+                                                    style="width: 70px; height: 70px;">
+                                            @else
+                                                <img alt="image"
+                                                    src="{{asset('assets/img/avatar/avatar-1.png')}}"
+                                                    class="rounded profile-widget-picture img-fluid"
+                                                    style="width: 70px; height: 70px;">
+                                            @endif
+                                            </div>
+                                            <div class="text-warning small">(File type : jpeg,png,jpg | Max size : 2MB)</div>
+                                            <input name="foto" type="file"
+                                                class="form-control @error('foto') is-invalid @enderror">
+                                        @error('foto')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <button class="btn btn-primary" type="submit">Perbarui Data Diri</button>
+                            </div>
+                        </form>
+                    </div>
+                    @endif
 
-
-
-
-                    <!-- DATA PERUSAHAAN -->
+                    <!-- FORM UNTUK ROLE ('Perusahaan') -->
+                    @if(Auth::user()->hasRole('Perusahaan'))
                     <div class="card">
                         <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
                             novalidate="" enctype="multipart/form-data">
@@ -342,7 +452,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <!-- ----KECAMATAN KELURAHAN--- -->
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
                                         <label for="kecamatan">Kecamatan</label>
@@ -381,7 +490,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <!-- ------------- -->
                                 <div class="row">
                                     <div class="form-group col-md-4 col-12">
                                         <label>Email Perusahaan</label>
@@ -438,7 +546,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <!-- DESKRIPSI PERUSAHAAN -->
                                 <div class="row">
                                     <div class="form-group col-md-12 col-12">
                                         <label>Informasi Tentang Perusahaan</label>
@@ -452,7 +559,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <!-- ----- -->
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
                                         <div class="form-check">
@@ -507,6 +613,8 @@
                             </div>
                         </form>
                     </div>
+                    @endif
+                    <!-- -------------- -->
                 </div>
             </div>
         </div>
