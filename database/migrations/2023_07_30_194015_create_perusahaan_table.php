@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('perusahaan', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            // $table->unsignedBigInteger('kecamatan_id')->nullable();
-            // $table->unsignedBigInteger('kelurahan_id')->nullable();
+            $table->unsignedBigInteger('kecamatan_id')->nullable();
+            $table->unsignedBigInteger('kelurahan_id')->nullable();
             $table->string('pemilik')->nullable();
             $table->string('nama')->nullable();
             $table->string('alamat')->nullable();
@@ -29,8 +29,8 @@ return new class extends Migration
             $table->string('siu')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();
-            // $table->foreign('kecamatan_id')->references('id')->on('kecamatans')->restrictOnDelete();
-            // $table->foreign('kelurahan_id')->references('id')->on('kelurahans')->restrictOnDelete();
+            $table->foreign('kecamatan_id')->references('id')->on('kecamatans')->restrictOnDelete();
+            $table->foreign('kelurahan_id')->references('id')->on('kelurahans')->restrictOnDelete();
         });
     }
 

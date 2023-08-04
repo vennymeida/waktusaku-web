@@ -58,11 +58,6 @@ class PerusahaanController extends Controller
 
         if ($request->hasFile('logo')) {
             $photo = $request->file('logo');
-            $validExtensions = ['jpg', 'jpeg', 'png'];
-
-            if (!in_array(strtolower($photo->getClientOriginalExtension()), $validExtensions)) {
-                return response()->json(['message' => 'The gambar must be a file of type: jpeg, png, jpg.'], 422);
-            }
             $oriName = $photo->getClientOriginalName();
 
             $namaGambar = uniqid() . '.' . $oriName;
@@ -86,11 +81,6 @@ class PerusahaanController extends Controller
         
         if ($request->hasFile('siu')) {
             $siu = $request->file('siu');
-            $validExtensions = ['jpg', 'jpeg', 'png'];
-
-            if (!in_array(strtolower($siu->getClientOriginalExtension()), $validExtensions)) {
-                return response()->json(['message' => 'The Surat Izin Usaha must be a file of type: jpeg, png, jpg.'], 422);
-            }
             $oriName = $siu->getClientOriginalName();
 
             $namaSiu = uniqid() . '.' . $oriName;

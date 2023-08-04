@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css" />
 
     <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     @stack('customStyle')
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -186,6 +188,8 @@
     <script src="/assets/js/custom.js"></script>
 
     <!-- Page Specific JS File -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
     @stack('customScript')
 </body>
 
