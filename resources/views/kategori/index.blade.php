@@ -5,11 +5,6 @@
     <section class="section">
         <div class="section-header">
             <h1>Menu Kategori Pekerjaan</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Components</a></div>
-                <div class="breadcrumb-item">Table</div>
-            </div>
         </div>
         <div class="section-body">
             <h2 class="section-title">Kategori Pekerjaan</h2>
@@ -27,14 +22,10 @@
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('kategori.create') }}">Tambah
                                     Kategori Pekerjaan Baru</a>
-                                <a class="btn btn-info btn-primary active search"> <i class="fa fa-search"
-                                        aria-hidden="true"></i> Cari Kategori Pekerjaan</a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="show-search mb-3"
-                                style="display: {{ app('request')->input('kategori') ? 'block' : 'none' }};">
-                                <form id="search" method="GET" action="{{ route('kategori.index') }}">
+                            <form id="search" method="GET" action="{{ route('kategori.index') }}">
                                     <div class="form-row text-center">
                                         <div class="form-group col-md-10">
                                             <input type="text" name="kategori" class="form-control" id="kategori"
@@ -46,8 +37,7 @@
                                             <a id="reset-button" class="btn btn-secondary"
                                                 href="{{ route('kategori.index') }}">Reset</a>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
