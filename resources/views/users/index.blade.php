@@ -26,13 +26,9 @@
                             <h4>User List</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.create') }}">Create New User</a>
-                                <a class="btn btn-info btn-primary active search">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search User</a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="show-search mb-3" style="display: none">
                                 <form action="{{ route('user.index') }}" method="GET" class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -67,10 +63,10 @@
                                             <th>No</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Created At</th>
+                                            <th>Bergabung Sejak</th>
                                             <th>Roles</th> <!-- Add a new column for displaying roles -->
                                             <th class="text-right">Update Roles</th>
-                                            <th class="text-right">Verify Email</th>
+                                            {{-- <th class="text-right">Verify Email</th> --}}
                                             <th class="text-right">Action</th> <!-- Add a new column for Actions -->
                                         </tr>
                                     </thead>
@@ -82,7 +78,7 @@
                                                 <td>{{ $user->email }}</td>
                                                 <td>
                                                     @if ($user->email_verified_at)
-                                                        {{ $user->email_verified_at }}
+                                                        {{ date('j F Y', strtotime($user->email_verified_at)) }}
                                                     @else
                                                         Access Denied
                                                     @endif
@@ -94,10 +90,10 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
-                                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon"><i class="fas fa-edit"></i> Edit</a>
+                                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon"><i class="fas fa-edit"></i> Update Roles</a>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     <div class="d-flex justify-content-end">
                                                         @if (is_null($user->email_verified_at))
                                                             <form action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}" method="POST" class="d-inline-block" id="vel-<?= $user->id ?>">
@@ -112,7 +108,7 @@
                                                             </form>
                                                         @endif
                                                     </div>
-                                                </td>
+                                                </td> --}}
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <!-- Show button to view user details -->
@@ -148,11 +144,6 @@
 @push('customScript')
     <script>
         $(document).ready(function() {
-            $('.import').click(function(event) {
-                event.stopPropagation();
-                $(".show-import").slideToggle("fast");
-                $(".show-search").hide();
-            });
             $('.search').click(function(event) {
                 event.stopPropagation();
                 $(".show-search").slideToggle("fast");

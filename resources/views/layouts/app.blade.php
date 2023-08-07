@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>{{ config('app.name') }} </title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -181,7 +181,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/assets/js/page/modules-sweetalert.js"></script>
 
-    <!-- Template JS File -->
+    <!-- Template JS Files -->
     <script src="/assets/js/scripts.js"></script>
     <script src="/assets/js/custom.js"></script>
 
