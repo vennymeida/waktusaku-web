@@ -33,10 +33,9 @@
                         <div class="card-body">
                             <div class="show-import"
                                 @if ($errors->has('import-file')) style="display: block;" @else style="display: none;" @endif>
-                                <p>Unduh template <a href="{{ asset('assets/format-file/template.xlsx') }}" download>disini
-                                    </a></p>
-                                <span class="text-warning small float-right">type:xlsx, csv,
-                                    xls|max:10mb</span>
+                                Unduh template <a href="{{ asset('assets/format-file/template.xlsx') }}" download>disini</a>
+                                <p class="text-warning mx-0 my-0 font-weight-bold">type:xlsx, csv,
+                                    xls|max:10mb</p>
                                 <div class="custom-file">
                                     <form action="{{ route('kelurahan.import') }}" method="POST"
                                         enctype="multipart/form-data">
