@@ -44,16 +44,16 @@ class UserController extends Controller
 
         // mengambil data
         $users = User::with('roles') // Eager load the 'roles' relationship
-        ->when($request->input('name'), function ($query, $name) {
-            return $query->where('name', 'like', '%' . $name . '%');
-        })
-        ->when($request->input('roles'), function ($query, $roles) {
-            // The $roles parameter is an array of selected roles
-            // Filter users based on the selected roles
-            return $query->whereHas('roles', function (Builder $query) use ($roles) {
-                $query->whereIn('name', $roles);
-            });
-        })
+            ->when($request->input('name'), function ($query, $name) {
+                return $query->where('name', 'like', '%' . $name . '%');
+            })
+            ->when($request->input('roles'), function ($query, $roles) {
+                // The $roles parameter is an array of selected roles
+                // Filter users based on the selected roles
+                return $query->whereHas('roles', function (Builder $query) use ($roles) {
+                    $query->whereIn('name', $roles);
+                });
+            })
             ->select('id', 'name', 'email', DB::raw("DATE_FORMAT(created_at, '%d %M %Y') as created_at"))
             ->select('id', 'name', 'email', DB::raw("DATE_FORMAT(users.email_verified_at, '%d %M %Y') as email_verified_at"))
 
@@ -63,7 +63,7 @@ class UserController extends Controller
         $roles = Role::all();
 
 
-        return view('users.index', compact('users','roles'));
+        return view('users.index', compact('users', 'roles'));
     }
 
     /**
@@ -84,24 +84,24 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserRequest $request)
-{
-    $validatedData = $request->validated();
-    
-    // Create the user
-    $user = User::create([
-        'name' => $validatedData['name'],
-        'email' => $validatedData['email'],
-        'password' => Hash::make($validatedData['password']),
-        'email_verified_at' => now(),
-    ]);
+    {
+        $validatedData = $request->validated();
 
-    // Assign roles based on the selected user_type
-    $roleName = ($validatedData['user_type'] === 'perusahaan') ? 'Perusahaan' : 'Pencari Kerja';
-    $role = Role::where('name', $roleName)->first();
-    $user->assignRole($role);
+        // Create the user
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'email_verified_at' => now(),
+        ]);
 
-    return redirect(route('user.index'))->with('success', 'Data Berhasil Ditambahkan');
-}
+        // Assign roles based on the selected user_type
+        $roleName = ($validatedData['user_type'] === 'perusahaan') ? 'Perusahaan' : 'Pencari Kerja';
+        $role = Role::where('name', $roleName)->first();
+        $user->assignRole($role);
+
+        return redirect(route('user.index'))->with('success', 'Data Berhasil Ditambahkan');
+    }
 
     /**
      * Display the specified resource.
