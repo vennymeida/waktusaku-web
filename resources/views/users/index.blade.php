@@ -90,11 +90,7 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
-<<<<<<< Updated upstream
-                                                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon"><i class="fas fa-edit"></i> Roles</a>
-=======
                                                         <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon"><i class="fas fa-edit"></i> Update Roles</a>
->>>>>>> Stashed changes
                                                     </div>
                                                 </td>
                                                 {{-- <td>
