@@ -271,11 +271,6 @@
                                         style="{{ old('show_resume') ? '' : 'display: none' }}">
                                         <div class="form-group">
                                             <label>Unggah Resume</label>
-                                            @if(Auth::user()->profile && Auth::user()->profile->resume != '')
-                                            <div class="text small">Buka file PDF <a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}">sebelumnya</a>.</div>
-                                            @else
-                                            <div class="text small">Belum ada file yang diunggah.</div>
-                                            @endif
                                             <div class="text-warning small">(File type : pdf | Max size : 2MB)</div>
                                             <input name="resume" type="file"
                                                 class="form-control @error('resume') is-invalid @enderror">
@@ -284,6 +279,14 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                        @if(Auth::user()->profile && Auth::user()->profile->resume != '')
+                                            <!-- <div class="text small">Buka file PDF <a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}">sebelumnya</a>.</div> -->
+                                            <div class="text">Preview</div>
+                                            <div><a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}" class="btn btn-sm btn-primary btn-icon">
+                                                            <i class="fas fa-eye mt-6"></i> Show</a></div>
+                                        @else
+                                            <div class="text">Belum ada file yang diunggah.</div>
+                                        @endif
                                         </div>
                                     </div>
                                 </div>
