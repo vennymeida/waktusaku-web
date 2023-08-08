@@ -40,10 +40,10 @@
                                         <td>{{ $user->email }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Created At</th>
+                                        <th>Bergabung Sejak</th>
                                         <td>
                                             @if ($user->email_verified_at)
-                                                {{ $user->email_verified_at }}
+                                                {{ date('j F Y', strtotime($user->email_verified_at)) }}
                                             @else
                                                 Access Denied
                                             @endif

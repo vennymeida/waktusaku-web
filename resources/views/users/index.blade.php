@@ -40,7 +40,7 @@
                                         <div class="form-group">
                                             <label for="roles">Filter by Roles</label>
                                             <div class="d-flex">
-                                                <select name="roles[]" class="form-control select2" multiple>
+                                                <select name="roles[]" class="form-control select2" >
                                                     @foreach ($roles as $role)
                                                         <option value="{{ $role->name }}" {{ in_array($role->name, request()->query('roles', [])) ? 'selected' : '' }}>
                                                             {{ $role->name }}
@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
+                            {{-- </div> --}}
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <thead>

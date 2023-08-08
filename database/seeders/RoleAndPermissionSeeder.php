@@ -35,6 +35,14 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'user.import']);
         Permission::create(['name' => 'user.export']);
 
+        //Pelamar
+        Permission::create(['name' => 'pelamar.index']);
+        Permission::create(['name' => 'pelamar.create']);
+        Permission::create(['name' => 'pelamar.edit']);
+        Permission::create(['name' => 'pelamar.destroy']);
+        Permission::create(['name' => 'pelamar.import']);
+        Permission::create(['name' => 'pelamar.export']);
+
         //role
         Permission::create(['name' => 'role.index']);
         Permission::create(['name' => 'role.create']);
