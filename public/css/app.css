@@ -1,1 +1,101 @@
+.bg-primary {
+    background-color: #6777ef !important;
+    height: 100%;
+}
 
+.text-primary,
+.text-primary-all *,
+.text-primary-all *:before,
+.text-primary-all *:after {
+    color: #6777ef !important;
+}
+
+.btn-primary {
+    background-color: #6777ef;
+    border-color: #6777ef;
+}
+
+.btn-primary:hover {
+    background-color: #6777efe1;
+    border-color: #6777efe1;
+}
+
+.btn-outline-primary {
+    border-color: #6777ef;
+}
+
+.btn-outline-primary:hover {
+    background-color: #6777ef;
+    border-color: #6777ef;
+}
+
+.card-primary {
+    border-top: 2px solid #6777ef;
+}
+
+/* Custom CSS to style horizontal scroll with arrow indicators */
+.horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.horizontal-scroll .scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.horizontal-scroll .scroll-arrow.left {
+    left: 0;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.horizontal-scroll .scroll-arrow.right {
+    right: 0;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.horizontal-scroll .scroll-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    font-weight: bold;
+}
+
+.scroll-arrow.left {
+    left: 10px;
+}
+
+.scroll-arrow.right {
+    right: 10px;
+}
