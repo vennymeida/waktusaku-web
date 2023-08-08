@@ -19,10 +19,6 @@
                     <div class="card card-primary">
                         <div class="card-header">
                             <h4>Tabel Lowongan Pekerjaan</h4>
-                            <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('loker.create') }}">Tambah
-                                    Lowongan Pekerjaan Baru</a>
-                            </div>
                         </div>
                         <div class="card-body">
                             <form id="search" method="GET" action="{{ route('loker.index') }}">
@@ -52,21 +48,23 @@
                                             <th class="text-center">Action</th>
                                             <th class="text-center">Detail</th>
                                         </tr>
-                                        {{-- @foreach ($lokers as $key => $loker) --}}
+                                        @foreach ($results as $key => $loker)
                                             <tr>
-                                                <td>1</td>
-                                                <td>Hummasoft Technology</td>
-                                                <td>Programmer</td>
-                                                <td>Remote</td>
-                                                <td>Rp 3.500.000</td>
-                                                <td>Pending</td>
+                                                <td>{{ ($results->currentPage() - 1) * $results->perPage() + $key + 1 }}
+                                                </td>
+                                                <td>{{ $loker->nama }}</td>
+                                                <td>{{ $loker->kategori }}</td>
+                                                <td>{{ $loker->tipe_pekerjaan }}</td>
+                                                <td>Rp {{ $loker->gaji }}</td>
+                                                <td>{{ $loker->status }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <a href=""
+                                                        <a href="{{ route('loker.edit', $loker->id) }}"
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
                                                             Edit</a>
-                                                            <form action=""
+                                                            <form action=
+                                                                "{{ route('loker.destroy', $loker->id) }}"
                                                                 method="POST" class="ml-2">
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <input type="hidden" name="_token"
@@ -78,18 +76,17 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <a href=""
-                                                        class="btn btn-sm btn-primary btn-icon">
-                                                            <i class="far fa-eye"></i>
-                                                            Detail</a>
+                                                        <a href="#" class="btn btn-sm btn-primary btn-icon" data-toggle="modal" data-target="#detailModal{{ $loker->id }}">
+                                                            <i class="far fa-eye" id="modal-2"></i> Detail
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
-                                        {{-- @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-center">
-                                    {{-- {{ $lokers->withQueryString()->links() }} --}}
+                                    {{ $results->withQueryString()->links() }}
                                 </div>
                             </div>
                         </div>
@@ -98,6 +95,28 @@
             </div>
         </div>
     </section>
+     <!-- Modal -->
+     <div class="modal fade" id="detailModal{{ $loker->id }}" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Detail Lowongan Pekerjaan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Isi detail lowongan pekerjaan di sini -->
+                    <p>Nama Perusahaan: {{ $loker->nama }}</p>
+                    <p>Kategori: {{ $loker->kategori }}</p>
+                    <!-- ... dan seterusnya ... -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('customScript')
     <script>
