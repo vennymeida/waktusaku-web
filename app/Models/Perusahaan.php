@@ -24,10 +24,18 @@ class Perusahaan extends Model
         'siu'    
     ];
 
-    public function perusahaan()
+    public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function kecamatan()
+    {
         return $this->belongsTo(Kecamatan::class);
+    }
+
+    public function kelurahan()
+    {
         return $this->belongsTo(Kelurahan::class);
     }
 }

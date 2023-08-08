@@ -4,6 +4,7 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\KategoriPekerjaanController;
+use App\Http\Controllers\LowonganPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarController;
@@ -33,13 +34,26 @@ use App\Models\Category;
 |
 */
 
+// Route::get('/login', function () {
+//     if (auth()->check()) {
+//         return redirect('/dashboard');
+//     } else {
+//         return view('auth/login');
+//     }
+// });
+
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/login', function () {
     if (auth()->check()) {
         return redirect('/dashboard');
     } else {
         return view('auth/login');
     }
-});
+})->name('login');
+
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', function () {
@@ -52,7 +66,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::PUT('/update-profile-information', [ProfileUserController::class, 'update'])
         ->name('profile.user.update');
     Route::PUT('/update-perusahaan-information', [PerusahaanController::class, 'update'])
-    ->name('profile.perusahaan.update');
+        ->name('profile.perusahaan.update');
     //user list
 
     Route::prefix('user-management')->group(function () {
@@ -112,8 +126,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         // });
 
     });
-    Route::prefix('menu-kategori')->group(function () {
+    Route::prefix('menu-pekerjaan')->group(function () {
         Route::resource('kategori', KategoriPekerjaanController::class);
+        Route::resource('loker', LowonganPekerjaanController::class);
     });
 
     Route::prefix('location-management')->group(function () {

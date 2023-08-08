@@ -39,9 +39,9 @@ class MenuGroupSeeder extends Seeder
                     'permisison_name' => 'menu.management',
                 ],
                 [
-                    'name' => 'Menu Kategori',
+                    'name' => 'Menu Pekerjaan',
                     'icon' => 'fas fa-table',
-                    'permisison_name' => 'menu.kategori',
+                    'permisison_name' => 'menu.pekerjaan',
                 ],
                 [
                     'name' => 'Location Management',

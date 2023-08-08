@@ -45,59 +45,59 @@ class ProfileUserController extends Controller
 
         if ($request->hasFile('foto')) {
             $photo = $request->file('foto');
-            $oriName = $photo->getClientOriginalName();
-
+            $oriName = $photo->getClientOriginalExtension();
+            
             $namaGambar = uniqid() . '.' . $oriName;
             Storage::putFileAs('public/database/profile/', $photo, $namaGambar);
 
-            if ($profileUser === null) {
-                $profileUserBaru->foto = 'database/profile/' . $namaGambar;
-                $profileUserBaru->save();
-            } elseif ($request->hasFile('foto')) {
-                // Hapus foto lama dari direktori
-                if ($user->profile && $user->profile->foto) {
-                    Storage::delete('public/' . $user->profile->foto);
-                }
-                $user->profile->foto = 'database/profile/' . $namaGambar;
-                $user->profile->save();
-            } else {
-                return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            if ($user->profile === null) {
+                $user->profile = new \App\Models\ProfileUser();
             }
-        } elseif ($user->profile && $user->profile->foto != 'null') {
-            $user->profile->foto = $fotoLama->foto;
+
+            if ($user->profile->foto) {
+                Storage::delete('public/' . $user->profile->foto);
+            }
+
+            $user->profile->foto = 'database/profile/' . $namaGambar;
             $user->profile->save();
         } else {
-            return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            if ($user->profile && $user->profile->foto !== null) {
+                $user->profile->foto = $user->profile->foto;
+            } else {
+                if ($user->profile === null) {
+                    $user->profile->foto = asset('assets/img/avatar/avatar-1.png');
+                }
+            }
+            $user->profile->save();
         }
-        
+
         if ($request->hasFile('resume')) {
             $resume = $request->file('resume');
-            $oriName = $resume->getClientOriginalName();
+            $oriName = $resume->getClientOriginalExtension();
 
             $namaResume = uniqid() . '.' . $oriName;
             Storage::putFileAs('public/database/resume/', $resume, $namaResume);
 
-            $resumeCheck = DB::table('profile_users')->where('user_id', Auth::user()->id)->first();
-            if ($resumeCheck === null) {
-                $profileUserBaru->resume = 'database/resume/' . $namaResume;
-                $profileUserBaru->save();
-            } elseif ($request->hasFile('resume')) {
-                // Hapus resume lama dari direktori
-                if ($user->profile && $user->profile->resume) {
-                    Storage::delete('public/' . $user->profile->resume);
-                }
-                $user->profile->resume = 'database/resume/' . $namaResume;
-                $user->profile->save();
-            } else {
-                return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            if ($user->profile === null) {
+                $user->profile = new \App\Models\ProfileUser();
             }
-        } elseif ($user->profile && $user->profile->resume != 'null') {
-            $user->profile->resume = $fotoLama->resume;
+            
+            if ($user->profile->resume) {
+                Storage::delete('public/' . $user->profile->resume);
+            }
+
+            $user->profile->resume = 'database/resume/' . $namaResume;
             $user->profile->save();
         } else {
-            return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            if ($user->profile && $user->profile->resume !== null) {
+                $user->profile->resume = $user->profile->resume;
+            } else {
+                if ($user->profile === null) {
+                    $user->profile->resume = asset('assets/img/avatar/avatar-1.png');
+                }
+            }
+            $user->profile->save();
         }
-
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 }
