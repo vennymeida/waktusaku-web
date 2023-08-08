@@ -7,6 +7,7 @@ use App\Http\Controllers\KategoriPekerjaanController;
 use App\Http\Controllers\LowonganPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
+use App\Http\Controllers\PelamarController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
 use App\Http\Controllers\RoleAndPermission\ExportPermissionController;
@@ -79,6 +80,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('demo', DemoController::class)->name('user.demo');
         Route::post('user/update-roles/{user}', [UserController::class, 'updateRoles'])->name('user.update-roles'); // <- Add this line
         Route::get('/user/show/{user}', [UserController::class, 'view'])->name('user.view');
+
+
+        Route::resource('pelamar', PelamarController::class);
+        Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
+        Route::get('/pelamar/{pelamar}/edit', [PelamarController::class, 'edit'])->name('pelamar.edit');
+        Route::put('/pelamar/{pelamar}', [PelamarController::class, 'update'])->name('pelamar.update');
+        Route::delete('/pelamar/{pelamar}', [PelamarController::class, 'destroy'])->name('pelamar.destroy');
+        Route::get('/pelamar/{pelamar}', [PelamarController::class, 'show'])->name('pelamar.show');
 
     });
 
