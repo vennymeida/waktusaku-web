@@ -34,7 +34,7 @@ class LowonganPekerjaanController extends Controller
      */
     public function create()
     {
-        //
+        return view('loker.create');
     }
 
     /**
@@ -67,7 +67,7 @@ class LowonganPekerjaanController extends Controller
      */
     public function edit(LowonganPekerjaan $lowonganPekerjaan)
     {
-        //
+        return view('loker.edit');
     }
 
     /**

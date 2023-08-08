@@ -48,6 +48,7 @@
                                             <th>Kategori Pekerjaan</th>
                                             <th>Tipe Pekerjaan</th>
                                             <th>Gaji</th>
+                                            <th>Status</th>
                                             <th class="text-center">Action</th>
                                             <th class="text-center">Detail</th>
                                         </tr>
@@ -58,6 +59,7 @@
                                                 <td>Programmer</td>
                                                 <td>Remote</td>
                                                 <td>Rp 3.500.000</td>
+                                                <td>Pending</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
                                                         <a href=""
