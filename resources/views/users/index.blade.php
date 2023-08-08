@@ -55,7 +55,6 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <thead>
