@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
-class PelamarController extends Controller
+class PelamarListController extends Controller
 {
     public function index()
 {

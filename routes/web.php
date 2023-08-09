@@ -7,7 +7,7 @@ use App\Http\Controllers\KategoriPekerjaanController;
 use App\Http\Controllers\LowonganPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
-use App\Http\Controllers\PelamarController;
+use App\Http\Controllers\PelamarListController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
 use App\Http\Controllers\RoleAndPermission\ExportPermissionController;
@@ -18,6 +18,7 @@ use App\Http\Controllers\RoleAndPermission\PermissionController;
 use App\Http\Controllers\RoleAndPermission\RoleController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\PerusahaanListController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\UserController;
@@ -82,7 +83,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/user/show/{user}', [UserController::class, 'view'])->name('user.view');
 
 
+<<<<<<< Updated upstream
         Route::resource('pelamar', PelamarController::class);
+=======
+        Route::resource('pelamar', PelamarListController::class);
+        Route::get('/pelamar', 'App\Http\Controllers\PelamarListController@index')->name('pelamar.index');
+
+        Route::resource('perusahaan', PerusahaanListController::class);
+        Route::get('/perusahaan', 'App\Http\Controllers\PerusahaanListController@index')->name('perusahaan.index');
+>>>>>>> Stashed changes
         // Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
         // Route::get('/pelamar/{pelamar}/edit', [PelamarController::class, 'edit'])->name('pelamar.edit');
         // Route::put('/pelamar/{pelamar}', [PelamarController::class, 'update'])->name('pelamar.update');
