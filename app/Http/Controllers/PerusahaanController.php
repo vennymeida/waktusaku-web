@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdatePerusahaanRequest;
 use App\Models\Perusahaan;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -20,6 +22,7 @@ class PerusahaanController extends Controller
             'email' => 'nullable|string|max:255',
             'website' => 'nullable|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'kecamatan_id' => 'nullable|exists:kecamatan,id',
             'no_hp' => 'nullable|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/',
             'deskripsi' => 'nullable|string|max:255',
             'siu' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -32,19 +35,22 @@ class PerusahaanController extends Controller
             'logo.image' => 'Logo Tidak Sesuai Format',
             'logo.mimes' => 'Logo Hanya Mendukung Format jpeg, png, jpg',
             'logo.max' => 'Ukuran Logo Terlalu Besar',
+            'kecamatan_id.exists' => 'Kecamatan tidak valid.',
             'no_hp.regex' => 'Nomor Hp Tidak Sesuai Format',
             'deskripsi.max' => 'Deskripsi Melebihi Batas Maksimal',
             'siu.image' => 'Surat Izin Usaha Tidak Sesuai Format',
             'siu.mimes' => 'Surat Izin Usaha Hanya Mendukung Format jpeg, png, jpg',
             'siu.max' => 'Ukuran Surat Izin Usaha Terlalu Besar',
         ]);
-
+        
         $fotoLama = DB::table('perusahaan')->where('user_id', Auth::user()->id)->first();
         $user = $request->user();
-        $user->perusahaan()->update($request->except('_token', '_method', 'logo', 'siu', 'show_siu', 'show_logo'));
+        $user->perusahaan()->update($request->except('_token', '_method', 'logo', 'siu', 'show_siu', 'show_logo', 'kecamatan_id'));
         $perusahaanUser = DB::table('perusahaan')->where('user_id', Auth::user()->id)->first();
         $perusahaanUserBaru = new \App\Models\Perusahaan();
         $perusahaanUserBaru->user_id = Auth::user()->id;
+        $kecamatans = Kecamatan::all();
+        $kelurahans = Kelurahan::all();
         if ($perusahaanUser === null) {
             $perusahaanUserBaru->pemilik = $request->input('pemilik');
             $perusahaanUserBaru->nama = $request->input('nama');
@@ -53,56 +59,65 @@ class PerusahaanController extends Controller
             $perusahaanUserBaru->website = $request->input('website');
             $perusahaanUserBaru->no_hp = $request->input('no_hp');
             $perusahaanUserBaru->deskripsi = $request->input('deskripsi');
+            $perusahaanUserBaru->kecamatan_id = $request->input('kecamatan_id');
+            $perusahaanUserBaru->kelurahan_id = $request->input('kelurahan_id');
             $perusahaanUserBaru->save();
-        }
+        }    
 
         if ($request->hasFile('logo')) {
             $photo = $request->file('logo');
-            $oriName = $photo->getClientOriginalName();
+            $oriName = $photo->getClientOriginalExtension();
 
             $namaGambar = uniqid() . '.' . $oriName;
             Storage::putFileAs('public/database/perusahaan/', $photo, $namaGambar);
 
-            if ($perusahaanUser === null) {
-                $perusahaanUserBaru->logo = 'database/perusahaan/' . $namaGambar;
-                $perusahaanUserBaru->save();
-            } elseif ($request->hasFile('logo')) {
-                $user->perusahaan->logo = 'database/perusahaan/' . $namaGambar;
-                $user->perusahaan->save();
-            } else {
-                return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            if ($user->perusahaan === null) {
+                $user->perusahaan = new \App\Models\Perusahaan();
             }
-        } elseif ($user->perusahaan && $user->perusahaan->logo != 'null') {
-            $user->perusahaan->logo = $fotoLama->logo;
+
+            if ($user->perusahaan->logo) {
+                Storage::delete('public/' . $user->perusahaan->logo);
+            }
+
+            $user->perusahaan->logo = 'database/perusahaan/' . $namaGambar;
             $user->perusahaan->save();
         } else {
-            return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            if ($user->perusahaan && $user->perusahaan->logo !== null) {
+                $user->perusahaan->logo = $user->perusahaan->logo;
+            } else {
+                if ($user->perusahaan === null) {
+                    $user->perusahaan->logo = asset('assets/img/avatar/avatar-1.png');
+                }
+            }
+            $user->perusahaan->save();
         }
         
         if ($request->hasFile('siu')) {
             $siu = $request->file('siu');
-            $oriName = $siu->getClientOriginalName();
+            $oriName = $siu->getClientOriginalExtension();
 
             $namaSiu = uniqid() . '.' . $oriName;
             Storage::putFileAs('public/database/siu/', $siu, $namaSiu);
 
-            $siuCheck = DB::table('perusahaan')->where('user_id', Auth::user()->id)->first();
-            if ($siuCheck === null) {
-                // $perusahaanSiuBaru = new \App\Models\Perusahaan();
-                // $perusahaanSiuBaru->user_id = Auth::user()->id;
-                $perusahaanUserBaru->siu = 'database/siu/' . $namaSiu;
-                $perusahaanUserBaru->save();
-            } elseif ($request->hasFile('siu')) {
-                $user->perusahaan->siu = 'database/siu/' . $namaSiu;
-                $user->perusahaan->save();
-            } else {
-                return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            if ($user->perusahaan === null) {
+                $user->perusahaan = new \App\Models\Perusahaan();
             }
-        } elseif ($user->perusahaan && $user->perusahaan->siu != 'null') {
-            $user->perusahaan->siu = $fotoLama->siu;
+            
+            if ($user->perusahaan->siu) {
+                Storage::delete('public/' . $user->perusahaan->siu);
+            }
+
+            $user->perusahaan->siu = 'database/siu/' . $namaSiu;
             $user->perusahaan->save();
         } else {
-            return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            if ($user->perusahaan && $user->perusahaan->siu !== null) {
+                $user->perusahaan->siu = $user->perusahaan->siu;
+            } else {
+                if ($user->perusahaan === null) {
+                    $user->perusahaan->siu = asset('assets/img/avatar/avatar-1.png');
+                }
+            }
+            $user->perusahaan->save();
         }
 
         return redirect()->back()->with('success', 'Perusahaan updated successfully.');
