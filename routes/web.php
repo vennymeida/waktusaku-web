@@ -83,11 +83,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 
         Route::resource('pelamar', PelamarController::class);
-        Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
-        Route::get('/pelamar/{pelamar}/edit', [PelamarController::class, 'edit'])->name('pelamar.edit');
-        Route::put('/pelamar/{pelamar}', [PelamarController::class, 'update'])->name('pelamar.update');
-        Route::delete('/pelamar/{pelamar}', [PelamarController::class, 'destroy'])->name('pelamar.destroy');
-        Route::get('/pelamar/{pelamar}', [PelamarController::class, 'show'])->name('pelamar.show');
+        Route::get('/pelamar', 'PelamarController@index')->name('pelamar.index');
+        // Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
+        // Route::get('/pelamar/{pelamar}/edit', [PelamarController::class, 'edit'])->name('pelamar.edit');
+        // Route::put('/pelamar/{pelamar}', [PelamarController::class, 'update'])->name('pelamar.update'); // Unique name for this route
+        // Route::delete('/pelamar/{pelamar}', [PelamarController::class, 'destroy'])->name('pelamar.destroy'); // Unique name for this route
+        // Route::get('/pelamar/{pelamar}', [PelamarController::class, 'show'])->name('pelamar.show');
 
     });
 
