@@ -25,7 +25,9 @@
                             <h4>Total Pencari Kerja</h4>
                           </div>
                           <div class="card-body">
-                            10
+                                {{
+                                    App\Models\ProfileUser::whereNotNull('resume')->count()
+                                }}
                           </div>
                         </div>
                       </div>
@@ -40,7 +42,9 @@
                             <h4>Total Perusahaan</h4>
                           </div>
                           <div class="card-body">
-                            42
+                            {{
+                                App\Models\Perusahaan::count()
+                            }}
                           </div>
                         </div>
                       </div>
@@ -57,7 +61,9 @@
                             <h4>Total Lowongan Pekerjaan</h4>
                           </div>
                           <div class="card-body">
-                            1,201
+                            {{
+                                App\Models\LowonganPekerjaan::count()
+                            }}
                           </div>
                         </div>
                       </div>
@@ -72,7 +78,9 @@
                             <h4>Total Lamaran</h4>
                           </div>
                           <div class="card-body">
-                            47
+                            {{-- {{
+                                App\Models\Daftar::count()
+                            }} --}}
                           </div>
                         </div>
                       </div>
