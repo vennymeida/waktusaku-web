@@ -56,7 +56,7 @@
                                                 <td>{{ $loker->nama }}</td>
                                                 <td>{{ $loker->kategori }}</td>
                                                 <td>{{ $loker->tipe_pekerjaan }}</td>
-                                                <td>Rp {{ $loker->gaji }}</td>
+                                                <td>{{ 'Rp ' . number_format($loker->gaji, 0, ',', '.') }}</td>
                                                 <td>{{ $loker->status }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
@@ -79,7 +79,7 @@
                                                         <a href="#" class="btn btn-sm btn-primary btn-icon"
                                                             data-toggle="modal"
                                                             data-target="#detailModal{{ $loker->id }}">
-                                                            <i class="far fa-eye" id="modal-2"></i> Detail
+                                                            <i class="far fa-eye" id="modal-{{ $loker->id }}"></i> Detail
                                                         </a>
                                                     </div>
                                                 </td>
@@ -98,6 +98,7 @@
             </div>
         </section>
         <!-- Modal -->
+        @foreach ($allResults as $key => $loker)
         <div class="modal fade" id="detailModal{{ $loker->id }}" tabindex="-1" role="dialog"
             aria-labelledby="detailModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -120,7 +121,8 @@
                 </div>
             </div>
         </div>
-    @endif
+        @endforeach
+        @endif
 
     @if (Auth::user()->hasRole('Perusahaan'))
         <section class="section">

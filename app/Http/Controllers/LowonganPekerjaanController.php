@@ -32,9 +32,25 @@ class LowonganPekerjaanController extends Controller
             ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
             ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
             ->join('users as u', 'pu.user_id', '=', 'u.id')
-            ->select('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'lp.id_kategori', 'pu.id', 'u.id', 'p.nama', 'kp.kategori', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.gaji', 'lp.jumlah_pelamar', 'lp.status')
+            ->select(
+                'lp.id',
+                'lp.user_id',
+                'lp.id_perusahaan',
+                'lp.id_kategori',
+                // 'pu.id as profileId',
+                // 'u.id as userId',
+                'p.nama',
+                'kp.kategori',
+                'lp.judul',
+                'lp.deskripsi',
+                'lp.requirement',
+                'lp.tipe_pekerjaan',
+                'lp.gaji',
+                'lp.jumlah_pelamar',
+                'lp.status'
+            )
             ->paginate(10);
-
+        // dd($allResults);
         $loggedInUserId = Auth::id();
 
         $loggedInUserResults = DB::table('lowongan_pekerjaans as lp')
@@ -145,7 +161,6 @@ class LowonganPekerjaanController extends Controller
 
     public function show(LowonganPekerjaan $lowonganPekerjaan)
     {
-        //
     }
 
     public function edit($id)
@@ -172,9 +187,14 @@ class LowonganPekerjaanController extends Controller
     }
 
 
-    public function destroy(LowonganPekerjaan $lowonganPekerjaan)
-    {
-        $lowonganPekerjaan->delete();
+    public function destroy(LowonganPekerjaan $loker)
+{
+    try {
+        $loker->delete();
         return redirect()->route('loker.index')->with('success', 'Data Lowongan Berhasil Di Hapus');
+    } catch (\Exception $e) {
+        return redirect()->route('loker.index')->with('error', 'Terjadi kesalahan saat menghapus data.');
     }
+}
+
 }
