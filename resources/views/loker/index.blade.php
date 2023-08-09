@@ -144,7 +144,7 @@
                                             <th>Judul</th>
                                             <th>Deskripsi</th>
                                             <th>Persyaratan</th>
-                                            <th>Tipe Pekerjaan</th>
+                                            <th>Status</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                         @foreach ($loggedInUserResults as $key => $loker)
@@ -154,7 +154,7 @@
                                                 <td>{{ $loker->judul }}</td>
                                                 <td>{{ $loker->deskripsi }}</td>
                                                 <td>{{ $loker->requirement }}</td>
-                                                <td>{{ $loker->tipe_pekerjaan }}</td>
+                                                <td>{{ $loker->status }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
                                                         <a href="{{ route('loker.show', $loker->id) }}"

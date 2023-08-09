@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateLowonganPekerjaanRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class LowonganPekerjaanController extends Controller
 {
@@ -56,33 +57,90 @@ class LowonganPekerjaanController extends Controller
         $profileUser = ProfileUser::where('user_id', $user->id)->first();
         $perusahaan = Perusahaan::where('user_id', $user->id)->first();
 
+        // return view('loker.create', [
+        //     'kategoris' => $kategoris,
+        //     'user' => $user,
+        //     'perusahaan' => $perusahaan,
+        //     'profileUser' => $profileUser,
+        // ]);
+
         return view('loker.create', [
             'kategoris' => $kategoris,
             'user' => $user,
             'perusahaan' => $perusahaan,
             'profileUser' => $profileUser,
-        ]);
+        ])->with(['kategoris' => $kategoris]);
     }
 
-    public function store(Request $request)
+    public function store(StoreLowonganPekerjaanRequest $request)
     {
-        $validatedData = $request->validate([
-            'user_id' => 'required',
-            'id_perusahaan' => 'required',
-            'id_kategori' => 'required',
-            'judul' => 'required',
-            'deskripsi' => 'required',
-            'requirement' => 'required',
-            'tipe_pekerjaan' => 'required',
-            'gaji' => 'required',
-            'jumlah_pelamar' => 'required',
-            'status' => 'required',
+        LowonganPekerjaan::create([
+            'user_id' => $request->user_id,
+            'id_perusahaan' => $request->id_perusahaan,
+            'id_kategori' => $request->id_kategori,
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'requirement' => $request->requirement,
+            'tipe_pekerjaan' => $request->tipe_pekerjaan,
+            'gaji' => $request->gaji,
+            'jumlah_pelamar' => $request->jumlah_pelamar,
+            'status' => $request->status,
         ]);
 
-        LowonganPekerjaan::create($validatedData);
-
         return redirect()->route('loker.index')
-            ->with('success', 'Lowongan Pekerjaan berhasil ditambahkan.');
+            ->with('success', 'Lowongan Pekerjaan berhasil ditambahkan');
+
+        // $validatedData = $request->validate([
+        //     'user_id' => 'required',
+        //     'id_perusahaan' => 'required',
+        //     'id_kategori' => 'required',
+        //     'judul' => 'required',
+        //     'deskripsi' => 'required',
+        //     'requirement' => 'required',
+        //     'tipe_pekerjaan' => 'required',
+        //     'gaji' => 'required',
+        //     'jumlah_pelamar' => 'required',
+        //     'status' => 'required',
+        // ], [
+        //     'id_kategori.required' => 'Kategori Pekerjaan tidak boleh kosong',
+        //     'judul.required' => 'Judul tidak boleh kosong',
+        // ]);
+
+        // LowonganPekerjaan::create($validatedData);
+
+        // return redirect()->route('loker.index')
+        //     ->withErrors($validatedData)
+        //     ->withInput()
+        //     ->with('success', 'Lowongan Pekerjaan berhasil ditambahkan.');
+
+        // $validator = Validator::make($request->all(), [
+        //     'user_id' => 'required',
+        //     'id_perusahaan' => 'required',
+        //     'id_kategori' => 'required',
+        //     'judul' => 'required',
+        //     'deskripsi' => 'required',
+        //     'requirement' => 'required',
+        //     'tipe_pekerjaan' => 'required',
+        //     'gaji' => 'required',
+        //     'jumlah_pelamar' => 'required',
+        //     'status' => 'required',
+        // ], [
+        //     'id_kategori.required' => 'Kategori Pekerjaan tidak boleh kosong',
+        //     'judul.required' => 'Judul tidak boleh kosong',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return view('loker.create', [
+        //         'errors' => $validator->errors(),
+        //     ]);
+        // }
+
+        // LowonganPekerjaan::create($request->all());
+
+        // return redirect()->route('loker.index')
+        //     ->withErrors($validator)
+        //     ->withInput()
+        //     ->with('success', 'Lowongan Pekerjaan berhasil ditambahkan.');
     }
 
     public function show(LowonganPekerjaan $lowonganPekerjaan)
