@@ -9,20 +9,28 @@ use Spatie\Permission\Models\Role;
 
 class PelamarListController extends Controller
 {
-    public function index()
-{
-    // Mengambil role "Pencari Kerja"
-    $rolePencariKerja = Role::where('name', 'Pencari Kerja')->first();
+    public function index(Request $request)
+    {
+        // Mengambil role "Pencari Kerja"
+        $rolePencariKerja = Role::where('name', 'Pencari Kerja')->first();
 
-    // Mengambil data pengguna dengan role "Pencari Kerja" dan memiliki profil terkait
-    $pelamar = User::whereHas('profile')
-        ->whereHas('roles', function ($query) use ($rolePencariKerja) {
-            $query->where('id', $rolePencariKerja->id);
-        })
-        ->paginate(10);
+        // Mengambil data pengguna dengan role "Pencari Kerja" dan memiliki profil terkait
+        $query = User::with('profile') // Eager-load the "profile" relation
+            ->whereHas('roles', function ($query) use ($rolePencariKerja) {
+                $query->where('id', $rolePencariKerja->id);
+            });
 
-    return view('pelamar.index', compact('pelamar'));
-}
+        // Lakukan pencarian berdasarkan nama pengguna jika parameter "name" ada
+        if ($request->has('name')) {
+            $name = $request->input('name');
+            $query->where('name', 'like', "%$name%");
+        }
+
+        // Paginasi hasil query
+        $pelamar = $query->paginate(10);
+
+        return view('pelamar.index', compact('pelamar'));
+    }
 
     public function edit(User $pelamar)
     {
@@ -31,7 +39,17 @@ class PelamarListController extends Controller
 
     public function update(Request $request, User $pelamar)
     {
-        // Update the user profile data here
+        $this->validate($request, [
+            // Add validation rules for profile data if needed
+        ]);
+
+        // Update the user profile data
+        $pelamar->profile->update([
+            'alamat' => $request->input('alamat'),
+            'jenis_kelamin' => $request->input('jenis_kelamin'),
+            'no_hp' => $request->input('no_hp'),
+            // Add other profile fields
+        ]);
 
         return redirect()->route('pelamar.index')->with('success', 'Profile updated successfully.');
     }
@@ -40,6 +58,8 @@ class PelamarListController extends Controller
     {
         try {
             // Delete the user and related profile data
+            $pelamar->profile->delete();
+            $pelamar->delete();
 
             return redirect()->route('pelamar.index')->with('success', 'Profile deleted successfully.');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -51,6 +71,6 @@ class PelamarListController extends Controller
 
     public function show(User $pelamar)
     {
-        return view('pelamar.show', compact('pelamar'));
+        return view('pelamar.view', compact('pelamar'));
     }
 }
