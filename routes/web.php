@@ -83,15 +83,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/user/show/{user}', [UserController::class, 'view'])->name('user.view');
 
 
-<<<<<<< Updated upstream
-        Route::resource('pelamar', PelamarController::class);
-=======
         Route::resource('pelamar', PelamarListController::class);
         Route::get('/pelamar', 'App\Http\Controllers\PelamarListController@index')->name('pelamar.index');
 
         Route::resource('perusahaan', PerusahaanListController::class);
         Route::get('/perusahaan', 'App\Http\Controllers\PerusahaanListController@index')->name('perusahaan.index');
->>>>>>> Stashed changes
         // Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
         // Route::get('/pelamar/{pelamar}/edit', [PelamarController::class, 'edit'])->name('pelamar.edit');
         // Route::put('/pelamar/{pelamar}', [PelamarController::class, 'update'])->name('pelamar.update');
