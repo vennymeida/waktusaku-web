@@ -13,7 +13,7 @@ class UpdateLowonganPekerjaanRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,27 @@ class UpdateLowonganPekerjaanRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id_kategori' => 'required',
+            'judul' => 'required|regex:/^[A-Za-z\s]+$/',
+            'deskripsi' => 'required',
+            'requirement' => 'required',
+            'tipe_pekerjaan' => 'required',
+            'gaji' => 'required',
+            'jumlah_pelamar' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'id_kategori.required' => 'Kategori tidak boleh kosong',
+            'judul.required' => 'Judul tidak boleh kosong',
+            'judul.regex' => 'Judul tidak boleh mengandung selain huruf',
+            'deskripsi.required' => 'Diskripsi tidak boleh kosong',
+            'requirement.required' => 'Persyaratan tidak boleh kosong',
+            'tipe_pekerjaan.required' => 'Tipe Pekerjaan tidak boleh kosong',
+            'gaji.required' => 'Gaji tidak boleh kosong',
+            'jumlah_pelamar.required' => 'Jumlah Pelamar tidak boleh kosong',
         ];
     }
 }

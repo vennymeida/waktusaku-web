@@ -79,7 +79,8 @@
                                                         <a href="#" class="btn btn-sm btn-primary btn-icon"
                                                             data-toggle="modal"
                                                             data-target="#detailModal{{ $loker->id }}">
-                                                            <i class="far fa-eye" id="modal-{{ $loker->id }}"></i> Detail
+                                                            <i class="far fa-eye" id="modal-{{ $loker->id }}"></i>
+                                                            Detail
                                                         </a>
                                                     </div>
                                                 </td>
@@ -97,8 +98,9 @@
             </div>
             </div>
         </section>
-        <!-- Modal -->
-        @foreach ($allResults as $key => $loker)
+    @endif
+    <!-- Modal -->
+    @foreach ($allResults as $key => $loker)
         <div class="modal fade" id="detailModal{{ $loker->id }}" tabindex="-1" role="dialog"
             aria-labelledby="detailModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -110,10 +112,16 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <!-- Isi detail lowongan pekerjaan di sini -->
-                        <p>Nama Perusahaan: {{ $loker->nama }}</p>
+                        <p>Pemilik: {{ $loker->name }}</p>
+                        <p>Perusahaan: {{ $loker->nama }}</p>
                         <p>Kategori: {{ $loker->kategori }}</p>
-                        <!-- ... dan seterusnya ... -->
+                        <p>Judul: {{ $loker->judul }}</p>
+                        <p>Deskripsi: {{ $loker->deskripsi }}</p>
+                        <p>Persyaratan: {{ $loker->requirement }}</p>
+                        <p>Tipe Pekerjaan: {{ $loker->tipe_pekerjaan }}</p>
+                        <p>Gaji: {{ $loker->gaji }}</p>
+                        <p>Jumlah Pelamar: {{ $loker->jumlah_pelamar }}</p>
+                        <p>Status: {{ $loker->status }}</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -121,8 +129,7 @@
                 </div>
             </div>
         </div>
-        @endforeach
-        @endif
+    @endforeach
 
     @if (Auth::user()->hasRole('Perusahaan'))
         <section class="section">
@@ -136,6 +143,11 @@
             </div>
             <div class="row">
                 <div class="col-12">
+                    @include('layouts.alert')
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -143,9 +155,9 @@
                                     <tbody>
                                         <tr>
                                             <th>#</th>
-                                            <th>Judul</th>
-                                            <th>Deskripsi</th>
-                                            <th>Persyaratan</th>
+                                            <th class="col-md-2">Judul</th>
+                                            <th class="col-md-3">Deskripsi</th>
+                                            <th class="col-md-3">Persyaratan</th>
                                             <th>Status</th>
                                             <th class="text-center">Action</th>
                                         </tr>
@@ -159,15 +171,18 @@
                                                 <td>{{ $loker->status }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <a href="{{ route('loker.show', $loker->id) }}"
-                                                            class="btn btn-sm btn-primary btn-icon"><i
-                                                                class="far fa-eye"></i> Detail
+                                                        <a href="#" class="btn btn-sm btn-primary btn-icon"
+                                                            data-toggle="modal"
+                                                            data-target="#detailModal{{ $loker->id }}">
+                                                            <i class="far fa-eye" id="modal-{{ $loker->id }}"></i>
+                                                            Detail
                                                         </a>
                                                         <a href="{{ route('loker.edit', $loker->id) }}"
                                                             class="btn btn-sm btn-info btn-icon ml-2"><i
                                                                 class="fas fa-edit"></i> Edit
                                                         </a>
-                                                        <form action="" method="POST" class="ml-2">
+                                                        <form action="{{ route('loker.destroy', $loker->id) }}"
+                                                            method="POST" class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE">
                                                             <input type="hidden" name="_token"
                                                                 value="{{ csrf_token() }}">
