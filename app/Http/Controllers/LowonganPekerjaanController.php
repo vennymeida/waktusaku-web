@@ -6,10 +6,13 @@ use App\Models\LowonganPekerjaan;
 use App\Models\Perusahaan;
 use App\Models\KategoriPekerjaan;
 use App\Models\ProfileUser;
+use App\Models\User;
 use App\Http\Requests\StoreLowonganPekerjaanRequest;
 use App\Http\Requests\UpdateLowonganPekerjaanRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class LowonganPekerjaanController extends Controller
 {
@@ -21,95 +24,143 @@ class LowonganPekerjaanController extends Controller
         $this->middleware('permission:loker.edit')->only('edit', 'update');
         $this->middleware('permission:loker.destroy')->only('destroy');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
-{
-    $results = DB::table('lowongan_pekerjaans as lp')
-        ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
-        ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
-        ->select('lp.id', 'p.nama', 'kp.kategori', 'lp.tipe_pekerjaan', 'lp.gaji', 'lp.status')
-        ->paginate(10);
-
-    return view('loker.index', ['results' => $results]);
-}
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreLowonganPekerjaanRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreLowonganPekerjaanRequest $request)
     {
-        //
-    }
+        $statuses = ['pending', 'dibuka', 'ditutup'];
+        $selectedStatus = $request->input('status');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\LowonganPekerjaan  $lowonganPekerjaan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(LowonganPekerjaan $lowonganPekerjaan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\LowonganPekerjaan  $lowonganPekerjaan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $loker = DB::table('lowongan_pekerjaans as lp')
+        $allResults = DB::table('lowongan_pekerjaans as lp')
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
             ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
-            ->select('lp.id', 'p.nama', 'kp.kategori', 'lp.tipe_pekerjaan', 'lp.gaji', 'lp.status')
-            ->where('lp.id', $id)
-            ->first();
+            ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
+            ->join('users as u', 'pu.user_id', '=', 'u.id')
+            ->select(
+                'lp.id',
+                'lp.user_id',
+                'lp.id_perusahaan',
+                'lp.id_kategori',
+                'p.nama',
+                'kp.kategori',
+                'lp.judul',
+                'lp.deskripsi',
+                'lp.requirement',
+                'lp.tipe_pekerjaan',
+                'lp.gaji',
+                'lp.jumlah_pelamar',
+                'lp.status',
+                'u.name',
+            )
+            ->when($request->has('search'), function ($query) use ($request) {
+                $search = $request->input('search');
+                return $query->where('p.nama', 'like', '%' . $search . '%')
+                    ->orWhere('kp.kategori', 'like', '%' . $search . '%')
+                    ->orWhere('lp.tipe_pekerjaan', 'like', '%' . $search . '%');
+            })
+            ->when($selectedStatus, function ($query, $selectedStatus) {
+                return $query->where('lp.status', $selectedStatus);
 
-        return view('loker.edit', ['loker' => $loker]);
+            })
+            ->paginate(10);
+
+        $loggedInUserId = Auth::id();
+        $user = auth()->user();
+
+        $profileUser = ProfileUser::where('user_id', $user->id)->first();
+        $perusahaan = Perusahaan::where('user_id', $user->id)->first();
+
+        $loggedInUserResults = DB::table('lowongan_pekerjaans as lp')
+            ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
+            ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
+            ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
+            ->join('users as u', 'pu.user_id', '=', 'u.id')
+            ->select('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'lp.id_kategori', 'p.nama', 'kp.kategori', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.gaji', 'lp.jumlah_pelamar', 'lp.status')
+            ->where('u.id', $loggedInUserId)
+            ->when($request->has('search'), function ($query) use ($request) {
+                $search = $request->input('search');
+                return $query->where('lp.judul', 'like', '%' . $search . '%')
+                    ->orWhere('lp.deskripsi', 'like', '%' . $search . '%')
+                    ->orWhere('lp.requirement', 'like', '%' . $search . '%')
+                    ->orWhere('lp.status', 'like', '%' . $search . '%');
+            })
+            ->paginate(10);
+
+        return view('loker.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan]);
     }
 
 
+    public function create()
+    {
+        $kategoris = KategoriPekerjaan::all();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateLowonganPekerjaanRequest  $request
-     * @param  \App\Models\LowonganPekerjaan  $lowonganPekerjaan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-{
-    // Lakukan validasi data input jika diperlukan
+        $user = auth()->user();
+        $profileUser = ProfileUser::where('user_id', $user->id)->first();
+        $perusahaan = Perusahaan::where('user_id', $user->id)->first();
 
-    DB::table('lowongan_pekerjaans')
-        ->where('id', $id)
-        ->update([
-            'status' => $request->input('status')
+        return view('loker.create', [
+            'kategoris' => $kategoris,
+            'user' => $user,
+            'perusahaan' => $perusahaan,
+            'profileUser' => $profileUser,
+        ])->with(['kategoris' => $kategoris]);
+    }
+
+    public function store(StoreLowonganPekerjaanRequest $request)
+    {
+        LowonganPekerjaan::create([
+            'user_id' => $request->user_id,
+            'id_perusahaan' => $request->id_perusahaan,
+            'id_kategori' => $request->id_kategori,
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'requirement' => $request->requirement,
+            'tipe_pekerjaan' => $request->tipe_pekerjaan,
+            'gaji' => $request->gaji,
+            'jumlah_pelamar' => $request->jumlah_pelamar,
+            'status' => $request->status,
         ]);
 
-    return redirect()->route('loker.index')->with('success', 'Data lowongan pekerjaan berhasil diperbarui.');
-}
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\LowonganPekerjaan  $lowonganPekerjaan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(LowonganPekerjaan $lowonganPekerjaan)
-    {
-        $lowonganPekerjaan->delete();
-        return redirect()->route('loker.index')->with('success', 'Data Lowongan Berhasil Di Hapus');
+        return redirect()->route('loker.index')
+            ->with('success', 'Lowongan Pekerjaan berhasil ditambahkan');
     }
+
+    public function show(LowonganPekerjaan $lowonganPekerjaan)
+    {
+    }
+
+    public function edit(LowonganPekerjaan $loker)
+    {
+        $kategoris = KategoriPekerjaan::all();
+        $user = auth()->user();
+        $profileUser = ProfileUser::where('user_id', $user->id)->first();
+        $perusahaan = Perusahaan::where('user_id', $user->id)->first();
+
+        return view('loker.edit', [
+            'loker' => $loker,
+            'kategoris' => $kategoris,
+            'user' => $user,
+            'perusahaan' => $perusahaan,
+            'profileUser' => $profileUser,
+        ])->with(['kategoris' => $kategoris]);
+    }
+
+    public function update(UpdateLowonganPekerjaanRequest $request, LowonganPekerjaan $loker)
+    {
+        $loker->update($request->all());
+
+        return redirect()->route('loker.index')
+            ->with('success', 'Data lowongan pekerjaan berhasil diperbarui.');
+    }
+
+
+    public function destroy(LowonganPekerjaan $loker)
+    {
+        try {
+            $loker->delete();
+            return redirect()->route('loker.index')->with('success', 'Data Lowongan Berhasil Di Hapus');
+        } catch (\Exception $e) {
+            return redirect()->route('loker.index')->with('error', 'Terjadi kesalahan saat menghapus data.');
+        }
+    }
+
 }

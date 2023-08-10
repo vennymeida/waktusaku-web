@@ -102,17 +102,17 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'kecamatan.edit']);
         Permission::create(['name' => 'kecamatan.destroy']);
 
-         //menu kategori
-         Permission::create(['name' => 'kategori.index']);
-         Permission::create(['name' => 'kategori.create']);
-         Permission::create(['name' => 'kategori.edit']);
-         Permission::create(['name' => 'kategori.destroy']);
+        //menu kategori
+        Permission::create(['name' => 'kategori.index']);
+        Permission::create(['name' => 'kategori.create']);
+        Permission::create(['name' => 'kategori.edit']);
+        Permission::create(['name' => 'kategori.destroy']);
 
-         //menu lowongan pekerjaan
-         Permission::create(['name' => 'loker.index']);
-         Permission::create(['name' => 'loker.create']);
-         Permission::create(['name' => 'loker.edit']);
-         Permission::create(['name' => 'loker.destroy']);
+        //menu lowongan pekerjaan
+        Permission::create(['name' => 'loker.index']);
+        Permission::create(['name' => 'loker.create']);
+        Permission::create(['name' => 'loker.edit']);
+        Permission::create(['name' => 'loker.destroy']);
 
         // create roles
         $roleUser = Role::create(['name' => 'Pencari Kerja']);
@@ -125,7 +125,11 @@ class RoleAndPermissionSeeder extends Seeder
         $roleUser = Role::create(['name' => 'Perusahaan']);
         $roleUser->givePermissionTo([
             'dashboard',
-            'user.index',
+            'menu.pekerjaan',
+            'loker.index',
+            'loker.create',
+            'loker.edit',
+            'loker.destroy',
         ]);
 
         // create Super Admin
