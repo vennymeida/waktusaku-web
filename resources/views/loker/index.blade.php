@@ -21,92 +21,93 @@
                             <div class="card-header">
                                 <h4>Tabel Lowongan Pekerjaan</h4>
                             </div>
-                            <div class="card-body col-md-12">
-                                <form action="{{ route('loker.index') }}" method="GET" class="row">
-                                    <div class="form-row text-center">
-                                        <div class="form-group col-md-4">
-                                            {{-- <label for="status">Filter by Status</label> --}}
-                                            <form id="search" method="GET" action="{{ route('loker.index') }}">
+                            <div class="card-body">
+                                <div class="mt-0">
+                                    <form action="{{ route('loker.index') }}" method="GET">
+                                        <div class="form-row text-center">
+                                            <div class="form-group col-md-4">
                                                 <select name="status" class="form-control" id="statusSelect">
-                                                    <option value="" selected>Status</option>
+                                                    <option value="" selected>-- Pilih Status --</option>
                                                     @foreach ($statuses as $status)
-                                                        <option value="{{ $status }}" @if ($status == $selectedStatus) selected @endif>
+                                                        <option value="{{ $status }}"
+                                                            @if ($status == $selectedStatus) selected @endif>
                                                             {{ $status }}</option>
                                                     @endforeach
                                                 </select>
-                                            </form>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" class="form-control" name="search"
+                                                    value="{{ app('request')->input('search') }}">
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <a href="{{ route('loker.index') }}"
+                                                    class="btn btn-secondary ml-2">Reset</a>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            {{-- <label for="name">Search by All</label> --}}
-                                            <input type="text" class="form-control" name="search"
-                                                value="{{ app('request')->input('search') }}">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button type="submit" class="btn btn-primary">Cari</button>
-                                            <a href="{{ route('loker.index') }}" class="btn btn-secondary ml-2">Reset</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-md">
-                                    <tbody>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Perusahaan</th>
-                                            <th>Kategori Pekerjaan</th>
-                                            <th>Tipe Pekerjaan</th>
-                                            <th>Gaji</th>
-                                            <th>Status</th>
-                                            <th class="text-center">Action</th>
-                                            <th class="text-center">Detail</th>
-                                        </tr>
-                                        @foreach ($allResults as $key => $loker)
+                                    </form>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-md">
+                                        <tbody>
                                             <tr>
-                                                <td>{{ ($allResults->currentPage() - 1) * $allResults->perPage() + $key + 1 }}
-                                                </td>
-                                                <td>{{ $loker->nama }}</td>
-                                                <td>{{ $loker->kategori }}</td>
-                                                <td>{{ $loker->tipe_pekerjaan }}</td>
-                                                <td>{{ 'Rp ' . number_format($loker->gaji, 0, ',', '.') }}</td>
-                                                <td>{{ $loker->status }}</td>
-                                                <td class="text-center">
-                                                    <div class="d-flex justify-content-center">
-                                                        <a href="{{ route('loker.edit', $loker->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon "><i
-                                                                class="fas fa-edit"></i>
-                                                            Edit</a>
-                                                        <form action="{{ route('loker.destroy', $loker->id) }}"
-                                                            method="POST" class="ml-2">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}">
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Hapus </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center">
-                                                    <div class="d-flex justify-content-center">
-                                                        <a href="#" class="btn btn-sm btn-primary btn-icon"
-                                                            data-toggle="modal"
-                                                            data-target="#detailModal{{ $loker->id }}">
-                                                            <i class="far fa-eye" id="modal-{{ $loker->id }}"></i>
-                                                            Detail
-                                                        </a>
-                                                    </div>
-                                                </td>
+                                                <th>No</th>
+                                                <th>Nama Perusahaan</th>
+                                                <th>Kategori Pekerjaan</th>
+                                                <th>Tipe Pekerjaan</th>
+                                                <th>Gaji</th>
+                                                <th>Status</th>
+                                                <th class="text-center">Action</th>
+                                                <th class="text-center">Detail</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <div class="d-flex justify-content-center">
-                                    {{ $allResults->withQueryString()->links() }}
+                                            @foreach ($allResults as $key => $loker)
+                                                <tr>
+                                                    <td>{{ ($allResults->currentPage() - 1) * $allResults->perPage() + $key + 1 }}
+                                                    </td>
+                                                    <td>{{ $loker->nama }}</td>
+                                                    <td>{{ $loker->kategori }}</td>
+                                                    <td>{{ $loker->tipe_pekerjaan }}</td>
+                                                    <td>{{ 'Rp ' . number_format($loker->gaji, 0, ',', '.') }}</td>
+                                                    <td>{{ $loker->status }}</td>
+                                                    <td class="text-center">
+                                                        <div class="d-flex justify-content-center">
+                                                            <a href="{{ route('loker.edit', $loker->id) }}"
+                                                                class="btn btn-sm btn-info btn-icon "><i
+                                                                    class="fas fa-edit"></i>
+                                                                Edit</a>
+                                                            <form action="{{ route('loker.destroy', $loker->id) }}"
+                                                                method="POST" class="ml-2">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token"
+                                                                    value="{{ csrf_token() }}">
+                                                                <button
+                                                                    class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                                    <i class="fas fa-times"></i> Hapus </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="d-flex justify-content-center">
+                                                            <a href="#" class="btn btn-sm btn-primary btn-icon"
+                                                                data-toggle="modal"
+                                                                data-target="#detailModal{{ $loker->id }}">
+                                                                <i class="far fa-eye" id="modal-{{ $loker->id }}"></i>
+                                                                Detail
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div class="d-flex justify-content-center">
+                                        {{ $allResults->withQueryString()->links() }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </section>
     @endif
@@ -180,11 +181,18 @@
         <section class="section">
             <div class="section-header d-flex justify-content-between align-items-center">
                 <h1>Lowongan Pekerjaan</h1>
-                <a href="{{ route('loker.create') }}" class="btn btn-primary" style="border-radius: 25px;"><i
-                        class="fas fa-plus-circle"></i>
-                    Tambah Lowongan Kerja
-                </a>
+                @if (!empty($profilUser->id) && !empty($perusahaan->id))
+                    <a href="{{ route('loker.create') }}" class="btn btn-primary" style="border-radius: 25px;"><i
+                            class="fas fa-plus-circle"></i>
+                        Tambah Lowongan Kerja
+                    </a>
+                @endif
             </div>
+            @if (empty($profilUser->id) || empty($perusahaan->id))
+                <div class="alert alert-danger d-inline-block">
+                    Lengkapi data diri dan data perusahaan terlebih dahulu untuk bisa menambah Lowongan Pekerjaan.
+                </div>
+            @endif
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -294,18 +302,14 @@
         }
     </script>
     <script>
-    // Mengambil elemen select opsi status
-    const statusSelect = document.getElementById('statusSelect');
+        const statusSelect = document.getElementById('statusSelect');
 
-    // Menambahkan event listener saat pilihan opsi status berubah
-    statusSelect.addEventListener('change', function () {
-        // Mendapatkan nilai opsi yang dipilih
-        const selectedStatus = statusSelect.value;
+        statusSelect.addEventListener('change', function() {
+            const selectedStatus = statusSelect.value;
 
-        // Menavigasi ke URL dengan parameter status
-        window.location.href = '{{ route("loker.index") }}?status=' + selectedStatus;
-    });
-</script>
+            window.location.href = '{{ route('loker.index') }}?status=' + selectedStatus;
+        });
+    </script>
 @endpush
 
 @push('customStyle')
@@ -321,9 +325,9 @@
     </script>
 @endpush
 @push('customScript')
-<script>
-    document.getElementById('statusSelect').addEventListener('change', function () {
-        document.getElementById('search').submit();
-    });
-</script>
+    <script>
+        document.getElementById('statusSelect').addEventListener('change', function() {
+            document.getElementById('search').submit();
+        });
+    </script>
 @endpush

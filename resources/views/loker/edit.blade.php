@@ -269,7 +269,24 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <input type="hidden" name="status" value="{{ $loker->status }}">
+                                    <div class="col-md-8"></div>
+                                    @if ($loker->status == 'pending')
+                                        <input type="hidden" name="status" value="pending">
+                                    @else
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="status">Status Pekerjaan</label>
+                                                <select class="form-control" id="status" name="status">
+                                                    <option value="dibuka"
+                                                        {{ $loker->status === 'dibuka' ? 'selected' : '' }}>
+                                                        Dibuka</option>
+                                                    <option value="ditutup"
+                                                        {{ $loker->status === 'ditutup' ? 'selected' : '' }}>
+                                                        Ditutup</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary">Submit</button>
