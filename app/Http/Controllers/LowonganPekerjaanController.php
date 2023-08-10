@@ -27,6 +27,9 @@ class LowonganPekerjaanController extends Controller
 
     public function index(Request $request)
 {
+    $statuses = ['pending', 'dibuka', 'ditutup'];
+    $selectedStatus = $request->input('status');
+
     $allResults = DB::table('lowongan_pekerjaans as lp')
         ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
         ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
@@ -52,8 +55,11 @@ class LowonganPekerjaanController extends Controller
             $search = $request->input('search');
             return $query->where('p.nama', 'like', '%' . $search . '%')
                          ->orWhere('kp.kategori', 'like', '%' . $search . '%')
-                         ->orWhere('lp.tipe_pekerjaan', 'like', '%' . $search . '%')
-                         ->orWhere('lp.status', 'like', '%' . $search . '%');
+                         ->orWhere('lp.tipe_pekerjaan', 'like', '%' . $search . '%');
+        })
+            ->when($selectedStatus, function ($query, $selectedStatus) {
+                return $query->where('lp.status', $selectedStatus);
+                $query->appends(['status'=>$selectedStatus]);
         })
         ->paginate(10);
 
@@ -75,7 +81,7 @@ class LowonganPekerjaanController extends Controller
         })
         ->paginate(10);
 
-    return view('loker.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults]);
+    return view('loker.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus]);
 }
 
 

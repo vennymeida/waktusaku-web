@@ -21,21 +21,32 @@
                             <div class="card-header">
                                 <h4>Tabel Lowongan Pekerjaan</h4>
                             </div>
-                            <div class="card-body">
-                                <form id="search" method="GET" action="{{ route('loker.index') }}">
+                            <div class="card-body col-md-12">
+                                <form action="{{ route('loker.index') }}" method="GET" class="row">
                                     <div class="form-row text-center">
-                                        <div class="form-group col-md-10">
-                                            <input type="text" name="search" class="form-control" id="search"
-                                                placeholder="Cari...." value="{{ app('request')->input('search') }}">
+                                        <div class="form-group col-md-4">
+                                            {{-- <label for="status">Filter by Status</label> --}}
+                                            <form id="search" method="GET" action="{{ route('loker.index') }}">
+                                                <select name="status" class="form-control" id="statusSelect">
+                                                    <option value="" selected>Status</option>
+                                                    @foreach ($statuses as $status)
+                                                        <option value="{{ $status }}" @if ($status == $selectedStatus) selected @endif>
+                                                            {{ $status }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </form>
                                         </div>
-                                        <div class="form-group col-md-2">
-                                            <button id="submit-button" class="btn btn-primary mr-1"
-                                                type="submit">Submit</button>
-                                            <a id="reset-button" class="btn btn-secondary"
-                                                href="{{ route('loker.index') }}">Reset</a>
+                                        <div class="form-group col-md-6">
+                                            {{-- <label for="name">Search by All</label> --}}
+                                            <input type="text" class="form-control" name="search"
+                                                value="{{ app('request')->input('search') }}">
                                         </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-primary">Cari</button>
+                                            <a href="{{ route('loker.index') }}" class="btn btn-secondary ml-2">Reset</a>
+                                        </div>
+                                    </div>
                                 </form>
-                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
@@ -112,16 +123,50 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Pemilik: {{ $loker->name }}</p>
-                        <p>Perusahaan: {{ $loker->nama }}</p>
-                        <p>Kategori: {{ $loker->kategori }}</p>
-                        <p>Judul: {{ $loker->judul }}</p>
-                        <p>Deskripsi: {{ $loker->deskripsi }}</p>
-                        <p>Persyaratan: {{ $loker->requirement }}</p>
-                        <p>Tipe Pekerjaan: {{ $loker->tipe_pekerjaan }}</p>
-                        <p>Gaji: {{ $loker->gaji }}</p>
-                        <p>Jumlah Pelamar: {{ $loker->jumlah_pelamar }}</p>
-                        <p>Status: {{ $loker->status }}</p>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th class="text-left">Nama Pemilik</th>
+                                    <td>{{ $loker->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Nama Perusahaan</th>
+                                    <td>{{ $loker->nama }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Kategori Pekerjaan</th>
+                                    <td>{{ $loker->kategori }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Judul Lowongan</th>
+                                    <td>{{ $loker->judul }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Deskripsi</th>
+                                    <td>{{ $loker->deskripsi }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Requirement</th>
+                                    <td>{{ $loker->requirement }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Tipe Pekerjaan</th>
+                                    <td>{{ $loker->tipe_pekerjaan }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Gaji</th>
+                                    <td>{{ 'Rp ' . number_format($loker->gaji, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Kuota Pelamar</th>
+                                    <td>{{ $loker->jumlah_pelamar }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Status</th>
+                                    <td>{{ $loker->status }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -248,6 +293,19 @@
             $('#del-' + id).submit()
         }
     </script>
+    <script>
+    // Mengambil elemen select opsi status
+    const statusSelect = document.getElementById('statusSelect');
+
+    // Menambahkan event listener saat pilihan opsi status berubah
+    statusSelect.addEventListener('change', function () {
+        // Mendapatkan nilai opsi yang dipilih
+        const selectedStatus = statusSelect.value;
+
+        // Menavigasi ke URL dengan parameter status
+        window.location.href = '{{ route("loker.index") }}?status=' + selectedStatus;
+    });
+</script>
 @endpush
 
 @push('customStyle')
@@ -261,4 +319,11 @@
             $('.select2').select2();
         });
     </script>
+@endpush
+@push('customScript')
+<script>
+    document.getElementById('statusSelect').addEventListener('change', function () {
+        document.getElementById('search').submit();
+    });
+</script>
 @endpush
