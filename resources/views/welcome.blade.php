@@ -1,111 +1,226 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Login &mdash; WaktuSaku</title>
-
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-  <!-- CSS Libraries -->
-  <link rel="stylesheet" href="../node_modules/bootstrap-social/bootstrap-social.css">
-
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
-</head>
-
-<body>
-  <div id="app">
-    <section class="section">
-      <div class="d-flex flex-wrap align-items-stretch">
-        <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
-          <div class="p-4 m-3">
-            <img src="../assets/img/stisla-fill.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
-            <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Stisla</span></h4>
-            <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p>
-            <form action="{{ route('login') }}" method="POST">
-              @csrf
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input  type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Alamat Email" tabindex="1" required autofocus>
-                <div class="invalid-feedback">
-                  Please fill in your email
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="d-block">
-                  <label for="password" class="control-label">Password</label>
-                </div>
-                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Masukkan Password" tabindex="2" required>
-                <div class="invalid-feedback">
-                  please fill in your password
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                  <label class="custom-control-label" for="remember-me">Remember Me</label>
-                </div>
-              </div>
-
-              <div class="form-group text-right">
-                <a href="/forgot-password" class="float-left mt-3">
-                  Forgot Password?
-                </a>
-                <button type="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
-                  Login
-                </button>
-              </div>
-
-              <div class="mt-5 text-center">
-                Don't have an account? <a href="/register">Create new one</a>
-              </div>
-            </form>
-
-            <div class="text-center mt-5 text-small">
-              Copyright &copy; Your Company. Made with 💙 by Stisla
-              <div class="mt-2">
-                <a href="#">Privacy Policy</a>
-                <div class="bullet"></div>
-                <a href="#">Terms of Service</a>
-              </div>
+@extends('landing-page.app')
+@section('main')
+    <main class="bg-light">
+        <section>
+            <div class="col-md-10 bg-white mx-auto my-5 p-5 rounded">
+                <h1>Selamat datang di <span class="text-primary">WaktuSaku</span></h1>
+                <p>Yuk daftar sekarang! Dapatakan tawaran pekerjaan sesuai minat bakat Anda</p>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="../assets/img/unsplash/login-bg.jpg">
-          <div class="absolute-bottom-left index-2">
-            <div class="text-light p-5 pb-2">
-              <div class="mb-5 pb-3">
-                <h1 class="mb-2 display-4 font-weight-bold">Good Morning</h1>
-                <h5 class="font-weight-normal text-muted-transparent">Bali, Indonesia</h5>
-              </div>
-              Photo by <a class="text-light bb" target="_blank" href="https://unsplash.com/photos/a8lTjWJJgLA">Justin Kauffman</a> on <a class="text-light bb" target="_blank" href="https://unsplash.com">Unsplash</a>
+        </section>
+
+        <section>
+            <div class="card-primary col-md-10 bg-white mx-auto my-4 p-5 rounded">
+                <h2>Apa itu <span class="text-primary">WaktuSaku </span><span>?</span></h2>
+                <div class="d-flex justify-content-around align-items-center">
+                    <div class="col-md-4">
+                        <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-justify">
+                            Platform yang dirancang khusus untuk Mahasiswa Malang Raya yang mencari peluang kerja . Di
+                            WaktuSaku, kamu memahami betapa berharga waktu Anda sebagai mahasiswa yang sibuk. Oleh karena
+                            itu, kamu menawarkan berbagai peluang pekerjaan yang fleksibel dan relevan dengan
+                            minat bakat Anda.
+                        </h6>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+        </section>
 
-  <!-- General JS Scripts -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="../assets/js/stisla.js"></script>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 my-5 mx-auto">
+                        <h2 class="text-center">Mengapa harus di <span class="text-primary">WaktuSaku </span><span>?</span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row justify-content-center mb-3">
+                    <div class="col-md-5">
+                        <div class="card d-flex align-items-center" style="height: 100%; border: none;">
+                            <div class="row no-gutters">
+                                <div class="col-md-5 d-flex justify-content-center align-items-center"
+                                    style="padding-top: 50px;">
+                                    <i class="fas fa-user-check text-primary fa-3x" style="margin-bottom: 150px;"></i>
+                                </div>
+                                <div class="col-md-7 bg-primary text-white rounded">
+                                    <div class="card-body">
+                                        <h5 class="card-title font-weight-bold">Peluang Pekerjaan yang Sesuai</h5>
+                                        <p class="card-text text-justify">
+                                            Temukan lowongan kerja yang
+                                            relevan dengan minat bakat Anda. Mulai dari perusahaan teknologi,
+                                            media kreatif, hingga startup yang sedang berkembang pesat.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card d-flex align-items-center" style="height: 100%; border: none;">
+                            <div class="row no-gutters">
+                                <div class="col-md-5 d-flex justify-content-center align-items-center"
+                                    style="padding-top: 50px;">
+                                    <i class="fas fa-file-alt text-primary fa-3x" style="margin-bottom: 150px;"></i>
+                                </div>
+                                <div class="col-md-7 bg-primary text-white rounded">
+                                    <div class="card-body">
+                                        <h5 class="card-title font-weight-bold">Pengalaman Berharga</h5>
+                                        <p class="card-text text-justify">
+                                            Peluang kerja di WaktuSaku membantu Anda dalam mendapatkan pengalaman
+                                            kerja lebih awal. WaktuSaku akan memberikan keuntungan yang
+                                            signifikan dalam pasar kerja setelah lulus.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-5">
+                        <div class="card d-flex align-items-center" style="height: 100%; border: none;">
+                            <div class="row no-gutters">
+                                <div class="col-md-5 d-flex justify-content-center align-items-center"
+                                    style="padding-top: 50px;">
+                                    <i class="fas fa-history text-primary fa-3x" style="margin-bottom: 150px;"></i>
+                                </div>
+                                <div class="col-md-7 bg-primary text-white rounded">
+                                    <div class="card-body">
+                                        <h5 class="card-title font-weight-bold">Waktu yang Fleksibel</h5>
+                                        <p class="card-text text-justify">
+                                            Kamu memahami prioritas utama Anda sebagai mahasiswa. Oleh karena itu, Anda
+                                            dapat menyesuaikan jadwal kerja Anda dengan jadwal kuliah dan kegiatan lainnya.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card d-flex align-items-center" style="height: 100%; border: none;">
+                            <div class="row no-gutters">
+                                <div class="col-md-5 d-flex justify-content-center align-items-center"
+                                    style="padding-top: 50px;">
+                                    <i class="fas fa-percent text-primary fa-3x" style="margin-bottom: 150px;"></i>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body bg-primary text-white rounded">
+                                        <h5 class="card-title font-weight-bold">Mendapatkan gaji bonus</h5>
+                                        <p class="card-text text-justify">
+                                            Selain mendapatkan peluang pekerjaan yang sesuai, Anda mendapatkan gaji bonus
+                                            dari masing - masing perusahaan yang Anda minati jika Anda pekerja aktif.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- JS Libraies -->
+        <section>
+            <div class="col-md-10 mt-5 mx-auto">
+                <h2 class="text-center">Lowongan Kerja Terbaru di <span class="text-primary">WaktuSaku</span></h2>
+                <div class="row flex-nowrap overflow-auto mt-5 horizontal-scroll">
+                    <div class="scroll-arrow left bg-transparent text-secondary">
+                        <i class="fas fa-angle-left"></i>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="border: none;">
+                            <div class="card-body">
+                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
+                                    alt="">
+                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
+                                <p class="card-text text-justify">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
+                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
+                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
+                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="border: none;">
+                            <div class="card-body">
+                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
+                                    alt="">
+                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
+                                <p class="card-text text-justify">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
+                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
+                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
+                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="border: none;">
+                            <div class="card-body">
+                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
+                                    alt="">
+                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
+                                <p class="card-text text-justify">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
+                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
+                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
+                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="border: none;">
+                            <div class="card-body">
+                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
+                                    alt="">
+                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
+                                <p class="card-text text-justify">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
+                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
+                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
+                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="border: none;">
+                            <div class="card-body">
+                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
+                                    alt="">
+                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
+                                <p class="card-text text-justify">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
+                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
+                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
+                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scroll-arrow right bg-transparent text-secondary">
+                        <i class="fas fa-angle-right"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <!-- Template JS File -->
-  <script src="../assets/js/scripts.js"></script>
-  <script src="../assets/js/custom.js"></script>
+    <script>
+        const scrollableContent = document.querySelector('.horizontal-scroll');
+        const scrollLeftArrow = document.querySelector('.scroll-arrow.left');
+        const scrollRightArrow = document.querySelector('.scroll-arrow.right');
 
-  <!-- Page Specific JS File -->
-</body>
-</html>
+        scrollLeftArrow.addEventListener('click', () => {
+            scrollableContent.scrollLeft -= 360;
+        });
+
+        scrollRightArrow.addEventListener('click', () => {
+            scrollableContent.scrollLeft += 360;
+        });
+    </script>
+@endsection

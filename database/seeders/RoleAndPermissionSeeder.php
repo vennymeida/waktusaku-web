@@ -26,7 +26,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'menu.management']);
         Permission::create(['name' => 'location.management']);
         Permission::create(['name' => 'menu.kategori']);
-
+        Permission::create(['name' => 'menu.pekerjaan']);
         //user
         Permission::create(['name' => 'user.index']);
         Permission::create(['name' => 'user.create']);
@@ -34,6 +34,14 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'user.destroy']);
         Permission::create(['name' => 'user.import']);
         Permission::create(['name' => 'user.export']);
+
+        //Pelamar
+        Permission::create(['name' => 'pelamar.index']);
+        Permission::create(['name' => 'pelamar.create']);
+        Permission::create(['name' => 'pelamar.edit']);
+        Permission::create(['name' => 'pelamar.destroy']);
+        Permission::create(['name' => 'pelamar.import']);
+        Permission::create(['name' => 'pelamar.export']);
 
         //role
         Permission::create(['name' => 'role.index']);
@@ -91,6 +99,12 @@ class RoleAndPermissionSeeder extends Seeder
          Permission::create(['name' => 'kategori.create']);
          Permission::create(['name' => 'kategori.edit']);
          Permission::create(['name' => 'kategori.destroy']);
+
+         //menu lowongan pekerjaan
+         Permission::create(['name' => 'loker.index']);
+         Permission::create(['name' => 'loker.create']);
+         Permission::create(['name' => 'loker.edit']);
+         Permission::create(['name' => 'loker.destroy']);
 
         // create roles
         $roleUser = Role::create(['name' => 'Pencari Kerja']);

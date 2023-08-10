@@ -4,10 +4,10 @@
     <!-- Main Content -->
     <section class="section">
         <div class="section-header">
-            <h1>Menu Kategori Pekerjaan</h1>
+            <h1>Menu Lowongan Pekerjaan</h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Kategori Pekerjaan</h2>
+            <h2 class="section-title">Lowongan Pekerjaan</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -18,24 +18,24 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4>Tabel Kategori Pekerjaan</h4>
+                            <h4>Tabel Lowongan Pekerjaan</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('kategori.create') }}">Tambah
-                                    Kategori Pekerjaan Baru</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('loker.create') }}">Tambah
+                                    Lowongan Pekerjaan Baru</a>
                             </div>
                         </div>
                         <div class="card-body">
-                            <form id="search" method="GET" action="{{ route('kategori.index') }}">
+                            <form id="search" method="GET" action="{{ route('loker.index') }}">
                                     <div class="form-row text-center">
                                         <div class="form-group col-md-10">
-                                            <input type="text" name="kategori" class="form-control" id="kategori"
-                                                placeholder="Cari...." value="{{ app('request')->input('kategori') }}">
+                                            <input type="text" name="loker" class="form-control" id="loker"
+                                                placeholder="Cari...." value="{{ app('request')->input('loker') }}">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <button id="submit-button" class="btn btn-primary mr-1"
                                                 type="submit">Submit</button>
                                             <a id="reset-button" class="btn btn-secondary"
-                                                href="{{ route('kategori.index') }}">Reset</a>
+                                                href="{{ route('loker.index') }}">Reset</a>
                                         </div>
                                     </form>
                             </div>
@@ -44,21 +44,29 @@
                                     <tbody>
                                         <tr>
                                             <th>No</th>
+                                            <th>Nama Perusahaan</th>
                                             <th>Kategori Pekerjaan</th>
+                                            <th>Tipe Pekerjaan</th>
+                                            <th>Gaji</th>
+                                            <th>Status</th>
                                             <th class="text-center">Action</th>
+                                            <th class="text-center">Detail</th>
                                         </tr>
-                                        @foreach ($kategoris as $key => $kategori)
+                                        {{-- @foreach ($lokers as $key => $loker) --}}
                                             <tr>
-                                                <td>{{ ($kategoris->currentPage() - 1) * $kategoris->perPage() + $key + 1 }}
-                                                </td>
-                                                <td>{{ $kategori->kategori }}</td>
+                                                <td>1</td>
+                                                <td>Hummasoft Technology</td>
+                                                <td>Programmer</td>
+                                                <td>Remote</td>
+                                                <td>Rp 3.500.000</td>
+                                                <td>Pending</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <a href="{{ route('kategori.edit', $kategori->id) }}"
+                                                        <a href=""
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
                                                             Edit</a>
-                                                            <form action="{{ route('kategori.destroy', $kategori->id) }}"
+                                                            <form action=""
                                                                 method="POST" class="ml-2">
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <input type="hidden" name="_token"
@@ -68,12 +76,20 @@
                                                             </form>
                                                     </div>
                                                 </td>
+                                                <td class="text-center">
+                                                    <div class="d-flex justify-content-center">
+                                                        <a href=""
+                                                        class="btn btn-sm btn-primary btn-icon">
+                                                            <i class="far fa-eye"></i>
+                                                            Detail</a>
+                                                    </div>
+                                                </td>
                                             </tr>
-                                        @endforeach
+                                        {{-- @endforeach --}}
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-center">
-                                    {{ $kategoris->withQueryString()->links() }}
+                                    {{-- {{ $lokers->withQueryString()->links() }} --}}
                                 </div>
                             </div>
                         </div>

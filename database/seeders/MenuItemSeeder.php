@@ -31,6 +31,12 @@ class MenuItemSeeder extends Seeder
                     'menu_group_id' => 2,
                 ],
                 [
+                    'name' => 'Pelamar List',
+                    'route' => 'user-management/pelamar',
+                    'permission_name' => 'pelamar.index',
+                    'menu_group_id' => 2,
+                ],
+                [
                     'name' => 'Role List',
                     'route' => 'role-and-permission/role',
                     'permission_name' => 'role.index',
@@ -67,9 +73,15 @@ class MenuItemSeeder extends Seeder
                     'menu_group_id' => 4,
                 ],
                 [
-                    'name' => 'Kategori',
-                    'route' => 'menu-kategori/kategori',
+                    'name' => 'Kategori Pekerjaan',
+                    'route' => 'menu-pekerjaan/kategori',
                     'permission_name' => 'kategori.index',
+                    'menu_group_id' => 5,
+                ],
+                [
+                    'name' => 'Lowongan Pekerjaan',
+                    'route' => 'menu-pekerjaan/loker',
+                    'permission_name' => 'loker.index',
                     'menu_group_id' => 5,
                 ],
                 [
