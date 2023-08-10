@@ -29,20 +29,33 @@ class UserSeeder extends Seeder
         ]);
 
         // User::factory()->count(10)->create();
+        // User::create([
+        //     'name' => "Pelamar",
+        //     'email' => "pelamar@gmail.com",
+        // ]);
+        // User::create([
+        //     'name' => "Perusahaan",
+        //     'email' => "perusahaan@gmail.com",
+        //     'password' => Hash::make('password'),
+        //     'email_verified_at' => now(),
+        // ]);
+        // User::create([
+        //     'name' => "Perusahaan",
+        //     'email' => "perusahaan@gmail.com",
+        //     'name' => "Pencari Kerja",
+        //     'email' => "pencarikerja@gmail.com",
+        //     'password' => Hash::make('password'),
+        //     'email_verified_at' => now(),
+        // ]);
         User::create([
             'name' => "Pelamar",
             'email' => "pelamar@gmail.com",
-        User::create([
-            'name' => "Perusahaan",
-            'email' => "perusahaan@gmail.com",
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
         User::create([
             'name' => "Perusahaan",
             'email' => "perusahaan@gmail.com",
-            'name' => "Pencari Kerja",
-            'email' => "pencarikerja@gmail.com",
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);

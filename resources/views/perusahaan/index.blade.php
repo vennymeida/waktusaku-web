@@ -54,7 +54,7 @@
                                         @foreach ($perusahaanData as $key => $perusahaan)
                                             <tr>
                                                 <td>{{ ($perusahaanData->currentPage() - 1) * $perusahaanData->perPage() + $key + 1 }}</td>
-                                                <td>{{ $perusahaan->perusahaan->nama }}</td>
+                                                <td>{{ $perusahaan->perusahaan->name }}</td>
                                                 <td>{{ $perusahaan->perusahaan->email }}</td>
                                                 <td>{{ $perusahaan->perusahaan->alamat }}</td>
                                                 <td>{{ $perusahaan->perusahaan->no_hp }}</td>
