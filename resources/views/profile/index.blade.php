@@ -1,3 +1,39 @@
+<!-- Modal for Logo Preview -->
+<div class="modal fade" id="logoPreviewModal" tabindex="-1" role="dialog" aria-labelledby="logoPreviewModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h5 class="modal-title" id="logoPreviewModalLabel">Logo Preview</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+           </button>
+       </div>
+       <div class="modal-body">
+           <img id="logoPreviewImage" src="" alt="Logo Preview" class="img-fluid">
+       </div>
+   </div>
+</div>
+</div>
+
+<!-- Modal for SIU Preview -->
+<div class="modal fade" id="siuPreviewModal" tabindex="-1" role="dialog" aria-labelledby="siuPreviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="siuPreviewModalLabel">Surat Izin Usaha Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="siuPreviewIframe" width="100%" height="500px" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
 @extends('layouts.app')
 
 @section('content')
@@ -456,51 +492,49 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="show_logo"
-                                                id="show_logo">
-                                            <label class="form-check-label" for="show_logo">
-                                                Perbarui Logo Perusahaan
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="show_siu"
-                                                id="show_siu">
-                                            <label class="form-check-label" for="show_siu">
-                                                Perbarui Surat Izin Usaha
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12 col-12" id="logo_upload_form"
-                                        style="{{ old('show_logo') ? '' : 'display: none' }}">
-                                        <div class="form-group">
-                                            <label>Unggah Logo Perusahaan</label>
-                                            <input name="logo" type="file"
+                                        <label>Perbarui Logo Perusahaan</label>
+                                        <input id="logo" name="logo" type="file"
                                                 class="form-control @error('logo') is-invalid @enderror">
-                                        </div>
                                         @error('logo')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-12 col-12" id="siu_upload_form"
-                                        style="{{ old('show_siu') ? '' : 'display: none' }}">
-                                        <div class="form-group">
-                                            <label>Unggah Surat Izin Usaha</label>
-                                            <input name="siu" type="file"
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Perbarui Surat Izin Usaha</label>
+                                        <input id="siu" name="siu" type="file"
                                                 class="form-control @error('siu') is-invalid @enderror">
-                                        </div>
                                         @error('siu')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="row">
+                                    @if (Auth::user()->perusahaan && Auth::user()->perusahaan->logo != '')
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="preview">Preview Logo</label>
+                                            <div>
+                                                <a href="#" class="btn btn-sm btn-primary btn-icon" data-toggle="modal"
+                                                data-target="#logoPreviewModal" data-logo="{{ Storage::url(Auth::user()->perusahaan->logo) }}">
+                                                    <i class="fas fa-eye mt-6"></i> Show
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if (Auth::user()->perusahaan && Auth::user()->perusahaan->siu != '')
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="preview">Preview Surat Izin Usaha</label>
+                                            <div>
+                                                <a href="#" class="btn btn-sm btn-primary btn-icon" data-toggle="modal" data-target="#siuPreviewModal"
+                                                    data-pdf="{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->siu) : '' }}">
+                                                    <i class="fas fa-eye mt-6"></i> Show
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card-footer text-right">
@@ -611,6 +645,35 @@
                         console.log(xhr.responseText);
                     }
                 });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#logoPreviewModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var logoUrl = button.data('logo');
+                var modal = $(this);
+                modal.find('#logoPreviewImage').attr('src', logoUrl);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#siuPreviewModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var pdfUrl = button.data('pdf'); // Extract info from data-* attributes
+
+                var modal = $(this);
+                var iframe = modal.find('#siuPreviewIframe');
+                iframe.attr('src', pdfUrl);
+            });
+
+            $('#siuPreviewModal').on('hidden.bs.modal', function() {
+                var iframe = $(this).find('#siuPreviewIframe');
+                iframe.attr('src', ''); // Clear the iframe source when the modal is closed
             });
         });
     </script>
