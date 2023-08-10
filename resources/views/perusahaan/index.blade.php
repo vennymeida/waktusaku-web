@@ -43,7 +43,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama</th>
+                                            <th>Nama Perusahaan</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
                                             <th>No Telp</th>
@@ -54,10 +54,10 @@
                                         @foreach ($perusahaanData as $key => $perusahaan)
                                             <tr>
                                                 <td>{{ ($perusahaanData->currentPage() - 1) * $perusahaanData->perPage() + $key + 1 }}</td>
-                                                <td>{{ $perusahaan->name }}</td>
-                                                <td>{{ $perusahaan->email }}</td>
-                                                <td>{{ optional($perusahaan->profile)->alamat }}</td>
-                                                <td>{{ optional($perusahaan->profile)->no_hp }}</td>
+                                                <td>{{ $perusahaan->perusahaan->nama }}</td>
+                                                <td>{{ $perusahaan->perusahaan->email }}</td>
+                                                <td>{{ $perusahaan->perusahaan->alamat }}</td>
+                                                <td>{{ $perusahaan->perusahaan->no_hp }}</td>
                                                 <td>
                                                     <a href="{{ route('perusahaan.show', $perusahaan) }}" class="btn btn-sm btn-primary btn-icon">
                                                         <i class="fas fa-eye"></i> Details

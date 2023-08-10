@@ -88,6 +88,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::resource('perusahaan', PerusahaanListController::class);
         Route::get('/perusahaan', 'App\Http\Controllers\PerusahaanListController@index')->name('perusahaan.index');
+        Route::get('/user-management/perusahaan/{user}', 'PerusahaanListController@show')->name('perusahaan.show');
+
         // Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
         // Route::get('/pelamar/{pelamar}/edit', [PelamarController::class, 'edit'])->name('pelamar.edit');
         // Route::put('/pelamar/{pelamar}', [PelamarController::class, 'update'])->name('pelamar.update');

@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-md-8">
                                 <dl class="row">
-                                    <dt class="col-sm-4">Name</dt>
+                                    <dt class="col-sm-4">Nama</dt>
                                     <dd class="col-sm-8">{{ $pelamar->name }}</dd>
 
                                     <dt class="col-sm-4">Email</dt>

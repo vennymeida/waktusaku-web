@@ -44,7 +44,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Name</th>
+                                            <th>Nama</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
                                             <th>Jenis Kelamin</th>

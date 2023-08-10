@@ -6,6 +6,7 @@ use App\Models\ProfileUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Models\Perusahaan;
 
 class PerusahaanListController extends Controller
 {
@@ -14,8 +15,8 @@ class PerusahaanListController extends Controller
         // Mengambil role "Perusahaan"
         $rolePerusahaan = Role::where('name', 'Perusahaan')->first();
 
-        // Mengambil data perusahaan dengan role "Perusahaan"
-        $query = User::with('profile') // Eager-load the "users" relation
+        // Mengambil data perusahaan dengan role "Perusahaan" dan relasi "profile"
+        $query = User::with(['perusahaan', 'profile']) // Eager-load the "users", "perusahaan", and "profile" relations
             ->whereHas('roles', function ($query) use ($rolePerusahaan) {
                 $query->where('id', $rolePerusahaan->id);
             });
@@ -69,6 +70,9 @@ class PerusahaanListController extends Controller
 
     public function show(User $perusahaan)
     {
+        // Eager load the "perusahaan" relation with its "profile"
+        $perusahaan->load(['perusahaan', 'profile']);
+
         return view('perusahaan.view', compact('perusahaan'));
     }
 }
