@@ -21,7 +21,7 @@ class Perusahaan extends Model
         'logo',
         'no_hp',
         'deskripsi',
-        'siu'    
+        'siu'
     ];
 
     public function user()

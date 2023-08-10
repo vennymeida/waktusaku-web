@@ -43,6 +43,14 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'pelamar.import']);
         Permission::create(['name' => 'pelamar.export']);
 
+        //Perusahaan
+        Permission::create(['name' => 'perusahaan.index']);
+        Permission::create(['name' => 'perusahaan.create']);
+        Permission::create(['name' => 'perusahaan.edit']);
+        Permission::create(['name' => 'perusahaan.destroy']);
+        Permission::create(['name' => 'perusahaan.import']);
+        Permission::create(['name' => 'perusahaan.export']);
+
         //role
         Permission::create(['name' => 'role.index']);
         Permission::create(['name' => 'role.create']);
@@ -127,6 +135,10 @@ class RoleAndPermissionSeeder extends Seeder
         //assign user id 1 ke super admin
         $user = User::find(1);
         $user->assignRole('super-admin');
+        $user = User::find(3);
+        $user->assignRole('Pencari Kerja');
+        $user = User::find(4);
+        $user->assignRole('Perusahaan');
 
         //assign user id 3 ke perusahaan
         $user = User::find(3);
@@ -135,5 +147,6 @@ class RoleAndPermissionSeeder extends Seeder
         //assign user id 4 ke pencari kerja
         $user = User::find(4);
         $user->assignRole('Pencari Kerja');
+
     }
 }
