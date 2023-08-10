@@ -137,8 +137,7 @@
                 <h1>Lowongan Pekerjaan</h1>
                 <a href="{{ route('loker.create') }}" class="btn btn-primary" style="border-radius: 25px;"><i
                         class="fas fa-plus-circle"></i>
-                    Tambah Lowongan
-                    Kerja
+                    Tambah Lowongan Kerja
                 </a>
             </div>
             <div class="row">
@@ -150,6 +149,21 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-body">
+                            <div>
+                                <form id="search" method="GET" action="{{ route('loker.index') }}">
+                                    <div class="form-row text-center">
+                                        <div class="form-group col-md-10">
+                                            <input type="text" name="loker" class="form-control" id="loker"
+                                                placeholder="Cari...." value="{{ app('request')->input('loker') }}">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <button id="submit-button" class="btn btn-primary mr-1"
+                                                type="submit">Submit</button>
+                                            <a id="reset-button" class="btn btn-secondary"
+                                                href="{{ route('loker.index') }}">Reset</a>
+                                        </div>
+                                </form>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
@@ -196,6 +210,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="d-flex justify-content-center">
+                                    {{ $loggedInUserResults->withQueryString()->links() }}
+                                </div>
                             </div>
                         </div>
                     </div>
