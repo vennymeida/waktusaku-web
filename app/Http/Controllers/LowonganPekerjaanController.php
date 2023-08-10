@@ -26,43 +26,58 @@ class LowonganPekerjaanController extends Controller
     }
 
     public function index(Request $request)
-    {
-        $allResults = DB::table('lowongan_pekerjaans as lp')
-            ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
-            ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
-            ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
-            ->join('users as u', 'pu.user_id', '=', 'u.id')
-            ->select(
-                'lp.id',
-                'lp.user_id',
-                'lp.id_perusahaan',
-                'lp.id_kategori',
-                'p.nama',
-                'kp.kategori',
-                'lp.judul',
-                'lp.deskripsi',
-                'lp.requirement',
-                'lp.tipe_pekerjaan',
-                'lp.gaji',
-                'lp.jumlah_pelamar',
-                'lp.status',
-                'u.name',
-            )
-            ->paginate(10);
+{
+    $allResults = DB::table('lowongan_pekerjaans as lp')
+        ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
+        ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
+        ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
+        ->join('users as u', 'pu.user_id', '=', 'u.id')
+        ->select(
+            'lp.id',
+            'lp.user_id',
+            'lp.id_perusahaan',
+            'lp.id_kategori',
+            'p.nama',
+            'kp.kategori',
+            'lp.judul',
+            'lp.deskripsi',
+            'lp.requirement',
+            'lp.tipe_pekerjaan',
+            'lp.gaji',
+            'lp.jumlah_pelamar',
+            'lp.status',
+            'u.name',
+        )
+        ->when($request->has('search'), function ($query) use ($request) {
+            $search = $request->input('search');
+            return $query->where('p.nama', 'like', '%' . $search . '%')
+                         ->orWhere('kp.kategori', 'like', '%' . $search . '%')
+                         ->orWhere('lp.tipe_pekerjaan', 'like', '%' . $search . '%')
+                         ->orWhere('lp.status', 'like', '%' . $search . '%');
+        })
+        ->paginate(10);
 
-        $loggedInUserId = Auth::id();
+    $loggedInUserId = Auth::id();
 
-        $loggedInUserResults = DB::table('lowongan_pekerjaans as lp')
-            ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
-            ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
-            ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
-            ->join('users as u', 'pu.user_id', '=', 'u.id')
-            ->select('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'lp.id_kategori', 'p.nama', 'kp.kategori', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.gaji', 'lp.jumlah_pelamar', 'lp.status')
-            ->where('u.id', $loggedInUserId)
-            ->paginate(10);
+    $loggedInUserResults = DB::table('lowongan_pekerjaans as lp')
+        ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
+        ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
+        ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
+        ->join('users as u', 'pu.user_id', '=', 'u.id')
+        ->select('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'lp.id_kategori', 'p.nama', 'kp.kategori', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.gaji', 'lp.jumlah_pelamar', 'lp.status')
+        ->where('u.id', $loggedInUserId)
+        ->when($request->has('search'), function ($query) use ($request) {
+            $search = $request->input('search');
+            return $query->where('p.nama', 'like', '%' . $search . '%')
+                         ->orWhere('kp.kategori', 'like', '%' . $search . '%')
+                         ->orWhere('lp.tipe_pekerjaan', 'like', '%' . $search . '%')
+                         ->orWhere('lp.status', 'like', '%' . $search . '%');
+        })
+        ->paginate(10);
 
-        return view('loker.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults]);
-    }
+    return view('loker.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults]);
+}
+
 
     public function create()
     {

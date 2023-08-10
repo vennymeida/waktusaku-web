@@ -25,8 +25,8 @@
                                 <form id="search" method="GET" action="{{ route('loker.index') }}">
                                     <div class="form-row text-center">
                                         <div class="form-group col-md-10">
-                                            <input type="text" name="loker" class="form-control" id="loker"
-                                                placeholder="Cari...." value="{{ app('request')->input('loker') }}">
+                                            <input type="text" name="search" class="form-control" id="search"
+                                                placeholder="Cari...." value="{{ app('request')->input('search') }}">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <button id="submit-button" class="btn btn-primary mr-1"
@@ -153,8 +153,8 @@
                                 <form id="search" method="GET" action="{{ route('loker.index') }}">
                                     <div class="form-row text-center">
                                         <div class="form-group col-md-10">
-                                            <input type="text" name="loker" class="form-control" id="loker"
-                                                placeholder="Cari...." value="{{ app('request')->input('loker') }}">
+                                            <input type="text" name="search" class="form-control" id="search"
+                                                placeholder="Cari...." value="{{ app('request')->input('search') }}">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <button id="submit-button" class="btn btn-primary mr-1"
