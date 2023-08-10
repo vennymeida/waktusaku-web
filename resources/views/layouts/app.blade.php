@@ -116,13 +116,13 @@
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             @if(Auth::user()->profile && Auth::user()->profile->foto != '')
-                                <img alt="image" 
-                                    src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}" 
+                                <img alt="image"
+                                    src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
                                     class="rounded-circle mr-1" style="width: 35px; height: 35px;">
                             @else
-                                <img alt="image" 
-                                    src="{{asset('assets/img/avatar/avatar-1.png')}}" 
-                                    class="rounded-circle mr-1" style="width: 35px; height: 35px;">   
+                                <img alt="image"
+                                    src="{{asset('assets/img/avatar/avatar-1.png')}}"
+                                    class="rounded-circle mr-1" style="width: 35px; height: 35px;">
                             @endif
                             <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
                         </a>

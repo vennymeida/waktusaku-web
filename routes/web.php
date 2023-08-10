@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
+use App\Models\Kecamatan;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,10 +45,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', function () {
         return view('home', ['users' => User::get(),]);
     });
-
-    Route::get('/profile', function () {
-        return view('profile.index');
-    })->name('profile.edit');
+    Route::GET('/profile', [ProfileUserController::class, 'profile'])
+        ->name('profile.edit');
+    Route::get('/getKelurahans', [ProfileUserController::class, 'getKelurahans'])->name('getKelurahans');
     Route::PUT('/update-profile-information', [ProfileUserController::class, 'update'])
         ->name('profile.user.update');
     Route::PUT('/update-perusahaan-information', [PerusahaanController::class, 'update'])

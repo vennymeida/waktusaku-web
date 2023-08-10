@@ -15,13 +15,13 @@
             </div>
             <!-- Error Messages -->
             @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
             <p class="section-lead">
                 Ubah informasi tentang diri Anda di halaman ini.
@@ -30,21 +30,19 @@
                 <div class="col-12 col-md-12 col-lg-5">
                     <div class="card profile-widget">
                         <div class="profile-widget-header">
-                            @if(Auth::user()->profile && Auth::user()->profile->foto != '')
+                            @if (Auth::user()->profile && Auth::user()->profile->foto != '')
                                 <img alt="image"
                                     src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
                                     class="rounded-circle profile-widget-picture img-fluid"
                                     style="width: 150px; height: 150px;">
                             @else
-                                <img alt="image"
-                                    src="{{asset('assets/img/avatar/avatar-1.png')}}"
+                                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
                                     class="rounded-circle profile-widget-picture img-fluid"
                                     style="width: 150px; height: 150px;">
                             @endif
                         </div>
                         <div class="profile-widget-description">
                             <div class="profile-widget-name">{{ Auth::user()->name }}</div>
-                            
                             {{ Auth::user()->bio }}
                         </div>
                     </div>
@@ -158,7 +156,7 @@
                         </form>
                     </div>
                     <!-- PERMISSION BLADE -->
-                    @if(Auth::user()->hasRole('Pencari Kerja') || Auth::user()->hasRole('Perusahaan') || Auth::user()->hasRole('super-admin'))
+                    @if (Auth::user()->hasRole('Pencari Kerja') || Auth::user()->hasRole('Perusahaan') || Auth::user()->hasRole('super-admin'))
                     <div class="card">
                         <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
                             novalidate="" enctype="multipart/form-data">
@@ -229,7 +227,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    @if(Auth::user()->hasRole('Pencari Kerja'))
+                                    @if (Auth::user()->hasRole('Pencari Kerja'))
                                     <div class="form-group col-md-6 col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="show_resume"
@@ -247,14 +245,14 @@
                                         <div class="form-group">
                                             <label>Unggah Foto</label>
                                             <div>
-                                            @if(Auth::user()->profile && Auth::user()->profile->foto != '')
+                                            @if (Auth::user()->profile && Auth::user()->profile->foto != '')
                                                 <img alt="image"
                                                     src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
                                                     class="rounded profile-widget-picture img-fluid"
                                                     style="width: 70px; height: 70px;">
                                             @else
                                                 <img alt="image"
-                                                    src="{{asset('assets/img/avatar/avatar-1.png')}}"
+                                                    src="{{ asset('assets/img/avatar/avatar-1.png') }}"
                                                     class="rounded profile-widget-picture img-fluid"
                                                     style="width: 70px; height: 70px;">
                                             @endif
@@ -269,7 +267,7 @@
                                         @enderror
                                         </div>
                                     </div>
-                                    @if(Auth::user()->hasRole('Pencari Kerja'))
+                                    @if (Auth::user()->hasRole('Pencari Kerja'))
                                     <div class="form-group col-md-12 col-12" id="resume_upload_form"
                                         style="{{ old('show_resume') ? '' : 'display: none' }}">
                                         <div class="form-group">
@@ -284,11 +282,12 @@
                                         @enderror
                                         </div>
                                     </div>
-                                        @if(Auth::user()->profile && Auth::user()->profile->resume != '')
+                                        @if (Auth::user()->profile && Auth::user()->profile->resume != '')
                                         <div class="form-group col-md-6 col-12">
                                             <label for="preview">Preview Resume</label>
-                                                <div><a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}" class="btn btn-sm btn-primary btn-icon">
-                                                                <i class="fas fa-eye mt-6"></i> Show</a></div>
+                                            <div><a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
+                                                class="btn btn-sm btn-primary btn-icon">
+                                                <i class="fas fa-eye mt-6"></i> Show</a></div>
                                         </div>
                                         @endif
                                     @endif
@@ -301,10 +300,9 @@
                     </div>
                     @endif
                     <!-- FORM UNTUK ROLE ('Perusahaan') -->
-                    @if(Auth::user()->hasRole('Perusahaan'))
+                    @if (Auth::user()->hasRole('Perusahaan'))
                     <div class="card">
-                        <form method="POST" action="{{ route('profile.perusahaan.update') }}" class="needs-validation"
-                            novalidate="" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('profile.perusahaan.update') }}" class="needs-validation" novalidate="" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-header">
@@ -351,11 +349,17 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
                                         <label for="kecamatan_id">Kecamatan</label>
-                                        <select class="form-control select2 @error('kecamatan_id') is-invalid @enderror"
-                                            name="kecamatan_id" data-id="select-kecamatan" id="kecamatan_id">
+                                        <select class="form-control select2 @error('kecamatan_id') is-invalid @enderror" name="kecamatan_id"
+                                            data-id="select-kecamatan" id="kecamatan_id">
                                             <option value="">Pilih Kecamatan</option>
-                                            @foreach($kecamatans as $kecamatan)
-                                            <option value="{{ $kecamatan->id }}">{{ $kecamatan->kecamatan }}</option>
+                                            @foreach ($kecamatans as $kecamatan)
+                                                @if (!empty($perusahaans->kecamatan_id))
+                                                    <option @selected($perusahaans->kecamatan_id == $kecamatan->id) value="{{ $kecamatan->id }}">
+                                                        {{ $kecamatan->kecamatan }}</option>
+                                                @else
+                                                    <option value="{{ $kecamatan->id }}">
+                                                        {{ $kecamatan->kecamatan }}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                         @error('kecamatan_id')
@@ -367,11 +371,8 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label for="kelurahan_id">Kelurahan</label>
                                         <select class="form-control select2 @error('kelurahan_id') is-invalid @enderror"
-                                            name="kelurahan_id" data-id="select-kelurahan" id="kelurahan_id">
+                                            name="kelurahan_id" data-id="select-kelurahan" id="kelurahan_id" disabled="disabled ">
                                             <option value="">Pilih Kelurahan</option>
-                                            @foreach($kelurahans as $kelurahan)
-                                            <option value="{{ $kelurahan->id }}">{{ $kelurahan->kelurahan }}</option>
-                                            @endforeach
                                         </select>
                                         @error('kelurahan_id')
                                             <div class="invalid-feedback">
@@ -440,8 +441,12 @@
                                     <div class="form-group col-md-12 col-12">
                                         <label>Informasi Tentang Perusahaan</label>
                                         <textarea id="deskripsi" name="deskripsi" type="text"
-                                            class="form-control summernote-simple  @error('deskripsi') is-invalid @enderror"
-                                            value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' }}"></textarea>
+                                            class="form-control summernote-simple @error('deskripsi') is-invalid @enderror">
+                                            @if (!empty($perusahaans->deskripsi))
+                                            {{ $perusahaans->deskripsi }}
+                                            @else
+                                            @endif
+                                        </textarea>
                                         @error('deskripsi')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -541,10 +546,11 @@
     </script>
 
     <script>
-         $(document).ready(function() {
+        $(document).ready(function() {
             $('#deskripsi').summernote();
         });
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var showFotoCheckbox = document.getElementById("show_foto");
@@ -577,10 +583,40 @@
             }
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#kecamatan_id').change(function() {
+                if ($(this).val() == '') {
+                    $('#kelurahan_id').attr('disabled', true);
+                } else {
+                    $('#kelurahan_id').removeAttr('disabled', false);
+                }
+
+                var kecamatanId = $(this).val();
+                $.ajax({
+                    url: '{{ route('getKelurahans') }}',
+                    type: 'GET',
+                    data: {
+                        kecamatan_id: kecamatanId
+                    },
+                    success: function(response) {
+                        $('#kelurahan_id').html('<option value="">Pilih Kelurahan</option>');
+                        $.each(response.kelurahans, function(key, kelurahan) {
+                            $('#kelurahan_id').append('<option value="' + kelurahan.id +
+                                '">' + kelurahan.kelurahan + '</option>');
+                        });
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 @endpush
 
 @push('customStyle')
-
     <link rel="stylesheet" href="/assets/css/select2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 @endpush
