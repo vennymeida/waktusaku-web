@@ -58,7 +58,7 @@
                                                 <td>{{ ($pelamar->currentPage() - 1) * $pelamar->perPage() + $key + 1 }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ optional($user->profile)->alamat }}</td>
+                                                <td>{{ optional($user->profile)->alamat?: '-' }}</td>
                                                 <td>
                                                     @if ($user->profile)
                                                         @if ($user->profile->jenis_kelamin === 'L')
@@ -68,9 +68,11 @@
                                                         @else
                                                             {{ $user->profile->jenis_kelamin }}
                                                         @endif
+                                                        @else
+                                                        -
                                                     @endif
                                                 </td>
-                                                <td>{{ optional($user->profile)->no_hp }}</td>
+                                                <td>{{ optional($user->profile)->no_hp?: '-' }}</td>
                                                 <td>
                                                     <a href="{{ route('pelamar.show', $user) }}" class="btn btn-sm btn-primary btn-icon">
                                                     <i class="fas fa-eye"></i> Details
