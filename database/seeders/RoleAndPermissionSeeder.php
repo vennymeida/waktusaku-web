@@ -16,7 +16,6 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run()
     {
-        //
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -26,6 +25,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'role.permission.management']);
         Permission::create(['name' => 'menu.management']);
         Permission::create(['name' => 'location.management']);
+        Permission::create(['name' => 'menu.kategori']);
         Permission::create(['name' => 'menu.pekerjaan']);
         //user
         Permission::create(['name' => 'user.index']);
@@ -120,6 +120,7 @@ class RoleAndPermissionSeeder extends Seeder
             'dashboard',
             'user.index',
         ]);
+
         // create roles
         $roleUser = Role::create(['name' => 'Perusahaan']);
         $roleUser->givePermissionTo([
@@ -134,10 +135,18 @@ class RoleAndPermissionSeeder extends Seeder
         //assign user id 1 ke super admin
         $user = User::find(1);
         $user->assignRole('super-admin');
-
         $user = User::find(3);
         $user->assignRole('Pencari Kerja');
         $user = User::find(4);
         $user->assignRole('Perusahaan');
+
+        //assign user id 3 ke perusahaan
+        $user = User::find(3);
+        $user->assignRole('Perusahaan');
+
+        //assign user id 4 ke pencari kerja
+        $user = User::find(4);
+        $user->assignRole('Pencari Kerja');
+
     }
 }
