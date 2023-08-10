@@ -273,6 +273,30 @@
             </div>
         </section>
     @endif
+        </div>
+    </section>
+     <!-- Modal -->
+     {{-- <div class="modal fade" id="detailModal{{ $loker->id }}" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Detail Lowongan Pekerjaan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Isi detail lowongan pekerjaan di sini -->
+                    <p>Nama Perusahaan: {{ $loker->nama }}</p>
+                    <p>Kategori: {{ $loker->kategori }}</p>
+                    <!-- ... dan seterusnya ... -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 @endsection
 @push('customScript')
     <script>
