@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="text-center">
-                                @if ($perusahaan->profile && $perusahaan->profile->foto)
+                                @if ($perusahaan->profile && $perusahaan->profile->foto) <!-- foto ganti logo line 21 & 22 -->
                                 <img src="{{ asset('storage/' . $perusahaan->profile->foto) }}" alt="Logo"
                                     class="img-thumbnail rounded-circle" style="width: 200px; height: 200px;">
                                 @else
