@@ -16,7 +16,6 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run()
     {
-        //
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -26,7 +25,8 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'role.permission.management']);
         Permission::create(['name' => 'menu.management']);
         Permission::create(['name' => 'location.management']);
-        Permission::create(['name' => 'menu.kategori']); 
+        Permission::create(['name' => 'menu.kategori']);
+
         //user
         Permission::create(['name' => 'user.index']);
         Permission::create(['name' => 'user.create']);
@@ -62,43 +62,44 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'assign.user.create']);
         Permission::create(['name' => 'assign.user.edit']);
 
-        //menu group 
+        //menu group
         Permission::create(['name' => 'menu-group.index']);
         Permission::create(['name' => 'menu-group.create']);
         Permission::create(['name' => 'menu-group.edit']);
         Permission::create(['name' => 'menu-group.destroy']);
 
-        //menu item 
+        //menu item
         Permission::create(['name' => 'menu-item.index']);
         Permission::create(['name' => 'menu-item.create']);
         Permission::create(['name' => 'menu-item.edit']);
         Permission::create(['name' => 'menu-item.destroy']);
-         
+
         //menu kelurahan
         Permission::create(['name' => 'kelurahan.index']);
         Permission::create(['name' => 'kelurahan.create']);
         Permission::create(['name' => 'kelurahan.edit']);
         Permission::create(['name' => 'kelurahan.destroy']);
-        
+
         //menu kecamatan
         Permission::create(['name' => 'kecamatan.index']);
         Permission::create(['name' => 'kecamatan.create']);
         Permission::create(['name' => 'kecamatan.edit']);
         Permission::create(['name' => 'kecamatan.destroy']);
-      
+
          //menu kategori
          Permission::create(['name' => 'kategori.index']);
          Permission::create(['name' => 'kategori.create']);
          Permission::create(['name' => 'kategori.edit']);
          Permission::create(['name' => 'kategori.destroy']);
 
-        // create roles 
+        // create roles
         $roleUser = Role::create(['name' => 'Pencari Kerja']);
         $roleUser->givePermissionTo([
             'dashboard',
             'user.index',
         ]);
-        // create roles 
+
+        // create roles
         $roleUser = Role::create(['name' => 'Perusahaan']);
         $roleUser->givePermissionTo([
             'dashboard',
@@ -112,5 +113,13 @@ class RoleAndPermissionSeeder extends Seeder
         //assign user id 1 ke super admin
         $user = User::find(1);
         $user->assignRole('super-admin');
+
+        //assign user id 3 ke perusahaan
+        $user = User::find(3);
+        $user->assignRole('Perusahaan');
+
+        //assign user id 4 ke pencari kerja
+        $user = User::find(4);
+        $user->assignRole('Pencari Kerja');
     }
 }
