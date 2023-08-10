@@ -1,3 +1,39 @@
+<!-- Modal for Logo Preview -->
+<div class="modal fade" id="logoPreviewModal" tabindex="-1" role="dialog" aria-labelledby="logoPreviewModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+   <div class="modal-content">
+       <div class="modal-header">
+           <h5 class="modal-title" id="logoPreviewModalLabel">Logo Preview</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+           </button>
+       </div>
+       <div class="modal-body">
+           <img id="logoPreviewImage" src="" alt="Logo Preview" class="img-fluid">
+       </div>
+   </div>
+</div>
+</div>
+
+<!-- Modal for SIU Preview -->
+<div class="modal fade" id="siuPreviewModal" tabindex="-1" role="dialog" aria-labelledby="siuPreviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="siuPreviewModalLabel">Surat Izin Usaha Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="siuPreviewIframe" width="100%" height="500px" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
 @extends('layouts.app')
 
 @section('content')
@@ -15,13 +51,13 @@
             </div>
             <!-- Error Messages -->
             @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
             <p class="section-lead">
                 Ubah informasi tentang diri Anda di halaman ini.
@@ -30,21 +66,19 @@
                 <div class="col-12 col-md-12 col-lg-5">
                     <div class="card profile-widget">
                         <div class="profile-widget-header">
-                            @if(Auth::user()->profile && Auth::user()->profile->foto != '')
+                            @if (Auth::user()->profile && Auth::user()->profile->foto != '')
                                 <img alt="image"
                                     src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
                                     class="rounded-circle profile-widget-picture img-fluid"
                                     style="width: 150px; height: 150px;">
                             @else
-                                <img alt="image"
-                                    src="{{asset('assets/img/avatar/avatar-1.png')}}"
+                                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
                                     class="rounded-circle profile-widget-picture img-fluid"
                                     style="width: 150px; height: 150px;">
                             @endif
                         </div>
                         <div class="profile-widget-description">
                             <div class="profile-widget-name">{{ Auth::user()->name }}</div>
-                            
                             {{ Auth::user()->bio }}
                         </div>
                     </div>
@@ -157,8 +191,8 @@
                             </div>
                         </form>
                     </div>
-                    <!-- FORM UNTUK ROLE ('Pencari Kerja') -->
-                    @if(Auth::user()->hasRole('Pencari Kerja'))
+                    <!-- PERMISSION BLADE -->
+                    @if (Auth::user()->hasRole('Pencari Kerja') || Auth::user()->hasRole('Perusahaan') || Auth::user()->hasRole('super-admin'))
                     <div class="card">
                         <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
                             novalidate="" enctype="multipart/form-data">
@@ -229,6 +263,7 @@
                                             </label>
                                         </div>
                                     </div>
+                                    @if (Auth::user()->hasRole('Pencari Kerja'))
                                     <div class="form-group col-md-6 col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="show_resume"
@@ -238,6 +273,7 @@
                                             </label>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-12 col-12" id="foto_upload_form"
@@ -245,14 +281,14 @@
                                         <div class="form-group">
                                             <label>Unggah Foto</label>
                                             <div>
-                                            @if(Auth::user()->profile && Auth::user()->profile->foto != '')
+                                            @if (Auth::user()->profile && Auth::user()->profile->foto != '')
                                                 <img alt="image"
                                                     src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
                                                     class="rounded profile-widget-picture img-fluid"
                                                     style="width: 70px; height: 70px;">
                                             @else
                                                 <img alt="image"
-                                                    src="{{asset('assets/img/avatar/avatar-1.png')}}"
+                                                    src="{{ asset('assets/img/avatar/avatar-1.png') }}"
                                                     class="rounded profile-widget-picture img-fluid"
                                                     style="width: 70px; height: 70px;">
                                             @endif
@@ -267,6 +303,7 @@
                                         @enderror
                                         </div>
                                     </div>
+                                    @if (Auth::user()->hasRole('Pencari Kerja'))
                                     <div class="form-group col-md-12 col-12" id="resume_upload_form"
                                         style="{{ old('show_resume') ? '' : 'display: none' }}">
                                         <div class="form-group">
@@ -279,16 +316,17 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                        @if(Auth::user()->profile && Auth::user()->profile->resume != '')
-                                            <!-- <div class="text small">Buka file PDF <a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}">sebelumnya</a>.</div> -->
-                                            <div class="text">Preview</div>
-                                            <div><a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}" class="btn btn-sm btn-primary btn-icon">
-                                                            <i class="fas fa-eye mt-6"></i> Show</a></div>
-                                        @else
-                                            <div class="text">Belum ada file yang diunggah.</div>
+                                        </div>
+                                    </div>
+                                        @if (Auth::user()->profile && Auth::user()->profile->resume != '')
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="preview">Preview Resume</label>
+                                            <div><a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
+                                                class="btn btn-sm btn-primary btn-icon">
+                                                <i class="fas fa-eye mt-6"></i> Show</a></div>
+                                        </div>
                                         @endif
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card-footer text-right">
@@ -297,121 +335,10 @@
                         </form>
                     </div>
                     @endif
-                    <!-- FORM UNTUK ROLE ('Perusahaan | super-admin') -->
-                    @if(Auth::user()->hasRole('Perusahaan') || Auth::user()->hasRole('super-admin'))
-                    <div class="card">
-                        <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
-                            novalidate="" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="card-header">
-                                <h4>Ubah Data Diri</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="form-group col-md-12 col-12">
-                                        <label>Alamat</label>
-                                        <input name="alamat" type="text"
-                                            class="form-control @error('alamat') is-invalid @enderror"
-                                            value="{{ Auth::user()->profile ? Auth::user()->profile->alamat : '' }}">
-                                        @error('alamat')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label for="jenis_kelamin">Jenis Kelamin</label>
-                                        <select class="form-control select2 @error('jenis_kelamin') is-invalid @enderror"
-                                            name="jenis_kelamin" id="jenis_kelamin">
-                                            <option value="">Pilih Jenis Kelamin</option>
-                                            <option value="L"
-                                                {{ Auth::user()->profile && Auth::user()->profile->jenis_kelamin === 'L' ? 'selected' : '' }}>
-                                                Laki-Laki</option>
-                                            <option value="P"
-                                                {{ Auth::user()->profile && Auth::user()->profile->jenis_kelamin === 'P' ? 'selected' : '' }}>
-                                                Perempuan</option>
-                                        @error('jenis_kelamin')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>No HP</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="fas fa-phone"></i>
-                                                </div>
-                                            </div>
-                                            <input name="no_hp" type="text"
-                                                class="form-control phone-number @error('no_hp') is-invalid @enderror"
-                                                value="{{ Auth::user()->profile ? Auth::user()->profile->no_hp : '' }}">
-                                        @error('no_hp')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="show_foto"
-                                                id="show_foto">
-                                            <label class="form-check-label" for="show_foto">
-                                                Perbarui Foto
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12 col-12" id="foto_upload_form"
-                                        style="{{ old('show_foto') ? '' : 'display: none' }}">
-                                        <div class="form-group">
-                                            <label>Unggah Foto</label>
-                                            <div>
-                                            @if(Auth::user()->profile && Auth::user()->profile->foto != '')
-                                                <img alt="image"
-                                                    src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
-                                                    class="rounded profile-widget-picture img-fluid"
-                                                    style="width: 70px; height: 70px;">
-                                            @else
-                                                <img alt="image"
-                                                    src="{{asset('assets/img/avatar/avatar-1.png')}}"
-                                                    class="rounded profile-widget-picture img-fluid"
-                                                    style="width: 70px; height: 70px;">
-                                            @endif
-                                            </div>
-                                            <div class="text-warning small">(File type : jpeg,png,jpg | Max size : 2MB)</div>
-                                            <input name="foto" type="file"
-                                                class="form-control @error('foto') is-invalid @enderror">
-                                        @error('foto')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer text-right">
-                                <button class="btn btn-primary" type="submit">Perbarui Data Diri</button>
-                            </div>
-                        </form>
-                    </div>
-                    @endif
-
                     <!-- FORM UNTUK ROLE ('Perusahaan') -->
-                    @if(Auth::user()->hasRole('Perusahaan'))
+                    @if (Auth::user()->hasRole('Perusahaan'))
                     <div class="card">
-                        <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
-                            novalidate="" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('profile.perusahaan.update') }}" class="needs-validation" novalidate="" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-header">
@@ -457,36 +384,33 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
-                                        <label for="kecamatan">Kecamatan</label>
-                                        <select class="form-control select2 @error('kecamatan') is-invalid @enderror"
-                                            name="kecamatan" id="kecamatan">
+                                        <label for="kecamatan_id">Kecamatan</label>
+                                        <select class="form-control select2 @error('kecamatan_id') is-invalid @enderror" name="kecamatan_id"
+                                            data-id="select-kecamatan" id="kecamatan_id">
                                             <option value="">Pilih Kecamatan</option>
-                                            <option value="L"
-                                                {{ Auth::user()->perusahaan && Auth::user()->perusahaan->kecamatan_id === 'L' ? 'selected' : '' }}>
-                                                Laki-Laki</option>
-                                            <option value="P"
-                                                {{ Auth::user()->perusahaan && Auth::user()->perusahaan->kecamatan_id === 'P' ? 'selected' : '' }}>
-                                                Perempuan</option>
+                                            @foreach ($kecamatans as $kecamatan)
+                                                @if (!empty($perusahaans->kecamatan_id))
+                                                    <option @selected($perusahaans->kecamatan_id == $kecamatan->id) value="{{ $kecamatan->id }}">
+                                                        {{ $kecamatan->kecamatan }}</option>
+                                                @else
+                                                    <option value="{{ $kecamatan->id }}">
+                                                        {{ $kecamatan->kecamatan }}</option>
+                                                @endif
+                                            @endforeach
                                         </select>
-                                        @error('kecamatan')
+                                        @error('kecamatan_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
                                     <div class="form-group col-md-6 col-12">
-                                        <label for="kecamatan">Kelurahan</label>
-                                        <select class="form-control select2 @error('kecamatan') is-invalid @enderror"
-                                            name="kecamatan" id="kecamatan">
+                                        <label for="kelurahan_id">Kelurahan</label>
+                                        <select class="form-control select2 @error('kelurahan_id') is-invalid @enderror"
+                                            name="kelurahan_id" data-id="select-kelurahan" id="kelurahan_id" disabled="disabled ">
                                             <option value="">Pilih Kelurahan</option>
-                                            <option value="L"
-                                                {{ Auth::user()->perusahaan && Auth::user()->perusahaan->kecamatan_id === 'L' ? 'selected' : '' }}>
-                                                Laki-Laki</option>
-                                            <option value="P"
-                                                {{ Auth::user()->perusahaan && Auth::user()->perusahaan->kecamatan_id === 'P' ? 'selected' : '' }}>
-                                                Perempuan</option>
                                         </select>
-                                        @error('kecamatan')
+                                        @error('kelurahan_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -553,8 +477,12 @@
                                     <div class="form-group col-md-12 col-12">
                                         <label>Informasi Tentang Perusahaan</label>
                                         <textarea id="deskripsi" name="deskripsi" type="text"
-                                            class="form-control summernote-simple  @error('deskripsi') is-invalid @enderror"
-                                            value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' }}"></textarea>
+                                            class="form-control summernote-simple @error('deskripsi') is-invalid @enderror">
+                                            @if (!empty($perusahaans->deskripsi))
+                                            {{ $perusahaans->deskripsi }}
+                                            @else
+                                            @endif
+                                        </textarea>
                                         @error('deskripsi')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -564,51 +492,49 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="show_logo"
-                                                id="show_logo">
-                                            <label class="form-check-label" for="show_logo">
-                                                Perbarui Logo Perusahaan
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="show_siu"
-                                                id="show_siu">
-                                            <label class="form-check-label" for="show_siu">
-                                                Perbarui Surat Izin Usaha
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12 col-12" id="logo_upload_form"
-                                        style="{{ old('show_logo') ? '' : 'display: none' }}">
-                                        <div class="form-group">
-                                            <label>Unggah Logo Perusahaan</label>
-                                            <input name="logo" type="file"
+                                        <label>Perbarui Logo Perusahaan</label>
+                                        <input id="logo" name="logo" type="file"
                                                 class="form-control @error('logo') is-invalid @enderror">
-                                        </div>
                                         @error('logo')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-12 col-12" id="siu_upload_form"
-                                        style="{{ old('show_siu') ? '' : 'display: none' }}">
-                                        <div class="form-group">
-                                            <label>Unggah Surat Izin Usaha</label>
-                                            <input name="siu" type="file"
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Perbarui Surat Izin Usaha</label>
+                                        <input id="siu" name="siu" type="file"
                                                 class="form-control @error('siu') is-invalid @enderror">
-                                        </div>
                                         @error('siu')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="row">
+                                    @if (Auth::user()->perusahaan && Auth::user()->perusahaan->logo != '')
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="preview">Preview Logo</label>
+                                            <div>
+                                                <a href="#" class="btn btn-sm btn-primary btn-icon" data-toggle="modal"
+                                                data-target="#logoPreviewModal" data-logo="{{ Storage::url(Auth::user()->perusahaan->logo) }}">
+                                                    <i class="fas fa-eye mt-6"></i> Show
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if (Auth::user()->perusahaan && Auth::user()->perusahaan->siu != '')
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="preview">Preview Surat Izin Usaha</label>
+                                            <div>
+                                                <a href="#" class="btn btn-sm btn-primary btn-icon" data-toggle="modal" data-target="#siuPreviewModal"
+                                                    data-pdf="{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->siu) : '' }}">
+                                                    <i class="fas fa-eye mt-6"></i> Show
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card-footer text-right">
@@ -654,10 +580,11 @@
     </script>
 
     <script>
-         $(document).ready(function() {
+        $(document).ready(function() {
             $('#deskripsi').summernote();
         });
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var showFotoCheckbox = document.getElementById("show_foto");
@@ -690,10 +617,69 @@
             }
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#kecamatan_id').change(function() {
+                if ($(this).val() == '') {
+                    $('#kelurahan_id').attr('disabled', true);
+                } else {
+                    $('#kelurahan_id').removeAttr('disabled', false);
+                }
+
+                var kecamatanId = $(this).val();
+                $.ajax({
+                    url: '{{ route('getKelurahans') }}',
+                    type: 'GET',
+                    data: {
+                        kecamatan_id: kecamatanId
+                    },
+                    success: function(response) {
+                        $('#kelurahan_id').html('<option value="">Pilih Kelurahan</option>');
+                        $.each(response.kelurahans, function(key, kelurahan) {
+                            $('#kelurahan_id').append('<option value="' + kelurahan.id +
+                                '">' + kelurahan.kelurahan + '</option>');
+                        });
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#logoPreviewModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var logoUrl = button.data('logo');
+                var modal = $(this);
+                modal.find('#logoPreviewImage').attr('src', logoUrl);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#siuPreviewModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var pdfUrl = button.data('pdf'); // Extract info from data-* attributes
+
+                var modal = $(this);
+                var iframe = modal.find('#siuPreviewIframe');
+                iframe.attr('src', pdfUrl);
+            });
+
+            $('#siuPreviewModal').on('hidden.bs.modal', function() {
+                var iframe = $(this).find('#siuPreviewIframe');
+                iframe.attr('src', ''); // Clear the iframe source when the modal is closed
+            });
+        });
+    </script>
 @endpush
 
 @push('customStyle')
-
     <link rel="stylesheet" href="/assets/css/select2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 @endpush

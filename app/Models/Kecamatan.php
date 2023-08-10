@@ -12,4 +12,9 @@ class Kecamatan extends Model
     protected $fillable = [
         'kecamatan',
     ];
+
+    public function perusahaan()
+    {
+        return $this->hasOne(Perusahaan::class);
+    }
 }

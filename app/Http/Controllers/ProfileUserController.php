@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileUserRequest;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
+use App\Models\Perusahaan;
 use App\Models\ProfileUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +14,31 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileUserController extends Controller
 {
+    public function index(Request $request) {
+
+    }
+    public function profile(ProfileUser $profileUser)
+    {
+        $userId = Auth::id();
+        $kecamatans = Kecamatan::all();
+        $kelurahans = Kelurahan::all();
+        $perusahaans = Perusahaan::where('user_id',$userId)->first();
+        // dd($perusahaans);
+        return view ('profile.index')->with([
+            'kecamatans'=>$kecamatans,
+            'kelurahans'=>$kelurahans,
+            'profileUser'=>$profileUser,
+            'perusahaans'=>$perusahaans,
+        ]);
+    }
+
+    public function getKelurahans(Request $request)
+    {
+        $kelurahans = Kelurahan::all()->where('id_kecamatan', $request->kecamatan_id);
+
+        return response()->json(['kelurahans' => $kelurahans]);
+    }
+
     public function update(Request $request)
     {
         $request->validate([
@@ -46,7 +74,7 @@ class ProfileUserController extends Controller
         if ($request->hasFile('foto')) {
             $photo = $request->file('foto');
             $oriName = $photo->getClientOriginalExtension();
-            
+
             $namaGambar = uniqid() . '.' . $oriName;
             Storage::putFileAs('public/database/profile/', $photo, $namaGambar);
 
@@ -81,7 +109,7 @@ class ProfileUserController extends Controller
             if ($user->profile === null) {
                 $user->profile = new \App\Models\ProfileUser();
             }
-            
+
             if ($user->profile->resume) {
                 Storage::delete('public/' . $user->profile->resume);
             }
@@ -98,6 +126,7 @@ class ProfileUserController extends Controller
             }
             $user->profile->save();
         }
+
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 }
