@@ -19,6 +19,7 @@ use App\Http\Controllers\RoleAndPermission\RoleController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PerusahaanListController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\UserController;
@@ -44,9 +45,11 @@ use App\Models\Kecamatan;
 //     }
 // });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [WelcomeController::class, 'index']);
 
 Route::get('/login', function () {
     if (auth()->check()) {

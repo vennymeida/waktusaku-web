@@ -123,85 +123,24 @@
         <section>
             <div class="col-md-10 mt-5 mx-auto">
                 <h2 class="text-center">Lowongan Kerja Terbaru di <span class="text-primary">WaktuSaku</span></h2>
-                <div class="row flex-nowrap overflow-auto mt-5 horizontal-scroll">
+                <div class="row flex-nowrap overflow-auto mt-5 horizontal-scroll equal-height-cards">
                     <div class="scroll-arrow left bg-transparent text-secondary">
                         <i class="fas fa-angle-left"></i>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card" style="border: none;">
-                            <div class="card-body">
-                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
-                                    alt="">
-                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
-                                <p class="card-text text-justify">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
-                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
-                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
-                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
-                                </p>
+                    @foreach ($allResults as $key => $loker)
+                        <div class="col-md-4">
+                            <div class="card" style="border: none;">
+                                <div class="card-body">
+                                    <img class="img-fluid mb-3 fixed-height-image"
+                                        src="{{ asset('storage/' . $loker->logo) }}" alt="">
+                                    <p class="card-title text-center font-weight-bold h5">{{ $loker->judul }}</p>
+                                    <p class="card-text text-justify">
+                                        {{ $loker->deskripsi }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card" style="border: none;">
-                            <div class="card-body">
-                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
-                                    alt="">
-                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
-                                <p class="card-text text-justify">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
-                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
-                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
-                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card" style="border: none;">
-                            <div class="card-body">
-                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
-                                    alt="">
-                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
-                                <p class="card-text text-justify">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
-                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
-                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
-                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card" style="border: none;">
-                            <div class="card-body">
-                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
-                                    alt="">
-                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
-                                <p class="card-text text-justify">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
-                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
-                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
-                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card" style="border: none;">
-                            <div class="card-body">
-                                <img class="img-fluid" src="{{ asset('assets/img/landing-page/image2.png') }}"
-                                    alt="">
-                                <p class="card-title text-center font-weight-bold h5">Programmer</p>
-                                <p class="card-text text-justify">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos corrupti vero nihil nobis
-                                    voluptatum quo itaque perspiciatis natus, dolore explicabo suscipit. Minima, ullam.
-                                    Dolores quis, praesentium ipsam ex alias, id, blanditiis officia cupiditate qui officiis
-                                    quos ut sequi incidunt. Illo quasi ut nam ex animi.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                     <div class="scroll-arrow right bg-transparent text-secondary">
                         <i class="fas fa-angle-right"></i>
                     </div>
@@ -221,6 +160,24 @@
 
         scrollRightArrow.addEventListener('click', () => {
             scrollableContent.scrollLeft += 360;
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll(".card-text");
+            let maxHeight = 0;
+
+            cards.forEach(card => {
+                const cardHeight = card.clientHeight;
+                if (cardHeight > maxHeight) {
+                    maxHeight = cardHeight;
+                }
+            });
+
+            cards.forEach(card => {
+                card.style.height = maxHeight + "px";
+            });
         });
     </script>
 @endsection
