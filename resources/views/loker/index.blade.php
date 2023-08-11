@@ -181,18 +181,18 @@
         <section class="section">
             <div class="section-header d-flex justify-content-between align-items-center">
                 <h1>Lowongan Pekerjaan</h1>
-                @if (!empty($profilUser->id) && !empty($perusahaan->id))
-                    <a href="{{ route('loker.create') }}" class="btn btn-primary" style="border-radius: 25px;"><i
-                            class="fas fa-plus-circle"></i>
-                        Tambah Lowongan Kerja
-                    </a>
-                @endif
+                {{-- @if (!empty($profilUser->id) && !empty($perusahaan->id)) --}}
+                <a href="{{ route('loker.create') }}" class="btn btn-primary" style="border-radius: 25px;"><i
+                        class="fas fa-plus-circle"></i>
+                    Tambah Lowongan Kerja
+                </a>
+                {{-- @endif --}}
             </div>
-            @if (empty($profilUser->id) || empty($perusahaan->id))
+            {{-- @if (empty($profilUser->id) || empty($perusahaan->id))
                 <div class="alert alert-danger d-inline-block">
                     Lengkapi data diri dan data perusahaan terlebih dahulu untuk bisa menambah Lowongan Pekerjaan.
                 </div>
-            @endif
+            @endif --}}
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -273,10 +273,10 @@
             </div>
         </section>
     @endif
-        </div>
+    </div>
     </section>
-     <!-- Modal -->
-     {{-- <div class="modal fade" id="detailModal{{ $loker->id }}" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <!-- Modal -->
+    {{-- <div class="modal fade" id="detailModal{{ $loker->id }}" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">

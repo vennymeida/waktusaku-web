@@ -69,6 +69,8 @@ class LowonganPekerjaanController extends Controller
         $profileUser = ProfileUser::where('user_id', $user->id)->first();
         $perusahaan = Perusahaan::where('user_id', $user->id)->first();
 
+
+
         $loggedInUserResults = DB::table('lowongan_pekerjaans as lp')
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
             ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
@@ -85,7 +87,15 @@ class LowonganPekerjaanController extends Controller
             })
             ->paginate(10);
 
-        return view('loker.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan]);
+        if (Auth::user()->hasRole('Perusahaan')) {
+            if ($profileUser == null && $perusahaan == null) {
+                return redirect()->route('profile.edit');
+            } else {
+                return view('loker.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan]);
+            }
+        } else {
+            return view('loker.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan]);
+        }
     }
 
 
