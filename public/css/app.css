@@ -99,3 +99,14 @@
 .scroll-arrow.right {
     right: 10px;
 }
+
+.equal-height-cards {
+    display: flex;
+    align-items: stretch;
+}
+
+.fixed-height-image {
+    height: 175px;
+    width: 100%;
+    object-fit: cover;
+}
