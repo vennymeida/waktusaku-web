@@ -19,8 +19,8 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="text-center">
-                                    @if ($perusahaan->profile && $perusahaan->profile->foto)
-                                    <img src="{{ asset('storage/' . $perusahaan->profile->foto) }}" alt="Logo"
+                                    @if ($perusahaan->perusahaan->logo)
+                                    <img src="{{ asset('storage/' . $perusahaan->perusahaan->logo) }}" alt="Logo"
                                         class="img-thumbnail rounded-circle" style="width: 200px; height: 200px;">
                                     @else
                                     <div class="text-muted" style="font-size: 24px;">No Logo Available</div>
