@@ -131,7 +131,7 @@ class RoleAndPermissionSeeder extends Seeder
             'loker.edit',
             'loker.destroy',
         ]);
-
+        
         // create Super Admin
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
@@ -143,14 +143,6 @@ class RoleAndPermissionSeeder extends Seeder
         $user->assignRole('Pencari Kerja');
         $user = User::find(4);
         $user->assignRole('Perusahaan');
-
-        //assign user id 3 ke perusahaan
-        $user = User::find(3);
-        $user->assignRole('Perusahaan');
-
-        //assign user id 4 ke pencari kerja
-        $user = User::find(4);
-        $user->assignRole('Pencari Kerja');
 
     }
 }
