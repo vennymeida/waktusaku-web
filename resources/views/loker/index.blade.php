@@ -149,7 +149,9 @@
                                 </tr>
                                 <tr>
                                     <th class="text-left">Requirement</th>
-                                    <td>{{ $loker->requirement }}</td>
+                                    <td>
+                                        {{ str_replace(['<ol>', '</ol>', '<li>', '</li>'], ['', '', '', "\n"], $loker->requirement) }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th class="text-left">Tipe Pekerjaan</th>
@@ -235,7 +237,10 @@
                                                 </td>
                                                 <td>{{ $loker->judul }}</td>
                                                 <td>{{ $loker->deskripsi }}</td>
-                                                <td>{{ $loker->requirement }}</td>
+                                                {{-- <td>{{ $loker->requirement }}</td> --}}
+                                                <td>
+                                                    {{ str_replace(['<ol>', '</ol>', '<li>', '</li>'], ['', '', '', "\n"], $loker->requirement) }}
+                                                </td>
                                                 <td>{{ $loker->status }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">

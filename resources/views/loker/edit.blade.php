@@ -95,9 +95,9 @@
                                     <div class="form-group">
                                         <label for="requirement">Persyaratan</label>
                                         <input type="hidden" name="requirement" value="{{ $loker->requirement }}">
-                                        <textarea name="requirement" id="requirement"
-                                            class="form-control summernote-simple @error('requirement') is-invalid @enderror" type="text"
-                                            style="height: 150px;" placeholder="Masukkan Persyaratan Pekerjaan" disabled>{{ $loker->requirement }}</textarea>
+                                        <textarea id="requirement-2" class="form-control @error('requirement') is-invalid @enderror" type="text"
+                                            style="height: 150px;" disabled>{{ str_replace(['<ol>', '</ol>', '<li>', '</li>'], ['', '', '', "\n"], $loker->requirement) }}
+                                        </textarea>
                                         @error('requirement')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -325,14 +325,28 @@
 @endsection
 
 @push('customStyle')
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('customScript')
+    <script src="{{ asset('assets/js/summernote-bs4.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('.select2').select2();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#requirement').summernote({
+                placeholder: 'Masukkan Persyaratan Pekerjaan',
+                height: 200,
+            });
         });
     </script>
 @endpush
