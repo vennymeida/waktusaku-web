@@ -3,6 +3,20 @@
     height: 100%;
 }
 
+.bg-primary-nav {
+    background-color: #ffffff !important;
+    height: 100%;
+}
+
+.bg-secondary{
+    background-color: #CBD1FE !important;
+    height: 100%;
+}
+
+.text-warning{
+    color: #EB9481
+}
+
 .text-primary,
 .text-primary-all *,
 .text-primary-all *:before,
@@ -27,6 +41,11 @@
 .btn-outline-primary:hover {
     background-color: #6777ef;
     border-color: #6777ef;
+}
+
+.btn-outline-warning {
+    background-color: #EB9481;
+    border-color: #EB9481;
 }
 
 .card-primary {
