@@ -32,16 +32,16 @@ class LowonganPekerjaanController extends Controller
 
         $allResults = DB::table('lowongan_pekerjaans as lp')
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
-            ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
+            ->join('lowongan_kategori as lk', 'lp.id', '=', 'lk.lowongan_id')
+            ->join('kategori_pekerjaans as kp', 'lk.kategori_id', '=', 'kp.id')
             ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
             ->join('users as u', 'pu.user_id', '=', 'u.id')
             ->select(
                 'lp.id',
                 'lp.user_id',
                 'lp.id_perusahaan',
-                'lp.id_kategori',
                 'p.nama',
-                'kp.kategori',
+                DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
                 'lp.judul',
                 'lp.deskripsi',
                 'lp.requirement',
@@ -61,6 +61,7 @@ class LowonganPekerjaanController extends Controller
                 return $query->where('lp.status', $selectedStatus);
 
             })
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.gaji', 'lp.jumlah_pelamar', 'lp.status', 'u.name')
             ->paginate(10);
 
         $loggedInUserId = Auth::id();
@@ -73,10 +74,20 @@ class LowonganPekerjaanController extends Controller
 
         $loggedInUserResults = DB::table('lowongan_pekerjaans as lp')
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
-            ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
+            ->join('lowongan_kategori as lk', 'lp.id', '=', 'lk.lowongan_id')
+            ->join('kategori_pekerjaans as kp', 'lk.kategori_id', '=', 'kp.id')
             ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
             ->join('users as u', 'pu.user_id', '=', 'u.id')
-            ->select('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'lp.id_kategori', 'p.nama', 'kp.kategori', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.gaji', 'lp.jumlah_pelamar', 'lp.status')
+            ->select(
+                'lp.id',
+                'lp.user_id',
+                'lp.id_perusahaan',
+                'lp.judul',
+                'lp.deskripsi',
+                'lp.requirement',
+                'lp.status',
+                DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
+            )
             ->where('u.id', $loggedInUserId)
             ->when($request->has('search'), function ($query) use ($request) {
                 $search = $request->input('search');
@@ -85,6 +96,7 @@ class LowonganPekerjaanController extends Controller
                     ->orWhere('lp.requirement', 'like', '%' . $search . '%')
                     ->orWhere('lp.status', 'like', '%' . $search . '%');
             })
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.gaji', 'lp.jumlah_pelamar', 'lp.status', 'u.name')
             ->paginate(10);
 
         if (Auth::user()->hasRole('Perusahaan')) {
@@ -117,10 +129,9 @@ class LowonganPekerjaanController extends Controller
 
     public function store(StoreLowonganPekerjaanRequest $request)
     {
-        LowonganPekerjaan::create([
+        $lowongan = LowonganPekerjaan::create([
             'user_id' => $request->user_id,
             'id_perusahaan' => $request->id_perusahaan,
-            'id_kategori' => $request->id_kategori,
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'requirement' => $request->requirement,
@@ -129,6 +140,8 @@ class LowonganPekerjaanController extends Controller
             'jumlah_pelamar' => $request->jumlah_pelamar,
             'status' => $request->status,
         ]);
+
+        $lowongan->kategori()->attach($request->id_kategori);
 
         return redirect()->route('loker.index')
             ->with('success', 'Lowongan Pekerjaan berhasil ditambahkan');
@@ -157,6 +170,8 @@ class LowonganPekerjaanController extends Controller
     public function update(UpdateLowonganPekerjaanRequest $request, LowonganPekerjaan $loker)
     {
         $loker->update($request->all());
+
+        $loker->kategori()->sync($request->id_kategori);
 
         return redirect()->route('loker.index')
             ->with('success', 'Data lowongan pekerjaan berhasil diperbarui.');

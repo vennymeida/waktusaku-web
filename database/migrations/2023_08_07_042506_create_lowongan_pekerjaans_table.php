@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -19,8 +18,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('profile_users')->restrictOnDelete();
             $table->unsignedBigInteger('id_perusahaan');
             $table->foreign('id_perusahaan')->references('id')->on('perusahaan')->restrictOnDelete();
-            $table->unsignedBigInteger('id_kategori');
-            $table->foreign('id_kategori')->references('id')->on('kategori_pekerjaans')->restrictOnDelete();
+            // $table->unsignedBigInteger('id_kategori');
+            // $table->foreign('id_kategori')->references('id')->on('kategori_pekerjaans')->restrictOnDelete();
             $table->string('judul');
             $table->text('deskripsi');
             $table->text('requirement');

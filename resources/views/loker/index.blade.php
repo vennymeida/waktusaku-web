@@ -53,7 +53,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Perusahaan</th>
-                                                <th>Kategori Pekerjaan</th>
+                                                <th class="col-md-3">Kategori Pekerjaan</th>
                                                 <th>Tipe Pekerjaan</th>
                                                 <th>Gaji</th>
                                                 <th>Status</th>
@@ -62,11 +62,12 @@
                                             </tr>
                                             @foreach ($allResults as $key => $loker)
                                                 <tr>
-                                                    <td>{{ ($allResults->currentPage() - 1) * $allResults->perPage() + $key + 1 }}
+                                                    <td>
+                                                        {{ ($allResults->currentPage() - 1) * $allResults->perPage() + $key + 1 }}
                                                     </td>
                                                     <td>{{ $loker->nama }}</td>
                                                     <td>{{ $loker->kategori }}</td>
-                                                    <td>{{ $loker->tipe_pekerjaan }}</td>
+                                                    <td class="text-center">{{ $loker->tipe_pekerjaan }}</td>
                                                     <td>{{ 'Rp ' . number_format($loker->gaji, 0, ',', '.') }}</td>
                                                     <td>{{ $loker->status }}</td>
                                                     <td class="text-center">

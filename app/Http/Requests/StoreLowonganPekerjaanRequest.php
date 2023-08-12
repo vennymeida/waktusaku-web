@@ -24,7 +24,7 @@ class StoreLowonganPekerjaanRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_kategori' => 'required',
+            'id_kategori' => 'required|array|min:1',
             'judul' => 'required|regex:/^[A-Za-z\s]+$/',
             'deskripsi' => 'required',
             'requirement' => 'required',
@@ -38,6 +38,7 @@ class StoreLowonganPekerjaanRequest extends FormRequest
     {
         return [
             'id_kategori.required' => 'Kategori tidak boleh kosong',
+            'id_kategori.min' => 'Pilih setidaknya satu kategori',
             'judul.required' => 'Judul tidak boleh kosong',
             'judul.regex' => 'Judul tidak boleh mengandung selain huruf',
             'deskripsi.required' => 'Diskripsi tidak boleh kosong',

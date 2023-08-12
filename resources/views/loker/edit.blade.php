@@ -40,13 +40,24 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="id_kategori">Kategori</label>
-                                        <input type="hidden" name="id_kategori" value="{{ $loker->id_kategori }}">
+                                        {{-- <input type="hidden" name="id_kategori" value="{{ $loker->id_kategori }}">
                                         <select class="form-control @error('id_kategori') is-invalid @enderror"
                                             id="id_kategori" name="id_kategori" disabled>
                                             <option value="">Pilih Kategori</option>
                                             @foreach ($kategoris as $kategori)
                                                 <option @selected($kategori->id == $loker->id_kategori) value="{{ $kategori->id }}">
                                                     {{ $kategori->kategori }}</option>
+                                            @endforeach
+                                        </select> --}}
+                                        <select name="id_kategori[]"
+                                            class="form-control select2 @error('id_kategori') is-invalid @enderror" multiple
+                                            disabled>
+                                            <option value="">Pilih Kategori</option>
+                                            @foreach ($kategoris as $kategori)
+                                                <option value="{{ $kategori->id }}"
+                                                    {{ in_array($kategori->id, $loker->kategori->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                    {{ $kategori->kategori }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error('id_kategori')
@@ -150,6 +161,15 @@
                                         </select>
                                     </div>
                                 </div>
+                                <select name="id_kategori[]" class="form-control" multiple style="display: none;">
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach ($kategoris as $kategori)
+                                        <option value="{{ $kategori->id }}"
+                                            {{ in_array($kategori->id, $loker->kategori->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                            {{ $kategori->kategori }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="card-footer text-right">
                                 <button class="btn btn-primary">Submit</button>
@@ -178,12 +198,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="id_kategori">Kategori</label>
-                                            <select class="form-control @error('id_kategori') is-invalid @enderror"
-                                                id="id_kategori" name="id_kategori">
+                                            <select name="id_kategori[]"
+                                                class="form-control select2 @error('id_kategori') is-invalid @enderror"
+                                                multiple>
                                                 <option value="">Pilih Kategori</option>
                                                 @foreach ($kategoris as $kategori)
-                                                    <option @selected($kategori->id == $loker->id_kategori) value="{{ $kategori->id }}">
-                                                        {{ $kategori->kategori }}</option>
+                                                    <option value="{{ $kategori->id }}"
+                                                        {{ in_array($kategori->id, $loker->kategori->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                        {{ $kategori->kategori }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                             @error('id_kategori')
@@ -300,3 +323,16 @@
         </section>
     @endif
 @endsection
+
+@push('customStyle')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('customScript')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
+@endpush
