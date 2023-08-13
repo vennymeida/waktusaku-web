@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label for="judul">Judul</label>
                                         <input type="text" class="form-control @error('judul') is-invalid @enderror"
-                                            id="judul" name="judul" placeholder="Masukkan Judul Lowongan Pekerjaan"
+                                            id="judul" name="judul" placeholder="Masukkan judul lowongan pekerjaan"
                                             value="{{ old('judul') }}">
                                         @error('judul')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -51,9 +51,9 @@
                                         <label for="deskripsi">Deskripsi</label>
                                         <textarea name="deskripsi" id="deskripsi"
                                             class="form-control summernote-simple @error('deskripsi') is-invalid @enderror" type="text"
-                                            style="height: 290px;" placeholder="Masukkan Deskripsi Pekerjaan">{{ old('deskripsi') }}</textarea>
+                                            style="height: 290px;" placeholder="Masukkan deskripsi pekerjaan">{{ old('deskripsi') }}</textarea>
                                         @error('deskripsi')
-                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            <div class="invalid-feedback mt-4">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -61,19 +61,98 @@
                                     <div class="form-group">
                                         <label for="requirement">Persyaratan</label>
                                         <textarea name="requirement" id="requirement"
-                                            class="form-control summernote-simple @error('requirement') is-invalid @enderror" type="text"
-                                            style="height: 150px;" placeholder="Masukkan Persyaratan Pekerjaan">{{ old('requirement') }}</textarea>
+                                            class="form-control summernote-simple @error('requirement') is-invalid @enderror" type="text">{{ old('requirement') }}</textarea>
                                         @error('requirement')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="min_pendidikan">Minimal Pendidikan</label>
+                                        <select class="form-control select2 @error('min_pendidikan') is-invalid @enderror"
+                                            id="min_pendidikan" name="min_pendidikan">
+                                            <option value="" disabled selected>Pilih minimal pendidikan</option>
+                                            <option value="SMA" {{ old('min_pendidikan') === 'SMA' ? 'selected' : '' }}>
+                                                SMA
+                                            </option>
+                                            <option value="SMK" {{ old('min_pendidikan') === 'SMK' ? 'selected' : '' }}>
+                                                SMK
+                                            </option>
+                                            <option value="SMA/SMK"
+                                                {{ old('min_pendidikan') === 'SMA/SMK' ? 'selected' : '' }}>
+                                                SMA/SMK
+                                            </option>
+                                            <option value="S1" {{ old('min_pendidikan') === 'S1' ? 'selected' : '' }}>
+                                                S1
+                                            </option>
+                                        </select>
+                                        @error('min_pendidikan')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="min_pengalaman">Minimal Pengalaman</label>
+                                        <select class="form-control select2 @error('min_pengalaman') is-invalid @enderror"
+                                            id="min_pengalaman" name="min_pengalaman">
+                                            <option value="" disabled selected>Pilih minimal pengalaman</option>
+                                            <option value="tidak ada"
+                                                {{ old('min_pengalaman') === 'tidak ada' ? 'selected' : '' }}>
+                                                Tidak ada
+                                            </option>
+                                            <option value="kurang dari setahun"
+                                                {{ old('min_pengalaman') === 'kurang dari setahun' ? 'selected' : '' }}>
+                                                Kurang dari setahun
+                                            </option>
+                                            <option value="lebih dari setahun"
+                                                {{ old('min_pengalaman') === 'lebih dari setahun' ? 'selected' : '' }}>
+                                                Lebih dari setahun
+                                            </option>
+                                        </select>
+                                        @error('min_pengalaman')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="gaji">Gaji</label>
+                                        <div class="d-flex">
+                                            <div class="d-flex align-items-center flex-grow-1">
+                                                <input type="number"
+                                                    class="form-control mr-2 @error('gaji_bawah') is-invalid @enderror"
+                                                    id="gaji_bawah" name="gaji_bawah" value="{{ old('gaji_bawah') }}"
+                                                    placeholder="contoh: 3000000">
+                                                <span class="mr-2">-</span>
+                                                <input type="number"
+                                                    class="form-control @error('gaji_atas') is-invalid @enderror"
+                                                    id="gaji_atas" name="gaji_atas" value="{{ old('gaji_atas') }}"
+                                                    placeholder="contoh: 3000000">
+                                            </div>
+                                        </div>
+                                        @if ($errors->has('gaji_bawah') && !$errors->has('gaji_atas'))
+                                            <div class="invalid-feedback d-block">
+                                                {{ $errors->first('gaji_bawah') }}
+                                            </div>
+                                        @elseif (!$errors->has('gaji_bawah') && $errors->has('gaji_atas'))
+                                            <div class="invalid-feedback d-block">
+                                                {{ $errors->first('gaji_atas') }}
+                                            </div>
+                                        @elseif ($errors->has('gaji_bawah') && $errors->has('gaji_atas'))
+                                            <div class="invalid-feedback d-block">
+                                                {{ $errors->first('gaji_atas') }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="tipe_pekerjaan">Tipe Pekerjaan</label>
-                                        <select class="form-control @error('tipe_pekerjaan') is-invalid @enderror"
+                                        <select class="form-control select2 @error('tipe_pekerjaan') is-invalid @enderror"
                                             id="tipe_pekerjaan" name="tipe_pekerjaan">
-                                            <option value="" disabled selected>Pilih Tipe Pekerjaan</option>
+                                            <option value="" disabled selected>Pilih tipe pekerjaan</option>
                                             <option value="remote"
                                                 {{ old('tipe_pekerjaan') === 'remote' ? 'selected' : '' }}>
                                                 Remote
@@ -94,7 +173,7 @@
                                         <input type="number"
                                             class="form-control @error('jumlah_pelamar') is-invalid @enderror"
                                             id="jumlah_pelamar" name="jumlah_pelamar"
-                                            placeholder="Masukkan Jumlah Pelamar yang dibutuhkan"
+                                            placeholder="Masukkan jumlah pelamar yang dibutuhkan"
                                             value="{{ old('jumlah_pelamar') }}">
                                         @error('jumlah_pelamar')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -103,11 +182,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="gaji">Gaji</label>
-                                        <input type="number" class="form-control @error('gaji') is-invalid @enderror"
-                                            id="gaji" name="gaji" placeholder="Masukkan Gaji yang diberikan"
-                                            value="{{ old('gaji') }}">
-                                        @error('gaji')
+                                        <label for="tutup">Lowongan di tutup</label>
+                                        <input type="date" class="form-control @error('tutup') is-invalid @enderror"
+                                            id="tutup" name="tutup" placeholder="Masukkan tanggal"
+                                            value="{{ old('tutup') }}">
+                                        @error('tutup')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -133,8 +212,8 @@
     <script>
         $(document).ready(function() {
             $('#requirement').summernote({
-                placeholder: 'Masukkan Persyaratan Pekerjaan',
-                height: 200,
+                placeholder: 'Masukkan persyaratan pekerjaan',
+                height: 195,
             });
         });
     </script>

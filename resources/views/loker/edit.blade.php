@@ -49,9 +49,7 @@
                                                     {{ $kategori->kategori }}</option>
                                             @endforeach
                                         </select> --}}
-                                        <select name="id_kategori[]"
-                                            class="form-control select2 @error('id_kategori') is-invalid @enderror" multiple
-                                            disabled>
+                                        <select name="id_kategori[]" class="form-control select2" multiple disabled>
                                             <option value="">Pilih Kategori</option>
                                             @foreach ($kategoris as $kategori)
                                                 <option value="{{ $kategori->id }}"
@@ -60,55 +58,105 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('id_kategori')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="judul">Judul</label>
                                         <input type="hidden" name="judul" value="{{ $loker->judul }}">
-                                        <input type="text" class="form-control @error('judul') is-invalid @enderror"
-                                            id="judul" name="judul" placeholder="Masukkan Judul Lowongan Pekerjaan"
-                                            value="{{ $loker->judul }}" disabled>
-                                        @error('judul')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                        <input type="text" class="form-control" id="judul" name="judul"
+                                            placeholder="Masukkan Judul Lowongan Pekerjaan" value="{{ $loker->judul }}"
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="deskripsi">Deskripsi</label>
                                         <input type="hidden" name="deskripsi" value="{{ $loker->deskripsi }}">
-                                        <textarea name="deskripsi" id="deskripsi"
-                                            class="form-control summernote-simple @error('deskripsi') is-invalid @enderror" type="text"
-                                            style="height: 150px;" placeholder="Masukkan Deskripsi Pekerjaan" disabled>{{ $loker->deskripsi }}</textarea>
-                                        @error('diskripsi')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                        <textarea name="deskripsi" id="deskripsi" class="form-control summernote-simple" type="text" style="height: 150px;"
+                                            placeholder="Masukkan Deskripsi Pekerjaan" disabled>{{ $loker->deskripsi }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="requirement">Persyaratan</label>
                                         <input type="hidden" name="requirement" value="{{ $loker->requirement }}">
-                                        <textarea id="requirement-2" class="form-control @error('requirement') is-invalid @enderror" type="text"
-                                            style="height: 150px;" disabled>{{ str_replace(['<ol>', '</ol>', '<li>', '</li>'], ['', '', '', "\n"], $loker->requirement) }}
+                                        <textarea id="requirement-2" class="form-control" type="text" style="height: 150px;" disabled>{{ str_replace(['<ol>', '</ol>', '<li>', '</li>', '<br>'], ['', '', '', "\n", ''], $loker->requirement) }}
                                         </textarea>
-                                        @error('requirement')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="min_pendidikan">Minimal Pendidikan</label>
+                                        <input type="hidden" name="min_pendidikan" value="{{ $loker->min_pendidikan }}">
+                                        <select class="form-control select2" id="min_pendidikan" name="min_pendidikan"
+                                            disabled>
+                                            <option value="" disabled selected>Pilih minimal pendidikan</option>
+                                            <option value="SMA"
+                                                {{ $loker->min_pendidikan === 'SMA' ? 'selected' : '' }}>
+                                                SMA
+                                            </option>
+                                            <option value="SMK"
+                                                {{ $loker->min_pendidikan === 'SMK' ? 'selected' : '' }}>
+                                                SMK
+                                            </option>
+                                            <option value="SMA/SMK"
+                                                {{ $loker->min_pendidikan === 'SMA/SMK' ? 'selected' : '' }}>
+                                                SMA/SMK
+                                            </option>
+                                            <option value="S1" {{ $loker->min_pendidikan === 'S1' ? 'selected' : '' }}>
+                                                S1
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="min_pengalaman">Minimal Pengalaman</label>
+                                        <input type="hidden" name="min_pengalaman" value="{{ $loker->min_pengalaman }}">
+                                        <select class="form-control select2" id="min_pengalaman" name="min_pengalaman"
+                                            disabled>
+                                            <option value="" disabled selected>Pilih minimal pengalaman</option>
+                                            <option value="tidak ada"
+                                                {{ $loker->min_pengalaman === 'tidak ada' ? 'selected' : '' }}>
+                                                Tidak ada
+                                            </option>
+                                            <option value="kurang dari setahun"
+                                                {{ $loker->min_pengalaman === 'kurang dari setahun' ? 'selected' : '' }}>
+                                                Kurang dari setahun
+                                            </option>
+                                            <option value="lebih dari setahun"
+                                                {{ $loker->min_pengalaman === 'lebih dari setahun' ? 'selected' : '' }}>
+                                                Lebih dari setahun
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="gaji">Gaji</label>
+                                        <input type="hidden" name="gaji_bawah" value="{{ $loker->gaji_bawah }}">
+                                        <input type="hidden" name="gaji_atas" value="{{ $loker->gaji_atas }}">
+                                        <div class="d-flex">
+                                            <div class="d-flex align-items-center flex-grow-1">
+                                                <input type="number" class="form-control mr-2" id="gaji_bawah"
+                                                    name="gaji_bawah" value="{{ $loker->gaji_bawah }}"
+                                                    placeholder="contoh: 3000000" disabled>
+                                                <span class="mr-2">-</span>
+                                                <input type="number" class="form-control" id="gaji_atas"
+                                                    name="gaji_atas" value="{{ $loker->gaji_atas }}"
+                                                    placeholder="contoh: 3000000" disabled>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="tipe_pekerjaan">Tipe Pekerjaan</label>
-                                        <input type="hidden" name="tipe_pekerjaan" value="{{ $loker->tipe_pekerjaan }}">
-                                        <select class="form-control @error('tipe_pekerjaan') is-invalid @enderror"
-                                            id="tipe_pekerjaan" name="tipe_pekerjaan" disabled>
+                                        <input type="hidden" name="tipe_pekerjaan"
+                                            value="{{ $loker->tipe_pekerjaan }}">
+                                        <select class="form-control select2" id="tipe_pekerjaan" name="tipe_pekerjaan"
+                                            disabled>
                                             <option value="onsite"
                                                 {{ $loker->tipe_pekerjaan === 'onsite' ? 'selected' : '' }}>
                                                 Onsite</option>
@@ -116,35 +164,24 @@
                                                 {{ $loker->tipe_pekerjaan === 'remote' ? 'selected' : '' }}>
                                                 Remote</option>
                                         </select>
-                                        @error('tipe_pekerjaan')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="jumlah_pelamar">Jumlah Pelamar</label>
-                                        <input type="hidden" name="jumlah_pelamar" value="{{ $loker->jumlah_pelamar }}">
-                                        <input type="number"
-                                            class="form-control @error('jumlah_pelamar') is-invalid @enderror"
-                                            id="jumlah_pelamar" name="jumlah_pelamar"
-                                            placeholder="Masukkan Jumlah Pelamar yang dibutuhkan"
+                                        <input type="hidden" name="jumlah_pelamar"
+                                            value="{{ $loker->jumlah_pelamar }}">
+                                        <input type="number" class="form-control" id="jumlah_pelamar"
+                                            name="jumlah_pelamar" placeholder="Masukkan Jumlah Pelamar yang dibutuhkan"
                                             value="{{ $loker->jumlah_pelamar }}" disabled>
-                                        @error('jumlah_pelamar')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="gaji">Gaji</label>
-                                        <input type="hidden" name="gaji" value="{{ $loker->gaji }}">
-                                        <input type="number" class="form-control @error('gaji') is-invalid @enderror"
-                                            id="gaji" name="gaji" placeholder="Masukkan Gaji yang diberikan"
-                                            value="{{ $loker->gaji }}" disabled>
-                                        @error('gaji')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                        <label for="tutup">Lowongan di tutup</label>
+                                        <input type="hidden" name="tutup" value="{{ $loker->tutup }}">
+                                        <input type="date" class="form-control" id="tutup" name="tutup"
+                                            placeholder="Masukkan tanggal" value="{{ $loker->tutup }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-8"></div>
@@ -233,7 +270,7 @@
                                             <label for="deskripsi">Deskripsi</label>
                                             <textarea name="deskripsi" id="deskripsi"
                                                 class="form-control summernote-simple @error('deskripsi') is-invalid @enderror" type="text"
-                                                style="height: 150px;" placeholder="Masukkan Deskripsi Pekerjaan">{{ $loker->deskripsi }}</textarea>
+                                                style="height: 290px;" placeholder="Masukkan Deskripsi Pekerjaan">{{ $loker->deskripsi }}</textarea>
                                             @error('diskripsi')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -250,10 +287,96 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="min_pendidikan">Minimal Pendidikan</label>
+                                            <select
+                                                class="form-control select2 @error('min_pendidikan') is-invalid @enderror"
+                                                id="min_pendidikan" name="min_pendidikan">
+                                                <option value="" disabled selected>Pilih minimal pendidikan</option>
+                                                <option value="SMA"
+                                                    {{ $loker->min_pendidikan === 'SMA' ? 'selected' : '' }}>
+                                                    SMA
+                                                </option>
+                                                <option value="SMK"
+                                                    {{ $loker->min_pendidikan === 'SMK' ? 'selected' : '' }}>
+                                                    SMK
+                                                </option>
+                                                <option value="SMA/SMK"
+                                                    {{ $loker->min_pendidikan === 'SMA/SMK' ? 'selected' : '' }}>
+                                                    SMA/SMK
+                                                </option>
+                                                <option value="S1"
+                                                    {{ $loker->min_pendidikan === 'S1' ? 'selected' : '' }}>
+                                                    S1
+                                                </option>
+                                            </select>
+                                            @error('min_pendidikan')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="min_pengalaman">Minimal Pengalaman</label>
+                                            <select
+                                                class="form-control select2 @error('min_pengalaman') is-invalid @enderror"
+                                                id="min_pengalaman" name="min_pengalaman">
+                                                <option value="" disabled selected>Pilih minimal pengalaman</option>
+                                                <option value="tidak ada"
+                                                    {{ $loker->min_pengalaman === 'tidak ada' ? 'selected' : '' }}>
+                                                    Tidak ada
+                                                </option>
+                                                <option value="kurang dari setahun"
+                                                    {{ $loker->min_pengalaman === 'kurang dari setahun' ? 'selected' : '' }}>
+                                                    Kurang dari setahun
+                                                </option>
+                                                <option value="lebih dari setahun"
+                                                    {{ $loker->min_pengalaman === 'lebih dari setahun' ? 'selected' : '' }}>
+                                                    Lebih dari setahun
+                                                </option>
+                                            </select>
+                                            @error('min_pengalaman')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="gaji">Gaji</label>
+                                            <div class="d-flex">
+                                                <div class="d-flex align-items-center flex-grow-1">
+                                                    <input type="number"
+                                                        class="form-control mr-2 @error('gaji_bawah') is-invalid @enderror"
+                                                        id="gaji_bawah" name="gaji_bawah"
+                                                        value="{{ $loker->gaji_bawah }}" placeholder="contoh: 3000000">
+                                                    <span class="mr-2">-</span>
+                                                    <input type="number"
+                                                        class="form-control @error('gaji_atas') is-invalid @enderror"
+                                                        id="gaji_atas" name="gaji_atas" value="{{ $loker->gaji_atas }}"
+                                                        placeholder="contoh: 3000000">
+                                                </div>
+                                            </div>
+                                            @if ($errors->has('gaji_bawah') && !$errors->has('gaji_atas'))
+                                                <div class="invalid-feedback d-block">
+                                                    {{ $errors->first('gaji_bawah') }}
+                                                </div>
+                                            @elseif (!$errors->has('gaji_bawah') && $errors->has('gaji_atas'))
+                                                <div class="invalid-feedback d-block">
+                                                    {{ $errors->first('gaji_atas') }}
+                                                </div>
+                                            @elseif ($errors->has('gaji_bawah') && $errors->has('gaji_atas'))
+                                                <div class="invalid-feedback d-block">
+                                                    {{ $errors->first('gaji_atas') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="tipe_pekerjaan">Tipe Pekerjaan</label>
-                                            <select class="form-control @error('tipe_pekerjaan') is-invalid @enderror"
+                                            <select
+                                                class="form-control select2 @error('tipe_pekerjaan') is-invalid @enderror"
                                                 id="tipe_pekerjaan" name="tipe_pekerjaan">
                                                 <option value="onsite"
                                                     {{ $loker->tipe_pekerjaan === 'onsite' ? 'selected' : '' }}>
@@ -282,12 +405,12 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="gaji">Gaji</label>
-                                            <input type="number"
-                                                class="form-control @error('gaji') is-invalid @enderror" id="gaji"
-                                                name="gaji" placeholder="Masukkan Gaji yang diberikan"
-                                                value="{{ $loker->gaji }}">
-                                            @error('gaji')
+                                            <label for="tutup">Lowongan di tutup</label>
+                                            <input type="date"
+                                                class="form-control @error('tutup') is-invalid @enderror" id="tutup"
+                                                name="tutup" placeholder="Masukkan tanggal"
+                                                value="{{ $loker->tutup }}">
+                                            @error('tutup')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -299,7 +422,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="status">Status Pekerjaan</label>
-                                                <select class="form-control" id="status" name="status">
+                                                <select class="form-control select2" id="status" name="status">
                                                     <option value="dibuka"
                                                         {{ $loker->status === 'dibuka' ? 'selected' : '' }}>
                                                         Dibuka</option>

@@ -68,7 +68,10 @@
                                                     <td>{{ $loker->nama }}</td>
                                                     <td>{{ $loker->kategori }}</td>
                                                     <td class="text-center">{{ $loker->tipe_pekerjaan }}</td>
-                                                    <td>{{ 'Rp ' . number_format($loker->gaji, 0, ',', '.') }}</td>
+                                                    <td>
+                                                        {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}<span> -
+                                                        </span>{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}
+                                                    </td>
                                                     <td>{{ $loker->status }}</td>
                                                     <td class="text-center">
                                                         <div class="d-flex justify-content-center">
@@ -149,18 +152,16 @@
                                 </tr>
                                 <tr>
                                     <th class="text-left">Requirement</th>
-                                    <td>
-                                        {{ str_replace(['<ol>', '</ol>', '<li>', '</li>'], ['', '', '', "\n"], $loker->requirement) }}
-                                    </td>
+                                    <td>{{ $loker->requirement }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-left">Tipe Pekerjaan</th>
                                     <td>{{ $loker->tipe_pekerjaan }}</td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                     <th class="text-left">Gaji</th>
                                     <td>{{ 'Rp ' . number_format($loker->gaji, 0, ',', '.') }}</td>
-                                </tr>
+                                </tr> --}}
                                 <tr>
                                     <th class="text-left">Kuota Pelamar</th>
                                     <td>{{ $loker->jumlah_pelamar }}</td>
@@ -237,10 +238,7 @@
                                                 </td>
                                                 <td>{{ $loker->judul }}</td>
                                                 <td>{{ $loker->deskripsi }}</td>
-                                                {{-- <td>{{ $loker->requirement }}</td> --}}
-                                                <td>
-                                                    {{ str_replace(['<ol>', '</ol>', '<li>', '</li>'], ['', '', '', "\n"], $loker->requirement) }}
-                                                </td>
+                                                <td>{{ $loker->requirement }}</td>
                                                 <td>{{ $loker->status }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">

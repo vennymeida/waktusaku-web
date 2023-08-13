@@ -12,13 +12,16 @@ class LowonganPekerjaan extends Model
     protected $fillable = [
         'user_id',
         'id_perusahaan',
-        // 'id_kategori',
         'judul',
         'deskripsi',
         'requirement',
         'tipe_pekerjaan',
-        'gaji',
+        'min_pendidikan',
+        'min_pengalaman',
+        'gaji_bawah',
+        'gaji_atas',
         'jumlah_pelamar',
+        'tutup',
         'status',
     ];
 

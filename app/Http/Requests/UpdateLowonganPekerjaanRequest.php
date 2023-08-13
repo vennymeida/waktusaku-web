@@ -29,8 +29,12 @@ class UpdateLowonganPekerjaanRequest extends FormRequest
             'deskripsi' => 'required',
             'requirement' => 'required',
             'tipe_pekerjaan' => 'required',
-            'gaji' => 'required',
+            'min_pendidikan' => 'required',
+            'min_pengalaman' => 'required',
+            'gaji_bawah' => 'required',
+            'gaji_atas' => 'required',
             'jumlah_pelamar' => 'required',
+            'tutup' => 'required',
         ];
     }
 
@@ -43,8 +47,13 @@ class UpdateLowonganPekerjaanRequest extends FormRequest
             'deskripsi.required' => 'Diskripsi tidak boleh kosong',
             'requirement.required' => 'Persyaratan tidak boleh kosong',
             'tipe_pekerjaan.required' => 'Tipe Pekerjaan tidak boleh kosong',
+            'min_pendidikan.required' => 'Minimal Pendidikan tidak boleh kosong',
+            'min_pengalaman.required' => 'Minimal Pengalaman tidak boleh kosong',
+            'gaji_bawah.required' => 'Gaji tidak boleh kosong',
+            'gaji_atas.required' => 'Gaji tidak boleh kosong',
             'gaji.required' => 'Gaji tidak boleh kosong',
             'jumlah_pelamar.required' => 'Jumlah Pelamar tidak boleh kosong',
+            'tutup.required' => 'Lowongan di tutup tidak boleh kosong',
         ];
     }
 }
