@@ -65,8 +65,7 @@
                                         <label for="judul">Judul</label>
                                         <input type="hidden" name="judul" value="{{ $loker->judul }}">
                                         <input type="text" class="form-control" id="judul" name="judul"
-                                            placeholder="Masukkan Judul Lowongan Pekerjaan" value="{{ $loker->judul }}"
-                                            disabled>
+                                            value="{{ $loker->judul }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -74,7 +73,7 @@
                                         <label for="deskripsi">Deskripsi</label>
                                         <input type="hidden" name="deskripsi" value="{{ $loker->deskripsi }}">
                                         <textarea name="deskripsi" id="deskripsi" class="form-control summernote-simple" type="text" style="height: 150px;"
-                                            placeholder="Masukkan Deskripsi Pekerjaan" disabled>{{ $loker->deskripsi }}</textarea>
+                                            disabled>{{ $loker->deskripsi }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -139,13 +138,15 @@
                                         <input type="hidden" name="gaji_atas" value="{{ $loker->gaji_atas }}">
                                         <div class="d-flex">
                                             <div class="d-flex align-items-center flex-grow-1">
-                                                <input type="number" class="form-control mr-2" id="gaji_bawah"
-                                                    name="gaji_bawah" value="{{ $loker->gaji_bawah }}"
-                                                    placeholder="contoh: 3000000" disabled>
+                                                <input type="text" class="form-control mr-2" id="gaji_bawah"
+                                                    name="gaji_bawah"
+                                                    value="{{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}"
+                                                    disabled>
                                                 <span class="mr-2">-</span>
-                                                <input type="number" class="form-control" id="gaji_atas"
-                                                    name="gaji_atas" value="{{ $loker->gaji_atas }}"
-                                                    placeholder="contoh: 3000000" disabled>
+                                                <input type="text" class="form-control" id="gaji_atas"
+                                                    name="gaji_atas"
+                                                    value="{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}"
+                                                    disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -172,16 +173,15 @@
                                         <input type="hidden" name="jumlah_pelamar"
                                             value="{{ $loker->jumlah_pelamar }}">
                                         <input type="number" class="form-control" id="jumlah_pelamar"
-                                            name="jumlah_pelamar" placeholder="Masukkan Jumlah Pelamar yang dibutuhkan"
-                                            value="{{ $loker->jumlah_pelamar }}" disabled>
+                                            name="jumlah_pelamar" value="{{ $loker->jumlah_pelamar }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="tutup">Lowongan di tutup</label>
                                         <input type="hidden" name="tutup" value="{{ $loker->tutup }}">
-                                        <input type="date" class="form-control" id="tutup" name="tutup"
-                                            placeholder="Masukkan tanggal" value="{{ $loker->tutup }}" disabled>
+                                        <input type="text" class="form-control" id="tutup" name="tutup"
+                                            value="{{ \Carbon\Carbon::parse($loker->tutup)->format('d F Y') }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-8"></div>

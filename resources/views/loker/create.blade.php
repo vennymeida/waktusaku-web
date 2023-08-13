@@ -184,8 +184,7 @@
                                     <div class="form-group">
                                         <label for="tutup">Lowongan di tutup</label>
                                         <input type="date" class="form-control @error('tutup') is-invalid @enderror"
-                                            id="tutup" name="tutup" placeholder="Masukkan tanggal"
-                                            value="{{ old('tutup') }}">
+                                            id="tutup" name="tutup" value="{{ old('tutup') }}">
                                         @error('tutup')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

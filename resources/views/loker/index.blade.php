@@ -132,7 +132,7 @@
                             <tbody>
                                 <tr>
                                     <th class="text-left">Nama Pemilik</th>
-                                    <td>{{ $loker->name }}</td>
+                                    <td>{{ $loker->pemilik }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-left">Nama Perusahaan</th>
@@ -158,13 +158,20 @@
                                     <th class="text-left">Tipe Pekerjaan</th>
                                     <td>{{ $loker->tipe_pekerjaan }}</td>
                                 </tr>
-                                {{-- <tr>
+                                <tr>
                                     <th class="text-left">Gaji</th>
-                                    <td>{{ 'Rp ' . number_format($loker->gaji, 0, ',', '.') }}</td>
-                                </tr> --}}
+                                    <td>
+                                        {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}<span> -
+                                        </span>{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th class="text-left">Kuota Pelamar</th>
-                                    <td>{{ $loker->jumlah_pelamar }}</td>
+                                    <td>{{ $loker->jumlah_pelamar }} orang</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left">Lowongan di tutup</th>
+                                    <td>{{ \Carbon\Carbon::parse($loker->tutup)->format('d F Y') }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-left">Status</th>

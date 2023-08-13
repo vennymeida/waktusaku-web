@@ -50,7 +50,8 @@ class LowonganPekerjaanController extends Controller
                 'lp.tipe_pekerjaan',
                 'lp.jumlah_pelamar',
                 'lp.status',
-                'u.name',
+                'lp.tutup',
+                'p.pemilik',
                 DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
             )
             ->when($request->has('search'), function ($query) use ($request) {
@@ -63,7 +64,7 @@ class LowonganPekerjaanController extends Controller
                 return $query->where('lp.status', $selectedStatus);
 
             })
-            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'u.name')
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'p.pemilik')
             ->paginate(10);
 
         foreach ($allResults as $requirement) {
@@ -75,7 +76,6 @@ class LowonganPekerjaanController extends Controller
 
         $profileUser = ProfileUser::where('user_id', $user->id)->first();
         $perusahaan = Perusahaan::where('user_id', $user->id)->first();
-
 
 
         $loggedInUserResults = DB::table('lowongan_pekerjaans as lp')
@@ -92,6 +92,8 @@ class LowonganPekerjaanController extends Controller
                 'lp.deskripsi',
                 'lp.requirement',
                 'lp.status',
+                'lp.tutup',
+                'p.pemilik',
                 DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
             )
             ->where('u.id', $loggedInUserId)
@@ -102,7 +104,7 @@ class LowonganPekerjaanController extends Controller
                     ->orWhere('lp.requirement', 'like', '%' . $search . '%')
                     ->orWhere('lp.status', 'like', '%' . $search . '%');
             })
-            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'u.name')
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'p.pemilik')
             ->paginate(10);
 
         foreach ($loggedInUserResults as $requirement) {
