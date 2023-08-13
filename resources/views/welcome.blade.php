@@ -2,7 +2,7 @@
 @section('main')
     <main class="bg-light">
         <section>
-            <div class="col-md-12">
+            <div class="col-md-12 py-5">
                 <div class="d-flex justify-content-around align-items-center">
                     <div class="col-md-6">
                         <h1>Temukan Peluang Kerja di <span class="text-primary">Waktu</span><span class="text-warning">Saku</span>
@@ -25,68 +25,62 @@
         </section>
 
         <section>
-            <div class="bg-secondary my-5 mx-auto" style="height: 100%;">
-                <div class="row">
-                    <div class="col-md-10 my-5 mx-auto">
-                        <h2 class="text-center">Mengapa harus di <span class="text-white">WaktuSaku </span><span class="text-warning">Saku </span><span>?</span>
-                        </h2>
-                    </div>
-                </div>
-                <div class="row col-md-12 my-5 mx-auto">
-                    <div class="col-md-3">
-                        <div class="card" style="border: none;">
-                            <div class="card-body">
-                                <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 50px; margin-top:50px">
-                                    <i class="fas fa-user-check text-primary fa-3x"></i>
-                                </div>
-                                <p class="card-title text-center font-weight-bold h5">Peluang Pekerjaan Sesuai</p>
-                                <p class="card-text text-justify">
-                                    Temukan lowongan kerja yang relevan dengan minat bakat Anda. Mulai dari perusahaan teknologi,
-                                    media kreatif, hingga startup yang sedang berkembang pesat.
-                                </p>
-                            </div>
+            <div class="bg-secondary py-5" style="height: 100%;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10 mx-auto">
+                            <h2 class="text-center mt-4">Mengapa harus di <span class="text-white">WaktuSaku </span><span class="text-warning">Saku </span><span>?</span>
+                            </h2>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="card" style="border: none;">
-                            <div class="card-body">
-                                <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 50px; margin-top:50px">
-                                    <i class="fas fa-file-alt text-primary fa-3x"></i>
+                    <div class="row my-5">
+                        <div class="col-md-3">
+                            <div class="card border-primary">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-user-check text-primary fa-3x mb-3"></i>
+                                    <h5 class="card-title font-weight-bold">Peluang Pekerjaan Sesuai</h5>
+                                    <p class="card-text text-justify">
+                                        Temukan lowongan kerja yang relevan dengan minat bakat Anda. Mulai dari perusahaan teknologi,
+                                        media kreatif, hingga startup yang sedang berkembang pesat.
+                                    </p>
                                 </div>
-                                <p class="card-title text-center font-weight-bold h5">Pengalaman Berharga</p>
-                                <p class="card-text text-justify">
-                                    Peluang kerja di WaktuSaku membantu Anda dalam mendapatkan pengalaman
-                                    kerja lebih awal. WaktuSaku akan memberikan keuntungan yang
-                                    signifikan dalam pasar kerja setelah lulus.
-                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card" style="border: none;">
-                            <div class="card-body">
-                                <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 50px; margin-top:50px">
-                                    <i class="fas fa-history text-primary fa-3x"></i>
+                        <div class="col-md-3">
+                            <div class="card border-primary">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-file-alt text-primary fa-3x mb-3"></i>
+                                    <h5 class="card-title font-weight-bold">Pengalaman Berharga</h5>
+                                    <p class="card-text text-justify">
+                                        Peluang kerja di WaktuSaku membantu Anda dalam mendapatkan pengalaman
+                                        kerja lebih awal. WaktuSaku akan memberikan keuntungan yang
+                                        signifikan dalam pasar kerja setelah lulus.
+                                    </p>
                                 </div>
-                                <p class="card-title text-center font-weight-bold h5">Waktu yang Fleksibel</p>
-                                <p class="card-text text-justify">
-                                    Kamu memahami prioritas utama Anda sebagai mahasiswa. Oleh karena itu, Anda
-                                    dapat menyesuaikan jadwal kerja Anda dengan jadwal kuliah dan kegiatan lainnya.
-                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card" style="border: none;">
-                            <div class="card-body">
-                                <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 50px; margin-top:50px">
-                                    <i class="fas fa-percent text-primary fa-3x"></i>
+                        <div class="col-md-3">
+                            <div class="card border-primary">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-history text-primary fa-3x mb-3"></i>
+                                    <h5 class="card-title font-weight-bold">Waktu yang Fleksibel</h5>
+                                    <p class="card-text text-justify">
+                                        Kamu memahami prioritas utama Anda sebagai mahasiswa. Oleh karena itu, Anda
+                                        dapat menyesuaikan jadwal kerja Anda dengan jadwal kuliah dan kegiatan lainnya.
+                                    </p>
                                 </div>
-                                <p class="card-title text-center font-weight-bold h5">Mendapatkan gaji bonus</p>
-                                <p class="card-text text-justify">
-                                    Selain mendapatkan peluang pekerjaan yang sesuai, Anda mendapatkan gaji bonus
-                                    dari masing - masing perusahaan yang Anda minati jika Anda pekerja aktif.
-                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card border-primary">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-percent text-primary fa-3x mb-3"></i>
+                                    <h5 class="card-title font-weight-bold">Mendapatkan gaji bonus</h5>
+                                    <p class="card-text text-justify">
+                                        Selain mendapatkan peluang pekerjaan yang sesuai, Anda mendapatkan gaji bonus
+                                        dari masing-masing perusahaan yang Anda minati jika Anda pekerja aktif.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -95,7 +89,7 @@
         </section>
 
         <section>
-            <div class="col-md-12">
+            <div class="col-md-12 py-5">
                 <div class="d-flex justify-content-around align-items-center">
                     <div class="col-md-4">
                         <img class="img-fluid" src="{{ asset('assets/img/landing-page/image-4.png') }}" alt="">
@@ -119,14 +113,20 @@
                     </div>
                     @foreach ($allResults as $key => $loker)
                         <div class="col-md-4">
-                            <div class="card" style="border: none;">
+                            <div class="card border rounded">
                                 <div class="card-body">
-                                    <img class="img-fluid mb-3 fixed-height-image"
-                                        src="{{ asset('storage/' . $loker->logo) }}" alt="">
-                                    <p class="card-title text-center font-weight-bold h5">{{ $loker->judul }}</p>
-                                    <p class="card-text text-justify">
-                                        {{ $loker->deskripsi }}
-                                    </p>
+                                    <div class="text-center">
+                                        <img class="img-fluid mb-3 fixed-height-image" src="{{ asset('storage/' . $loker->logo) }}" alt="Company Logo">
+                                        <h5 class="card-title font-weight-bold">{{ $loker->judul }}</h5>
+                                    </div>
+                                    <ul class="list-unstyled">
+                                        <div class="float-right fas fa-bookmark"></div>
+                                        <li><i class="far fa-building"></i> {{ $loker->kategori }}</li>
+                                        <li><i class="fas fa-money-bill"></i> {{ $loker->gaji }}</li>
+                                    </ul>
+                                    <div class="text-center">
+                                        <a id="detail-button" class="btn btn-primary" href="#">Lihat Detail</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

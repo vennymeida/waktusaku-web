@@ -25,7 +25,7 @@
             <ul class="navbar-nav ml-auto">
                 @if (!auth()->user())
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-primary text-primary" href="{{ route('login') }}">Login</a>
+                        <a class="nav-link btn btn-outline-primary text-primary mr-2" href="{{ route('login') }}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-outline-warning text-white" href="{{ route('register') }}">Daftar</a>
