@@ -173,4 +173,7 @@ class LowonganPekerjaanController extends Controller
         }
     }
 
+    public function allJobs() {
+        return view('loker.all-jobs');
+    }
 }

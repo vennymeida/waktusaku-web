@@ -25,6 +25,7 @@ use App\Models\User;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\Kecamatan;
+use App\Models\LowonganPekerjaan;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,7 @@ use App\Models\Kecamatan;
 // });
 
 Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/all-jobs', [LowonganPekerjaanController::class, 'allJobs'])->name('all.jobs');
 
 Route::get('/login', function () {
     if (auth()->check()) {
