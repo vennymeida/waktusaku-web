@@ -50,6 +50,7 @@ class LowonganPekerjaanController extends Controller
                 'lp.tipe_pekerjaan',
                 'lp.jumlah_pelamar',
                 'lp.status',
+                'lp.lokasi',
                 'lp.tutup',
                 'p.pemilik',
                 DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
@@ -64,7 +65,7 @@ class LowonganPekerjaanController extends Controller
                 return $query->where('lp.status', $selectedStatus);
 
             })
-            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'p.pemilik')
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'p.pemilik')
             ->paginate(10);
 
         foreach ($allResults as $requirement) {
@@ -88,10 +89,16 @@ class LowonganPekerjaanController extends Controller
                 'lp.id',
                 'lp.user_id',
                 'lp.id_perusahaan',
+                'p.nama',
                 'lp.judul',
                 'lp.deskripsi',
                 'lp.requirement',
+                'lp.gaji_bawah',
+                'lp.gaji_atas',
+                'lp.tipe_pekerjaan',
+                'lp.jumlah_pelamar',
                 'lp.status',
+                'lp.lokasi',
                 'lp.tutup',
                 'p.pemilik',
                 DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
@@ -104,11 +111,14 @@ class LowonganPekerjaanController extends Controller
                     ->orWhere('lp.requirement', 'like', '%' . $search . '%')
                     ->orWhere('lp.status', 'like', '%' . $search . '%');
             })
-            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'p.pemilik')
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'p.pemilik')
             ->paginate(10);
 
+        $counter = 1;
+
         foreach ($loggedInUserResults as $requirement) {
-            $requirement->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>'], ['', '', '', "\n", ''], $requirement->requirement);
+            $requirement->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>'], ['', '', '', ", ", ''], $requirement->requirement);
+            $requirement->requirement = rtrim($requirement->requirement, ', ');
         }
 
         if (Auth::user()->hasRole('Perusahaan')) {
@@ -154,6 +164,7 @@ class LowonganPekerjaanController extends Controller
             'gaji_atas' => $request->gaji_atas,
             'jumlah_pelamar' => $request->jumlah_pelamar,
             'tutup' => $request->tutup,
+            'lokasi' => $request->lokasi,
             'status' => $request->status,
         ]);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreLowonganPekerjaanRequest extends FormRequest
@@ -31,10 +32,21 @@ class StoreLowonganPekerjaanRequest extends FormRequest
             'tipe_pekerjaan' => 'required',
             'min_pendidikan' => 'required',
             'min_pengalaman' => 'required',
+            'lokasi' => 'required|regex:/^[A-Za-z\s,]+$/',
             'gaji_bawah' => 'required',
             'gaji_atas' => 'required',
             'jumlah_pelamar' => 'required',
-            'tutup' => 'required',
+            'tutup' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    $today = Carbon::now();
+                    $dateInput = Carbon::parse($value);
+
+                    if ($dateInput->isBefore($today)) {
+                        $fail(' tanggal tidak boleh kurang dari hari ini');
+                    }
+                },
+            ],
         ];
     }
 
@@ -50,6 +62,8 @@ class StoreLowonganPekerjaanRequest extends FormRequest
             'tipe_pekerjaan.required' => 'Tipe Pekerjaan tidak boleh kosong',
             'min_pendidikan.required' => 'Minimal Pendidikan tidak boleh kosong',
             'min_pengalaman.required' => 'Minimal Pengalaman tidak boleh kosong',
+            'lokasi.required' => 'Lokasi kerja tidak boleh kosong',
+            'lokasi.regex' => 'Lokasi kerja tidak boleh mengandung selain huruf',
             'gaji_bawah.required' => 'Gaji tidak boleh kosong',
             'gaji_atas.required' => 'Gaji tidak boleh kosong',
             'jumlah_pelamar.required' => 'Jumlah Pelamar tidak boleh kosong',

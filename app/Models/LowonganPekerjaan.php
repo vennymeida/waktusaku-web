@@ -18,6 +18,7 @@ class LowonganPekerjaan extends Model
         'tipe_pekerjaan',
         'min_pendidikan',
         'min_pengalaman',
+        'lokasi',
         'gaji_bawah',
         'gaji_atas',
         'jumlah_pelamar',

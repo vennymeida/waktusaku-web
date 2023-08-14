@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->enum('tipe_pekerjaan', ['remote', 'onsite']);
             $table->enum('min_pendidikan', ['SMA', 'SMK', 'SMA/SMK', 'S1']);
             $table->enum('min_pengalaman', ['tidak ada', 'kurang dari setahun', 'lebih dari setahun']);
+            $table->string('lokasi');
             $table->integer('gaji_bawah');
             $table->integer('gaji_atas');
             $table->integer('jumlah_pelamar');

@@ -14,7 +14,7 @@
                             <div class="row">
                                 <input type="hidden" name="user_id" value="{{ $profileUser->id }}">
                                 <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id }}">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="id_kategori">Kategori</label>
                                         <select name="id_kategori[]"
@@ -35,13 +35,33 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="judul">Judul</label>
                                         <input type="text" class="form-control @error('judul') is-invalid @enderror"
                                             id="judul" name="judul" placeholder="Masukkan judul lowongan pekerjaan"
                                             value="{{ old('judul') }}">
                                         @error('judul')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="tipe_pekerjaan">Tipe Pekerjaan</label>
+                                        <select class="form-control select2 @error('tipe_pekerjaan') is-invalid @enderror"
+                                            id="tipe_pekerjaan" name="tipe_pekerjaan">
+                                            <option value="" disabled selected>Pilih tipe pekerjaan</option>
+                                            <option value="remote"
+                                                {{ old('tipe_pekerjaan') === 'remote' ? 'selected' : '' }}>
+                                                Remote
+                                            </option>
+                                            <option value="onsite"
+                                                {{ old('tipe_pekerjaan') === 'onsite' ? 'selected' : '' }}>
+                                                Onsite
+                                            </option>
+                                        </select>
+                                        @error('tipe_pekerjaan')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -149,20 +169,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="tipe_pekerjaan">Tipe Pekerjaan</label>
-                                        <select class="form-control select2 @error('tipe_pekerjaan') is-invalid @enderror"
-                                            id="tipe_pekerjaan" name="tipe_pekerjaan">
-                                            <option value="" disabled selected>Pilih tipe pekerjaan</option>
-                                            <option value="remote"
-                                                {{ old('tipe_pekerjaan') === 'remote' ? 'selected' : '' }}>
-                                                Remote
-                                            </option>
-                                            <option value="onsite"
-                                                {{ old('tipe_pekerjaan') === 'onsite' ? 'selected' : '' }}>
-                                                Onsite
-                                            </option>
-                                        </select>
-                                        @error('tipe_pekerjaan')
+                                        <label for="lokasi">Lokasi Kerja</label>
+                                        <input type="text" class="form-control @error('lokasi') is-invalid @enderror"
+                                            id="lokasi" name="lokasi" placeholder="Masukkan lokasi kerja"
+                                            value="{{ old('lokasi') }}">
+                                        @error('lokasi')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
