@@ -3198,6 +3198,8 @@ pre {
 .section {
     position: relative;
     z-index: 1;
+    width: 1200px;
+    padding-right: 120px;
 }
 .section > *:first-child {
     margin-top: -7px;
@@ -3569,12 +3571,17 @@ body.layout-2 .navbar {
 body.layout-2 .main-wrapper {
     display: flex;
     flex-wrap: wrap;
-    padding: 0 50px;
+    padding: 0 0px;
     background-color: #CBD1FE;
 }
 
 body.layout-2 .main-sidebar,
-body.layout-2 .main-content,
+body.layout-2 .main-content {
+    padding-top: 107px;
+    padding-left: 0px;
+    padding-right: 60px;
+    width: calc(100%-200px);
+}
 body.layout-2 .main-footer {
     flex-shrink: 0;
     flex-grow: 0;
