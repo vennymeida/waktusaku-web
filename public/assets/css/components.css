@@ -81,6 +81,13 @@
           font-weight: 700;
           text-decoration: none;
           color: #fff; }
+          .article .article-header .article-title h4 {
+            font-size: 12px;
+            line-height: 5px; }
+            .article .article-header .article-title h4 a {
+              font-weight: 500;
+              text-decoration: none;
+              color: #fff; }
   .article .article-details {
     background-color: #fff;
     padding: 20px;

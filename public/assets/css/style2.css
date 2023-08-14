@@ -3277,6 +3277,19 @@ pre {
     padding-left: 35px;
     padding-right: 35px;
 }
+.details-item {
+    display: flex;
+    align-items: center;
+}
+
+.small-cell {
+    width: 5%; /* Ubah lebar sesuai kebutuhan */
+}
+
+.large-cell {
+    width: 50%; /* Ubah lebar sesuai kebutuhan */
+    padding-left: -10px;
+}
 
 @media (max-width: 575.98px) {
     .section .section-title {

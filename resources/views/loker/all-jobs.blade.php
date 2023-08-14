@@ -55,18 +55,39 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-4">
                     <article class="article">
                         <div class="article-header">
-                            <div class="article-image" data-background="assets/img/news/img08.jpg">
+                            <div class="article-image" data-background="{{asset('assets/img/news/img08.jpg')}}">
                             </div>
                             <div class="article-title">
-                                <h2><a href="#">Excepteur sint occaecat cupidatat non proident</a>
+                                <h2><a href="#">Judul Lowongan</a>
                                 </h2>
+                                <h4><a href="#">Nama Perusahaan</a>
+                                </h4>
                             </div>
                         </div>
                         <div class="article-details">
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore eu fugiat nulla pariatur. </p>
+                            <div class="details-item">
+                                <div class="icon-details"><i class="fas fa-city"></i></div>
+                                <a>Kategori Pekerjaan</a>
+                            </div>
+                            <div class="details-item">
+                                <div class="icon-details"><i class="fas fa-dollar-sign"></i></div>
+                                <a>Range Gaji</a>
+                            </div>
+                            <div class="details-item">
+                                <div class="icon-details"><i class="fas fa-briefcase"></i></div>
+                                <a>Pengalaman Kerja</a>
+                            </div>
+                            <div class="details-item">
+                                <div class="icon-details"><i class="fas fa-graduation-cap"></i></div>
+                                <a>Lulusan Minimal</a>
+                            </div>
+                            <div class="details-item">
+                                <div class="icon-details"><i class="fas fa-map-marker-alt"></i></div>
+                                <a>Lokasi Kantor</a>
+                            </div>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                             <div class="article-cta">
-                                <a href="#" class="btn btn-primary">Read More</a>
+                                <a href="#" class="btn btn-primary">Lihat Detail</a>
                             </div>
                         </div>
                     </article>
@@ -82,6 +103,20 @@
                             </div>
                         </div>
                         <div class="article-details">
+                            <table class="custom-table">
+                                <tr>
+                                    <td class="small-cell"><i class="fas fa-city"></i></td>
+                                    <td class="large-cell">Kategori Pekerjaan</td>
+                                </tr>
+                                <tr>
+                                    <td>Baris 2, Kolom 1</td>
+                                    <td>Baris 2, Kolom 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Baris 3, Kolom 1</td>
+                                    <td>Baris 3, Kolom 2</td>
+                                </tr>
+                            </table>
                             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
                                 cillum dolore eu fugiat nulla pariatur. </p>
                             <div class="article-cta">
