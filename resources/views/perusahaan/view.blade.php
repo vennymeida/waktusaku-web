@@ -11,15 +11,18 @@
         </div>
     </div>
     <div class="section-body">
+        <h2 class="section-title">Detail Perusahaan</h2>
+
+    <div class="section-body">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-12"> <!-- Use col-12 to take up the full width -->
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Detail Perusahaan</h5>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="text-center">
-                                    @if ($perusahaan->perusahaan->logo)
+                                    @if ($perusahaan->perusahaan && $perusahaan->perusahaan->logo)
                                     <img src="{{ asset('storage/' . $perusahaan->perusahaan->logo) }}" alt="Logo"
                                         class="img-thumbnail rounded-circle" style="width: 200px; height: 200px;">
                                     @else
@@ -32,32 +35,32 @@
                                     <dt class="col-sm-4">Nama User</dt>
                                     <dd class="col-sm-8">{{ $perusahaan->name }}</dd>
 
-                                    <dt class="col-sm-4">Email User</dt>
-                                    <dd class="col-sm-8">{{ $perusahaan->email }}</dd>
+                                    <dt class="col-sm-4 mt-3">Email User</dt>
+                                    <dd class="col-sm-8 mt-3">{{ $perusahaan->email }}</dd>
 
-                                    <dt class="col-sm-4">Pemilik</dt>
-                                    <dd class="col-sm-8">{{ optional($perusahaan->perusahaan)->pemilik?: '-' }}</dd>
+                                    <dt class="col-sm-4 mt-3">Pemilik</dt>
+                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->pemilik ?: '-' }}</dd>
 
-                                    <dt class="col-sm-4">Nama Perusahaan</dt>   
-                                    <dd class="col-sm-8">{{ optional($perusahaan->perusahaan)->nama?: '-' }}</dd>
+                                    <dt class="col-sm-4 mt-3">Nama Perusahaan</dt>   
+                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->nama ?: '-' }}</dd>
 
-                                    <dt class="col-sm-4">Alamat Perusahaan</dt>
-                                    <dd class="col-sm-8">{{ optional($perusahaan->perusahaan)->alamat?: '-' }}</dd>
+                                    <dt class="col-sm-4 mt-3">Alamat Perusahaan</dt>
+                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->alamat ?: '-' }}</dd>
 
-                                    <dt class="col-sm-4">Email Perusahaan</dt>
-                                    <dd class="col-sm-8">{{ optional($perusahaan->perusahaan)->email?: '-' }}</dd>
+                                    <dt class="col-sm-4 mt-3">Email Perusahaan</dt>
+                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->email ?: '-' }}</dd>
 
-                                    <dt class="col-sm-4">Website</dt>
-                                    <dd class="col-sm-8">{{ optional($perusahaan->perusahaan)->website?: '-' }}</dd>
+                                    <dt class="col-sm-4 mt-3">Website</dt>
+                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->website ?: '-' }}</dd>
 
-                                    <dt class="col-sm-4">No. Telp</dt>
-                                    <dd class="col-sm-8">{{ optional($perusahaan->perusahaan)->no_hp?: '-' }}</dd>
+                                    <dt class="col-sm-4 mt-3">No. Telp</dt>
+                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->no_hp ?: '-' }}</dd>
 
-                                    <dt class="col-sm-4">Deskripsi</dt>
-                                    <dd class="col-sm-8">{{ optional($perusahaan->perusahaan)->deskripsi?: '-' }}</dd>
+                                    <dt class="col-sm-4 mt-3">Deskripsi</dt>
+                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->deskripsi ?: '-' }}</dd>
 
-                                    <dt class="col-sm-4">SIU</dt>
-                                    <dd class="col-sm-8">
+                                    <dt class="col-sm-4 mt-3">SIU</dt>
+                                    <dd class="col-sm-8 mt-3">
                                         @if (optional($perusahaan->perusahaan)->siu)
                                         <a href="{{ asset('storage/' . $perusahaan->perusahaan->siu) }}" target="_blank"
                                             class="btn btn-primary btn-sm">View SIU</a>
