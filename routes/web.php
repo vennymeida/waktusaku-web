@@ -45,11 +45,11 @@ use App\Models\Kecamatan;
 //     }
 // });
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/', [WelcomeController::class, 'index']);
+// Route::get('/', [WelcomeController::class, 'index']);
 
 Route::get('/login', function () {
     if (auth()->check()) {

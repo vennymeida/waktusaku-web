@@ -12,13 +12,17 @@ class LowonganPekerjaan extends Model
     protected $fillable = [
         'user_id',
         'id_perusahaan',
-        'id_kategori',
         'judul',
         'deskripsi',
         'requirement',
         'tipe_pekerjaan',
-        'gaji',
+        'min_pendidikan',
+        'min_pengalaman',
+        'lokasi',
+        'gaji_bawah',
+        'gaji_atas',
         'jumlah_pelamar',
+        'tutup',
         'status',
     ];
 
@@ -34,6 +38,7 @@ class LowonganPekerjaan extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(KategoriPekerjaan::class, 'id_kategori');
+        // return $this->belongsTo(KategoriPekerjaan::class, 'id_kategori');
+        return $this->belongsToMany(KategoriPekerjaan::class, 'lowongan_kategori', 'lowongan_id', 'kategori_id');
     }
 }
