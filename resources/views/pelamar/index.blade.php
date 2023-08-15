@@ -3,10 +3,10 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Pelamar User List</h1>
+            <h1>Pencari Kerja User List</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Pelamar</a></div>
+                <div class="breadcrumb-item"><a href="#">Pencari Kerja</a></div>
                 <div class="breadcrumb-item">User List</div>
             </div>
         </div>
@@ -15,17 +15,15 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
-                        <div class="card-header">
                     @include('layouts.alert')
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        <div class="card card-primary">
                         <div class="card-header">
-                            <h4>Pelamar List</h4>
+                            <h4>Pencari Kerja List</h4>
                         </div>
                         <div class="card-body">
                             <form id="search-form" method="GET" action="{{ route('pelamar.index') }}">
@@ -43,7 +41,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>No</th>  
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>Alamat</th>

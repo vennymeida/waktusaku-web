@@ -29,33 +29,32 @@
                             </div>
                         </div>
                         <div class="card-body">
-                                <form action="{{ route('user.index') }}" method="GET" class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="name">Search by Name</label>
-                                            <input type="text" class="form-control" name="name" value="{{ request()->query('name') }}">
-                                        </div>
+                            <form action="{{ route('user.index') }}" method="GET" class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Search by Name</label>
+                                        <input type="text" class="form-control" name="name" value="{{ request()->query('name') }}">
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="roles">Filter by Roles</label>
-                                            <div class="d-flex">
-                                                <select name="roles[]" class="form-control select2" >
-                                                    @foreach ($roles as $role)
-                                                        <option value="{{ $role->name }}" {{ in_array($role->name, request()->query('roles', [])) ? 'selected' : '' }}>
-                                                            {{ $role->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="ml-2 d-flex">
-                                                    <button type="submit" class="btn btn-primary">Search</button>
-                                                    <a href="{{ route('user.index') }}" class="btn btn-danger ml-2">Reset</a>
-                                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="roles">Filter by Roles</label>
+                                        <div class="d-flex">
+                                            <select name="roles[]" class="form-control select2" >
+                                                @foreach ($roles as $role)
+                                                    <option value="{{ $role->name }}" {{ in_array($role->name, request()->query('roles', [])) ? 'selected' : '' }}>
+                                                        {{ $role->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <div class="ml-2 d-flex">
+                                                <button type="submit" class="btn btn-primary">Search</button>
+                                                <a href="{{ route('user.index') }}" class="btn btn-danger ml-2">Reset</a>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
-                            {{-- </div> --}}
+                                </div>
+                            </form>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <thead>
@@ -63,11 +62,9 @@
                                             <th>No</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Bergabung Sejak</th>
-                                            <th>Roles</th> <!-- Add a new column for displaying roles -->
+                                            <th>Roles</th>
                                             <th class="text-right">Update Roles</th>
-                                            {{-- <th class="text-right">Verify Email</th> --}}
-                                            <th class="text-right">Action</th> <!-- Add a new column for Actions -->
+                                            <th class="text-right">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -76,13 +73,6 @@
                                                 <td>{{ ($users->currentPage() - 1) * $users->perPage() + $key + 1 }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>
-                                                    @if ($user->email_verified_at)
-                                                        {{ date('j F Y', strtotime($user->email_verified_at)) }}
-                                                    @else
-                                                        Access Denied
-                                                    @endif
-                                                </td>
                                                 <td>
                                                     @foreach ($user->roles as $role)
                                                         {{ $role->name }}
@@ -93,26 +83,10 @@
                                                         <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon"><i class="fas fa-edit"></i> Update Roles</a>
                                                     </div>
                                                 </td>
-                                                {{-- <td>
-                                                    <div class="d-flex justify-content-end">
-                                                        @if (is_null($user->email_verified_at))
-                                                            <form action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}" method="POST" class="d-inline-block" id="vel-<?= $user->id ?>">
-                                                                @csrf
-                                                                <button type="submit" class="btn btn-sm btn-primary ml-2" data-confirm="Verifikasi Data User |Apakah Kamu Yakin Verifikasi ?" data-confirm-yes="submitVeri(<?= $user->id ?>)" data-id="vel-{{ $user->id }}">Verify Email</button>
-                                                            </form>
-                                                        @else
-                                                            <form action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}" method="POST" class="d-inline-block" id="vel-<?= $user->id ?>">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-sm btn-danger ml-2" data-confirm="Verifikasi Data User |Apakah Kamu Yakin Batalkan Verifikasi ?" data-confirm-yes="submitVeri(<?= $user->id ?>)" data-id="vel-{{ $user->id }}">Hapus Verify Email</button>
-                                                            </form>
-                                                        @endif
-                                                    </div>
-                                                </td> --}}
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <!-- Show button to view user details -->
-                                                        <a href="{{ route('user.view', $user->id) }}" class="btn btn-sm btn-primary btn-icon">
+                                                        <a href="#" class="btn btn-sm btn-primary btn-icon show-user-details" data-toggle="modal" data-target="#detailsModal{{$user->id}}">
                                                             <i class="fas fa-eye"></i> Show
                                                         </a>
                                                         <!-- Move the delete button form here -->
@@ -139,6 +113,52 @@
             </div>
         </div>
     </section>
+
+    <!-- Details Modal -->
+    @foreach ($users as $user)
+    <div class="modal fade" id="detailsModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel{{$user->id}}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel{{$user->id}}">User Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ $user->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ $user->email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Bergabung Sejak</th>
+                            <td>
+                                @if ($user->email_verified_at)
+                                    {{ date('j F Y', strtotime($user->email_verified_at)) }}
+                                @else
+                                    Access Denied
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Roles</th>
+                            <td>
+                                @foreach ($user->roles as $role)
+                                    {{ $role->name }}
+                                @endforeach
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
 @endsection
 
 @push('customScript')
@@ -149,26 +169,21 @@
                 $(".show-search").slideToggle("fast");
                 $(".show-import").hide();
             });
-            //ganti label berdasarkan nama file
+
+            // Show user details in modal
+            $('.show-user-details').click(function(event) {
+                event.preventDefault();
+                var targetModal = $(this).data('target');
+                $(targetModal).modal('show');
+            });
+
+            // ganti label berdasarkan nama file
             $('#file-upload').change(function() {
                 var i = $(this).prev('label').clone();
                 var file = $('#file-upload')[0].files[0].name;
                 $(this).prev('label').text(file);
             });
         });
-    </script>
-@endpush
-
-@push('customStyle')
-    <script>
-        function submitDel(id) {
-            $('#del-' + id).submit()
-        }
-
-        function submitVeri(id) {
-            $('#vel-' + id).submit()
-        }
-
     </script>
 @endpush
 
