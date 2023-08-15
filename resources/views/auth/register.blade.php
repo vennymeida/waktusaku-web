@@ -23,88 +23,84 @@
 <body>
     <div id="app">
         <section class="section">
-            <div class="container mt-5">
+            <div class="container mt-2">
                 <div class="row">
-                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                    <div
+                        class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                         <div class="login-brand">
-                            <img src="../assets/img/stisla-fill.svg" alt="logo" width="100"
-                                class="shadow-light rounded-circle">
+                            <img src="{{ asset('assets/img/landing-page/logo.svg') }}" alt="logo" width="200">
                         </div>
 
                         <div class="card card-primary">
-                            <div class="card-header">
-                                <h4>Register</h4>
-                            </div>
+                            <p class="card-header text-primary font-weight-bold">Register</p>
                             <div class="card-body">
                                 <form action="{{ route('register') }}" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <div class="form-group">
-                                                <label for="first_name">Full Name</label>
-                                                <input id="first_name" type="text" name="name"
-                                                    value="{{ old('name') }}"
-                                                    class="form-control @error('name') is-invalid @enderror"
-                                                    placeholder="Masukkan Nama Lengkap" autofocus>
-                                                @error('name')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
+                                            <label for="first_name">Full Name</label>
+                                            <input id="first_name" type="text" name="name"
+                                                value="{{ old('name') }}"
+                                                class="form-control @error('name') is-invalid @enderror"
+                                                placeholder="Masukkan Nama Lengkap" autofocus>
+                                            @error('name')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input id="email" type="email" name="email" value="{{ old('email') }}"
-                                                    class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan Alamat Email">
-                                                @error('email')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
+                                            <label for="email">Email</label>
+                                            <input id="email" type="email" name="email"
+                                                value="{{ old('email') }}"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                placeholder="Masukkan Alamat Email">
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <div class="form-group">
-                                                <label for="password" class="d-block">Password</label>
-                                                <input id="password" type="password" name="password"
-                                                    class="form-control @error('password') is-invalid @enderror"
-                                                    placeholder="Masukkan Password" data-indicator="pwindicator">
-                                                @error('password')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
+                                            <label for="password" class="d-block">Password</label>
+                                            <input id="password" type="password" name="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                placeholder="Masukkan Password" data-indicator="pwindicator">
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <div class="form-group">
-                                                <label for="password_confirmation" class="d-block">Password
-                                                    Confirmation</label>
-                                                <input id="password_confirmation" name="password_confirmation"
-                                                    type="password" class="form-control"
-                                                    placeholder="Masukkan Konfirmasi Password">
-                                                @error('password')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
+                                            <label for="password_confirmation" class="d-block">Password
+                                                Confirmation</label>
+                                            <input id="password_confirmation" name="password_confirmation"
+                                                type="password" class="form-control"
+                                                placeholder="Masukkan Konfirmasi Password">
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="user_type">Daftar sebagai:</label><br>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="user_type" id="pencari_kerja" value="pencari_kerja" @if(old('user_type') === 'pencari_kerja') checked @endif>
+                                            <input class="form-check-input" type="radio" name="user_type"
+                                                id="pencari_kerja" value="pencari_kerja"
+                                                @if (old('user_type') === 'pencari_kerja') checked @endif>
                                             <label class="form-check-label" for="pencari_kerja">Pencari Kerja</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="user_type" id="perusahaan" value="perusahaan" @if(old('user_type') === 'perusahaan') checked @endif>
+                                            <input class="form-check-input" type="radio" name="user_type"
+                                                id="perusahaan" value="perusahaan"
+                                                @if (old('user_type') === 'perusahaan') checked @endif>
                                             <label class="form-check-label" for="perusahaan">Perusahaan</label>
                                         </div>
                                         @error('user_type')
@@ -113,7 +109,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mb-1">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">
                                             Register
                                         </button>
@@ -121,9 +117,12 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="simple-footer">
-                            Copyright &copy; Hummatech Kelompok 2 Jaya Jaya
+                        <div class="mt-0 text-muted text-center">
+                            Have an account? <a href="/login">Login</a>
                         </div>
+                        {{-- <div class="simple-footer">
+                            Copyright &copy; Hummatech Kelompok 2 Jaya Jaya
+                        </div> --}}
                     </div>
                 </div>
             </div>
