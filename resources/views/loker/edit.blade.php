@@ -198,16 +198,16 @@
                                                 id="min_pengalaman" name="min_pengalaman">
                                             @endrole
                                             <option value="" disabled selected>Pilih minimal pengalaman</option>
-                                            <option value="tidak ada"
-                                                {{ $loker->min_pengalaman === 'tidak ada' ? 'selected' : '' }}>
+                                            <option value="Tidak ada"
+                                                {{ $loker->min_pengalaman === 'Tidak ada' ? 'selected' : '' }}>
                                                 Tidak ada
                                             </option>
-                                            <option value="kurang dari setahun"
-                                                {{ $loker->min_pengalaman === 'kurang dari setahun' ? 'selected' : '' }}>
+                                            <option value="Kurang dari setahun"
+                                                {{ $loker->min_pengalaman === 'Kurang dari setahun' ? 'selected' : '' }}>
                                                 Kurang dari setahun
                                             </option>
-                                            <option value="lebih dari setahun"
-                                                {{ $loker->min_pengalaman === 'lebih dari setahun' ? 'selected' : '' }}>
+                                            <option value="Lebih dari setahun"
+                                                {{ $loker->min_pengalaman === 'Lebih dari setahun' ? 'selected' : '' }}>
                                                 Lebih dari setahun
                                             </option>
                                         </select>

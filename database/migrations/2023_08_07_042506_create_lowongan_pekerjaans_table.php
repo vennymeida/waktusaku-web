@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->text('requirement');
             $table->enum('tipe_pekerjaan', ['remote', 'onsite']);
             $table->enum('min_pendidikan', ['SMA', 'SMK', 'SMA/SMK', 'S1']);
-            $table->enum('min_pengalaman', ['tidak ada', 'kurang dari setahun', 'lebih dari setahun']);
+            $table->enum('min_pengalaman', ['Tidak ada', 'Kurang dari setahun', 'Lebih dari setahun']);
             $table->string('lokasi');
             $table->integer('gaji_bawah');
             $table->integer('gaji_atas');

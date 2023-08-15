@@ -118,16 +118,16 @@
                                         <select class="form-control select2 @error('min_pengalaman') is-invalid @enderror"
                                             id="min_pengalaman" name="min_pengalaman">
                                             <option value="" disabled selected>Pilih minimal pengalaman</option>
-                                            <option value="tidak ada"
-                                                {{ old('min_pengalaman') === 'tidak ada' ? 'selected' : '' }}>
+                                            <option value="Tidak ada"
+                                                {{ old('min_pengalaman') === 'Tidak ada' ? 'selected' : '' }}>
                                                 Tidak ada
                                             </option>
-                                            <option value="kurang dari setahun"
+                                            <option value="Kurang dari setahun"
                                                 {{ old('min_pengalaman') === 'kurang dari setahun' ? 'selected' : '' }}>
                                                 Kurang dari setahun
                                             </option>
-                                            <option value="lebih dari setahun"
-                                                {{ old('min_pengalaman') === 'lebih dari setahun' ? 'selected' : '' }}>
+                                            <option value="Lebih dari setahun"
+                                                {{ old('min_pengalaman') === 'Lebih dari setahun' ? 'selected' : '' }}>
                                                 Lebih dari setahun
                                             </option>
                                         </select>
