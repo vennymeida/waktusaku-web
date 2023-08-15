@@ -25,6 +25,7 @@ use App\Models\User;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\Kecamatan;
+use App\Models\LowonganPekerjaan;
 
 /*
 |--------------------------------------------------------------------------
