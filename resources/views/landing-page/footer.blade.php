@@ -5,7 +5,7 @@
         <hr>
         <div class="row">
             <div class="col-sm-6">
-                <img src="{{ asset('assets/img/landing-page/logo-2.png') }}" alt="Logo" style="height: 40px;">
+                <img src="{{ asset('assets/img/landing-page/logo.svg') }}" alt="Logo" style="height: 40px;">
                 <span class="d-none d-sm-inline-block" style="font-size: 1rem; font-weight: 600;">Copyright © 2023
                     WaktuSaku.
                     All Rights Reserved.</span>

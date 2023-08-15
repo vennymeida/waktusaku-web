@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary-nav sticky-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="/">
-            <img src="{{ asset('assets/img/landing-page/logo-2.png') }}" style="height: 35px; alt="">
+            <img src="{{ asset('assets/img/landing-page/logo.svg') }}" style="height: 30px;">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,10 +25,12 @@
             <ul class="navbar-nav ml-auto">
                 @if (!auth()->user())
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-primary text-primary mr-2" href="{{ route('login') }}">Login</a>
+                        <a class="nav-link px-4 py-1 btn btn-outline-primary text-primary mr-2"
+                            href="{{ route('login') }}" style="border-radius: 10px;">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-warning text-white" href="{{ route('register') }}">Daftar</a>
+                        <a class="nav-link px-4 py-1 btn btn-outline-warning text-white" href="{{ route('register') }}"
+                            style="border-radius: 10px;">Daftar</a>
                     </li>
                 @else
                     <li class="nav-item">
