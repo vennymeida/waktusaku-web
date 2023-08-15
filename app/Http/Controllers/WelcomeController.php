@@ -15,31 +15,37 @@ class WelcomeController extends Controller
     {
         $allResults = DB::table('lowongan_pekerjaans as lp')
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
-            ->join('kategori_pekerjaans as kp', 'lp.id_kategori', '=', 'kp.id')
+            ->join('lowongan_kategori as lk', 'lp.id', '=', 'lk.lowongan_id')
+            ->join('kategori_pekerjaans as kp', 'lk.kategori_id', '=', 'kp.id')
             ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
             ->join('users as u', 'pu.user_id', '=', 'u.id')
             ->select(
                 'lp.id',
                 'lp.user_id',
                 'lp.id_perusahaan',
-                'lp.id_kategori',
-                'p.nama',
-                'p.logo',
-                'kp.kategori',
                 'lp.judul',
                 'lp.deskripsi',
                 'lp.requirement',
+                'lp.gaji_bawah',
+                'lp.gaji_atas',
                 'lp.tipe_pekerjaan',
-                'lp.gaji',
                 'lp.jumlah_pelamar',
+                'lp.min_pengalaman',
+                'lp.min_pendidikan',
                 'lp.status',
-                'u.name',
+                'lp.lokasi',
+                'lp.tutup',
+                'p.nama',
+                'p.pemilik',
+                'p.logo',
+                DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
             )
             ->where('lp.status', 'dibuka')
             ->orderBy('lp.created_at', 'desc')
             ->limit(5)
-            ->get();
-
-        return view('welcome', ['allResults' => $allResults]);
-    }
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'lp.min_pengalaman', 'lp.min_pendidikan', 'p.pemilik', 'p.logo')
+            ->paginate(10);
+      
+            return view('welcome', ['allResults' => $allResults]);
+     }
 }
