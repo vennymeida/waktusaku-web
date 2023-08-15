@@ -120,7 +120,7 @@
                     <div class="scroll-arrow left bg-transparent text-secondary">
                         <i class="fas fa-angle-left"></i>
                     </div>
-                    {{-- @foreach ($allResults as $key => $loker)
+                    @foreach ($allResults as $key => $loker)
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-body d-flex flex-column">
@@ -170,7 +170,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach --}}
+                    @endforeach
                     <div class="scroll-arrow right bg-transparent text-secondary">
                         <i class="fas fa-angle-right"></i>
                     </div>
