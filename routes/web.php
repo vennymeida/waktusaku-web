@@ -52,7 +52,7 @@ use App\Models\LowonganPekerjaan;
 // });
 
 Route::get('/', [WelcomeController::class, 'index']);
-Route::get('/all-jobs', [AlljobsController::class, 'index']);
+Route::get('/all-jobs', [AlljobsController::class, 'index'])->name('all-jobs');
 
 Route::get('/login', function () {
     if (auth()->check()) {

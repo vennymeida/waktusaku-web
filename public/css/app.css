@@ -185,7 +185,14 @@
 
 .form-jobs {
     border-left: none;
+    border-right: none;
     border-radius: 15px;
+}
+
+.form-jobs:focus {
+    outline: none;
+    border-color: #ced4da;
+    box-shadow: none;
 }
 
 .page-item .page-link {
@@ -220,4 +227,14 @@
 }
 .page-link:focus {
     box-shadow: none;
+}
+
+li {
+    font-size: 14px;
+}
+
+.img-icon {
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
 }
