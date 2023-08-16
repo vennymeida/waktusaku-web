@@ -177,3 +177,47 @@
     opacity: 0.6;
     filter: grayscale(30%);
 }
+
+.input-group-text {
+    background-color: transparent;
+    border-radius: 15px;
+}
+
+.form-jobs {
+    border-left: none;
+    border-radius: 15px;
+}
+
+.page-item .page-link {
+    color: #6777ef;
+    border-radius: 60px;
+    padding: 10px 16px;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.page-item.active .page-link {
+    background-color: #6777ef;
+    border-color: #6777ef;
+}
+
+.page-item.disabled .page-link {
+    border-color: transparent;
+    background-color: #f9fafe;
+    color: #6777ef;
+    opacity: 0.6;
+}
+
+.page-link {
+    border-color: transparent;
+    background-color: #f9fafe;
+    font-weight: 600;
+}
+.page-link:hover {
+    background-color: #6777ef;
+    color: #fff;
+    border-color: transparent;
+}
+.page-link:focus {
+    box-shadow: none;
+}

@@ -32,8 +32,8 @@
 </head>
 
 <body>
+    @include('landing-page.navigation')
     <div class="d-flex vh-100 flex-column">
-        @include('landing-page.navigation')
         @yield('main')
         @include('landing-page.footer')
     </div>
