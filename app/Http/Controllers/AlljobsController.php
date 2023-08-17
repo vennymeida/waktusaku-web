@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LowonganPekerjaan;
+use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AlljobsController extends Controller
 {
@@ -62,5 +65,14 @@ class AlljobsController extends Controller
             ->paginate(9);
 
         return view('all-jobs', ['allResults' => $allResults]);
+    }
+
+    public function show(LowonganPekerjaan $loker)
+    {
+        $perusahaan = Perusahaan::all();
+        $kategori = $loker->kategori()->pluck('kategori')->implode(', ');
+        $loker->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $loker->requirement);
+
+        return view('showAlljobs', ['loker' => $loker, 'perusahaan' => $perusahaan, 'kategori' => $kategori]);
     }
 }
