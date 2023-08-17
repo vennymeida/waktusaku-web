@@ -3,6 +3,31 @@
     /* height: 100%; */
 }
 
+.card-header-action .btn {
+    font-size: 12px;
+    border-radius: 30px !important;
+    padding-left: 13px !important;
+    padding-right: 13px !important;
+    background-color: #EB9481;
+    color: #fff;
+}
+
+#skill-button {
+    border-color: #EB9481;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#skill-button:hover {
+    background-color: #ff2f00;;
+    border-color: #ff2f00;;
+}
+
+#skill-button:focus {
+    background-color: #EB9481;
+    color: white;
+    border-color: #ff2f00;;
+}
+
 .corner-text {
     position: absolute;
     bottom: 0;

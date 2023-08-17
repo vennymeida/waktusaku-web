@@ -145,7 +145,32 @@
                 <div class="profile-widget-description m-3"
                     style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                     <div class="flex-grow-1">
-                        <div class="profile-widget-name">Pendidikan</div>
+                        <div class="profile-widget-name">Keahlian Saya</div>
+                    </div>
+                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                        <a href="#">
+                        <img class="img-fluid" style="width: 35px; height: 35px;"
+                            src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-4">
+                    <div class="flex-grow-1 mb-2">
+                        <div class="card-header-action">
+                            <a href="#" class="btn btn-primary" id="skill-button">Leadership</a>
+                            <a href="#" class="btn btn-primary" id="skill-button">Edit Foto dan Video</a>
+                            <a href="#" class="btn btn-primary" id="skill-button">Public Speaking</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="centered-section">
+            <div class="bg-primary-section col-md-10 py-1">
+                <div class="profile-widget-description m-3"
+                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                    <div class="flex-grow-1">
+                        <div class="profile-widget-name">Pengalaman Kerja</div>
                     </div>
                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                         <a href="#">
@@ -158,21 +183,66 @@
                     <div class="flex-grow-1 mb-2">
                         <div class="profile-widget-name"
                         style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                        Politeknik Negeri Malang
+                        Desain Grafis
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 mb-2">
+                        <div class="profile-widget-name"
+                        style="font-size: 16px; display: flex; align-items: center;">
+                        PT Husada Jaya | Jl Gajayana No.8
                         </div>
                     </div>
                     <ul class="list-unstyled ml-2">
                         <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbspD4 Teknik Informatika
+                                src="{{ asset('assets/img/landing-page/Hourglass.svg') }}">&nbsp&nbsp&nbspParuh Waktu
                         </li>
                         <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Award.svg') }}">&nbsp&nbsp&nbspMengikuti Lomba KMIPN
+                                src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR 700.000,00
                         </li>
                         <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/timeline.svg') }}">&nbsp&nbsp&nbsp&nbsp3.75
+                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp13 Mei 2020 - 13 Agustus 2023
+                        </li>
+                    </ul>
+                </div>
+                <a href="#"><p class="corner-text">Lihat Selengkapnya...</p></a>
+            </div>
+        </section>
+        <section class="centered-section" style="margin-bottom: 10%;">
+            <div class="bg-primary-section col-md-10 py-1">
+                <div class="profile-widget-description m-3"
+                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                    <div class="flex-grow-1">
+                        <div class="profile-widget-name">Pelatihan / Sertifikat</div>
+                    </div>
+                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                        <a href="#">
+                        <img class="img-fluid" style="width: 35px; height: 35px;"
+                            src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="flex-grow-1 mb-2">
+                        <div class="profile-widget-name"
+                        style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                        Pelatihan Data Analyst Dicoding
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 mb-2">
+                        <div class="profile-widget-name"
+                        style="font-size: 16px; display: flex; align-items: center;">
+                        Lorem Ipsum is simply dummy text of the
+                        printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                        ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+                        type specimen book. It has survived not only five centuries
+                        </div>
+                    </div>
+                    <ul class="list-unstyled ml-2">
+                        <li class="mb-2"><img class="img-fluid"
+                                src="{{ asset('assets/img/landing-page/Office Building-2.svg') }}">&nbsp&nbsp&nbspDikeluarkan oleh Dicoding
                         </li>
                         <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp2020-2024
+                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp&nbsp13 Agustus 2023
                         </li>
                     </ul>
                 </div>
