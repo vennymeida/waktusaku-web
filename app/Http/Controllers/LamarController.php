@@ -5,17 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\lamar;
 use App\Http\Requests\StorelamarRequest;
 use App\Http\Requests\UpdatelamarRequest;
+use Illuminate\Http\Request;
 
 class LamarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:pelamarkerja.index')->only('index');
+        $this->middleware('permission:pelamarkerja.create')->only('create', 'store');
+        $this->middleware('permission:pelamarkerja.edit')->only('edit', 'update');
+        $this->middleware('permission:pelamarkerja.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('lamar.index');
     }
 
     /**
@@ -47,7 +56,7 @@ class LamarController extends Controller
      */
     public function show(lamar $lamar)
     {
-        //
+        return view('lamar.detail');
     }
 
     /**

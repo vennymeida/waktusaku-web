@@ -8,6 +8,7 @@ use App\Http\Controllers\LowonganPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarListController;
+use App\Http\Controllers\LamarController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
 use App\Http\Controllers\RoleAndPermission\ExportPermissionController;
@@ -143,6 +144,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::prefix('menu-pekerjaan')->group(function () {
         Route::resource('kategori', KategoriPekerjaanController::class);
         Route::resource('loker', LowonganPekerjaanController::class);
+        Route::resource('pelamarkerja', LamarController::class);
     });
 
     Route::prefix('location-management')->group(function () {
@@ -154,4 +156,5 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('kelurahan', KelurahanController::class);
         Route::post('kelurahan/import', [KelurahanController::class, 'import'])->name('kelurahan.import');
     });
+
 });
