@@ -91,6 +91,12 @@ class MenuItemSeeder extends Seeder
                     'menu_group_id' => 5,
                 ],
                 [
+                    'name' => 'Data Pelamar Kerja',
+                    'route' => 'menu-pekerjaan/pelamarkerja',
+                    'permission_name' => 'pelamarkerja.index',
+                    'menu_group_id' => 5,
+                ],
+                [
                     'name' => 'Kecamatan',
                     'route' => 'location-management/kecamatan',
                     'permission_name' => 'kecamatan.index',

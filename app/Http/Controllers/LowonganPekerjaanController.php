@@ -68,7 +68,7 @@ class LowonganPekerjaanController extends Controller
             ->paginate(10);
 
         foreach ($allResults as $requirement) {
-            $requirement->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $requirement->requirement);
+            $requirement->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', "\n"], $requirement->requirement);
         }
 
         $loggedInUserId = Auth::id();
@@ -113,10 +113,8 @@ class LowonganPekerjaanController extends Controller
             ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'p.pemilik')
             ->paginate(10);
 
-        $counter = 1;
-
         foreach ($loggedInUserResults as $requirement) {
-            $requirement->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', ", ", '', '', ''], $requirement->requirement);
+            $requirement->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', ", ", '', '', "\n"], $requirement->requirement);
             $requirement->requirement = rtrim($requirement->requirement, ', ');
         }
 

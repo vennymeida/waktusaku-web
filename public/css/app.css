@@ -58,6 +58,12 @@
     border-top: 2px solid #6777ef;
 }
 
+.card-primary-left {
+    border-left: 2px solid #6777ef;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
 /* Custom CSS to style horizontal scroll with arrow indicators */
 .horizontal-scroll {
     display: flex;
@@ -237,4 +243,27 @@ li {
     vertical-align: middle;
     width: 18px;
     height: 18px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.img-show {
+    position: relative;
+    overflow: hidden;
+}
+
+.form-show {
+    border: none;
+    color: black;
+    resize: none;
+}
+
+.form-show:disabled {
+    background-color: transparent;
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\LowonganPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarListController;
+use App\Http\Controllers\LamarController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
 use App\Http\Controllers\RoleAndPermission\ExportPermissionController;
@@ -53,8 +54,8 @@ use App\Http\Controllers\BookmarkController;
 // });
 
 Route::get('/', [WelcomeController::class, 'index']);
-
-Route::get('/all-jobs', [AlljobsController::class, 'index'])->name('all-jobs');
+Route::get('/all-jobs', [AlljobsController::class, 'index'])->name('all-jobs.index');
+Route::get('/all-jobs/{loker}', [AlljobsController::class, 'show'])->name('all-jobs.show');
 
 
 Route::get('/login', function () {
@@ -145,6 +146,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::prefix('menu-pekerjaan')->group(function () {
         Route::resource('kategori', KategoriPekerjaanController::class);
         Route::resource('loker', LowonganPekerjaanController::class);
+        Route::resource('pelamarkerja', LamarController::class);
     });
 
     Route::prefix('location-management')->group(function () {
