@@ -63,7 +63,6 @@ class LowonganPekerjaanController extends Controller
             })
             ->when($selectedStatus, function ($query, $selectedStatus) {
                 return $query->where('lp.status', $selectedStatus);
-
             })
             ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'p.pemilik')
             ->paginate(10);
@@ -213,7 +212,8 @@ class LowonganPekerjaanController extends Controller
         }
     }
 
-    public function allJobs() {
+    public function allJobs()
+    {
         return view('loker.all-jobs');
     }
 }

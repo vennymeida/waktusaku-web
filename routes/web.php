@@ -28,6 +28,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\Kecamatan;
 use App\Models\LowonganPekerjaan;
+use App\Http\Controllers\BookmarkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,7 @@ use App\Models\LowonganPekerjaan;
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/all-jobs', [AlljobsController::class, 'index'])->name('all-jobs.index');
 Route::get('/all-jobs/{loker}', [AlljobsController::class, 'show'])->name('all-jobs.show');
+
 
 Route::get('/login', function () {
     if (auth()->check()) {
@@ -156,5 +158,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('kelurahan', KelurahanController::class);
         Route::post('kelurahan/import', [KelurahanController::class, 'import'])->name('kelurahan.import');
     });
-
+    Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmark.index');
+    Route::post('/bookmark/toggle', [BookmarkController::class, 'toggleBookmark'])->name('bookmark.toggle');
+    Route::post('/bookmark/remove', [BookmarkController::class, 'removeBookmark'])->name('bookmark.remove'); // Add this line
+    Route::post('/bookmark/add', [BookmarkController::class, 'addBookmark'])->name('bookmark.add'); // Add this line
 });
