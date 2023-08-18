@@ -58,6 +58,12 @@
     border-top: 2px solid #6777ef;
 }
 
+.card-primary-left {
+    border-left: 2px solid #6777ef;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
 /* Custom CSS to style horizontal scroll with arrow indicators */
 .horizontal-scroll {
     display: flex;
@@ -176,4 +182,88 @@
     z-index: 0;
     opacity: 0.6;
     filter: grayscale(30%);
+}
+
+.input-group-text {
+    background-color: transparent;
+    border-radius: 15px;
+}
+
+.form-jobs {
+    border-left: none;
+    border-right: none;
+    border-radius: 15px;
+}
+
+.form-jobs:focus {
+    outline: none;
+    border-color: #ced4da;
+    box-shadow: none;
+}
+
+.page-item .page-link {
+    color: #6777ef;
+    border-radius: 60px;
+    padding: 10px 16px;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.page-item.active .page-link {
+    background-color: #6777ef;
+    border-color: #6777ef;
+}
+
+.page-item.disabled .page-link {
+    border-color: transparent;
+    background-color: #f9fafe;
+    color: #6777ef;
+    opacity: 0.6;
+}
+
+.page-link {
+    border-color: transparent;
+    background-color: #f9fafe;
+    font-weight: 600;
+}
+.page-link:hover {
+    background-color: #6777ef;
+    color: #fff;
+    border-color: transparent;
+}
+.page-link:focus {
+    box-shadow: none;
+}
+
+li {
+    font-size: 14px;
+}
+
+.img-icon {
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.img-show {
+    position: relative;
+    overflow: hidden;
+}
+
+.form-show {
+    border: none;
+    color: black;
+    resize: none;
+}
+
+.form-show:disabled {
+    background-color: transparent;
 }
