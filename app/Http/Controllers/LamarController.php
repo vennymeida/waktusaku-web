@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\lamar;
+use App\Models\LowonganPekerjaan;
+use App\Models\Perusahaan;
+use App\Models\KategoriPekerjaan;
+use App\Models\ProfileUser;
+use App\Models\User;
 use App\Http\Requests\StorelamarRequest;
 use App\Http\Requests\UpdatelamarRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LamarController extends Controller
 {
@@ -24,8 +30,26 @@ class LamarController extends Controller
      */
     public function index(Request $request)
     {
-        return view('lamar.index');
+        $allResults = DB::table('lamars as l')
+        ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
+        ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
+        ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
+        ->join('users as u', 'pu.user_id', '=', 'u.id')
+        ->select(
+            'l.id',
+            'u.name',
+            'pu.no_hp',
+            'u.email',
+            'p.nama',
+            'lp.judul',
+            'l.status'
+        )
+        ->paginate(10);
+
+        return view('lamar.index', ['allResults' => $allResults]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -56,7 +80,12 @@ class LamarController extends Controller
      */
     public function show(lamar $lamar)
     {
-        return view('lamar.detail');
+        $profileUser = ProfileUser::all();
+        $perusahaan = Perusahaan::all();
+        $relasiLamar = $lamar->load('user.user');
+        $name = $relasiLamar->user->user->name;
+        $loker = LowonganPekerjaan::all();
+        return view('lamar.detail', ['name' => $name, 'lamar' => $lamar, 'loker'=> $loker, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan]);
     }
 
     /**
@@ -90,6 +119,11 @@ class LamarController extends Controller
      */
     public function destroy(lamar $lamar)
     {
-        //
+        try {
+            $lamar->delete();
+            return redirect()->route('pelamarkerja.index')->with('success', 'Data Berhasil Di Hapus');
+        } catch (\Exception $e) {
+            return redirect()->route('pelamarkerja.index')->with('error', 'Terjadi kesalahan saat menghapus data.');
+        }
     }
 }

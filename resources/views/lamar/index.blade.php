@@ -41,11 +41,11 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <input type="text" class="form-control" name="search"
-                                            value="{{ app('request')->input('search') }}">
+                                            value="">
                                     </div>
                                     <div class="form-group col-md-2">
                                         <button type="submit" class="btn btn-primary">Submit</button>
-                                        <a href="{{ route('loker.index') }}" class="btn btn-secondary ml-2">Reset</a>
+                                        <a href="" class="btn btn-secondary ml-2">Reset</a>
                                     </div>
                                 </div>
                             </form>
@@ -57,19 +57,23 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th class="text-center">Nama Pelamar</th>
-                                            <th class="text-center">Email</th>
-                                            <th class="text-center">Resume</th>
+                                            <th class="text-center">Perusahaan</th>
+                                            <th class="text-center">Posisi Pekerjaan</th>
+                                            <th class="text-center">Status</th>
                                             <th class="text-center">Action</th>
                                         </tr>
-                                        {{-- @foreach ($kategoris as $key => $kategori) --}}
+                                        @foreach ($allResults as $key => $lamar)
                                             <tr>
-                                                <td class="text-center">1</td>
-                                                <td class="text-center">Venny Meida Hersianty</td>
-                                                <td class="text-center">venny@gmail.com</td>
-                                                <td class="text-center">resume.pdf</td>
+                                                <td class="text-center">
+                                                    {{ ($allResults->currentPage() - 1) * $allResults->perPage() + $key + 1 }}
+                                                </td>
+                                                <td class="text-center">{{ $lamar->name}}</td>
+                                                <td class="text-center">{{ $lamar->nama }}</td>
+                                                <td class="text-center">{{ $lamar->judul }}</td>
+                                                <td class="text-center">{{ $lamar->status }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <a href=""
+                                                        <a href="{{ route('pelamarkerja.show', $lamar->id) }}"
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
                                                             Lihat Lamaran</a>
@@ -84,7 +88,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        {{-- @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 {{-- <div class="d-flex justify-content-center">
@@ -99,49 +103,53 @@
                                     <div class="card-header">
                                       <h4>Comments</h4>
                                     </div>
+                                    @foreach ($allResults as $lamar)
                                     <div class="card-body">
                                       <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
                                         <li class="media">
-                                          <img alt="image" class="mr-3 rounded-circle" width="70" src="assets/img/avatar/avatar-1.png">
+                                          <img alt="image" class="mr-3 rounded-circle" width="70" src="assets/img/landing-page/image-1.svg">
                                           <div class="media-body">
                                             <div class="media-right">
                                                 <a href="#" class="btn btn-sm btn-primary btn-icon">
                                                     <i class="far fa-eye" id=""></i> Detail
                                                 </a>
                                             </div>
-                                            <div class="media-title mb-1">Rizal Fakhri</div>
-                                            <div class="text-time">Frontend Developer</div>
-                                            <div class="media-description text-muted">Melamar pada 7 Agustus 2023</div>
-                                          </div>
-                                        </li>
-                                        <li class="media">
-                                          <img alt="image" class="mr-3 rounded-circle" width="70" src="assets/img/avatar/avatar-2.png">
-                                          <div class="media-body">
-                                            <div class="media-right">
-                                                <a href="#" class="btn btn-sm btn-primary btn-icon">
-                                                    <i class="far fa-eye" id=""></i> Detail
-                                                </a>
+                                            <div class="media-title mb-1">{{ $lamar->name }}</div>
+                                            <div class="text-time">{{ $lamar->judul }}</div>
+                                            <div class="card-text">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <ul class="list-unstyled ml-2">
+                                                            <li class="mb-2"><img class="img-fluid icon-small"
+                                                                    src="{{ asset('assets/img/lamar/calendar.svg') }}">
+                                                                {{-- {{ $loker->kategori }} --}}
+                                                            </li>
+                                                            <li class="mb-2"><img class="img-fluid icon-small"
+                                                                    src="{{ asset('assets/img/lamar/email.svg') }}">
+                                                                    {{ $lamar->email }}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <ul class="list-unstyled ml-2">
+                                                            <li class="mb-2"><img class="img-fluid icon-small"
+                                                                    src="{{ asset('assets/img/lamar/call.svg') }}">
+                                                                    {{ $lamar->no_hp }}
+                                                            </li>
+                                                            <li class="mb-4"><img class="img-fluid icon-small"
+                                                                    src="{{ asset('assets/img/landing-page/location pin.svg') }}">
+                                                                {{-- {{ $loker->lokasi }} --}}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="media-title mb-1">Bambang Uciha</div>
-                                            <div class="text-time">Desain Grafis</div>
-                                            <div class="media-description text-muted">Melamar pada 7 Agustus 2023</div>
-                                          </div>
-                                        </li>
-                                        <li class="media">
-                                          <img alt="image" class="mr-3 rounded-circle" width="70" src="assets/img/avatar/avatar-3.png">
-                                          <div class="media-body">
-                                            <div class="media-right">
-                                                <a href="#" class="btn btn-sm btn-primary btn-icon">
-                                                    <i class="far fa-eye" id=""></i> Detail
-                                                </a>
-                                            </div>
-                                            <div class="media-title mb-1">Ujang Maman</div>
-                                            <div class="text-time">Mobile Developer</div>
                                             <div class="media-description text-muted">Melamar pada 7 Agustus 2023</div>
                                           </div>
                                         </li>
                                       </ul>
                                     </div>
+                                    @endforeach
                                   </div>
                                 </div>
                             @endrole

@@ -136,7 +136,7 @@
                                     <label for="requirement">Persyaratan</label>
                                     @role('super-admin')
                                         <input type="hidden" name="requirement" value="{{ $loker->requirement }}">
-                                        <textarea id="requirement-2" class="form-control" type="text" style="height: 150px;" disabled>{{ str_replace(['<ol>', '</ol>', '<li>', '</li>', '<br>'], ['', '', '', "\n", ''], $loker->requirement) }}
+                                        <textarea id="requirement-2" class="form-control" type="text" style="height: 150px;" disabled>{{ str_replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', "\n"], $loker->requirement) }}
                                         </textarea>
                                     @endrole
                                     @role('Perusahaan')
