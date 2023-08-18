@@ -140,17 +140,21 @@
                                     </div>
                                     <div class="card-text">
                                         <ul class="list-unstyled ml-2">
-                                            <li class="mb-2">
-                                                @if (auth()->check() && auth()->user()->hasRole('Pencari Kerja'))
-                                                    <a href="javascript:void(0);" class="bookmark-icon" style="position: absolute; right: 35px;" data-loker-id="{{ $loker->id }}">
-                                                        <i class="far fa-bookmark" style="font-size: 28px;"></i>
-                                                    </a>
-                                                @endif
-                                            </li>
-                                            <li class="mb-2"><img class="img-fluid"
-                                                    src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                                {{ $loker->kategori }}
-                                            </li>
+                                            <ul class="list-unstyled d-flex justify-content-between">
+                                                <li class="mb-2"><img class="img-fluid"
+                                                        src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                                    {{ $loker->kategori }}
+                                                </li>
+                                                <li class="mb-2">
+                                                    @if (auth()->check() &&
+                                                            auth()->user()->hasRole('Pencari Kerja'))
+                                                        <a href="javascript:void(0);" class="bookmark-icon"
+                                                            data-loker-id="{{ $loker->id }}">
+                                                            <i class="far fa-bookmark" style="font-size: 28px;"></i>
+                                                        </a>
+                                                    @endif
+                                                </li>
+                                            </ul>
                                             <li class="mb-2"><img class="img-fluid"
                                                     src="{{ asset('assets/img/landing-page/money.svg') }}">
                                                 {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}
@@ -221,74 +225,74 @@
     <!-- Your existing script includes -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <script>
-            $(document).ready(function() {
-                $('.bookmark-icon').each(function() {
-                    var icon = $(this);
-                    var lokerId = icon.data('loker-id');
-                    var storageKey = 'bookmark_' + lokerId;
+    <script>
+        $(document).ready(function() {
+            $('.bookmark-icon').each(function() {
+                var icon = $(this);
+                var lokerId = icon.data('loker-id');
+                var storageKey = 'bookmark_' + lokerId;
 
-                    // Retrieve bookmark status from local storage
-                    var isBookmarked = localStorage.getItem(storageKey);
-                    if (isBookmarked === 'true') {
-                        icon.find('i').removeClass('far fa-bookmark').addClass('fas fa-bookmark');
-                    } 
+                // Retrieve bookmark status from local storage
+                var isBookmarked = localStorage.getItem(storageKey);
+                if (isBookmarked === 'true') {
+                    icon.find('i').removeClass('far fa-bookmark').addClass('fas fa-bookmark');
+                }
 
-                    icon.click(function () {
-                        // Make an AJAX request to update bookmark status
-                        $.ajax({
-                            type: 'POST',
-                            url: '{{ route('bookmark.toggle') }}', // Update this route
-                            data: {
-                                loker_id: lokerId
-                            },
-                            success: function (response) {
-                                if (response.bookmarked) {
-                                    icon.find('i').removeClass('far fa-bookmark').addClass('fas fa-bookmark');
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Lowongan Pekerjaan Disimpan',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                } else {
-                                    icon.find('i').removeClass('fas fa-bookmark').addClass('far fa-bookmark');
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Lowongan Pekerjaan Dihapus',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                }
-
-                                // Update bookmark status in local storage
-                                localStorage.setItem(storageKey, response.bookmarked);
-                                
-                                // Optionally, you can display a toast or notification to indicate success
-                                if (response.bookmarked) {
-                                    // Example using Bootstrap Toast component
-                                    $('.toast').toast('show');
-                                }
-                                // Refresh the page
-                                location.reload();
-                            },
-                            error: function (xhr, status, error) {
-                                // Handle errors here if necessary
-                                console.error(error);
+                icon.click(function() {
+                    // Make an AJAX request to update bookmark status
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('bookmark.toggle') }}', // Update this route
+                        data: {
+                            loker_id: lokerId
+                        },
+                        success: function(response) {
+                            if (response.bookmarked) {
+                                icon.find('i').removeClass('far fa-bookmark').addClass(
+                                    'fas fa-bookmark');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Lowongan Pekerjaan Disimpan',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            } else {
+                                icon.find('i').removeClass('fas fa-bookmark').addClass(
+                                    'far fa-bookmark');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Lowongan Pekerjaan Dihapus',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
                             }
-                        });
+
+                            // Update bookmark status in local storage
+                            localStorage.setItem(storageKey, response.bookmarked);
+
+                            // Optionally, you can display a toast or notification to indicate success
+                            if (response.bookmarked) {
+                                // Example using Bootstrap Toast component
+                                $('.toast').toast('show');
+                            }
+                            // Refresh the page
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors here if necessary
+                            console.error(error);
+                        }
                     });
                 });
             });
-        </script>
+        });
+    </script>
 @endsection
 
 @push('customScript')
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
 
-<!-- SweetAlert CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
-
-<!-- SweetAlert JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 @endpush
