@@ -93,17 +93,21 @@
                             </div>
                             <div class="card-text">
                                 <ul class="list-unstyled ml-2">
-                                    <li class="mb-2">
-                                        @if (auth()->check() && auth()->user()->hasRole('Pencari Kerja'))
-                                            <a href="javascript:void(0);" class="bookmark-icon" style="position: absolute; right: 35px;" data-loker-id="{{ $loker->id }}">
-                                                <i class="far fa-bookmark" style="font-size: 28px;"></i>
-                                            </a>
-                                        @endif
-                                    </li>
-                                    <li class="mb-2"><img class="img-fluid img-icon"
-                                            src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                        {{ $loker->kategori }}
-                                    </li>
+                                    <ul class="list-unstyled d-flex justify-content-between">
+                                        <li class="mb-2"><img class="img-fluid img-icon"
+                                                src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                            {{ $loker->kategori }}
+                                        </li>
+                                        <li class="mb-2">
+                                            @if (auth()->check() &&
+                                                    auth()->user()->hasRole('Pencari Kerja'))
+                                                <a href="javascript:void(0);"
+                                                    class="bookmark-icon text-right"data-loker-id="{{ $loker->id }}">
+                                                    <i class="far fa-bookmark" style="font-size: 28px;"></i>
+                                                </a>
+                                            @endif
+                                        </li>
+                                    </ul>
                                     <li class="mb-2"><img class="img-fluid img-icon"
                                             src="{{ asset('assets/img/landing-page/money.svg') }}">
                                         {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}
@@ -238,7 +242,7 @@
                     icon.find('i').removeClass('fas fa-bookmark').addClass('far fa-bookmark');
                 }
 
-                icon.click(function () {
+                icon.click(function() {
                     // Make an AJAX request to update bookmark status
                     $.ajax({
                         type: 'POST',
@@ -246,9 +250,10 @@
                         data: {
                             loker_id: lokerId
                         },
-                        success: function (response) {
+                        success: function(response) {
                             if (response.bookmarked) {
-                                icon.find('i').removeClass('far fa-bookmark').addClass('fas fa-bookmark');
+                                icon.find('i').removeClass('far fa-bookmark').addClass(
+                                    'fas fa-bookmark');
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Lowongan Pekerjaan Disimpan',
@@ -256,7 +261,8 @@
                                     timer: 1500
                                 });
                             } else {
-                                icon.find('i').removeClass('fas fa-bookmark').addClass('far fa-bookmark');
+                                icon.find('i').removeClass('fas fa-bookmark').addClass(
+                                    'far fa-bookmark');
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Lowongan Pekerjaan Dihapus',
@@ -274,7 +280,7 @@
                                 $('.toast').toast('show');
                             }
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             // Handle errors here if necessary
                             console.error(error);
                         }
@@ -286,11 +292,9 @@
 @endsection
 
 @push('customScript')
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
 
-<!-- SweetAlert CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
-
-<!-- SweetAlert JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 @endpush
