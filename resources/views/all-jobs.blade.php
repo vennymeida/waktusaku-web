@@ -10,7 +10,7 @@
                         <h4 class="font-weight-bold">Daftar Lowongan Pekerjaan</h4>
                     </div>
                     <div class="card-body">
-                        <form class="form-row" method="GET" action="{{ route('all-jobs.index') }}"
+                        <form id="search-form" class="form-row" method="GET" action="{{ route('all-jobs.index') }}"
                             onsubmit="handleFormSubmit()">
                             <div class="form-group col-md-4">
                                 <div class="input-group">
@@ -166,23 +166,38 @@
                 }
             ];
 
+            const inputValues = {
+                posisi: "",
+                lokasi: "",
+                kategori: ""
+            };
+
             inputsAndIcons.forEach(item => {
                 const input = document.getElementById(item.inputId);
                 const clearIcon = document.getElementById(item.clearIconId);
 
                 input.addEventListener("input", function() {
+                    inputValues[item.inputId] = this.value;
                     clearIcon.style.display = this.value ? "block" : "none";
                 });
 
                 clearIcon.addEventListener("click", function() {
                     input.value = "";
+                    currentInputValue = "";
                     clearIcon.style.display = "none";
+                    submitForm(currentInputValue);
                 });
 
                 if (input.value) {
                     clearIcon.style.display = "block";
                 }
             });
+
+            function submitForm(inputValue) {
+                const form = document.getElementById("search-form");
+
+                form.submit();
+            }
         });
     </script>
 
