@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Bookmark;
 
 class LowonganPekerjaan extends Model
 {
@@ -40,5 +41,9 @@ class LowonganPekerjaan extends Model
     {
         // return $this->belongsTo(KategoriPekerjaan::class, 'id_kategori');
         return $this->belongsToMany(KategoriPekerjaan::class, 'lowongan_kategori', 'lowongan_id', 'kategori_id');
+    }
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class, 'lowongan_pekerjaan_id');
     }
 }
