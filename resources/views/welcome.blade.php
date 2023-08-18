@@ -10,17 +10,19 @@
                             Sesuai Minat Bakat Anda!</h1>
                         <p>Platform yang dirancang untuk memudahkan mencari peluang kerja yang sesuai dengan kebutuhan Anda
                             khusus di daerah Malang Raya.</p>
-                        <div class="form-row">
-                            <div class="form-group col-md-10">
-                                <input type="text" name="name" class="form-control" id="name"
-                                    placeholder="Ketik posisi pekerjaan..." value="{{ app('request')->input('nama') }}"
-                                    style="border-radius: 25px;">
+                        <form method="GET" action="{{ route('all-jobs.index') }}">
+                            <div class="form-row">
+                                <div class="form-group col-md-10">
+                                    <input type="text" name="posisi" class="form-control" id="posisi"
+                                        placeholder="Ketik posisi pekerjaan..."
+                                        value="{{ app('request')->input('posisi') }}" style="border-radius: 25px;">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <button id="search-button" class="btn btn-primary mr-1 px-4" type="submit"
+                                        style="border-radius: 25px;">Cari</button>
+                                </div>
                             </div>
-                            <div class="form-group col-md-2">
-                                <button id="search-button" class="btn btn-primary mr-1 px-4" type="submit"
-                                    style="border-radius: 25px;">Cari</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="col-md-4">
                         <img class="img-fluid" src="{{ asset('assets/img/landing-page/image-1.svg') }}" alt="">
