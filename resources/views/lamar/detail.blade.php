@@ -29,13 +29,13 @@
                         <div class="col-md-8">
                             <dl class="row">
                                 <dt class="col-sm-4">Nama</dt>
-                                <dd class="col-sm-8">{{ $name}}</dd>
+                                <dd class="col-sm-8">{{$namaPengguna}}</dd>
 
                                 <dt class="col-sm-4 mt-3">Nama Perusahaan</dt>
-                                <dd class="col-sm-8 mt-3">{{ $lamar->nama }}</dd>
+                                <dd class="col-sm-8 mt-3">{{ $namaPerusahaan }}</dd>
 
                                 <dt class="col-sm-4 mt-3">Posisi Pekerjaan</dt>
-                                <dd class="col-sm-8 mt-3">{{ $lamar->judul }}</dd>
+                                <dd class="col-sm-8 mt-3">{{ $judulPekerjaan }}</dd>
 
                                 <dt class="col-sm-4 mt-3">Status</dt>
                                 <dd class="col-sm-8 mt-3">{{ $lamar->status }}</dd>

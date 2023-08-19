@@ -15,7 +15,7 @@ class lamar extends Model
         'status',
     ];
 
-    public function user()
+    public function pencarikerja()
     {
         return $this->belongsTo(ProfileUser::class, 'id_pencari_kerja');
     }

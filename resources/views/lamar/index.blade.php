@@ -29,17 +29,7 @@
                         <div class="card-body">
                             <form action="{{ route('pelamarkerja.index') }}" method="GET">
                                 <div class="form-row text-center">
-                                    <div class="form-group col-md-4">
-                                        <select name="status" class="form-control" id="statusSelect">
-                                            <option value="" selected>-- Posisi Pekerjaan --</option>
-                                            {{-- @foreach ($statuses as $status)
-                                                <option value="{{ $status }}"
-                                                    @if ($status == $selectedStatus) selected @endif>
-                                                    {{ $status }}</option>
-                                            @endforeach --}}
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-10">
                                         <input type="text" class="form-control" name="search"
                                             value="">
                                     </div>
@@ -101,16 +91,16 @@
                                 <div class="col-12 col-sm-12 col-lg-12">
                                   <div class="card">
                                     <div class="card-header">
-                                      <h4>Comments</h4>
+                                      <h4>Data Pelamar</h4>
                                     </div>
-                                    @foreach ($allResults as $lamar)
+                                    @foreach ($loggedInUserResults as $key => $lamar)
                                     <div class="card-body">
                                       <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
                                         <li class="media">
                                           <img alt="image" class="mr-3 rounded-circle" width="70" src="assets/img/landing-page/image-1.svg">
                                           <div class="media-body">
                                             <div class="media-right">
-                                                <a href="#" class="btn btn-sm btn-primary btn-icon">
+                                                <a href="{{ route('pelamarkerja.show', $lamar->id) }}" class="btn btn-sm btn-primary btn-icon">
                                                     <i class="far fa-eye" id=""></i> Detail
                                                 </a>
                                             </div>
