@@ -68,7 +68,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', function () {
         return view('home', ['users' => User::get(),]);
     });
-    Route::GET('/profile', [ProfileUserController::class, 'profile'])
+    Route::get('/profile', function () {
+        return view('profile.index');
+    });
+    Route::GET('/profile-edit', [ProfileUserController::class, 'profile'])
         ->name('profile.edit');
     Route::get('/getKelurahans', [ProfileUserController::class, 'getKelurahans'])->name('getKelurahans');
     Route::PUT('/update-profile-information', [ProfileUserController::class, 'update'])

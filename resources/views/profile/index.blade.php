@@ -30,7 +30,7 @@
                                 <div class="profile-widget-name">{{ Auth::user()->name }}</div>
                             </div>
                             <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                <a href="#">
+                                <a href="{{ url('/profile-edit') }}">
                                 <img class="img-fluid" style="width: 35px; height: 35px;"
                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                 </a>
@@ -41,14 +41,8 @@
                                 <div class="profile-widget-description mt-4" style="font-size: 14px;">
                                     @if (Auth::user()->profile && Auth::user()->profile->ringkasan != '')
                                         <p style="font-weight: bold;">Ringkasan</p>
-                                        <p style="line-height: 1.5; margin-top: -2%;">Lorem Ipsum is simply dummy text of the
-                                            printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                                            ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-                                            type specimen book. It has survived not only five centuries, but also the leap into
-                                            electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                                            the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                                            with desktop publishing software like Aldus PageMaker including versions of Lorem
-                                            Ipsum.
+                                        <p style="line-height: 1.5; margin-top: -2%;">
+                                            {{ Auth::user()->profile ? Auth::user()->profile->ringkasan : '' }}
                                         </p>
                                     @else
                                         <p style="font-weight: bold;">Ringkasan</p>
