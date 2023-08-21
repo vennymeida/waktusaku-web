@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< Updated upstream
 use App\Models\Lamar; // Import the necessary model
 
 class MelamarController extends Controller
@@ -36,3 +37,10 @@ class MelamarController extends Controller
     }
 }
 
+=======
+
+class MelamarController extends Controller
+{
+    //
+}
+>>>>>>> Stashed changes
