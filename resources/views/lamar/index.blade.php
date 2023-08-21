@@ -26,25 +26,29 @@
                             <h4>Data Pelamar Kerja</h4>
                         </div>
                         @endrole
-                        @role('Pencari Kerja')
-                        <div class="card-header">
-                            <h4>Lowongan Yang Di Lamar</h4>
-                        </div>
-                        @endrole
                         <div class="card-body">
-                            <form action="{{ route('pelamarkerja.index') }}" method="GET">
-                                <div class="form-row text-center">
-                                    <div class="form-group col-md-10">
-                                        <input type="text" class="form-control" name="search"
-                                            value="">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                        <a href="" class="btn btn-secondary ml-2">Reset</a>
-                                    </div>
+                        <form action="{{ route('pelamarkerja.index') }}" method="GET">
+                            <div class="form-row text-center">
+                                <div class="form-group col-md-4">
+                                    <select name="status" class="form-control" id="statusSelect">
+                                        <option value="" selected>-- Pilih Status --</option>
+                                        @foreach ($statuses as $status)
+                                            <option value="{{ $status }}"
+                                                @if ($status == $selectedStatus) selected @endif>
+                                                {{ $status }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            </form>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" name="search"
+                                        value="{{ app('request')->input('search') }}">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a href="{{ route('pelamarkerja.index') }}" class="btn btn-secondary ml-2">Reset</a>
+                                </div>
                             </div>
+                        </form>
                             @role('super-admin')
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
@@ -72,7 +76,7 @@
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
                                                             Lihat Lamaran</a>
-                                                            <form action=""
+                                                            <form action="{{ route('pelamarkerja.destroy', $lamar->id) }}"
                                                                 method="POST" class="ml-2">
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <input type="hidden" name="_token"
@@ -94,67 +98,73 @@
                             @role('Perusahaan')
                             <div class="row">
                                 <div class="col-12 col-sm-12 col-lg-12">
-                                  <div class="card">
-                                    <div class="card-header">
-                                      <h4>Data Pelamar</h4>
-                                    </div>
-                                    @foreach ($loggedInUserResults as $key => $lamar)
-                                    <div class="card-body">
-                                      <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
-                                        <li class="media">
-                                            <div class="text-center">
-                                                @if ($lamar && $lamar->foto)
-                                                    <img src="{{ asset('storage/' . $lamar->foto) }}" alt="Foto"
-                                                    class="rounded-circle mr-1" style="width: 100px; height: 100px;">
-                                                @else
-                                                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                                    class="rounded-circle mr-1" style="width: 100px; height: 100px;">
-                                                @endif
-                                            </div>
-                                          <div class="media-body">
-                                            <div class="media-right">
-                                                <a href="{{ route('pelamarkerja.show', $lamar->id) }}" class="btn btn-sm btn-primary btn-icon">
-                                                    <i class="far fa-eye" id=""></i> Detail
-                                                </a>
-                                            </div>
-                                            <div class="media-title mb-1">{{ $lamar->name }}</div>
-                                            <div class="text-time">{{ $lamar->judul }}</div>
-                                            <div class="card-text">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <ul class="list-unstyled ml-2">
-                                                            <li class="mb-2"><img class="img-fluid icon-small"
-                                                                    src="{{ asset('assets/img/lamar/calendar.svg') }}">
-                                                                {{-- {{ $loker->kategori }} --}}
-                                                            </li>
-                                                            <li class="mb-2"><img class="img-fluid icon-small"
-                                                                    src="{{ asset('assets/img/lamar/email.svg') }}">
-                                                                    {{ $lamar->email }}
-                                                            </li>
-                                                        </ul>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Data Pelamar</h4>
+                                        </div>
+                                        @foreach ($loggedInUserResults as $key => $lamar)
+                                        <div class="card-body">
+                                            <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
+                                                <li class="media">
+                                                    <div class="text-center">
+                                                        @if ($lamar && $lamar->foto)
+                                                        <img src="{{ asset('storage/' . $lamar->foto) }}" alt="Foto"
+                                                            class="rounded-circle mr-4" style="width: 100px; height: 100px;">
+                                                        @else
+                                                        <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                                                            class="rounded-circle mr-4" style="width: 100px; height: 100px;">
+                                                        @endif
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <ul class="list-unstyled ml-2">
-                                                            <li class="mb-2"><img class="img-fluid icon-small"
-                                                                    src="{{ asset('assets/img/lamar/call.svg') }}">
-                                                                    {{ $lamar->no_hp }}
-                                                            </li>
-                                                            <li class="mb-4"><img class="img-fluid icon-small"
-                                                                    src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                                                {{-- {{ $loker->lokasi }} --}}
-                                                            </li>
-                                                        </ul>
+                                                    <div class="media-body ml-4">
+                                                        <div class="media-right">
+                                                            <a href="{{ route('pelamarkerja.show', $lamar->id) }}" class="btn btn-sm btn-primary btn-icon">
+                                                                <i class="far fa-eye"></i> Detail
+                                                            </a>
+                                                            <br>
+                                                            <br>
+                                                            <a href="#" class="badge badge-warning">
+                                                                Pending
+                                                            </a>
+                                                        </div>
+                                                        <div class="media-title mb-1">{{ $lamar->name }}</div>
+                                                        <div class="text-time">{{ $lamar->judul }}</div>
+                                                        <div class="card-text">
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <ul class="list-unstyled ml-2">
+                                                                        <li class="mb-2"><img class="img-fluid icon-small"
+                                                                                src="{{ asset('assets/img/lamar/calendar.svg') }}">
+                                                                            02 Mei 2002
+                                                                        </li>
+                                                                        <li class="mb-2"><img class="img-fluid icon-small"
+                                                                                src="{{ asset('assets/img/lamar/email.svg') }}">
+                                                                            {{ $lamar->email }}
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <ul class="list-unstyled ml-2">
+                                                                        <li class="mb-2"><img class="img-fluid icon-small"
+                                                                                src="{{ asset('assets/img/lamar/call.svg') }}">
+                                                                            {{ $lamar->no_hp }}
+                                                                        </li>
+                                                                        <li class="mb-4"><img class="img-fluid icon-small"
+                                                                                src="{{ asset('assets/img/landing-page/location pin.svg') }}">
+                                                                            Jl. Pesantren 06, Malang
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-description text-muted">Melamar pada 7 Agustus 2023</div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="media-description text-muted">Melamar pada 7 Agustus 2023</div>
-                                          </div>
-                                        </li>
-                                      </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
-                                  </div>
                                 </div>
+                            </div>
                             @endrole
                         </div>
                     </div>
@@ -189,6 +199,15 @@
         function submitDel(id) {
             $('#del-' + id).submit()
         }
+    </script>
+    <script>
+        const statusSelect = document.getElementById('statusSelect');
+
+        statusSelect.addEventListener('change', function() {
+            const selectedStatus = statusSelect.value;
+
+            window.location.href = '{{ route('pelamarkerja.index') }}?status=' + selectedStatus;
+        });
     </script>
 @endpush
 
