@@ -43,6 +43,8 @@ class LamarController extends Controller
             'l.id_pencari_kerja',
             'u.name',
             'pu.no_hp',
+            'pu.foto',
+            'pu.resume',
             'u.email',
             'p.nama',
             'lp.judul',
@@ -72,6 +74,8 @@ class LamarController extends Controller
                 'l.id',
                 'u.name',
                 'pu.no_hp',
+                'pu.foto',
+                'pu.resume',
                 'u.email',
                 'p.nama',
                 'lp.judul',
@@ -128,11 +132,15 @@ class LamarController extends Controller
 
     // Mendapatkan informasi yang diperlukan dari relasi
     $namaPengguna = $relasiLamar->pencarikerja->user->name;
+    $profile = $relasiLamar->pencarikerja->user->foto;
+    $resume = $relasiLamar->pencarikerja->user->resume;
     $judulPekerjaan = $relasiLamar->loker->judul;
     $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 
     return view('lamar.detail', [
         'namaPengguna' => $namaPengguna,
+        'profile' => $profile,
+        'resume' => $resume,
         'judulPekerjaan' => $judulPekerjaan,
         'namaPerusahaan' => $namaPerusahaan,
         'lamar' => $lamar

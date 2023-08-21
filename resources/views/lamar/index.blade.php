@@ -26,6 +26,11 @@
                             <h4>Data Pelamar Kerja</h4>
                         </div>
                         @endrole
+                        @role('Pencari Kerja')
+                        <div class="card-header">
+                            <h4>Lowongan Yang Di Lamar</h4>
+                        </div>
+                        @endrole
                         <div class="card-body">
                             <form action="{{ route('pelamarkerja.index') }}" method="GET">
                                 <div class="form-row text-center">
@@ -97,7 +102,15 @@
                                     <div class="card-body">
                                       <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
                                         <li class="media">
-                                          <img alt="image" class="mr-3 rounded-circle" width="70" src="assets/img/landing-page/image-1.svg">
+                                            <div class="text-center">
+                                                @if ($lamar && $lamar->foto)
+                                                    <img src="{{ asset('storage/' . $lamar->foto) }}" alt="Foto"
+                                                    class="rounded-circle mr-1" style="width: 100px; height: 100px;">
+                                                @else
+                                                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                                                    class="rounded-circle mr-1" style="width: 100px; height: 100px;">
+                                                @endif
+                                            </div>
                                           <div class="media-body">
                                             <div class="media-right">
                                                 <a href="{{ route('pelamarkerja.show', $lamar->id) }}" class="btn btn-sm btn-primary btn-icon">
