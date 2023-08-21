@@ -79,6 +79,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::PUT('/update-perusahaan-information', [PerusahaanController::class, 'update'])
         ->name('profile.perusahaan.update');
     //user list
+    Route::get('/pendidikan', function () {
+        return view('pendidikan.index');
+    });
 
     Route::prefix('user-management')->group(function () {
         Route::resource('user', UserController::class);

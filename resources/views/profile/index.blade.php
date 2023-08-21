@@ -103,7 +103,7 @@
                         <div class="profile-widget-name">Pendidikan</div>
                     </div>
                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                        <a href="#">
+                        <a href="#" id="modal-create">
                         <img class="img-fluid" style="width: 35px; height: 35px;"
                             src="{{ asset('assets/img/landing-page/Plus.svg') }}">
                         </a>
@@ -245,3 +245,147 @@
         </section>
     </main>
 @endsection
+
+@push('customScript')
+<script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
+    <script>
+        $("#modal-create").fireModal({
+            title: 'Tambah Pendidikan',
+            footerClass: 'bg-whitesmoke',
+            body: `
+            <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
+                                    novalidate="" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-12">
+                                            <label for="gelar">Gelar</label>
+                                            <select
+                                                class="form-control select2 custom-input @error('gelar') is-invalid @enderror"
+                                                name="gelar" id="gelar">
+                                                <option value="">Pilih Gelar</option>
+                                                <option value="sma"
+                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'sma' ? 'selected' : '' }}>
+                                                    SMA/SMK</option>
+                                                <option value="D3"
+                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'D3' ? 'selected' : '' }}>
+                                                    Diploma III</option>
+                                                <option value="D4"
+                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'D4' ? 'selected' : '' }}>
+                                                    Diploma IV</option>
+                                                <option value="S1"
+                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'S1' ? 'selected' : '' }}>
+                                                    Sarjana</option>
+                                                <option value="S2"
+                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'S2' ? 'selected' : '' }}>
+                                                    Magister</option>
+                                                @error('gelar')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Nama Institusi</label>
+                                            <input name="institusi" type="text"
+                                                class="form-control custom-input @error('institusi') is-invalid @enderror"
+                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->institusi : '' }}">
+                                            @error('institusi')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Jurusan</label>
+                                            <input name="jurusan" type="text"
+                                                class="form-control custom-input @error('jurusan') is-invalid @enderror"
+                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->jurusan : '' }}">
+                                            @error('jurusan')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Prestasi Akademik (Opsional)</label>
+                                            <input name="jurusan" type="text"
+                                                class="form-control custom-input @error('jurusan') is-invalid @enderror"
+                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->jurusan : '' }}">
+                                            @error('jurusan')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-2">
+                                            <label>Periode Waktu</label>
+                                            <input name="institusi" type="text"
+                                                class="form-control custom-input @error('institusi') is-invalid @enderror"
+                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->institusi : '' }}">
+                                            @error('institusi')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label style="color: white">iu</label>
+                                            <input name="institusi" type="text"
+                                                class="form-control custom-input @error('institusi') is-invalid @enderror"
+                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->institusi : '' }}">
+                                            @error('institusi')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-3 ml-5">
+                                            <label>IPK (Opsional)</label>
+                                            <input name="jurusan" type="text"
+                                                class="form-control custom-input @error('jurusan') is-invalid @enderror"
+                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->jurusan : '' }}">
+                                            @error('jurusan')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-3 col-12 text-right">
+                                            <button class="btn btn-primary custom-input" type="submit">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+         `,
+            buttons: [{
+                    text: 'Batal',
+                    class: 'btn btn-secondary',
+                    handler: function(modal) {
+                        modal.modal('hide');
+                    }
+                },
+                {
+                    text: 'Simpan',
+                    class: 'btn btn-primary',
+                    handler: function(modal) {
+                        $('form', modal).submit();
+                    }
+                }
+            ]
+        });
+    </script>
+@endpush
+@push('customStyle')
+
+@endpush
