@@ -9,7 +9,7 @@
                         <h4 class="font-weight-bold">Lowongan Kerja Tersimpan</h4>
                     </div>
                     <div class="card-body">
-                        <form class="form-row" method="GET" action="{{ route('bookmark.index') }}"
+                        <form id="search-form" class="form-row" method="GET" action="{{ route('bookmark.index') }}"
                             onsubmit="handleFormSubmit()">
                             <div class="form-group col-md-4">
                                 <div class="input-group">
@@ -98,10 +98,10 @@
                                     <div class="card-text">
                                         <ul class="list-unstyled ml-2">
                                             <ul class="list-unstyled d-flex justify-content-between">
-                                                <li class="mb-2"><img class="img-fluid img-icon"
-                                                        src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                                    @foreach ($bookmark->lowonganPekerjaan->kategori as $kategori)
-                                                        {{ $kategori->kategori }}
+                                                <li class="mb-2">
+                                                    <img class="img-fluid img-icon" src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                                    @foreach ($bookmark->lowonganPekerjaan->kategori as $index => $kategori)
+                                                        {{ $kategori->kategori }}@if ($index < count($bookmark->lowonganPekerjaan->kategori) - 1), @endif
                                                     @endforeach
                                                 </li>
                                                 <li class="mb-2">
@@ -163,23 +163,38 @@
                 }
             ];
 
+            const inputValues = {
+                posisi: "",
+                lokasi: "",
+                kategori: ""
+            };
+
             inputsAndIcons.forEach(item => {
                 const input = document.getElementById(item.inputId);
                 const clearIcon = document.getElementById(item.clearIconId);
 
                 input.addEventListener("input", function() {
+                    inputValues[item.inputId] = this.value;
                     clearIcon.style.display = this.value ? "block" : "none";
                 });
 
                 clearIcon.addEventListener("click", function() {
                     input.value = "";
+                    currentInputValue = "";
                     clearIcon.style.display = "none";
+                    submitForm(currentInputValue);
                 });
 
                 if (input.value) {
                     clearIcon.style.display = "block";
                 }
             });
+
+            function submitForm(inputValue) {
+                const form = document.getElementById("search-form");
+
+                form.submit();
+            }
         });
     </script>
 
