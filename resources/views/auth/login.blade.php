@@ -23,66 +23,66 @@
 <body>
     <div id="app">
         <section class="section">
-            <div class="container mt-3">
-                <div class="row">
-                    <div
-                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-                        <div class="login-brand">
+            <div class="container-fluid">
+                <div class="row" style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
+                    {{-- <div
+                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4"> --}}
+                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center my-5">
+                        {{-- <div class="login-brand">
                             <img src="{{ asset('assets/img/landing-page/logo.svg') }}" alt="logo" width="200">
-                        </div>
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h4>Login</h4>
-                            </div>
-                            <div class="card-body">
-                                @if (session('status'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{ session('status') }}
-                                    </div>
-                                @endif
-                                <form action="{{ route('login') }}" method="POST" class="needs-validation"
-                                    novalidate="">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" value="{{ old('email') }}"
-                                            class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="Masukkan Alamat Email">
-                                        @error('email')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="d-block">
-                                            <label for="password" class="control-label">Password</label>
-                                            <div class="float-right">
-                                                <a href="/forgot-password" class="text-small">
-                                                    Forgot Password?
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- <label class="font-weight-bold text-uppercase">Password</label> -->
-                                        <input type="password" name="password"
-                                            class="form-control @error('password') is-invalid @enderror"
-                                            placeholder="Masukkan Password">
-                                        @error('password')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            Login
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="mt-5 text-muted text-center">
-                            Don't have an account? <a href="/register">Create One</a>
-                        </div>
-                        {{-- <div class="simple-footer">
-                            Copyright &copy; Stisla 2018
                         </div> --}}
+                        <div>
+                            <h1 class="font-weight-bold" style="color: black">Selamat Datang!</h1>
+                            <p>Yuk, produktif dengan Kami</p>
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+                            <form action="{{ route('login') }}" method="POST" class="needs-validation" novalidate="">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" value="{{ old('email') }}"
+                                        class="form-control @error('email') is-invalid @enderror"
+                                        placeholder="Masukkan Alamat Email">
+                                    @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <div class="d-block">
+                                        <label for="password" class="control-label">Password</label>
+                                        <div class="float-right">
+                                            <a href="/forgot-password" class="text-small">
+                                                Forgot Password?
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <input type="password" name="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        placeholder="Masukkan Password">
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                        Login
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="mt-2 text-muted text-center">
+                            Tidak punya Akun? <a href="/register">Buat</a>
+                            <p class="mt-4">Copyright &copy; 2023 Design By <a href="">Mustika Putri</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center my-5">
+                        <img class="img-fluid" src="{{ asset('assets/img/landing-page/logo.svg') }}" alt=""
+                            style="width: 50%; height: auto;">
+                        <img class="img-fluid mt-5" src="{{ asset('assets/img/landing-page/login_img.svg') }}"
+                            alt="">
                     </div>
                 </div>
             </div>

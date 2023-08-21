@@ -113,9 +113,9 @@
                                             </ul>
                                             <li class="mb-2"><img class="img-fluid img-icon"
                                                     src="{{ asset('assets/img/landing-page/money.svg') }}">
-                                                {{ 'Rp ' . number_format($bookmark->lowonganPekerjaan->gaji_bawah, 0, ',', '.') }}
+                                                {{ 'IDR ' . $bookmark->lowonganPekerjaan->gaji_bawah }}
                                                 <span>-</span>
-                                                {{ 'Rp ' . number_format($bookmark->lowonganPekerjaan->gaji_atas, 0, ',', '.') }}
+                                                {{ $bookmark->lowonganPekerjaan->gaji_atas }}
                                             </li>
                                             <li class="mb-2"><img class="img-fluid img-icon"
                                                     src="{{ asset('assets/img/landing-page/job.svg') }}">
