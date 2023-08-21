@@ -70,4 +70,17 @@ class StoreLowonganPekerjaanRequest extends FormRequest
             'tutup.required' => 'Lowongan di tutup tidak boleh kosong',
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $gajiBawah = $this->input('gaji_bawah');
+            $gajiAtas = $this->input('gaji_atas');
+
+            if ($gajiBawah >= $gajiAtas) {
+                $validator->errors()->add('gaji_bawah', 'Gaji yang dimasukkan tidak masuk akal');
+                $validator->errors()->add('gaji_atas', 'Gaji yang dimasukkan tidak masuk akal');
+            }
+        });
+    }
 }

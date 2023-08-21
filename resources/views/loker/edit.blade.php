@@ -229,12 +229,11 @@
                                         <div class="d-flex align-items-center flex-grow-1">
                                             @role('super-admin')
                                                 <input type="text" class="form-control mr-2" id="gaji_bawah"
-                                                    name="gaji_bawah"
-                                                    value="{{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}"
+                                                    name="gaji_bawah" {{-- value="{{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}" --}} value="{{ $loker->gaji_bawah }}"
                                                     disabled>
                                             @endrole
                                             @role('Perusahaan')
-                                                <input type="number"
+                                                <input type="text"
                                                     class="form-control mr-2 @error('gaji_bawah') is-invalid @enderror"
                                                     id="gaji_bawah" name="gaji_bawah" value="{{ $loker->gaji_bawah }}"
                                                     placeholder="contoh: 3000000">
@@ -242,32 +241,31 @@
                                             <span class="mr-2">-</span>
                                             @role('super-admin')
                                                 <input type="text" class="form-control" id="gaji_atas" name="gaji_atas"
-                                                    value="{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}"
-                                                    disabled>
+                                                    {{-- value="{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}" --}} value="{{ $loker->gaji_atas }}" disabled>
                                             @endrole
                                             @role('Perusahaan')
-                                                <input type="number"
+                                                <input type="text"
                                                     class="form-control @error('gaji_atas') is-invalid @enderror"
                                                     id="gaji_atas" name="gaji_atas" value="{{ $loker->gaji_atas }}"
                                                     placeholder="contoh: 3000000">
                                             @endrole
                                         </div>
-                                        @role('Perusahaan')
-                                            @if ($errors->has('gaji_bawah') && !$errors->has('gaji_atas'))
-                                                <div class="invalid-feedback d-block">
-                                                    {{ $errors->first('gaji_bawah') }}
-                                                </div>
-                                            @elseif (!$errors->has('gaji_bawah') && $errors->has('gaji_atas'))
-                                                <div class="invalid-feedback d-block">
-                                                    {{ $errors->first('gaji_atas') }}
-                                                </div>
-                                            @elseif ($errors->has('gaji_bawah') && $errors->has('gaji_atas'))
-                                                <div class="invalid-feedback d-block">
-                                                    {{ $errors->first('gaji_atas') }}
-                                                </div>
-                                            @endif
-                                        @endrole
                                     </div>
+                                    @role('Perusahaan')
+                                        @if ($errors->has('gaji_bawah') && !$errors->has('gaji_atas'))
+                                            <div class="invalid-feedback d-block">
+                                                {{ $errors->first('gaji_bawah') }}
+                                            </div>
+                                        @elseif (!$errors->has('gaji_bawah') && $errors->has('gaji_atas'))
+                                            <div class="invalid-feedback d-block">
+                                                {{ $errors->first('gaji_atas') }}
+                                            </div>
+                                        @elseif ($errors->has('gaji_bawah') && $errors->has('gaji_atas'))
+                                            <div class="invalid-feedback d-block">
+                                                {{ $errors->first('gaji_atas') }}
+                                            </div>
+                                        @endif
+                                    @endrole
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -396,6 +394,30 @@
                 placeholder: 'Masukkan Persyaratan Pekerjaan',
                 height: 200,
             });
+        });
+    </script>
+
+    <script>
+        function formatRupiah(angka) {
+            var formatter = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            });
+            var formatted = formatter.format(angka);
+            // return formatter.format(angka);
+            formatted = formatted.replace("Rp", "");
+            return formatted;
+        }
+
+        document.getElementById('gaji_bawah').addEventListener('input', function() {
+            var value = this.value.replace(/[^0-9]/g, '');
+            this.value = formatRupiah(value);
+        });
+
+        document.getElementById('gaji_atas').addEventListener('input', function() {
+            var value = this.value.replace(/[^0-9]/g, '');
+            this.value = formatRupiah(value);
         });
     </script>
 @endpush

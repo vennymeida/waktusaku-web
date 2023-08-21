@@ -141,12 +141,12 @@
                                         <label for="gaji">Gaji</label>
                                         <div class="d-flex">
                                             <div class="d-flex align-items-center flex-grow-1">
-                                                <input type="number"
+                                                <input type="text"
                                                     class="form-control mr-2 @error('gaji_bawah') is-invalid @enderror"
                                                     id="gaji_bawah" name="gaji_bawah" value="{{ old('gaji_bawah') }}"
                                                     placeholder="contoh: 3000000">
                                                 <span class="mr-2">-</span>
-                                                <input type="number"
+                                                <input type="text"
                                                     class="form-control @error('gaji_atas') is-invalid @enderror"
                                                     id="gaji_atas" name="gaji_atas" value="{{ old('gaji_atas') }}"
                                                     placeholder="contoh: 3000000">
@@ -225,6 +225,30 @@
                 placeholder: 'Masukkan persyaratan pekerjaan',
                 height: 195,
             });
+        });
+    </script>
+
+    <script>
+        function formatRupiah(angka) {
+            var formatter = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            });
+            var formatted = formatter.format(angka);
+            // return formatter.format(angka);
+            formatted = formatted.replace("Rp", "");
+            return formatted;
+        }
+
+        document.getElementById('gaji_bawah').addEventListener('input', function() {
+            var value = this.value.replace(/[^0-9]/g, '');
+            this.value = formatRupiah(value);
+        });
+
+        document.getElementById('gaji_atas').addEventListener('input', function() {
+            var value = this.value.replace(/[^0-9]/g, '');
+            this.value = formatRupiah(value);
         });
     </script>
 @endpush

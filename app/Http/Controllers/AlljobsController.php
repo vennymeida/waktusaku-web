@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LowonganPekerjaan;
 use App\Models\Perusahaan;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -73,6 +74,10 @@ class AlljobsController extends Controller
         $kategori = $loker->kategori()->pluck('kategori')->implode(', ');
         $loker->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $loker->requirement);
 
-        return view('showAlljobs', ['loker' => $loker, 'perusahaan' => $perusahaan, 'kategori' => $kategori]);
+        if (Auth::check()) {
+            return view('showAlljobs', ['loker' => $loker, 'perusahaan' => $perusahaan, 'kategori' => $kategori]);
+        } else {
+            return view('auth.login');
+        }
     }
 }

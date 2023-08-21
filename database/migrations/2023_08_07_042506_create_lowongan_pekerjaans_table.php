@@ -27,8 +27,8 @@ return new class extends Migration {
             $table->enum('min_pendidikan', ['SMA', 'SMK', 'SMA/SMK', 'S1']);
             $table->enum('min_pengalaman', ['Tidak ada', 'Kurang dari setahun', 'Lebih dari setahun']);
             $table->string('lokasi');
-            $table->integer('gaji_bawah');
-            $table->integer('gaji_atas');
+            $table->string('gaji_bawah');
+            $table->string('gaji_atas');
             $table->integer('jumlah_pelamar');
             $table->date('tutup');
             $table->enum('status', ['pending', 'dibuka', 'ditutup']);

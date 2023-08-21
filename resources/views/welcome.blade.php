@@ -157,9 +157,9 @@
                                             </ul>
                                             <li class="mb-2"><img class="img-fluid"
                                                     src="{{ asset('assets/img/landing-page/money.svg') }}">
-                                                {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}
+                                                {{ 'IDR ' . $loker->gaji_bawah }}
                                                 <span>-</span>
-                                                {{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}
+                                                {{ $loker->gaji_atas }}
                                             </li>
                                             <li class="mb-2"><img class="img-fluid"
                                                     src="{{ asset('assets/img/landing-page/job.svg') }}">
@@ -177,7 +177,8 @@
                                     </div>
                                     <div class="text-center mb-3">
                                         <a id="detail-button" class="btn btn-primary px-4 py-2"
-                                            style="border-radius: 25px;" href="#">Lihat Detail</a>
+                                            style="border-radius: 25px;"
+                                            href="{{ route('all-jobs.show', $loker->id) }}">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>

@@ -106,8 +106,8 @@
                                                     <td>{{ $loker->kategori }}</td>
                                                     <td class="text-center">{{ $loker->tipe_pekerjaan }}</td>
                                                     <td>
-                                                        {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}<span> -
-                                                        </span>{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}
+                                                        {{ 'IDR ' . $loker->gaji_bawah }}<span> - </span>
+                                                        {{ $loker->gaji_atas }}
                                                     </td>
                                                     <td>{{ $loker->status }}</td>
                                                     <td class="text-center">
@@ -227,8 +227,8 @@
                                 <tr>
                                     <th class="text-left">Gaji</th>
                                     <td>
-                                        {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}<span> -
-                                        </span>{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}
+                                        {{ 'IDR ' . $loker->gaji_bawah }}<span> - </span>
+                                        {{ $loker->gaji_atas }}
                                     </td>
                                 </tr>
                                 <tr>
