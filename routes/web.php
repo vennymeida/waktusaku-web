@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlljobsController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\KeahlianController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\KategoriPekerjaanController;
@@ -144,6 +145,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     });
     Route::prefix('menu-pekerjaan')->group(function () {
+        Route::resource('keahlian', KeahlianController::class);
         Route::resource('kategori', KategoriPekerjaanController::class);
         Route::resource('loker', LowonganPekerjaanController::class);
         Route::resource('pelamarkerja', LamarController::class);
