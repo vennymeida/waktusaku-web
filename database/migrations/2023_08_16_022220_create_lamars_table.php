@@ -19,8 +19,10 @@ return new class extends Migration
             $table->foreign('id_loker')->references('id')->on('lowongan_pekerjaans')->restrictOnDelete();
             $table->unsignedBigInteger('id_pencari_kerja');
             $table->foreign('id_pencari_kerja')->references('id')->on('profile_users')->restrictOnDelete();
+            $table->string('resume')->nullable();
             $table->enum('status', ['pending', 'diterima', 'ditolak']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

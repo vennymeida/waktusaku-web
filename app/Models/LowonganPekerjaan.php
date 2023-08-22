@@ -46,4 +46,8 @@ class LowonganPekerjaan extends Model
     {
         return $this->hasMany(Bookmark::class, 'lowongan_pekerjaan_id');
     }
+    public function lamars()
+    {
+        return $this->hasMany(Lamar::class, 'id_loker');
+    }
 }
