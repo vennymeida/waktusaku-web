@@ -459,6 +459,25 @@ a:hover {
     resize: none;
 }
 
+.card-contact {
+    border-radius: 15px;
+    box-shadow: 0 10px 40px 0 rgba(51, 73, 94, 0.15);
+}
+
+.label-title {
+    font-size: 14px;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.form-message {
+    resize: none;
+    border-radius: 15px;
+}
+
 .form-show:disabled {
     background-color: transparent;
 }
