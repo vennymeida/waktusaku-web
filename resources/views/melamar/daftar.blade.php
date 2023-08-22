@@ -49,16 +49,17 @@
                                 
                                 <div class="d-flex flex-column align-items-center">
                                     <!-- Upload Icon (Placeholder, replace with your icon path) -->
-                                    <img src="{{ asset('assets/img/lamar/file.svg') }}" alt="Upload Icon" class="img-fluid img-icon">
+                                    <img src="{{ asset('assets/img/lamar/file2.svg') }}" alt="Upload Icon" class="img-fluid img-icon" style="width: 50px; height: 50px;">
+
 
                                     <!-- Current Resume Name -->
                                     @if(auth()->user()->profile && auth()->user()->profile->resume)
-                                        <span class="mb-2">{{ basename(auth()->user()->profile->resume) }}</span>
+                                    <span class="mb-2" id="current-resume-name">{{ basename(auth()->user()->profile->resume) }}</span>
                                         <a href="#" onclick="return openResume();" class="btn btn-link mb-2">View Current Resume</a>
                                     @endif
 
                                     <!-- Upload Instruction -->
-                                    <small class="text-muted mb-2">Unggah berkas dalam format PDF (maksimal 5mb)</small>
+                                    <small class="text-muted mb-2">Unggah berkas dalam format PDF (maksimal 2mb)</small>
                                     <button type="button" onclick="document.getElementById('new_resume').click();" class="btn btn-secondary mb-3">Ganti</button>
                                 </div>
 
@@ -84,6 +85,14 @@
             </div>
         </div>
     </div>
+    <!-- Display Laravel validation errors -->
+    @if($errors->any())
+        <div class="alert alert-danger">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
 </div>
 
 
@@ -92,7 +101,38 @@
         window.open("{{ Storage::url(auth()->user()->profile->resume ?? '#') }}", "ResumeWindow", "width=600,height=800");
         return false;
     }
-    </script>
+
+    document.getElementById('new_resume').addEventListener('change', function(e){
+        let file = this.files[0];
+        let fileSize = file.size / 1024 / 1024; //in mb
+        let allowedExtensions = /(\.pdf)$/i;
+
+        if (!allowedExtensions.exec(file.name) || fileSize > 2) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid File',
+                text: 'Hanya dokumen berformat PDF yang diizinkan dengan ukuran maksimal 2MB!'
+            });
+            this.value = ''; // reset the input
+            return false;
+        }
+        
+        // Show the file name
+        document.getElementById('current-resume-name').textContent = file.name;
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let successMessage = "{{ session('success') }}";
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: successMessage
+            });
+        }
+    });
+</script>
+
 <style>
 .fixed-height-image {
     max-width: 150px;  /* Adjust this value based on your preferred logo size */
@@ -108,3 +148,11 @@
     width: 100%;
 }
 </style>
+
+@push('customScript')
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+@endpush
