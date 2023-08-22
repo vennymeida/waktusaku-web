@@ -115,11 +115,17 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'loker.edit']);
         Permission::create(['name' => 'loker.destroy']);
 
-         //menu pelamar (perusahaan)
-         Permission::create(['name' => 'pelamarkerja.index']);
-         Permission::create(['name' => 'pelamarkerja.create']);
-         Permission::create(['name' => 'pelamarkerja.edit']);
-         Permission::create(['name' => 'pelamarkerja.destroy']);
+        //menu pelamar (perusahaan)
+        Permission::create(['name' => 'pelamarkerja.index']);
+        Permission::create(['name' => 'pelamarkerja.create']);
+        Permission::create(['name' => 'pelamarkerja.edit']);
+        Permission::create(['name' => 'pelamarkerja.destroy']);
+
+        //menu keahlian
+        Permission::create(['name' => 'keahlian.index']);
+        Permission::create(['name' => 'keahlian.create']);
+        Permission::create(['name' => 'keahlian.edit']);
+        Permission::create(['name' => 'keahlian.destroy']);
 
         // create roles
         $roleUser = Role::create(['name' => 'Pencari Kerja']);
