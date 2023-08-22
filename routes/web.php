@@ -30,6 +30,7 @@ use App\Models\Category;
 use App\Models\Kecamatan;
 use App\Models\LowonganPekerjaan;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\MelamarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -164,4 +165,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/bookmark/toggle', [BookmarkController::class, 'toggleBookmark'])->name('bookmark.toggle');
     Route::post('/bookmark/remove', [BookmarkController::class, 'removeBookmark'])->name('bookmark.remove'); // Add this line
     Route::post('/bookmark/add', [BookmarkController::class, 'addBookmark'])->name('bookmark.add'); // Add this line
+    Route::post('/melamar', [MelamarController::class, 'store'])->name('melamar.store');
+    
 });

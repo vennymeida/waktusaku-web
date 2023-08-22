@@ -10,12 +10,15 @@ class lamar extends Model
 {
     use HasFactory;
 
+    protected $table = 'lamars'; // nama tabel di database
+
     protected $fillable = [
         'id_loker',
         'id_pencari_kerja',
         'resume',
         'status',
     ];
+
 
     public function pencarikerja()
     {
@@ -26,5 +29,4 @@ class lamar extends Model
     {
         return $this->belongsTo(LowonganPekerjaan::class, 'id_loker');
     }
-
 }

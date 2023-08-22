@@ -46,8 +46,11 @@
                                     {{ $loker->lokasi }}
                                 </p>
                             </ul>
-                            <a id="detail-button" class="btn btn-primary px-5 py-2" style="border-radius: 25px;"
-                                href="#">Lamar</a>
+                            @if(Auth::check() && $hasApplied)
+                                <button class="btn btn-secondary px-5 py-2" style="border-radius: 25px; color: #ffffff;" disabled>Terlamar</button>
+                            @else
+                                <a id="detail-button" class="btn btn-primary px-5 py-2" style="border-radius: 25px; color: #ffffff;" data-toggle="modal" data-target="#lamarModal">Lamar</a>
+                            @endif
                         </div>
                     </div>
 
@@ -100,6 +103,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('melamar.daftar')
                 </div>
         </section>
     </main>

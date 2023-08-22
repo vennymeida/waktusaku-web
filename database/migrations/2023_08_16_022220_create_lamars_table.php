@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('resume')->nullable();
             $table->enum('status', ['pending', 'diterima', 'ditolak']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
