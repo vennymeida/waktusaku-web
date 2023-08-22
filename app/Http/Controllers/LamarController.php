@@ -24,11 +24,7 @@ class LamarController extends Controller
         $this->middleware('permission:pelamarkerja.edit')->only('edit', 'update');
         $this->middleware('permission:pelamarkerja.destroy')->only('destroy');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $statuses = ['pending', 'diterima', 'ditolak'];
@@ -108,35 +104,17 @@ class LamarController extends Controller
 
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorelamarRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StorelamarRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
 {
     $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
@@ -164,45 +142,35 @@ class LamarController extends Controller
 }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
         return view('lamar.detail', compact('lamar'));
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatelamarRequest  $request
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
-        public function update(Request $request, lamar $lamar)
+
+    public function update(Request $request, $id)
     {
+        $lamar = Lamar::findOrFail($id);
+
         $status = $request->input('status');
 
         $lamar->status = $status;
         $lamar->save();
 
-        return redirect()->back()->with('success', 'Status berhasil diperbarui.');
+        return redirect()->route('pelamarkerja.index')->with('success', 'Status berhasil diperbarui.');
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(lamar $lamar)
+    public function destroy($id)
     {
-        //delete data
+        $lamar = Lamar::findOrFail($id);
+
+        // Soft delete data
         $lamar->delete();
-        return redirect()->route('pelamarkerja.index')->with('success', 'Data Pelamar Berhasil Di Hapus');
+
+        return redirect()
+            ->route('pelamarkerja.index')
+            ->with('success', 'Data Pelamar Berhasil Di Hapus');
     }
 }

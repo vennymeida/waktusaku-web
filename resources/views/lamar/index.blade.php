@@ -123,7 +123,7 @@
                                                             <br>
                                                             <br>
                                                             <a href="#" class="badge badge-warning">
-                                                                Pending
+                                                                {{ $lamar->status }}
                                                             </a>
                                                         </div>
                                                         <div class="media-title mb-1">{{ $lamar->name }}</div>
