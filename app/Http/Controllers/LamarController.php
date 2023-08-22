@@ -166,7 +166,6 @@ class LamarController extends Controller
     {
         $lamar = Lamar::findOrFail($id);
 
-        // Soft delete data
         $lamar->delete();
 
         return redirect()

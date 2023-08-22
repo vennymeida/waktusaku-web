@@ -122,7 +122,15 @@
                                                             </a>
                                                             <br>
                                                             <br>
-                                                            <a href="#" class="badge badge-warning">
+                                                            <a href="#" class="badge
+                                                                @if ($lamar->status === 'pending')
+                                                                    badge-warning
+                                                                @elseif ($lamar->status === 'diterima')
+                                                                    badge-success
+                                                                @elseif ($lamar->status === 'ditolak')
+                                                                    badge-danger
+                                                                @endif
+                                                                ">
                                                                 {{ $lamar->status }}
                                                             </a>
                                                         </div>
@@ -156,7 +164,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="media-description text-muted">Melamar pada 7 Agustus 2023</div>
+                                                        {{-- <div class="media-description text-muted">
+                                                            Melamar pada {{ \Carbon\Carbon::parse($lamar->created_at)->format('j F Y') }}
+                                                        </div> --}}
+                                                        <div class="media-description text-muted">
+                                                            Melamar pada 22 Agustus 2023
+                                                        </div>
                                                     </div>
                                                 </li>
                                             </ul>
