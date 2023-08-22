@@ -12,6 +12,7 @@ use App\Http\Requests\StorelamarRequest;
 use App\Http\Requests\UpdatelamarRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class LamarController extends Controller
 {
@@ -23,13 +24,12 @@ class LamarController extends Controller
         $this->middleware('permission:pelamarkerja.edit')->only('edit', 'update');
         $this->middleware('permission:pelamarkerja.destroy')->only('destroy');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
+        $statuses = ['pending', 'diterima', 'ditolak'];
+        $selectedStatus = $request->input('status');
+
         $allResults = DB::table('lamars as l')
         ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
         ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
@@ -37,93 +37,139 @@ class LamarController extends Controller
         ->join('users as u', 'pu.user_id', '=', 'u.id')
         ->select(
             'l.id',
+            'l.id_pencari_kerja',
             'u.name',
             'pu.no_hp',
+            'pu.foto',
+            'pu.resume',
             'u.email',
             'p.nama',
             'lp.judul',
             'l.status'
         )
+        ->when($request->has('search'), function ($query) use ($request) {
+            $search = $request->input('search');
+            return $query->where('lp.judul', 'like', '%' . $search . '%')
+                ->orWhere('u.name', 'like', '%' . $search . '%')
+                ->orWhere('p.nama', 'like', '%' . $search . '%');
+        })
+        ->when($selectedStatus, function ($query, $selectedStatus) {
+            return $query->where('l.status', $selectedStatus);
+
+        })
         ->paginate(10);
 
-        return view('lamar.index', ['allResults' => $allResults]);
+        $loggedInUserId = Auth::id();
+        $user = auth()->user();
+
+        $profileUser = ProfileUser::where('user_id', $user->id)->first();
+        $perusahaan = Perusahaan::where('user_id', $user->id)->first();
+        $loker = LowonganPekerjaan::where('user_id', $user->id)->first();
+
+        $loggedInUserResults = DB::table('lamars as l')
+            ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
+            ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
+            ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
+            ->join('users as u', 'pu.user_id', '=', 'u.id')
+            ->select(
+                'l.id',
+                'u.name',
+                'pu.no_hp',
+                'pu.foto',
+                'pu.resume',
+                'u.email',
+                'p.nama',
+                'lp.judul',
+                'l.status',
+                'p.user_id'
+            )
+            ->where('p.user_id', $loggedInUserId)
+            ->when($request->has('search'), function ($query) use ($request) {
+                $search = $request->input('search');
+                return $query->where('lp.judul', 'like', '%' . $search . '%')
+                    ->orWhere('u.name', 'like', '%' . $search . '%')
+                    ->orWhere('p.nama', 'like', '%' . $search . '%');
+            })
+           ->paginate(10);
+
+           if (Auth::user()->hasRole('Perusahaan')) {
+            if ($profileUser == null && $perusahaan == null) {
+                return redirect()->route('profile.edit');
+            } else {
+                return view('lamar.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
+            }
+        } else {
+            return view('lamar.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
+        }
+
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorelamarRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StorelamarRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
-    public function show(lamar $lamar)
+    public function show($id)
+{
+    $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
+    $profileUser = $lamar->pencarikerja;
+
+    // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
+    $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
+
+    // Mendapatkan informasi yang diperlukan dari relasi
+    $namaPengguna = $relasiLamar->pencarikerja->user->name;
+    $email = $relasiLamar->pencarikerja->user->email;
+    $resume = $relasiLamar->pencarikerja->user->resume;
+    $judulPekerjaan = $relasiLamar->loker->judul;
+    $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
+
+    return view('lamar.detail', [
+        'namaPengguna' => $namaPengguna,
+        'email' => $email,
+        'resume' => $resume,
+        'judulPekerjaan' => $judulPekerjaan,
+        'namaPerusahaan' => $namaPerusahaan,
+        'lamar' => $lamar,
+        'profileUser' => $profileUser
+    ]);
+}
+
+
+
+    public function edit($id)
     {
-        $profileUser = ProfileUser::all();
-        $perusahaan = Perusahaan::all();
-        $relasiLamar = $lamar->load('user.user');
-        $name = $relasiLamar->user->user->name;
-        $loker = LowonganPekerjaan::all();
-        return view('lamar.detail', ['name' => $name, 'lamar' => $lamar, 'loker'=> $loker, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan]);
+        $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
+        return view('lamar.detail', compact('lamar'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(lamar $lamar)
+    public function update(Request $request, $id)
     {
-        //
+        $lamar = Lamar::findOrFail($id);
+
+        $status = $request->input('status');
+
+        $lamar->status = $status;
+        $lamar->save();
+
+        return redirect()->route('pelamarkerja.index')->with('success', 'Status berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatelamarRequest  $request
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatelamarRequest $request, lamar $lamar)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(lamar $lamar)
+    public function destroy($id)
     {
-        try {
-            $lamar->delete();
-            return redirect()->route('pelamarkerja.index')->with('success', 'Data Berhasil Di Hapus');
-        } catch (\Exception $e) {
-            return redirect()->route('pelamarkerja.index')->with('error', 'Terjadi kesalahan saat menghapus data.');
-        }
+        $lamar = Lamar::findOrFail($id);
+
+        $lamar->delete();
+
+        return redirect()
+            ->route('pelamarkerja.index')
+            ->with('success', 'Data Pelamar Berhasil Di Hapus');
     }
 }

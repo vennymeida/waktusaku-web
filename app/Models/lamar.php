@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class lamar extends Model
 {
@@ -18,13 +19,14 @@ class lamar extends Model
         'status',
     ];
 
+
+    public function pencarikerja()
+    {
+        return $this->belongsTo(ProfileUser::class, 'id_pencari_kerja');
+    }
+
     public function loker()
     {
         return $this->belongsTo(LowonganPekerjaan::class, 'id_loker');
-    }
-
-    public function pencariKerja()
-    {
-        return $this->belongsTo(ProfileUser::class, 'id_pencari_kerja');
     }
 }
