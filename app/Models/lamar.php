@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class lamar extends Model
 {
@@ -12,6 +13,7 @@ class lamar extends Model
     protected $fillable = [
         'id_loker',
         'id_pencari_kerja',
+        'resume',
         'status',
     ];
 
