@@ -62,6 +62,8 @@ return [
     */
 
     'home' => RouteServiceProvider::HOME,
+    'home-perusahaan' => RouteServiceProvider::HOME_PERUSAHAAN,
+    'home-pelamar' => RouteServiceProvider::HOME_PELAMAR,
 
     /*
     |--------------------------------------------------------------------------
@@ -134,7 +136,7 @@ return [
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-        Features::emailVerification(), 
+        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([
