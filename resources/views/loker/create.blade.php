@@ -14,7 +14,7 @@
                             <div class="row">
                                 <input type="hidden" name="user_id" value="{{ $profileUser->id }}">
                                 <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id }}">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="id_kategori">Kategori</label>
                                         <select name="id_kategori[]"
@@ -35,7 +35,28 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="id_keahlian">Keahlian</label>
+                                        <select name="id_keahlian[]"
+                                            class="form-control select2 @error('id_keahlian') is-invalid @enderror"
+                                            multiple>
+                                            <option value="" disabled selected>Pilih Keahlian</option>
+                                            @foreach ($keahlians as $keahlian)
+                                                <option
+                                                    value="{{ $keahlian->id }}"{{ in_array($keahlian->id, old('id_keahlian', [])) ? 'selected' : '' }}>
+                                                    {{ $keahlian->keahlian }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_keahlian')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="judul">Judul</label>
                                         <input type="text" class="form-control @error('judul') is-invalid @enderror"
@@ -46,7 +67,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="tipe_pekerjaan">Tipe Pekerjaan</label>
                                         <select class="form-control select2 @error('tipe_pekerjaan') is-invalid @enderror"
@@ -180,11 +201,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="jumlah_pelamar">Jumlah Pelamar</label>
+                                        <label for="jumlah_pelamar">Kuota Pelamar</label>
                                         <input type="number"
                                             class="form-control @error('jumlah_pelamar') is-invalid @enderror"
                                             id="jumlah_pelamar" name="jumlah_pelamar"
-                                            placeholder="Masukkan jumlah pelamar yang dibutuhkan"
+                                            placeholder="Masukkan kuota pelamar yang dibutuhkan"
                                             value="{{ old('jumlah_pelamar') }}">
                                         @error('jumlah_pelamar')
                                             <div class="invalid-feedback">{{ $message }}</div>

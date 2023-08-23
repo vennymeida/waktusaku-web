@@ -42,7 +42,7 @@
                                 <input type="hidden" name="user_id" value="{{ $profileUser->id }}">
                                 <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id }}">
                             @endrole
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_kategori">Kategori</label>
                                     @role('super-admin')
@@ -70,7 +70,35 @@
                                         @endrole
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_keahlian">Keahlian</label>
+                                    @role('super-admin')
+                                        <select name="id_keahlian[]" class="form-control select2" multiple disabled>
+                                        @endrole
+                                        @role('Perusahaan')
+                                            <select name="id_keahlian[]"
+                                                class="form-control select2 @error('id_keahlian') is-invalid @enderror"
+                                                multiple>
+                                            @endrole
+                                            <option value="">Pilih Keahlian</option>
+                                            @foreach ($keahlians as $keahlian)
+                                                <option value="{{ $keahlian->id }}"
+                                                    {{ in_array($keahlian->id, $loker->keahlian->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                    {{ $keahlian->keahlian }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @role('Perusahaan')
+                                            @error('id_keahlian')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        @endrole
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="judul">Judul</label>
                                     @role('super-admin')
@@ -88,7 +116,7 @@
                                     @endrole
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tipe_pekerjaan">Tipe Pekerjaan</label>
                                     @role('super-admin')
@@ -287,7 +315,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="jumlah_pelamar">Jumlah Pelamar</label>
+                                    <label for="jumlah_pelamar">Kuota Pelamar</label>
                                     @role('super-admin')
                                         <input type="hidden" name="jumlah_pelamar" value="{{ $loker->jumlah_pelamar }}">
                                         <input type="number" class="form-control" id="jumlah_pelamar" name="jumlah_pelamar"
@@ -356,6 +384,15 @@
                                         <option value="{{ $kategori->id }}"
                                             {{ in_array($kategori->id, $loker->kategori->pluck('id')->toArray()) ? 'selected' : '' }}>
                                             {{ $kategori->kategori }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <select name="id_keahlian[]" class="form-control" multiple style="display: none;">
+                                    <option value="">Pilih Keahlian</option>
+                                    @foreach ($keahlians as $keahlian)
+                                        <option value="{{ $keahlian->id }}"
+                                            {{ in_array($keahlian->id, $loker->keahlian->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                            {{ $keahlian->keahlian }}
                                         </option>
                                     @endforeach
                                 </select>
