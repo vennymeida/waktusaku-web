@@ -74,21 +74,13 @@ class AlljobsController extends Controller
         $perusahaan = Perusahaan::all();
         $kategori = $loker->kategori()->pluck('kategori')->implode(', ');
         $loker->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $loker->requirement);
-        
 
-        $hasApplied = false;
-        if (Auth::check()) {
-            $hasApplied = $this->isLamaranSubmitted($loker->id, Auth::user()->id);
-        }
+        $hasApplied = $loker->hasApplied;
 
         if (Auth::check()) {
             return view('showAlljobs', ['loker' => $loker, 'perusahaan' => $perusahaan, 'kategori' => $kategori, 'hasApplied' => $hasApplied]);
         } else {
             return view('auth.login');
         }
-    }
-    private function isLamaranSubmitted($lokerId, $userId)
-    {
-        return Lamar::where('id_loker', $lokerId)->where('id_pencari_kerja', $userId)->exists();
     }
 }

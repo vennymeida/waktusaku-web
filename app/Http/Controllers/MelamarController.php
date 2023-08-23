@@ -9,6 +9,11 @@ class MelamarController extends Controller
 {
     public function store(Request $request)
     {
+
+        $request->validate([
+            'resume' => 'mimes:pdf|max:2048' // mimes untuk format dan max untuk ukuran (dalam KB)
+        ]);
+        
         $data = $request->all();
 
         // Proses file resume jika ada yang di-upload
@@ -29,6 +34,6 @@ class MelamarController extends Controller
         // Simpan ke database
         Lamar::create($data);
 
-        return back()->with('success', 'Successfully applied for the job.');
+        return back()->with('success', 'Pekerjaan berhasil dilamar.');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Bookmark;
+use App\Models\lamar;
 
 class LowonganPekerjaan extends Model
 {
@@ -49,5 +50,15 @@ class LowonganPekerjaan extends Model
     public function lamars()
     {
         return $this->hasMany(Lamar::class, 'id_loker');
+    }
+    public function getHasAppliedAttribute()
+    {
+        if (auth()->check()) {
+            return Lamar::where('id_loker', $this->id)
+                ->where('id_pencari_kerja', auth()->user()->profile->id)
+                ->exists();
+        }
+
+        return false;
     }
 }
