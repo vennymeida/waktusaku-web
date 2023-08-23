@@ -11,6 +11,7 @@ use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarListController;
 use App\Http\Controllers\LamarController;
+use App\Http\Controllers\LamarPerusahaan;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
 use App\Http\Controllers\RoleAndPermission\ExportPermissionController;
@@ -156,6 +157,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('loker', LowonganPekerjaanController::class);
         Route::resource('pelamarkerja', LamarController::class);
     });
+
+    Route::resource('lamarperusahaan', LamarPerusahaan::class);
 
     Route::prefix('location-management')->group(function () {
         // kecamatan

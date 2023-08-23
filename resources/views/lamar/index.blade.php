@@ -90,9 +90,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{-- <div class="d-flex justify-content-center">
-                                    {{ $kategoris->withQueryString()->links() }}
-                                </div> --}}
                             </div>
                             @endrole
                             @role('Perusahaan')

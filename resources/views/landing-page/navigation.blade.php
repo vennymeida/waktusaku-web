@@ -60,6 +60,14 @@
                                         <i class="far fa-bookmark"></i> Bookmark
                                     </a>
                                 @endif
+                                @if (auth()->user()->hasRole('Perusahaan'))
+                                    <a href="" class="dropdown-item has-icon">
+                                        <i class="fas fa-briefcase mx-2"></i> Lowongan Pekerjaan
+                                    </a>
+                                    <a href="{{ route('lamarperusahaan.index') }}" class="dropdown-item has-icon">
+                                        <i class="fas fa-file-alt mx-2"></i> Data Pelamar Kerja
+                                    </a>
+                                @endif
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                     class="dropdown-item has-icon text-danger">
