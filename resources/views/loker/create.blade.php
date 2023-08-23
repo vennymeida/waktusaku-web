@@ -73,12 +73,12 @@
                                         <select class="form-control select2 @error('tipe_pekerjaan') is-invalid @enderror"
                                             id="tipe_pekerjaan" name="tipe_pekerjaan">
                                             <option value="" disabled selected>Pilih tipe pekerjaan</option>
-                                            <option value="remote"
-                                                {{ old('tipe_pekerjaan') === 'remote' ? 'selected' : '' }}>
+                                            <option value="Remote"
+                                                {{ old('tipe_pekerjaan') === 'Remote' ? 'selected' : '' }}>
                                                 Remote
                                             </option>
-                                            <option value="onsite"
-                                                {{ old('tipe_pekerjaan') === 'onsite' ? 'selected' : '' }}>
+                                            <option value="Onsite"
+                                                {{ old('tipe_pekerjaan') === 'Onsite' ? 'selected' : '' }}>
                                                 Onsite
                                             </option>
                                         </select>
@@ -222,7 +222,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <input type="hidden" name="status" value="pending">
+                                <input type="hidden" name="status" value="Pending">
                             </div>
                             <div class="card-footer text-right">
                                 <button class="btn btn-primary">Submit</button>

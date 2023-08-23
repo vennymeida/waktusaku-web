@@ -13,6 +13,24 @@
     height: 100%;
 }
 
+.btn-skill {
+    color: white;
+    background-color: #eb9481;
+    border-radius: 30px;
+}
+
+.btn.btn-skill:hover,
+.btn.btn-skill:active {
+    background-color: #eb9481;
+    color: white;
+    border-color: #eb9481;
+    cursor: default;
+}
+
+.time {
+    color: #8a8a8a;
+}
+
 .text-warning {
     color: #eb9481;
 }

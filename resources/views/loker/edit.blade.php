@@ -127,11 +127,11 @@
                                             <select class="form-control select2 @error('tipe_pekerjaan') is-invalid @enderror"
                                                 id="tipe_pekerjaan" name="tipe_pekerjaan">
                                             @endrole
-                                            <option value="onsite"
-                                                {{ $loker->tipe_pekerjaan === 'onsite' ? 'selected' : '' }}>
+                                            <option value="Onsite"
+                                                {{ $loker->tipe_pekerjaan === 'Onsite' ? 'selected' : '' }}>
                                                 Onsite</option>
-                                            <option value="remote"
-                                                {{ $loker->tipe_pekerjaan === 'remote' ? 'selected' : '' }}>
+                                            <option value="Remote"
+                                                {{ $loker->tipe_pekerjaan === 'Remote' ? 'selected' : '' }}>
                                                 Remote</option>
                                         </select>
                                         @role('Perusahaan')
@@ -257,8 +257,7 @@
                                         <div class="d-flex align-items-center flex-grow-1">
                                             @role('super-admin')
                                                 <input type="text" class="form-control mr-2" id="gaji_bawah"
-                                                    name="gaji_bawah" {{-- value="{{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}" --}} value="{{ $loker->gaji_bawah }}"
-                                                    disabled>
+                                                    name="gaji_bawah" value="{{ $loker->gaji_bawah }}" disabled>
                                             @endrole
                                             @role('Perusahaan')
                                                 <input type="text"
@@ -269,7 +268,7 @@
                                             <span class="mr-2">-</span>
                                             @role('super-admin')
                                                 <input type="text" class="form-control" id="gaji_atas" name="gaji_atas"
-                                                    {{-- value="{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}" --}} value="{{ $loker->gaji_atas }}" disabled>
+                                                    value="{{ $loker->gaji_atas }}" disabled>
                                             @endrole
                                             @role('Perusahaan')
                                                 <input type="text"
@@ -354,23 +353,23 @@
                                     @role('super-admin')
                                         <label for="status">Status Pekerjaan</label>
                                         <select class="form-control select2" id="status" name="status">
-                                            <option value="pending" {{ $loker->status === 'pending' ? 'selected' : '' }}>
+                                            <option value="Pending" {{ $loker->status === 'Pending' ? 'selected' : '' }}>
                                                 Pending</option>
-                                            <option value="dibuka" {{ $loker->status === 'dibuka' ? 'selected' : '' }}>
+                                            <option value="Dibuka" {{ $loker->status === 'Dibuka' ? 'selected' : '' }}>
                                                 Dibuka</option>
-                                            <option value="ditutup" {{ $loker->status === 'ditutup' ? 'selected' : '' }}>
+                                            <option value="Ditutup" {{ $loker->status === 'Ditutup' ? 'selected' : '' }}>
                                                 Ditutup</option>
                                         </select>
                                     @endrole
                                     @role('Perusahaan')
-                                        @if ($loker->status == 'pending')
-                                            <input type="hidden" name="status" value="pending">
+                                        @if ($loker->status == 'Pending')
+                                            <input type="hidden" name="status" value="Pending">
                                         @else
                                             <label for="status">Status Pekerjaan</label>
                                             <select class="form-control select2" id="status" name="status">
-                                                <option value="dibuka" {{ $loker->status === 'dibuka' ? 'selected' : '' }}>
+                                                <option value="Dibuka" {{ $loker->status === 'Dibuka' ? 'selected' : '' }}>
                                                     Dibuka</option>
-                                                <option value="ditutup" {{ $loker->status === 'ditutup' ? 'selected' : '' }}>
+                                                <option value="Ditutup" {{ $loker->status === 'Ditutup' ? 'selected' : '' }}>
                                                     Ditutup</option>
                                             </select>
                                         @endif

@@ -18,7 +18,7 @@
                             <img class="img-fluid rounded-circle" src="{{ asset('storage/' . $loker->perusahaan->logo) }}"
                                 style="width: 245px; height: 245px; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7));">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-7">
                             <ul class="list-unstyled">
                                 <p class="mb-2 text-primary font-weight-bold" style="font-size: 28px;">{{ $loker->judul }}
                                 </p>
@@ -38,6 +38,10 @@
                                     {{ $loker->min_pengalaman }}
                                 </p>
                                 <p class="mb-2" style="font-size: 14px;"><img class="img-fluid img-icon"
+                                        src="{{ asset('assets/img/landing-page/hourglass.svg') }}">
+                                    {{ $loker->tipe_pekerjaan }}
+                                </p>
+                                <p class="mb-2" style="font-size: 14px;"><img class="img-fluid img-icon"
                                         src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
                                     {{ $loker->min_pendidikan }}
                                 </p>
@@ -46,12 +50,28 @@
                                     {{ $loker->lokasi }}
                                 </p>
                             </ul>
-                            @if(Auth::check() && $hasApplied)
-                                <button class="btn btn-secondary px-5 py-2" style="border-radius: 25px; color: #ffffff;" disabled>Terlamar</button>
-                            @else
-                                <a id="detail-button" class="btn btn-primary px-5 py-2" style="border-radius: 25px; color: #ffffff;" data-toggle="modal" data-target="#lamarModal">Lamar</a>
-                            @endif
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                @if (Auth::check() && $hasApplied)
+                                    <button class="btn btn-secondary px-5 py-2" style="border-radius: 25px; color: #ffffff;"
+                                        disabled>Terlamar</button>
+                                @else
+                                    <a id="detail-button" class="btn btn-primary px-5 py-2"
+                                        style="border-radius: 25px; color: #ffffff;" data-toggle="modal"
+                                        data-target="#lamarModal">Lamar</a>
+                                @endif
+                                <p class="font-italic mt-2 time" style="font-size: 14px;"><img class="img-fluid img-icon"
+                                        src="{{ asset('assets/img/landing-page/Time.svg') }}"> Tayang {{ $updatedAgo }}
+                                </p>
+                            </ul>
                         </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <div class="col-md-11 mx-auto my-5">
+                        <h5 class="font-weight-bolder">Keahlian : </h5>
+                        @foreach ($loker->keahlian as $key => $keahlian)
+                            <button class="px-4 mt-2 mr-1 btn btn-skill">{{ $keahlian->keahlian }}</button>
+                        @endforeach
                     </div>
 
                     <hr class="my-4">

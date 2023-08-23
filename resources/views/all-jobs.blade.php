@@ -103,7 +103,7 @@
                                                     auth()->user()->hasRole('Pencari Kerja'))
                                                 <a href="javascript:void(0);"
                                                     class="bookmark-icon text-right"data-loker-id="{{ $loker->id }}">
-                                                    <i class="far fa-bookmark" style="font-size: 28px;"></i>
+                                                    <i class="far fa-bookmark" style="font-size: 20px;"></i>
                                                 </a>
                                             @endif
                                         </li>
