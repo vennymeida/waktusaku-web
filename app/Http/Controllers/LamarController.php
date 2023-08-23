@@ -45,7 +45,8 @@ class LamarController extends Controller
             'u.email',
             'p.nama',
             'lp.judul',
-            'l.status'
+            'l.status',
+            'l.created_at'
         )
         ->when($request->has('search'), function ($query) use ($request) {
             $search = $request->input('search');
@@ -81,7 +82,8 @@ class LamarController extends Controller
                 'p.nama',
                 'lp.judul',
                 'l.status',
-                'p.user_id'
+                'p.user_id',
+                'l.created_at'
             )
             ->where('p.user_id', $loggedInUserId)
             ->when($request->has('search'), function ($query) use ($request) {

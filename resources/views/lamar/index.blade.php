@@ -164,12 +164,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {{-- <div class="media-description text-muted">
-                                                            Melamar pada {{ \Carbon\Carbon::parse($lamar->created_at)->format('j F Y') }}
-                                                        </div> --}}
                                                         <div class="media-description text-muted">
-                                                            Melamar pada 22 Agustus 2023
+                                                            Melamar pada {{ date('j F Y', strtotime($lamar->created_at)) }}
                                                         </div>
+                                                        {{-- <div class="media-description text-muted">
+                                                            Melamar pada 22 Agustus 2023
+                                                        </div> --}}
                                                     </div>
                                                 </li>
                                             </ul>
