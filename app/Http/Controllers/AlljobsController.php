@@ -88,19 +88,12 @@ class AlljobsController extends Controller
             $updatedAgo = $loker->updated_at->diffInDays(now()) . ' hari yang lalu';
         }
 
-        $hasApplied = false;
-        if (Auth::check()) {
-            $hasApplied = $this->isLamaranSubmitted($loker->id, Auth::user()->id);
-        }
+        $hasApplied = $loker->hasApplied;
 
         if (Auth::check()) {
             return view('showAlljobs', ['loker' => $loker, 'perusahaan' => $perusahaan, 'kategori' => $kategori, 'keahlian' => $keahlian, 'hasApplied' => $hasApplied, 'updatedAgo' => $updatedAgo]);
         } else {
             return view('auth.login');
         }
-    }
-    private function isLamaranSubmitted($lokerId, $userId)
-    {
-        return Lamar::where('id_loker', $lokerId)->where('id_pencari_kerja', $userId)->exists();
     }
 }
