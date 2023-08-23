@@ -24,14 +24,11 @@ class LamarController extends Controller
         $this->middleware('permission:pelamarkerja.edit')->only('edit', 'update');
         $this->middleware('permission:pelamarkerja.destroy')->only('destroy');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $statuses = ['pending', 'diterima', 'ditolak'];
+        $selectedStatus = $request->input('status');
 
         $allResults = DB::table('lamars as l')
         ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
@@ -55,6 +52,10 @@ class LamarController extends Controller
             return $query->where('lp.judul', 'like', '%' . $search . '%')
                 ->orWhere('u.name', 'like', '%' . $search . '%')
                 ->orWhere('p.nama', 'like', '%' . $search . '%');
+        })
+        ->when($selectedStatus, function ($query, $selectedStatus) {
+            return $query->where('l.status', $selectedStatus);
+
         })
         ->paginate(10);
 
@@ -91,99 +92,84 @@ class LamarController extends Controller
             })
            ->paginate(10);
 
-        return view('lamar.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
+           if (Auth::user()->hasRole('Perusahaan')) {
+            if ($profileUser == null && $perusahaan == null) {
+                return redirect()->route('profile.edit');
+            } else {
+                return view('lamar.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
+            }
+        } else {
+            return view('lamar.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
+        }
+
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorelamarRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StorelamarRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
 {
     $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
+    $profileUser = $lamar->pencarikerja;
 
     // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
     $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
 
     // Mendapatkan informasi yang diperlukan dari relasi
     $namaPengguna = $relasiLamar->pencarikerja->user->name;
-    $profile = $relasiLamar->pencarikerja->user->foto;
+    $email = $relasiLamar->pencarikerja->user->email;
     $resume = $relasiLamar->pencarikerja->user->resume;
     $judulPekerjaan = $relasiLamar->loker->judul;
     $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 
     return view('lamar.detail', [
         'namaPengguna' => $namaPengguna,
-        'profile' => $profile,
+        'email' => $email,
         'resume' => $resume,
         'judulPekerjaan' => $judulPekerjaan,
         'namaPerusahaan' => $namaPerusahaan,
-        'lamar' => $lamar
+        'lamar' => $lamar,
+        'profileUser' => $profileUser
     ]);
 }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(lamar $lamar)
+
+    public function edit($id)
     {
-        //
+        $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
+        return view('lamar.detail', compact('lamar'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatelamarRequest  $request
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatelamarRequest $request, lamar $lamar)
+    public function update(Request $request, $id)
     {
-        //
+        $lamar = Lamar::findOrFail($id);
+
+        $status = $request->input('status');
+
+        $lamar->status = $status;
+        $lamar->save();
+
+        return redirect()->route('pelamarkerja.index')->with('success', 'Status berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\lamar  $lamar
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(lamar $lamar)
+
+    public function destroy($id)
     {
-        try {
-            $lamar->delete();
-            return redirect()->route('pelamarkerja.index')->with('success', 'Data Berhasil Di Hapus');
-        } catch (\Exception $e) {
-            return redirect()->route('pelamarkerja.index')->with('error', 'Terjadi kesalahan saat menghapus data.');
-        }
+        $lamar = Lamar::findOrFail($id);
+
+        $lamar->delete();
+
+        return redirect()
+            ->route('pelamarkerja.index')
+            ->with('success', 'Data Pelamar Berhasil Di Hapus');
     }
 }

@@ -18,8 +18,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="text-center">
-                                @if ($profile->profile && $profile->profile->foto)
-                                    <img src="{{ asset('storage/' . $profile->profile->foto) }}" alt="Foto"
+                                @if ($profileUser->foto)
+                                    <img src="{{ asset('storage/' . $profileUser->foto) }}" alt="Foto"
                                     class="rounded-circle mr-1" style="width: 200px; height: 200px;">
                                 @else
                                 <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
@@ -35,6 +35,9 @@
                                 <dt class="col-sm-4 mt-3">Nama Perusahaan</dt>
                                 <dd class="col-sm-8 mt-3">{{ $namaPerusahaan }}</dd>
 
+                                <dt class="col-sm-4 mt-3">Email</dt>
+                                <dd class="col-sm-8 mt-3">{{ $email }}</dd>
+
                                 <dt class="col-sm-4 mt-3">Posisi Pekerjaan</dt>
                                 <dd class="col-sm-8 mt-3">{{ $judulPekerjaan }}</dd>
 
@@ -43,8 +46,8 @@
 
                                 <dt class="col-sm-4 mt-3">Resume</dt>
                                 <dd class="col-sm-8 mt-3">
-                                    @if ($resume->profile && $resume->profile->resume)
-                                    <a href="" target="_blank"
+                                    @if ($profileUser && $profileUser->resume)
+                                    <a href="{{ asset('storage/' . $profileUser->resume) }}" target="_blank"
                                         class="btn btn-primary btn-sm">View Resume</a>
                                     @else
                                     <span class="text-muted">No Resume Available</span>
@@ -54,6 +57,24 @@
                         </div>
                     </div>
                     <hr>
+                    @role('Perusahaan')
+                    <div class="text-center mt-4">
+                        <form action="{{ route('pelamarkerja.update', ['pelamarkerja' => $lamar->id]) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="diterima">
+                            <button type="submit" class="btn btn-success btn-lg" style="width: 800px;">Terima</button>
+                        </form>
+                    </div>
+                    <div class="text-center mt-4">
+                        <form action="{{ route('pelamarkerja.update', ['pelamarkerja' => $lamar->id]) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="ditolak">
+                            <button type="submit" class="btn btn-secondary btn-lg" style="width: 800px;">Tolak</button>
+                        </form>
+                    </div>
+                    @endrole
                     <div class="text-center mt-4">
                         <a href="{{ route('pelamarkerja.index') }}" class="btn btn-info">Kembali</a>
                     </div>
