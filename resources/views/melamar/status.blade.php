@@ -12,6 +12,21 @@
                 </div>
                 <div class="card-body">
                     <form id="search-form" class="form-row" method="GET" action="{{ route('melamar.status') }}" onsubmit="handleFormSubmit()">
+                        <div class="form-group col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-filter"></i>
+                                    </span>
+                                </div>
+                                <select name="status" class="form-control" id="status">
+                                    <option value=""> -> Pilih ini untuk reset <- </option>
+                                    <option value="pending">Pending</option>
+                                    <option value="diterima">Diterima</option>
+                                    <option value="ditolak">Ditolak</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group col-md-4">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -19,7 +34,13 @@
                                         <i class="fas fa-search"></i>
                                     </span>
                                 </div>
-                                <input type="text" name="posisi" class="form-control" id="posisi" placeholder="Cari posisi pekerjaan" value="{{ app('request')->input('posisi') }}">
+                                <input type="text" name="posisi" class="form-control form-jobs clearable" id="posisi" placeholder="Cari posisi pekerjaan" value="{{ app('request')->input('posisi') }}">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"
+                                    style="border-left: none; border-radius: 0px 15px 15px 0px;">
+                                    <i class="fas fa-times clear-icon" id="clear-posisi" style="cursor:pointer; display:none;"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -29,10 +50,16 @@
                                         <i class="fas fa-map-marker-alt"></i>
                                     </span>
                                 </div>
-                                <input type="text" name="lokasi" class="form-control" id="lokasi" placeholder="Lokasi" value="{{ app('request')->input('lokasi') }}">
+                                <input type="text" name="lokasi" class="form-control form-jobs" id="lokasi" placeholder="Lokasi" value="{{ app('request')->input('lokasi') }}">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"
+                                    style="border-left: none; border-radius: 0px 15px 15px 0px;">
+                                    <i class="fas fa-times clear-icon" id="clear-lokasi" style="cursor:pointer; display:none;"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-1">
                             <button id="search-button" class="btn btn-primary px-4" type="submit">Cari</button>
                         </div>
                     </form>
@@ -118,4 +145,46 @@
                 </div>
         </section>
     </main>
-    @endsection
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const inputsAndIcons = [{
+                inputId: "posisi",
+                clearIconId: "clear-posisi"
+            },
+            {
+                inputId: "lokasi",
+                clearIconId: "clear-lokasi"
+            }
+        ]; // Removed "kategori" as it was not in your HTML
+
+        const inputValues = {
+            posisi: "",
+            lokasi: ""
+        };
+
+        inputsAndIcons.forEach(item => {
+            const input = document.getElementById(item.inputId);
+            const clearIcon = document.getElementById(item.clearIconId);
+
+            // Display the 'x' icon when the user types in the search form
+            input.addEventListener("input", function() {
+                inputValues[item.inputId] = this.value;
+                clearIcon.style.display = this.value ? "block" : "none";
+            });
+
+            // Clear the input and refresh the page when the 'x' icon is clicked
+            clearIcon.addEventListener("click", function() {
+                input.value = "";
+                const url = window.location.origin + window.location.pathname; // Dapatkan URL tanpa parameter query
+                window.location.href = url; // Muat ulang halaman dengan URL tanpa parameter query
+            });
+
+            if (input.value) {
+                clearIcon.style.display = "block";
+            }
+        });
+    });
+</script>
+
+@endsection
