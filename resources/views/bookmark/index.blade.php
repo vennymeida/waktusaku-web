@@ -132,8 +132,8 @@
                                         </ul>
                                     </div>
                                     <div class="text-center mb-3">
-                                        <a id="detail-button" class="btn btn-primary px-4 py-2"
-                                            style="border-radius: 25px;" href="#">Lihat Detail</a>
+                                        <a id="detail-button" class="btn btn-primary px-4 py-2" style="border-radius: 25px;"
+                                            href="{{ route('all-jobs.show', $bookmark->lowonganPekerjaan->id) }}">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>
