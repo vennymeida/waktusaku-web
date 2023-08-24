@@ -160,7 +160,7 @@ class LamarPerusahaan extends Controller
         $lamar->status = $status;
         $lamar->save();
 
-        return redirect()->route('pelamarkerja.index')->with('success', 'Status berhasil diperbarui.');
+        return redirect()->route('lamarperusahaan.index')->with('success', 'Status berhasil diperbarui.');
     }
 
 
@@ -171,7 +171,7 @@ class LamarPerusahaan extends Controller
         $lamar->delete();
 
         return redirect()
-            ->route('pelamarkerja.index')
+            ->route('lamarperusahaan.index')
             ->with('success', 'Data Pelamar Berhasil Di Hapus');
     }
 }

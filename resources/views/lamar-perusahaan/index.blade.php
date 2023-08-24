@@ -74,10 +74,10 @@
                                         <div class="mr-3 align-self-start">
                                             @if ($lamar && $lamar->foto)
                                             <img src="{{ asset('storage/' . $lamar->foto) }}" alt="Foto"
-                                                class="rounded-circle" style="width: 80px; height: 80px;">
+                                                class="rounded-circle" style="width: 100px; height: 100px;">
                                             @else
                                             <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                                class="rounded-circle" style="width: 80px; height: 80px;">
+                                                class="rounded-circle" style="width: 100px; height: 100px;">
                                             @endif
                                         </div>
                                         <div class="media-body">
@@ -161,7 +161,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const inputsAndIcons = [{
-                    inputId: "status",
+                    inputId: "statusSelect",
                     clearIconId: "clear-status"
                 },
                 {
@@ -211,6 +211,16 @@
                 icon.style.display = input.value ? "block" : "none";
             });
         }
+    </script>
+
+    <script>
+        const statusSelect = document.getElementById('statusSelect');
+
+        statusSelect.addEventListener('change', function() {
+            const selectedStatus = statusSelect.value;
+
+            window.location.href = '{{ route('lamarperusahaan.index') }}?status=' + selectedStatus;
+        });
     </script>
     <style>
         .badge-custom {

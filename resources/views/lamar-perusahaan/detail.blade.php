@@ -3,18 +3,10 @@
 @section('main')
     <main class="bg-light">
         <section>
-            <div class="col-md-12 text-right my-3">
-                <a class="text-primary" href="{{ route('lamarperusahaan.index') }}" style="font-size: 14px;">Data Pelamar
-                    Pekerjaan</a><span> / </span>
-                <a class="text-secondary mr-5" style="font-size: 14px;" disabled>Detail</a>
-            </div>
-        </section>
-
-        <section>
             <div class="col-md-12 mx-auto mt-4">
                 <div class="col-md-10 bg-white mx-auto py-5" style="border-radius: 15px;">
                     <div class="row">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        <div class="col-md-4 d-flex align-items-start justify-content-center">
                             @if ($profileUser->foto)
                                     <img src="{{ asset('storage/' . $profileUser->foto) }}" alt="Foto"
                                     class="rounded-circle mr-1" style="width: 200px; height: 200px;">
@@ -30,13 +22,35 @@
                                 <h5 class="font-weight-bolder">Ringkasan </h5>
                                 <p class="mb-2" style="font-size: 14px;">Isi Ringkasan</p>
                                 <h5 class="font-weight-bolder">Personal Info </h5>
-                                <p class="mb-2" style="font-size: 14px;">Email  </p>
-                                <p class="mb-2" style="font-size: 14px;">Nomor Telepon </p>
-                                <p class="mb-2" style="font-size: 14px;">Alamat  </p>
-                                <p class="mb-2" style="font-size: 14px;">Tanggal Lahir </p>
-                                <p class="mb-2" style="font-size: 14px;">Jenis Kelamin </p>
-                                <p class="mb-2" style="font-size: 14px;">Gaji </p>
-                                <p class="mb-2" style="font-size: 14px;">Resume </p>
+                                <dl class="row">
+                                    <dt class="col-sm-4 mt-2">Email</dt>
+                                    <dd class="col-sm-8 mt-2">{{ $email }}</dd>
+
+                                    <dt class="col-sm-4 mt-2">No Telepon</dt>
+                                    <dd class="col-sm-8 mt-2">{{ $profileUser->no_hp }}</dd>
+
+                                    <dt class="col-sm-4 mt-2">Alamat</dt>
+                                    <dd class="col-sm-8 mt-2">{{ $profileUser->alamat }}</dd>
+
+                                    <dt class="col-sm-4 mt-2">Tanggal Lahir</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Jenis Kelamin</dt>
+                                    <dd class="col-sm-8 mt-2">{{ $profileUser->jenis_kelamin }}</dd>
+
+                                    <dt class="col-sm-4 mt-2">Gaji</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Resume</dt>
+                                    <dd class="col-sm-8 mt-2">
+                                        @if ($profileUser && $profileUser->resume)
+                                    <a href="{{ asset('storage/' . $profileUser->resume) }}" target="_blank"
+                                        class="btn btn-primary btn-sm">View Resume</a>
+                                    @else
+                                    <span class="text-muted">No Resume Available</span>
+                                    @endif
+                                    </dd>
+                                </dl>
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Pendidikan </h5>
@@ -68,8 +82,10 @@
                                 <p class="mb-2" style="font-size: 14px;">Tanggal Dikeluarkan </p>
                                 <p class="mb-2" style="font-size: 14px;">Sertifikat </p>
                             </ul>
+                            <br>
+                            <br>
                             <ul class="list-unstyled d-flex justify-content-between">
-                            <form action="{{ route('pelamarkerja.update', ['pelamarkerja' => $lamar->id]) }}" method="POST">
+                            <form action="{{ route('lamarperusahaan.update', ['lamarperusahaan' => $lamar->id]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="status" value="diterima">
@@ -77,7 +93,7 @@
                             </form>
                             </ul>
                             <ul class="list-unstyled d-flex justify-content-between">
-                                <form action="{{ route('pelamarkerja.update', ['pelamarkerja' => $lamar->id]) }}" method="POST">
+                                <form action="{{ route('lamarperusahaan.update', ['lamarperusahaan' => $lamar->id]) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="status" value="ditolak">
