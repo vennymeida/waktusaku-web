@@ -16,16 +16,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card card-primary">
-                        @role('super-admin')
                         <div class="card-header">
                             <h4>Tabel Pelamar</h4>
                         </div>
-                        @endrole
-                        @role('Perusahaan')
-                        <div class="card-header">
-                            <h4>Data Pelamar Kerja</h4>
-                        </div>
-                        @endrole
                         <div class="card-body">
                         <form action="{{ route('pelamarkerja.index') }}" method="GET">
                             <div class="form-row text-center">
@@ -49,7 +42,6 @@
                                 </div>
                             </div>
                         </form>
-                            @role('super-admin')
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
@@ -90,92 +82,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                            </div>
-                            @endrole
-                            @role('Perusahaan')
-                            <div class="row">
-                                <div class="col-12 col-sm-12 col-lg-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4>Data Pelamar</h4>
-                                        </div>
-                                        @foreach ($loggedInUserResults as $key => $lamar)
-                                        <div class="card-body">
-                                            <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
-                                                <li class="media">
-                                                    <div class="text-center">
-                                                        @if ($lamar && $lamar->foto)
-                                                        <img src="{{ asset('storage/' . $lamar->foto) }}" alt="Foto"
-                                                            class="rounded-circle mr-4" style="width: 100px; height: 100px;">
-                                                        @else
-                                                        <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                                            class="rounded-circle mr-4" style="width: 100px; height: 100px;">
-                                                        @endif
-                                                    </div>
-                                                    <div class="media-body ml-4">
-                                                        <div class="media-right">
-                                                            <a href="{{ route('pelamarkerja.show', $lamar->id) }}" class="btn btn-sm btn-primary btn-icon">
-                                                                <i class="far fa-eye"></i> Detail
-                                                            </a>
-                                                            <br>
-                                                            <br>
-                                                            <a href="#" class="badge
-                                                                @if ($lamar->status === 'pending')
-                                                                    badge-warning
-                                                                @elseif ($lamar->status === 'diterima')
-                                                                    badge-success
-                                                                @elseif ($lamar->status === 'ditolak')
-                                                                    badge-danger
-                                                                @endif
-                                                                ">
-                                                                {{ $lamar->status }}
-                                                            </a>
-                                                        </div>
-                                                        <div class="media-title mb-1">{{ $lamar->name }}</div>
-                                                        <div class="text-time">{{ $lamar->judul }}</div>
-                                                        <div class="card-text">
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <ul class="list-unstyled ml-2">
-                                                                        <li class="mb-2"><img class="img-fluid icon-small"
-                                                                                src="{{ asset('assets/img/lamar/calendar.svg') }}">
-                                                                            02 Mei 2002
-                                                                        </li>
-                                                                        <li class="mb-2"><img class="img-fluid icon-small"
-                                                                                src="{{ asset('assets/img/lamar/email.svg') }}">
-                                                                            {{ $lamar->email }}
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <ul class="list-unstyled ml-2">
-                                                                        <li class="mb-2"><img class="img-fluid icon-small"
-                                                                                src="{{ asset('assets/img/lamar/call.svg') }}">
-                                                                            {{ $lamar->no_hp }}
-                                                                        </li>
-                                                                        <li class="mb-4"><img class="img-fluid icon-small"
-                                                                                src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                                                            Jl. Pesantren 06, Malang
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="media-description text-muted">
-                                                            Melamar pada {{ date('j F Y', strtotime($lamar->created_at)) }}
-                                                        </div>
-                                                        {{-- <div class="media-description text-muted">
-                                                            Melamar pada 22 Agustus 2023
-                                                        </div> --}}
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        @endforeach
-                                    </div>
+                                <div class="d-flex justify-content-center">
+                                    {{ $allResults->withQueryString()->links() }}
                                 </div>
                             </div>
-                            @endrole
                         </div>
                     </div>
                 </div>

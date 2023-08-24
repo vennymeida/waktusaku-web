@@ -43,9 +43,9 @@
 
                                     <dt class="col-sm-4 mt-2">Resume</dt>
                                     <dd class="col-sm-8 mt-2">
-                                        @if ($profileUser && $profileUser->resume)
-                                    <a href="{{ asset('storage/' . $profileUser->resume) }}" target="_blank"
-                                        class="btn btn-primary btn-sm">View Resume</a>
+                                    @if ($lamar && $lamar->resume)
+                                    <a href="{{ asset('storage/' . $lamar->resume) }}" onclick="return openResume();" target="_blank"
+                                        class="btn btn-link mb-2">View Resume</a>
                                     @else
                                     <span class="text-muted">No Resume Available</span>
                                     @endif
@@ -100,6 +100,9 @@
                                     <button type="submit" class="btn btn-secondary px-5 py-2" style="width: 600px; border-radius: 25px;">Tolak</button>
                                 </form>
                             </ul>
+                            <div class="text-center mt-4">
+                                <a href="{{ route('lamarperusahaan.index') }}" class="btn btn-info">Kembali</a>
+                            </div>
                         </div>
 
                     </div>

@@ -104,7 +104,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <img class="img-fluid img-icon mr-2"
                                                         src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                                    <span>Jl. Pesantren 06, Malang</span>
+                                                    <span>{{ $lamar->alamat }}</span>
                                                 </div>
                                             </div>
                                             <small class="text-muted">
@@ -136,6 +136,9 @@
                         </div>
                         @endforeach
                 </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                {{ $loggedInUserResults->withQueryString()->links() }}
             </div>
         </section>
     </main>

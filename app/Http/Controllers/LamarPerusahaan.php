@@ -42,6 +42,7 @@ class LamarPerusahaan extends Controller
             'pu.no_hp',
             'pu.foto',
             'pu.resume',
+            'pu.alamat',
             'u.email',
             'p.nama',
             'lp.judul',
@@ -58,6 +59,7 @@ class LamarPerusahaan extends Controller
             return $query->where('l.status', $selectedStatus);
 
         })
+        ->orderBy('l.created_at', 'desc')
         ->paginate(10);
 
         $loggedInUserId = Auth::id();
@@ -78,6 +80,7 @@ class LamarPerusahaan extends Controller
                 'pu.no_hp',
                 'pu.foto',
                 'pu.resume',
+                'pu.alamat',
                 'u.email',
                 'p.nama',
                 'lp.judul',
@@ -92,6 +95,11 @@ class LamarPerusahaan extends Controller
                     ->orWhere('u.name', 'like', '%' . $search . '%')
                     ->orWhere('p.nama', 'like', '%' . $search . '%');
             })
+            ->when($selectedStatus, function ($query, $selectedStatus) {
+                return $query->where('l.status', $selectedStatus);
+
+            })
+            ->orderBy('l.created_at', 'desc')
            ->paginate(10);
 
         if (Auth::user()->hasRole('Perusahaan')) {
