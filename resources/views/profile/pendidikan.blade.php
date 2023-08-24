@@ -1,29 +1,37 @@
 @extends('landing-page.app')
 @section('main')
-    <main class="bg-secondary">
+    <main class="bg-secondary" style="min-height: 100%">
+        <section class="centered-section">
+            <div class="bg-primary-section col-md-10 py-1">
+                <div class="profile-widget-description m-3"
+                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                    <div class="flex-grow-1">
+                        <div class="profile-widget-name" style="color:#6777ef">List Data Pendidikan</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         @if(count($pendidikan) > 0)
             @foreach($pendidikan as $item)
                 <section class="centered-section">
                     <div class="bg-primary-section col-md-10 py-1">
                         <div class="profile-widget-description m-3"
-                            style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                            style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
                             <div class="flex-grow-1">
-                                <div class="profile-widget-name">Pendidikan</div>
+                                <div class="profile-widget-name"
+                                style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                                {{ $item->institusi }}
+                                </div>
                             </div>
                             <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                                 <a href="#" id="modal-edit">
-                                    <img class="img-fluid" style="width: 35px; height: 35px;"
+                                    <img class="img-fluid" style="width: 30px; height: 30px;"
                                         src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="flex-grow-1 mb-2">
-                                <div class="profile-widget-name"
-                                    style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                                    {{ $item->institusi }}
-                                </div>
-                            </div>
                             <ul class="list-unstyled ml-2">
                                 <li class="mb-2"><img class="img-fluid"
                                         src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbsp
