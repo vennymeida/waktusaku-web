@@ -16,7 +16,7 @@ class PendidikanController extends Controller
     {
         $userId = Auth::user()->id;
         $pendidikan = Pendidikan::all();
-        return view('profile.edit', compact('pendidikan'));
+        return view('profile.pendidikan', compact('pendidikan'));
     }
 
     public function create()
@@ -37,18 +37,18 @@ class PendidikanController extends Controller
 
     public function edit(Pendidikan $pendidikan)
     {
-        return view('profile.edit', compact('pendidikan'));
+        return view('profile.pendidikan', compact('pendidikan'));
     }
 
     public function update(UpdatePendidikanRequest $request, Pendidikan $pendidikan)
     {
         $pendidikan->update($request->all());
-        return redirect()->route('profile.edit')->with('success', 'Pendidikan berhasil diperbarui.');
+        return redirect()->route('pendidikan.edit')->with('success', 'Pendidikan berhasil diperbarui.');
     }
 
     public function destroy(Pendidikan $pendidikan)
     {
         $pendidikan->delete();
-        return redirect()->route('profile.index')->with('success', 'Pendidikan berhasil dihapus.');
+        return redirect()->route('pendidikan.delete')->with('success', 'Pendidikan berhasil dihapus.');
     }
 }
