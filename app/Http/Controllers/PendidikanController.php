@@ -15,7 +15,7 @@ class PendidikanController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        $pendidikan = Pendidikan::all();
+        $pendidikan = Pendidikan::where('user_id', $userId)->get();
         return view('profile.pendidikan', compact('pendidikan'));
     }
 
