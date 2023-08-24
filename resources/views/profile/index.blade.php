@@ -31,8 +31,8 @@
                             </div>
                             <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                                 <a href="{{ url('/profile-edit') }}">
-                                <img class="img-fluid" style="width: 35px; height: 35px;"
-                                    src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                    <img class="img-fluid" style="width: 35px; height: 35px;"
+                                        src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                 </a>
                             </div>
                         </div>
@@ -46,7 +46,13 @@
                                         </p>
                                     @else
                                         <p style="font-weight: bold;">Ringkasan</p>
-                                        <p style="line-height: 1.5; margin-top: -2%;"><br><br><br></p>
+                                        <p style="line-height: 1.5; margin-top: -2%;">Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                            deserunt mollit anim id est laborum.</p>
                                     @endif
                                 </div>
                             </div>
@@ -104,21 +110,22 @@
                     </div>
                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                         <a href="#" id="modal-create">
-                        <img class="img-fluid" style="width: 35px; height: 35px;"
-                            src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            <img class="img-fluid" style="width: 35px; height: 35px;"
+                                src="{{ asset('assets/img/landing-page/Plus.svg') }}">
                         </a>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="flex-grow-1 mb-2">
                         <div class="profile-widget-name"
-                        style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                        Politeknik Negeri Malang
+                            style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                            Politeknik Negeri Malang
                         </div>
                     </div>
                     <ul class="list-unstyled ml-2">
                         <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbspD4 Teknik Informatika
+                                src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbspD4
+                            Teknik Informatika
                         </li>
                         <li class="mb-2"><img class="img-fluid"
                                 src="{{ asset('assets/img/landing-page/Award.svg') }}">&nbsp&nbsp&nbspMengikuti Lomba KMIPN
@@ -131,7 +138,9 @@
                         </li>
                     </ul>
                 </div>
-                <a href="#"><p class="corner-text">Lihat Selengkapnya...</p></a>
+                <a href="#">
+                    <p class="corner-text">Lihat Selengkapnya...</p>
+                </a>
             </div>
         </section>
         <section class="centered-section">
@@ -143,8 +152,8 @@
                     </div>
                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                         <a href="#">
-                        <img class="img-fluid" style="width: 35px; height: 35px;"
-                            src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            <img class="img-fluid" style="width: 35px; height: 35px;"
+                                src="{{ asset('assets/img/landing-page/Plus.svg') }}">
                         </a>
                     </div>
                 </div>
@@ -168,22 +177,21 @@
                     </div>
                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                         <a href="#">
-                        <img class="img-fluid" style="width: 35px; height: 35px;"
-                            src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            <img class="img-fluid" style="width: 35px; height: 35px;"
+                                src="{{ asset('assets/img/landing-page/Plus.svg') }}">
                         </a>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="flex-grow-1 mb-2">
                         <div class="profile-widget-name"
-                        style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                        Desain Grafis
+                            style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                            Desain Grafis
                         </div>
                     </div>
                     <div class="flex-grow-1 mb-2">
-                        <div class="profile-widget-name"
-                        style="font-size: 16px; display: flex; align-items: center;">
-                        PT Husada Jaya | Jl Gajayana No.8
+                        <div class="profile-widget-name" style="font-size: 16px; display: flex; align-items: center;">
+                            PT Husada Jaya | Jl Gajayana No.8
                         </div>
                     </div>
                     <ul class="list-unstyled ml-2">
@@ -194,11 +202,14 @@
                                 src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR 700.000,00
                         </li>
                         <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp13 Mei 2020 - 13 Agustus 2023
+                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp13 Mei 2020 - 13
+                            Agustus 2023
                         </li>
                     </ul>
                 </div>
-                <a href="#"><p class="corner-text">Lihat Selengkapnya...</p></a>
+                <a href="#">
+                    <p class="corner-text">Lihat Selengkapnya...</p>
+                </a>
             </div>
         </section>
         <section class="centered-section" style="margin-bottom: 10%;">
@@ -210,164 +221,154 @@
                     </div>
                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                         <a href="#">
-                        <img class="img-fluid" style="width: 35px; height: 35px;"
-                            src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            <img class="img-fluid" style="width: 35px; height: 35px;"
+                                src="{{ asset('assets/img/landing-page/Plus.svg') }}">
                         </a>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="flex-grow-1 mb-2">
                         <div class="profile-widget-name"
-                        style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                        Pelatihan Data Analyst Dicoding
+                            style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                            Pelatihan Data Analyst Dicoding
                         </div>
                     </div>
                     <div class="flex-grow-1 mb-2">
-                        <div class="profile-widget-name"
-                        style="font-size: 16px; display: flex; align-items: center;">
-                        Lorem Ipsum is simply dummy text of the
-                        printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                        ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-                        type specimen book. It has survived not only five centuries
+                        <div class="profile-widget-name" style="font-size: 16px; display: flex; align-items: center;">
+                            Lorem Ipsum is simply dummy text of the
+                            printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                            ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+                            type specimen book. It has survived not only five centuries
                         </div>
                     </div>
                     <ul class="list-unstyled ml-2">
                         <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Office Building-2.svg') }}">&nbsp&nbsp&nbspDikeluarkan oleh Dicoding
+                                src="{{ asset('assets/img/landing-page/Office Building-2.svg') }}">&nbsp&nbsp&nbspDikeluarkan
+                            oleh Dicoding
                         </li>
                         <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp&nbsp13 Agustus 2023
+                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp&nbsp13 Agustus
+                            2023
                         </li>
                     </ul>
                 </div>
-                <a href="#"><p class="corner-text">Lihat Selengkapnya...</p></a>
+                <a href="#">
+                    <p class="corner-text">Lihat Selengkapnya...</p>
+                </a>
             </div>
         </section>
     </main>
 @endsection
 
 @push('customScript')
-<script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
+    <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
     <script>
         $("#modal-create").fireModal({
             title: 'Tambah Pendidikan',
             footerClass: 'bg-whitesmoke',
             body: `
-            <form method="POST" action="{{ route('profile.user.update') }}" class="needs-validation"
-                                    novalidate="" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="row">
-                                        <div class="form-group col-md-12 col-12">
-                                            <label for="gelar">Gelar</label>
-                                            <select
-                                                class="form-control select2 custom-input @error('gelar') is-invalid @enderror"
-                                                name="gelar" id="gelar">
-                                                <option value="">Pilih Gelar</option>
-                                                <option value="sma"
-                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'sma' ? 'selected' : '' }}>
-                                                    SMA/SMK</option>
-                                                <option value="D3"
-                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'D3' ? 'selected' : '' }}>
-                                                    Diploma III</option>
-                                                <option value="D4"
-                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'D4' ? 'selected' : '' }}>
-                                                    Diploma IV</option>
-                                                <option value="S1"
-                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'S1' ? 'selected' : '' }}>
-                                                    Sarjana</option>
-                                                <option value="S2"
-                                                    {{ Auth::user()->pendidikan && Auth::user()->pendidikan->gelar === 'S2' ? 'selected' : '' }}>
-                                                    Magister</option>
-                                                @error('gelar')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12 col-12">
-                                            <label>Nama Institusi</label>
-                                            <input name="institusi" type="text"
-                                                class="form-control custom-input @error('institusi') is-invalid @enderror"
-                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->institusi : '' }}">
-                                            @error('institusi')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12 col-12">
-                                            <label>Jurusan</label>
-                                            <input name="jurusan" type="text"
-                                                class="form-control custom-input @error('jurusan') is-invalid @enderror"
-                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->jurusan : '' }}">
-                                            @error('jurusan')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12 col-12">
-                                            <label>Prestasi Akademik (Opsional)</label>
-                                            <input name="jurusan" type="text"
-                                                class="form-control custom-input @error('jurusan') is-invalid @enderror"
-                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->jurusan : '' }}">
-                                            @error('jurusan')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-2">
-                                            <label>Periode Waktu</label>
-                                            <input name="institusi" type="text"
-                                                class="form-control custom-input @error('institusi') is-invalid @enderror"
-                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->institusi : '' }}">
-                                            @error('institusi')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <label style="color: white">iu</label>
-                                            <input name="institusi" type="text"
-                                                class="form-control custom-input @error('institusi') is-invalid @enderror"
-                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->institusi : '' }}">
-                                            @error('institusi')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group col-md-3 ml-5">
-                                            <label>IPK (Opsional)</label>
-                                            <input name="jurusan" type="text"
-                                                class="form-control custom-input @error('jurusan') is-invalid @enderror"
-                                                value="{{ Auth::user()->pendidikan ? Auth::user()->pendidikan->jurusan : '' }}">
-                                            @error('jurusan')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-3 col-12 text-right">
-                                            <button class="btn btn-primary custom-input" type="submit">Simpan</button>
-                                        </div>
-                                    </div>
-                                </form>
-         `,
+            <form method="POST" action="{{ route('pendidikan.store') }}" class="needs-validation"
+                novalidate="" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="form-group col-md-12 col-12">
+                        <label for="gelar">Gelar</label>
+                        <select class="form-control custom-input @error('gelar') is-invalid @enderror" name="gelar" id="gelar">
+                            <option value="">Pilih Gelar</option>
+                            <option value="SMA/SMK">SMA/SMK</option>
+                            <option value="D3">Diploma III</option>
+                            <option value="D4">Diploma IV</option>
+                            <option value="S1">Sarjana</option>
+                            <option value="S2">Magister</option>
+                        </select>
+                        @error('gelar')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12 col-12">
+                        <label>Nama Institusi</label>
+                        <input name="institusi" type="text" class="form-control custom-input @error('institusi') is-invalid @enderror"
+                            value="{{ old('institusi') }}">
+                        @error('institusi')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12 col-12">
+                        <label>Jurusan</label>
+                        <input name="jurusan" type="text" class="form-control custom-input @error('jurusan') is-invalid @enderror"
+                            value="{{ old('jurusan') }}">
+                        @error('jurusan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12 col-12">
+                        <label>Prestasi Akademik (Opsional)</label>
+                        <textarea name="prestasi" class="form-control custom-input @error('prestasi') is-invalid @enderror" rows="4">{{ old('prestasi') }}</textarea>
+                        @error('prestasi')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-1 form-group">
+                        <label for="tahun">Periode Waktu</label>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <select class="form-control custom-input @error('tahun_mulai') is-invalid @enderror" name="tahun_mulai" id="tahun_mulai">
+                            <option value="">Pilih Tahun</option>
+                            @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
+                                <option value="{{ $tahun }}">{{ $tahun }}</option>
+                            @endfor
+                        </select>
+                        @error('tahun_mulai')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <span> - </span>
+                    <div class="col-md-3 form-group">
+                        <select class="form-control custom-input @error('tahun_berakhir') is-invalid @enderror" name="tahun_berakhir" id="tahun_berakhir">
+                            <option value="">Pilih Tahun</option>
+                            @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
+                                <option value="{{ $tahun }}">{{ $tahun }}</option>
+                            @endfor
+                            <option value="Saat Ini">Saat Ini</option>
+                        </select>
+                        @error('tahun_berakhir')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="col-md-12 mb-1 form-group">
+                        <label for="ipk">IPK (Opsional)</label>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input name="ipk" type="number" step="0.01" class="form-control custom-input @error('ipk') is-invalid @enderror" value="{{ old('ipk') }}">
+                        @error('ipk')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+            </form>
+            `,
             buttons: [{
                     text: 'Batal',
                     class: 'btn btn-secondary',
@@ -387,5 +388,4 @@
     </script>
 @endpush
 @push('customStyle')
-
 @endpush

@@ -8,6 +8,7 @@ use App\Http\Controllers\LowonganPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarListController;
+use App\Http\Controllers\PendidikanController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
 use App\Http\Controllers\RoleAndPermission\ExportPermissionController;
@@ -79,9 +80,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::PUT('/update-perusahaan-information', [PerusahaanController::class, 'update'])
         ->name('profile.perusahaan.update');
     //user list
-    Route::get('/pendidikan', function () {
-        return view('pendidikan.index');
-    });
+
+    Route::resource('pendidikan', PendidikanController::class);
 
     Route::prefix('user-management')->group(function () {
         Route::resource('user', UserController::class);

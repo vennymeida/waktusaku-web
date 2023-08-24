@@ -55,7 +55,8 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-6 col-12 text-right">
-                                                <button class="btn btn-primary custom-input" type="submit">Ubah Profil</button>
+                                                <button class="btn btn-primary custom-input" type="submit">Ubah
+                                                    Profil</button>
                                             </div>
                                         </form>
                                     </div>
@@ -67,7 +68,8 @@
                         <div class="card border-primary mb-2">
                             <div class="card-body">
                                 <div class="text-left mb-4 mt-2 ml-2">
-                                    <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Ubah Data Diri</h5>
+                                    <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Ubah Data
+                                        Diri</h5>
                                 </div>
                                 <div class="col-md-12">
                                     <form method="POST" action="{{ route('profile.user.update') }}"
@@ -144,7 +146,8 @@
                                             <label>Ringkasan</label>
                                             <input name="ringkasan" type="text"
                                                 class="form-control custom-input @error('ringkasan') is-invalid @enderror"
-                                                value="{{ Auth::user()->profile ? Auth::user()->profile->ringkasan : '' }}">
+                                                value="{{ Auth::user()->profile ? Auth::user()->profile->ringkasan : '' }}"
+                                                style="height: 70px">
                                             @error('ringkasan')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -207,7 +210,8 @@
                         <div class="card border-primary mb-2">
                             <div class="card-body">
                                 <div class="text-left mb-4 mt-2 ml-2">
-                                    <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Ubah Kata Sandi</h5>
+                                    <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Ubah Kata
+                                        Sandi</h5>
                                 </div>
                                 <div class="col-md-12">
                                     <form method="POST" action="{{ route('user-password.update') }}"
@@ -266,7 +270,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-5 col-12 text-right">
-                                                <button class="btn btn-primary custom-input" type="submit">Ubah Kata Sandi</button>
+                                                <button class="btn btn-primary custom-input" type="submit">Ubah Kata
+                                                    Sandi</button>
                                             </div>
                                         </div>
                                     </form>
