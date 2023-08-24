@@ -148,6 +148,12 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        const statusSelect = document.getElementById("status");
+
+        statusSelect.addEventListener("change", function() {
+        document.getElementById("search-form").submit(); // Kirim form saat opsi berubah
+        });
+
         const inputsAndIcons = [{
                 inputId: "posisi",
                 clearIconId: "clear-posisi"
