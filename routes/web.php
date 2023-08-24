@@ -6,6 +6,7 @@ use App\Http\Controllers\KeahlianController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\KategoriPekerjaanController;
+use App\Http\Controllers\LokerPerusahaan;
 use App\Http\Controllers\LowonganPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
@@ -172,4 +173,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/bookmark/add', [BookmarkController::class, 'addBookmark'])->name('bookmark.add'); // Add this line
     Route::post('/melamar', [MelamarController::class, 'store'])->name('melamar.store');
 
+    //loker-perusahaan
+    Route::resource('loker-perusahaan', LokerPerusahaan::class);
 });
