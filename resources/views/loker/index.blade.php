@@ -205,6 +205,10 @@
                                     <td>{{ $loker->kategori }}</td>
                                 </tr>
                                 <tr>
+                                    <th class="text-left">Keahlian Kerja</th>
+                                    <td>{{ $loker->keahlian }}</td>
+                                </tr>
+                                <tr>
                                     <th class="text-left">Judul Lowongan</th>
                                     <td>{{ $loker->judul }}</td>
                                 </tr>

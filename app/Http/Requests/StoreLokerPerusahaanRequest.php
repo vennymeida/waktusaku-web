@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateLowonganPekerjaanRequest extends FormRequest
+class StoreLokerPerusahaanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class UpdateLowonganPekerjaanRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_kategori' => 'required',
-            'id_keahlian' => 'required',
+            'id_kategori' => 'required|array|min:1',
+            'id_keahlian' => 'required|array|min:1',
             'judul' => 'required|regex:/^[A-Za-z\s]+$/',
             'deskripsi' => 'required',
             'requirement' => 'required',
@@ -55,20 +55,21 @@ class UpdateLowonganPekerjaanRequest extends FormRequest
     {
         return [
             'id_kategori.required' => 'Kategori tidak boleh kosong',
+            'id_kategori.min' => 'Pilih setidaknya satu kategori',
             'id_keahlian.required' => 'Keahlian tidak boleh kosong',
+            'id_keahlian.min' => 'Pilih setidaknya satu keahlian',
             'judul.required' => 'Judul tidak boleh kosong',
             'judul.regex' => 'Judul tidak boleh mengandung selain huruf',
             'deskripsi.required' => 'Diskripsi tidak boleh kosong',
             'requirement.required' => 'Persyaratan tidak boleh kosong',
-            'tipe_pekerjaan.required' => 'Tipe Pekerjaan tidak boleh kosong',
+            'tipe_pekerjaan.required' => 'Jenis Pekerjaan tidak boleh kosong',
             'min_pendidikan.required' => 'Minimal Pendidikan tidak boleh kosong',
             'min_pengalaman.required' => 'Minimal Pengalaman tidak boleh kosong',
             'lokasi.required' => 'Lokasi kerja tidak boleh kosong',
             'lokasi.regex' => 'Lokasi kerja tidak boleh mengandung selain huruf',
             'gaji_bawah.required' => 'Gaji tidak boleh kosong',
             'gaji_atas.required' => 'Gaji tidak boleh kosong',
-            'gaji.required' => 'Gaji tidak boleh kosong',
-            'jumlah_pelamar.required' => 'Jumlah Pelamar tidak boleh kosong',
+            'jumlah_pelamar.required' => 'Jumlah Karyawan tidak boleh kosong',
             'tutup.required' => 'Lowongan di tutup tidak boleh kosong',
         ];
     }

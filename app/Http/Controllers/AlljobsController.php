@@ -73,12 +73,25 @@ class AlljobsController extends Controller
     {
         $perusahaan = Perusahaan::all();
         $kategori = $loker->kategori()->pluck('kategori')->implode(', ');
+        $keahlian = $loker->keahlian()->pluck('keahlian');
         $loker->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $loker->requirement);
+
+        $updatedDiff = $loker->updated_at->diffInSeconds(now());
+
+        if ($updatedDiff < 60) {
+            $updatedAgo = $updatedDiff . ' detik yang lalu';
+        } elseif ($updatedDiff < 3600) {
+            $updatedAgo = floor($updatedDiff / 60) . ' menit yang lalu';
+        } elseif ($updatedDiff < 86400) {
+            $updatedAgo = floor($updatedDiff / 3600) . ' jam yang lalu';
+        } else {
+            $updatedAgo = $loker->updated_at->diffInDays(now()) . ' hari yang lalu';
+        }
 
         $hasApplied = $loker->hasApplied;
 
         if (Auth::check()) {
-            return view('showAlljobs', ['loker' => $loker, 'perusahaan' => $perusahaan, 'kategori' => $kategori, 'hasApplied' => $hasApplied]);
+            return view('showAlljobs', ['loker' => $loker, 'perusahaan' => $perusahaan, 'kategori' => $kategori, 'keahlian' => $keahlian, 'hasApplied' => $hasApplied, 'updatedAgo' => $updatedAgo]);
         } else {
             return view('auth.login');
         }

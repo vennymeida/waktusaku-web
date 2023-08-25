@@ -6,11 +6,13 @@ use App\Http\Controllers\KeahlianController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\KategoriPekerjaanController;
+use App\Http\Controllers\LokerPerusahaan;
 use App\Http\Controllers\LowonganPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarListController;
 use App\Http\Controllers\LamarController;
+use App\Http\Controllers\LamarPerusahaan;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
 use App\Http\Controllers\RoleAndPermission\ExportPermissionController;
@@ -59,7 +61,12 @@ use App\Http\Controllers\StatusLamarController;
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/all-jobs', [AlljobsController::class, 'index'])->name('all-jobs.index');
 Route::get('/all-jobs/{loker}', [AlljobsController::class, 'show'])->name('all-jobs.show');
-
+Route::get('/contact-us', function () {
+    return view('contact');
+});
+Route::get('/about-us', function () {
+    return view('about');
+});
 
 Route::get('/login', function () {
     if (auth()->check()) {
@@ -153,6 +160,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('pelamarkerja', LamarController::class);
     });
 
+    Route::resource('lamarperusahaan', LamarPerusahaan::class);
+
     Route::prefix('location-management')->group(function () {
         // kecamatan
         Route::resource('kecamatan', KecamatanController::class);
@@ -167,7 +176,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/bookmark/remove', [BookmarkController::class, 'removeBookmark'])->name('bookmark.remove'); // Add this line
     Route::post('/bookmark/add', [BookmarkController::class, 'addBookmark'])->name('bookmark.add'); // Add this line
     Route::post('/melamar', [MelamarController::class, 'store'])->name('melamar.store');
-    Route::get('/status-lamaran', [StatusLamarController::class, 'index'])->name('melamar.status');
 
-    
+    //loker-perusahaan
+    Route::resource('loker-perusahaan', LokerPerusahaan::class);
+    Route::get('/status-lamaran', [StatusLamarController::class, 'index'])->name('melamar.status');
 });
