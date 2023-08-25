@@ -9,6 +9,7 @@ use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarListController;
 use App\Http\Controllers\PendidikanController;
+use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
 use App\Http\Controllers\RoleAndPermission\ExportPermissionController;
@@ -82,6 +83,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //user list
 
     Route::resource('pendidikan', PendidikanController::class);
+    Route::resource('pengalaman', PengalamanController::class);
 
     Route::prefix('user-management')->group(function () {
         Route::resource('user', UserController::class);
