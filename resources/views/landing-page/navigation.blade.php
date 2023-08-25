@@ -22,6 +22,40 @@
                     <li class="nav-item">
                         <a class="nav-link text-primary mr-4" href="{{ url('/contact-us') }}">Contact Us</a>
                     </li>
+                @else
+                    <li class="nav-item dropdown">
+                        <a href="#" data-toggle="dropdown"
+                            class="nav-link dropdown-toggle nav-link-lg nav-link-user text-primary">
+                            @if (Auth::user()->profile && Auth::user()->profile->foto != '')
+                                <img alt="image"
+                                    src="{{ Storage::url(Auth::user()->profile->foto) }}"
+                                    class="rounded-circle mr-1" style="width: 35px; height: 35px;">
+                            @else
+                                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                                    class="rounded-circle mr-1" style="width: 35px; height: 35px;">
+                            @endif
+                            <div class="d-sm-none d-lg-inline-block">
+                                Hai, {{ auth()->user()->name }}
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
+                                <i class="far fa-user mx-1 mr-2"></i> Profile
+                            </a>
+                            @if (auth()->user()->hasRole('Pencari Kerja'))
+                                <a href="{{ route('bookmark.index') }}" class="dropdown-item has-icon">
+                                    <i class="far fa-bookmark mx-1 mr-2"></i> Bookmark
+                                </a>
+                            @endif
+                            @if (auth()->user()->hasRole('Pencari Kerja'))
+                                <a href="{{ route('melamar.status') }}" class="dropdown-item has-icon">
+                                    <img class="img-fluid img-icon mx-1 mr-2" src="{{ asset('assets/img/lamar/status.svg') }}" style="width: 8%; height: 8%;">Status Lamaran
+                                </a>
+                            @endif
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-sign-out-alt mx-1 mr-2"></i> Keluar
                     <li class="nav-item">
                         <a class="nav-link text-primary" href="{{ url('/about-us') }}">About Us</a>
                     </li>

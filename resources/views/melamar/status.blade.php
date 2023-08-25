@@ -93,7 +93,7 @@
                                                         @elseif ($lamar->status === 'diterima') badge-success
                                                         @elseif ($lamar->status === 'ditolak') badge-danger
                                                         @endif
-                                                    ml-2" style="border-radius: 15px">
+                                                    ml-2" style="border-radius: 10px">
                                                     {{ $lamar->status }}
                                                 </span>
                                             </h5>
