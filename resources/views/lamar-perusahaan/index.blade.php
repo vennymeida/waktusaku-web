@@ -63,7 +63,7 @@
         </section>
 
         <section>
-            <div class="col-md-10 mt-5 mx-auto justify-content-center">
+            <div class="col-md-10 mt-2 mx-auto justify-content-center">
                 @include('layouts.alert')
                     <div class="card-body">
                         @foreach ($loggedInUserResults as $key => $lamar)
