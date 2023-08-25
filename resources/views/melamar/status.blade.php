@@ -19,7 +19,7 @@
                                         <i class="fas fa-filter"></i>
                                     </span>
                                 </div>
-                                <select name="status" class="form-control" id="status">
+                                <select name="status" class="form-control form-jobs clearable" id="status">
                                     <option value=""> -> Pilih ini untuk reset <- </option>
                                     <option value="pending">Pending</option>
                                     <option value="diterima">Diterima</option>
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-1">
-                            <button id="search-button" class="btn btn-primary px-4" type="submit">Cari</button>
+                            <button id="search-button" class="btn btn-primary px-4" style="border-radius: 30px" type="submit">Cari</button>
                         </div>
                     </form>
                 </div>
