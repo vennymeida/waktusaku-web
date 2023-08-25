@@ -26,7 +26,7 @@
             <div class="container-fluid">
                 <div class="row" style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
                     <div class="col-md-6 d-flex flex-column justify-content-center my-5">
-                        <div class="col-md-11 mx-auto">
+                        <div class="col-md-9 mx-auto">
                             <div>
                                 <h1 class="font-weight-bold" style="color: black">Selamat Datang!</h1>
                                 <p style="width: 80%;">Yuk, daftarkan diri Anda segera untuk mendapatkan banyak

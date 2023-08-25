@@ -53,14 +53,22 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
-                                    <i class="far fa-user"></i> Profile
+                                    <i class="far fa-user mx-2"></i> Profile
                                 </a>
                                 @if (auth()->user()->hasRole('Pencari Kerja'))
                                     <a href="{{ route('bookmark.index') }}" class="dropdown-item has-icon">
-                                        <i class="far fa-bookmark"></i> Bookmark
+                                        <i class="far fa-bookmark mx-2"></i> Bookmark
                                     </a>
                                 @endif
                                 @if (auth()->user()->hasRole('Perusahaan'))
+                                    <a href="{{ route('loker-perusahaan.index') }}" class="dropdown-item has-icon">
+                                        <i class="fas fa-briefcase mx-2"></i> Lowongan Pekerjaan
+                                    </a>
+                                    <a href="" class="dropdown-item has-icon">
+                                        <i class="fas fa-file-alt mx-2"></i> Data Pelamar Kerja
+                                    </a>
+                                @endif
+                                <hr class="my-0" style="background-color: rgba(249, 249, 249, 0.2);">
                                     <a href="" class="dropdown-item has-icon">
                                         <i class="fas fa-briefcase mx-2"></i> Lowongan Pekerjaan
                                     </a>
@@ -71,7 +79,7 @@
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                     class="dropdown-item has-icon text-danger">
-                                    <i class="fas fa-sign-out-alt"></i> Keluar
+                                    <i class="fas fa-sign-out-alt mx-2"></i> Keluar
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     style="display: none;">
@@ -123,8 +131,6 @@
         });
     </script>
     @stack('customScript')
-
-
 </body>
 
 </html>
