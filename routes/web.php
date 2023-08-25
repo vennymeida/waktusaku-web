@@ -12,6 +12,7 @@ use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarListController;
 use App\Http\Controllers\LamarController;
+use App\Http\Controllers\LamarPerusahaan;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
 use App\Http\Controllers\RoleAndPermission\ExportPermissionController;
@@ -32,6 +33,7 @@ use App\Models\Kecamatan;
 use App\Models\LowonganPekerjaan;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\MelamarController;
+use App\Http\Controllers\StatusLamarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -158,6 +160,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('pelamarkerja', LamarController::class);
     });
 
+    Route::resource('lamarperusahaan', LamarPerusahaan::class);
+
     Route::prefix('location-management')->group(function () {
         // kecamatan
         Route::resource('kecamatan', KecamatanController::class);
@@ -175,4 +179,5 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     //loker-perusahaan
     Route::resource('loker-perusahaan', LokerPerusahaan::class);
+    Route::get('/status-lamaran', [StatusLamarController::class, 'index'])->name('melamar.status');
 });

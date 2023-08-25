@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class LamarController extends Controller
+class LamarPerusahaan extends Controller
 {
     public function __construct()
     {
@@ -42,6 +42,7 @@ class LamarController extends Controller
             'pu.no_hp',
             'pu.foto',
             'pu.resume',
+            'pu.alamat',
             'u.email',
             'p.nama',
             'lp.judul',
@@ -58,6 +59,7 @@ class LamarController extends Controller
             return $query->where('l.status', $selectedStatus);
 
         })
+        ->orderBy('l.created_at', 'desc')
         ->paginate(10);
 
         $loggedInUserId = Auth::id();
@@ -78,6 +80,7 @@ class LamarController extends Controller
                 'pu.no_hp',
                 'pu.foto',
                 'pu.resume',
+                'pu.alamat',
                 'u.email',
                 'p.nama',
                 'lp.judul',
@@ -92,16 +95,21 @@ class LamarController extends Controller
                     ->orWhere('u.name', 'like', '%' . $search . '%')
                     ->orWhere('p.nama', 'like', '%' . $search . '%');
             })
+            ->when($selectedStatus, function ($query, $selectedStatus) {
+                return $query->where('l.status', $selectedStatus);
+
+            })
+            ->orderBy('l.created_at', 'desc')
            ->paginate(10);
 
-           if (Auth::user()->hasRole('Perusahaan')) {
+        if (Auth::user()->hasRole('Perusahaan')) {
             if ($profileUser == null && $perusahaan == null) {
                 return redirect()->route('profile.edit');
             } else {
-                return view('lamar.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
+                return view('lamar-perusahaan.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
             }
         } else {
-            return view('lamar.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
+            return view('lamar-perusahaan.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
         }
 
     }
@@ -132,7 +140,7 @@ class LamarController extends Controller
     $judulPekerjaan = $relasiLamar->loker->judul;
     $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 
-    return view('lamar.detail', [
+    return view('lamar-perusahaan.detail', [
         'namaPengguna' => $namaPengguna,
         'email' => $email,
         'resume' => $resume,
@@ -160,7 +168,7 @@ class LamarController extends Controller
         $lamar->status = $status;
         $lamar->save();
 
-        return redirect()->route('pelamarkerja.index')->with('success', 'Status berhasil diperbarui.');
+        return redirect()->route('lamarperusahaan.index')->with('success', 'Status berhasil diperbarui.');
     }
 
 
@@ -171,7 +179,7 @@ class LamarController extends Controller
         $lamar->delete();
 
         return redirect()
-            ->route('pelamarkerja.index')
+            ->route('lamarperusahaan.index')
             ->with('success', 'Data Pelamar Berhasil Di Hapus');
     }
 }

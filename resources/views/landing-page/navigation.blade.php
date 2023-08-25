@@ -69,6 +69,13 @@
                                     </a>
                                 @endif
                                 <hr class="my-0" style="background-color: rgba(249, 249, 249, 0.2);">
+                                    <a href="" class="dropdown-item has-icon">
+                                        <i class="fas fa-briefcase mx-2"></i> Lowongan Pekerjaan
+                                    </a>
+                                    <a href="{{ route('lamarperusahaan.index') }}" class="dropdown-item has-icon">
+                                        <i class="fas fa-file-alt mx-2"></i> Data Pelamar Kerja
+                                    </a>
+                                @endif
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                     class="dropdown-item has-icon text-danger">
@@ -106,14 +113,13 @@
     <!-- Template JS Files -->
     <script src="/assets/js/scripts.js"></script>
     <script src="/assets/js/custom.js"></script>
-
-    <!-- Page Specific JS File -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
-    <script>
-        // Inisialisasi dropdown
-        $(document).ready(function() {
-            $('.dropdown-toggle').dropdown();
+    
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script>
+    // Inisialisasi dropdown
+    $(document).ready(function() {
+        $('.dropdown-toggle').dropdown();
 
             // Additional styling using script
             $('.dropdown-username').css('font-weight', 'bold');
