@@ -17,7 +17,7 @@
             <div class="col-12"> <!-- Use col-12 to take up the full width -->
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Detail Pelamar Kerja</h5>
+                        <p class="card-title font-weight-bolder" style="font-size: 25px;"><a href="{{ route('pelamarkerja.index') }}"><i class="fas fa-arrow-left" style="font-size: 20px;"></i></a> Detail Pelamar Kerja</p>
                         <div class="row">
                             <div class="col-md-4 d-flex align-items-start justify-content-center">
                                 @if ($profileUser->foto)
@@ -98,9 +98,9 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="text-center mt-4">
+                        {{-- <div class="text-center mt-4">
                             <a href="{{ route('pelamarkerja.index') }}" class="btn btn-info">Kembali</a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

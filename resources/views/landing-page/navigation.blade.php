@@ -26,7 +26,7 @@
                         <a class="nav-link text-primary" href="{{ url('/about-us') }}">About Us</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto">
+                {{-- <ul class="navbar-nav ml-auto">
                     @if (!auth()->user())
                         <li class="nav-item">
                             <a class="nav-link px-4 py-1 btn btn-outline-primary text-primary mr-2"
@@ -88,6 +88,62 @@
                             </div>
                         </li>
                     @endif
+                </ul> --}}
+                <ul class="navbar-nav ml-auto">
+                    @if (!auth()->user())
+                        <li class="nav-item">
+                            <a class="nav-link px-4 py-1 btn btn-outline-primary text-primary mr-2"
+                                href="{{ route('login') }}" style="border-radius: 10px;">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link px-4 py-1 btn btn-outline-warning text-white"
+                                href="{{ route('register') }}" style="border-radius: 10px;">Daftar</a>
+                        </li>
+                    @else
+                        <li class="nav-item dropdown">
+                            <a href="#" data-toggle="dropdown"
+                                class="nav-link dropdown-toggle nav-link-lg nav-link-user text-primary">
+                                @if (Auth::user()->profile && Auth::user()->profile->foto != '')
+                                    <img alt="image" src="{{ Storage::url(Auth::user()->profile->foto) }}"
+                                        class="rounded-circle mr-1" style="width: 35px; height: 35px;">
+                                @else
+                                    <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                                        class="rounded-circle mr-1" style="width: 35px; height: 35px;">
+                                @endif
+                                <div class="d-sm-none d-lg-inline-block">
+                                    Hai, {{ auth()->user()->name }}
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
+                                    <i class="far fa-user mx-2"></i> Profile
+                                </a>
+                                @if (auth()->user()->hasRole('Pencari Kerja'))
+                                    <a href="{{ route('bookmark.index') }}" class="dropdown-item has-icon">
+                                        <i class="far fa-bookmark mx-2"></i> Bookmark
+                                    </a>
+                                @endif
+                                @if (auth()->user()->hasRole('Perusahaan'))
+                                    <a href="{{ route('loker-perusahaan.index') }}" class="dropdown-item has-icon">
+                                        <i class="fas fa-briefcase mx-2"></i> Lowongan Pekerjaan
+                                    </a>
+                                    <a href="{{ route('lamarperusahaan.index') }}" class="dropdown-item has-icon">
+                                        <i class="fas fa-file-alt mx-2"></i> Data Pelamar Kerja
+                                    </a>
+                                @endif
+                                <hr class="my-0" style="background-color: rgba(249, 249, 249, 0.2);">
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                    class="dropdown-item has-icon text-danger">
+                                    <i class="fas fa-sign-out-alt mx-2"></i> Keluar
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
@@ -113,7 +169,7 @@
     <!-- Template JS Files -->
     <script src="/assets/js/scripts.js"></script>
     <script src="/assets/js/custom.js"></script>
-    
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 <script>
