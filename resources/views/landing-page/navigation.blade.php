@@ -105,14 +105,13 @@
     <!-- Template JS Files -->
     <script src="/assets/js/scripts.js"></script>
     <script src="/assets/js/custom.js"></script>
-
-    <!-- Page Specific JS File -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
-    <script>
-        // Inisialisasi dropdown
-        $(document).ready(function() {
-            $('.dropdown-toggle').dropdown();
+    
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script>
+    // Inisialisasi dropdown
+    $(document).ready(function() {
+        $('.dropdown-toggle').dropdown();
 
             // Additional styling using script
             $('.dropdown-username').css('font-weight', 'bold');
@@ -124,6 +123,7 @@
         });
     </script>
     @stack('customScript')
+
 
 </body>
 
