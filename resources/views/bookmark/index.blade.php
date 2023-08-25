@@ -99,15 +99,18 @@
                                         <ul class="list-unstyled ml-2">
                                             <ul class="list-unstyled d-flex justify-content-between">
                                                 <li class="mb-2">
-                                                    <img class="img-fluid img-icon" src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                                    <img class="img-fluid img-icon"
+                                                        src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
                                                     @foreach ($bookmark->lowonganPekerjaan->kategori as $index => $kategori)
-                                                        {{ $kategori->kategori }}@if ($index < count($bookmark->lowonganPekerjaan->kategori) - 1), @endif
+                                                        {{ $kategori->kategori }}@if ($index < count($bookmark->lowonganPekerjaan->kategori) - 1)
+                                                            ,
+                                                        @endif
                                                     @endforeach
                                                 </li>
                                                 <li class="mb-2">
                                                     <a href="javascript:void(0);" class="bookmark-icon"
                                                         data-loker-id="{{ $bookmark->lowonganPekerjaan->id }}">
-                                                        <i class="far fa-bookmark" style="font-size: 28px;"></i>
+                                                        <i class="far fa-bookmark" style="font-size: 20px;"></i>
                                                     </a>
                                                 </li>
                                             </ul>

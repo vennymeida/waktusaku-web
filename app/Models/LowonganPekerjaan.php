@@ -40,8 +40,12 @@ class LowonganPekerjaan extends Model
 
     public function kategori()
     {
-        // return $this->belongsTo(KategoriPekerjaan::class, 'id_kategori');
         return $this->belongsToMany(KategoriPekerjaan::class, 'lowongan_kategori', 'lowongan_id', 'kategori_id');
+    }
+
+    public function keahlian()
+    {
+        return $this->belongsToMany(Keahlian::class, 'lowongan_keahlian', 'lowongan_id', 'keahlian_id');
     }
     public function bookmarks()
     {

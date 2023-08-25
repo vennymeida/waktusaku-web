@@ -26,6 +26,7 @@ class UpdateLowonganPekerjaanRequest extends FormRequest
     {
         return [
             'id_kategori' => 'required',
+            'id_keahlian' => 'required',
             'judul' => 'required|regex:/^[A-Za-z\s]+$/',
             'deskripsi' => 'required',
             'requirement' => 'required',
@@ -54,6 +55,7 @@ class UpdateLowonganPekerjaanRequest extends FormRequest
     {
         return [
             'id_kategori.required' => 'Kategori tidak boleh kosong',
+            'id_keahlian.required' => 'Keahlian tidak boleh kosong',
             'judul.required' => 'Judul tidak boleh kosong',
             'judul.regex' => 'Judul tidak boleh mengandung selain huruf',
             'deskripsi.required' => 'Diskripsi tidak boleh kosong',
