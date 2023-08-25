@@ -35,9 +35,10 @@ class PendidikanController extends Controller
         return redirect()->route('pendidikan.index')->with('success', 'Pendidikan berhasil ditambahkan.');
     }
 
-    public function edit(Pendidikan $pendidikan)
+    public function edit($id)
     {
-        return view('profile.pendidikan', compact('pendidikan'));
+        $pendidikan = Pendidikan::findOrFail($id);
+        return response()->json($pendidikan);
     }
 
     public function update(UpdatePendidikanRequest $request, Pendidikan $pendidikan)
