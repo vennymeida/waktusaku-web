@@ -31,6 +31,8 @@
                                     <img class="img-fluid" style="width: 30px; height: 30px;"
                                         src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                 </a>
+
+
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -62,7 +64,7 @@
                                 <h4>Pendidikan Edit</h4>
                             </div>
                             <div class="modal-body">
-                                <form method="POST" action="" class="needs-validation" novalidate=""
+                                <form method="POST" action="{{ route('pendidikan.update', $item->id) }}" class="needs-validation" novalidate=""
                                     enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="id" value="` + data.id + `">
@@ -200,12 +202,14 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
+
+
                         $('#modal-edit select[name="gelar"]').val(data.gelar);
                         $('#modal-edit input[name="institusi"]').val(data.institusi);
                         $('#modal-edit input[name="jurusan"]').val(data.jurusan);
-                        $('#modal-edit input[name="prestasi"]').val(data.prestasi);
-                        $('#modal-edit input[name="tahun_mulai"]').val(data.tahun_mulai);
-                        $('#modal-edit input[name="tahun_berakhir"]').val(data.tahun_berakhir);
+                        $('#modal-edit textarea[name="prestasi"]').val(data.prestasi);
+                        $('#modal-edit select[name="tahun_mulai"]').val(data.tahun_mulai);
+                        $('#modal-edit select[name="tahun_berakhir"]').val(data.tahun_berakhir);
                         $('#modal-edit input[name="ipk"]').val(data.ipk);
                         $('#modal-edit').modal('show');
                     }
@@ -213,17 +217,32 @@
             });
 
             $('#modal-save-button').on('click', function() {
-                var form = $('#modal-edit form');
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: form.serialize(),
-                    success: function(response) {
-                        $('#modal-edit').modal('hide');
+            var form = $('#modal-edit form');
+            var formData = new FormData(form[0]);
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('_method', 'PUT');
+
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert('Error! ' + response.message);
                     }
-                });
+                },
+                error: function() {
+                    alert('Error while updating data!');
+                }
             });
         });
+    });
     </script>
 @endpush
 @push('customStyle')

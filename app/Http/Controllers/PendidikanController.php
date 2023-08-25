@@ -43,8 +43,12 @@ class PendidikanController extends Controller
 
     public function update(UpdatePendidikanRequest $request, Pendidikan $pendidikan)
     {
-        $pendidikan->update($request->all());
-        return redirect()->route('pendidikan.edit')->with('success', 'Pendidikan berhasil diperbarui.');
+        try {
+            $pendidikan->update($request->all());
+            return response()->json(['success' => true, 'message' => 'Pendidikan berhasil diperbarui.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'An error occurred: ' . $e->getMessage()], 500);
+        }
     }
 
     public function destroy(Pendidikan $pendidikan)
