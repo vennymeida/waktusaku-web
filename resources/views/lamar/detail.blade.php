@@ -98,9 +98,6 @@
                             </div>
                         </div>
                         <hr>
-                        {{-- <div class="text-center mt-4">
-                            <a href="{{ route('pelamarkerja.index') }}" class="btn btn-info">Kembali</a>
-                        </div> --}}
                     </div>
                 </div>
             </div>

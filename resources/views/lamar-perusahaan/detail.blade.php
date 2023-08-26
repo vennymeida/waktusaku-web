@@ -5,7 +5,6 @@
         <section>
             <div class="col-md-12 mx-auto mt-4">
                 <div class="col-md-10 bg-white mx-auto py-5" style="border-radius: 15px;">
-                    <div class="row">
                         <div class="col-md-4 d-flex align-items-start justify-content-center">
                             @if ($profileUser->foto)
                                     <img src="{{ asset('storage/' . $profileUser->foto) }}" alt="Foto"
@@ -17,8 +16,14 @@
                         </div>
                         <div class="col-md-7">
                             <ul class="list-unstyled">
-                                <p class="mb-2 text-primary font-weight-bold" style="font-size: 28px;">{{$namaPengguna}}
-                                </p>
+                                <ul class="list-unstyled d-flex justify-content-between align-items-center">
+                                    <p class="mb-2 text-primary font-weight-bold" style="font-size: 28px;">{{$namaPengguna}}
+                                    </p>
+                                    <a class="btn btn-secondary px-4" href="{{ route('lamarperusahaan.index') }}"
+                                        style="border-radius: 15px;">
+                                        Kembali
+                                    </a>
+                                </ul>
                                 <h5 class="font-weight-bolder">Ringkasan </h5>
                                 <p class="mb-2" style="font-size: 14px;">Isi Ringkasan</p>
                                 <h5 class="font-weight-bolder">Personal Info </h5>
@@ -88,21 +93,18 @@
                             <form action="{{ route('lamarperusahaan.update', ['lamarperusahaan' => $lamar->id]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <input type="hidden" name="status" value="diterima">
-                                <button type="submit" class="btn btn-success px-5 py-2" style="width: 600px; border-radius: 25px;">Terima</button>
+                                <input type="hidden" name="status" value="Diterima">
+                                <button type="submit" class="btn btn-success px-5 py-2" style="width: 600px; border-radius: 15px;">Terima</button>
                             </form>
                             </ul>
                             <ul class="list-unstyled d-flex justify-content-between">
                                 <form action="{{ route('lamarperusahaan.update', ['lamarperusahaan' => $lamar->id]) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <input type="hidden" name="status" value="ditolak">
-                                    <button type="submit" class="btn btn-secondary px-5 py-2" style="width: 600px; border-radius: 25px;">Tolak</button>
+                                    <input type="hidden" name="status" value="Ditolak">
+                                    <button type="submit" class="btn btn-secondary px-5 py-2" style="width: 600px; border-radius: 15px;">Tolak</button>
                                 </form>
                             </ul>
-                            <div class="text-center mt-4">
-                                <a href="{{ route('lamarperusahaan.index') }}" class="btn btn-info">Kembali</a>
-                            </div>
                         </div>
 
                     </div>

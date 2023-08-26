@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pencari_kerja');
             $table->foreign('id_pencari_kerja')->references('id')->on('profile_users')->restrictOnDelete();
             $table->string('resume')->nullable();
-            $table->enum('status', ['pending', 'diterima', 'ditolak']);
+            $table->enum('status', ['Pending', 'Diterima', 'Ditolak']);
             $table->timestamps();
             $table->softDeletes();
         });

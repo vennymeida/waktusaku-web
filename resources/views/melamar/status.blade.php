@@ -89,11 +89,11 @@
                                             <h5 class="media-title">
                                                 <strong>{{ $lamar->loker->judul }}</strong>
                                                 <span class="badge
-                                                        @if ($lamar->status === 'pending') badge-warning
-                                                        @elseif ($lamar->status === 'diterima') badge-success
-                                                        @elseif ($lamar->status === 'ditolak') badge-danger
+                                                        @if ($lamar->status === 'Pending') badge-warning
+                                                        @elseif ($lamar->status === 'Diterima') badge-success
+                                                        @elseif ($lamar->status === 'Ditolak') badge-danger
                                                         @endif
-                                                    ml-2" style="border-radius: 10px">
+                                                    ml-2 text-white" style="border-radius: 10px">
                                                     {{ $lamar->status }}
                                                 </span>
                                             </h5>
@@ -109,7 +109,7 @@
                                                     <span>IDR {{ $lamar->loker->gaji_bawah }} - {{ $lamar->loker->gaji_atas }}</span>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="d-flex align-items-center justify-content-start mb-2">
                                                 <div class="d-flex align-items-left col-3"> <!-- use col-6 to take half the width -->
                                                     <img class="img-fluid img-icon mr-2" src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">

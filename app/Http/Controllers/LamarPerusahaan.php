@@ -27,7 +27,7 @@ class LamarPerusahaan extends Controller
 
     public function index(Request $request)
     {
-        $statuses = ['pending', 'diterima', 'ditolak'];
+        $statuses = ['Pending', 'Diterima', 'Ditolak'];
         $selectedStatus = $request->input('status');
 
         $allResults = DB::table('lamars as l')
@@ -91,9 +91,7 @@ class LamarPerusahaan extends Controller
             ->where('p.user_id', $loggedInUserId)
             ->when($request->has('search'), function ($query) use ($request) {
                 $search = $request->input('search');
-                return $query->where('lp.judul', 'like', '%' . $search . '%')
-                    ->orWhere('u.name', 'like', '%' . $search . '%')
-                    ->orWhere('p.nama', 'like', '%' . $search . '%');
+                return $query->where('lp.judul', 'like', '%' . $search . '%');
             })
             ->when($selectedStatus, function ($query, $selectedStatus) {
                 return $query->where('l.status', $selectedStatus);

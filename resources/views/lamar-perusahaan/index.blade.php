@@ -8,7 +8,7 @@
             <div class="col-md-10 mt-4 mx-auto">
                 <div class="card" style="border-radius: 15px;">
                     <div class="card-title mt-4 mb-0 ml-4">
-                        <h4 class="font-weight-bold">Daftar Lowongan Pekerjaan</h4>
+                        <h4 class="font-weight-bold">Daftar Pelamar Kerja</h4>
                     </div>
                     <div class="card-body">
                         <form id="search-form" class="form-row" method="GET" action="{{ route('lamarperusahaan.index') }}"
@@ -68,7 +68,7 @@
                     <div class="card-body">
                         @foreach ($loggedInUserResults as $key => $lamar)
                         <div class="col-12 col-sm-12 mb-4">
-                            <div class="card">
+                            <div class="card h-100">
                                 <div class="card-body d-flex flex-column">
                                     <div class="media">
                                         <div class="mr-3 align-self-start">
@@ -81,27 +81,28 @@
                                             @endif
                                         </div>
                                         <div class="media-body">
-                                            <h4 class="mb-4 font-weight-bold">{{ $lamar->name }}</h4>
-                                            <h6 class="mb-4">{{ $lamar->judul }}</h6>
-                                            <div class="d-flex align-items-center justify-content-start mb-4">
-                                                <div class="d-flex align-items-center mr-4">
+                                            <h4 class="media-title"><strong>{{ $lamar->name }}</strong></h4>
+                                            <h5 class="mb-4">{{ $lamar->judul }}</h5>
+                                            <div class="d-flex align-items-center justify-content-start mb-2">
+                                                <div class="d-flex align-items-center col-3">
                                                     <img class="img-fluid img-icon mr-2"
                                                         src="{{ asset('assets/img/lamar/calendar.svg') }}">
                                                     <span>02 Mei 2002</span>
                                                 </div>
-                                                <div class="d-flex align-items-center mr-4">
+                                                <div class="d-flex align-items-center col-6">
                                                     <img class="img-fluid img-icon mr-2"
                                                         src="{{ asset('assets/img/lamar/call.svg') }}">
                                                     <span>{{ $lamar->no_hp }}</span>
                                                 </div>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-start mb-4">
-                                                <div class="d-flex align-items-center">
+
+                                            <div class="d-flex align-items-center justify-content-start mb-2">
+                                                <div class="d-flex align-items-left col-3">
                                                     <img class="img-fluid img-icon mr-2"
                                                         src="{{ asset('assets/img/lamar/email.svg') }}">
                                                     <span>{{ $lamar->email }}</span>
                                                 </div>
-                                                <div class="d-flex align-items-center">
+                                                <div class="d-flex align-items-center col-6">
                                                     <img class="img-fluid img-icon mr-2"
                                                         src="{{ asset('assets/img/landing-page/location pin.svg') }}">
                                                     <span>{{ $lamar->alamat }}</span>
@@ -121,11 +122,11 @@
                                                 <br>
                                                 <a href="#"
                                                     class="badge
-                                                    @if ($lamar->status === 'pending') badge-warning
-                                                    @elseif ($lamar->status === 'diterima') badge-success
-                                                    @elseif ($lamar->status === 'ditolak') badge-danger
+                                                    @if ($lamar->status === 'Pending') badge-warning
+                                                    @elseif ($lamar->status === 'Diterima') badge-success
+                                                    @elseif ($lamar->status === 'Ditolak') badge-danger
                                                     @endif
-                                                    badge-custom"style="border-radius: 15px">
+                                                    badge-custom text-white"style="border-radius: 10px">
                                                     {{ $lamar->status }}
                                                 </a>
                                             </div>
