@@ -73,6 +73,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/profile', function () {
         return view('profile.index');
     });
+    Route::get('/profile-admin', function () {
+        return view('profile.super-admin');
+    });
     Route::GET('/profile-edit', [ProfileUserController::class, 'profile'])
         ->name('profile.edit');
     Route::get('/getKelurahans', [ProfileUserController::class, 'getKelurahans'])->name('getKelurahans');
