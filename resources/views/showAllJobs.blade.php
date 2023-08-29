@@ -52,8 +52,8 @@
                             </ul>
                             <ul class="list-unstyled d-flex justify-content-between">
                                 @if (Auth::check() && $loker->hasApplied)
-                                    <button class="btn btn-secondary px-5 py-2" style="border-radius: 25px; color: #ffffff;"
-                                        disabled>Terlamar</button>
+                                    <button class="btn btn-secondary px-5 py-2" style="border-radius: 25px; color: #ff0000;"
+                                        disabled>Proses</button>
                                 @else
                                     <a id="detail-button" class="btn btn-primary px-5 py-2"
                                         style="border-radius: 25px; color: #ffffff;" data-toggle="modal"

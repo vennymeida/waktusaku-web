@@ -75,8 +75,8 @@
                     @else
                      <!-- User Profile is Incomplete -->
                      <div class="alert alert-warning">
-                        Please complete your profile before applying for a job. 
-                        <a href="{{ route('profile.edit') }}" class="alert-link">Click here to complete your profile</a>.
+                        Tolong selesaikan profile anda sebelum melamar pekerjaan. 
+                        <a href="{{ route('profile.edit') }}" class="alert-link">Click disini untuk menyelesaikan profile anda</a>.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
