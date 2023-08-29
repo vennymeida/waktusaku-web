@@ -8,12 +8,12 @@
                     <div class="flex-grow-1">
                         <div class="row">
                             <div>
-                                <a href="{{ url('/dashboard') }}">
+                                <a href="{{ url('/profile') }}">
                                     <img class="img-fluid mt-1" style="width: 30px; height: 30px;"
                                         src="{{ asset('assets/img/Vector.svg') }}">
                                 </a>
                             </div>
-                            <div class="profile-widget-name mt-2 ml-3">Pelatihan / Sertifikat</div>
+                            <div class="profile-widget-name mt-2 ml-3">Edit Data Diri</div>
                         </div>
                     </div>
                 </div>
