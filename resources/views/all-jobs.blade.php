@@ -19,9 +19,8 @@
                                             <i class="fas fa-search ml-2"></i>
                                         </div>
                                     </div>
-                                    <input type="text" name="posisi" class="form-control form-jobs clearable"
-                                        id="posisi" placeholder="Cari posisi pekerjaan"
-                                        value="{{ app('request')->input('posisi') }}">
+                                    <input type="text" name="posisi" class="form-control form-jobs" id="posisi"
+                                        placeholder="Cari posisi pekerjaan" value="{{ app('request')->input('posisi') }}">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
@@ -37,8 +36,14 @@
                                             <i class="fas fa-map-marker-alt ml-2"></i>
                                         </div>
                                     </div>
-                                    <input type="text" name="lokasi" class="form-control form-jobs" id="lokasi"
-                                        placeholder="Lokasi" value="{{ app('request')->input('lokasi') }}">
+                                    <select name="lokasi" id="lokasi" class="form-control form-jobs custom-select">
+                                        <option value="" selected disabled>Lokasi</option>
+                                        @foreach ($kecamatan as $key)
+                                            <option value="{{ $key->kecamatan }}"
+                                                @if ($key->kecamatan == $lokasi) selected @endif>{{ $key->kecamatan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
@@ -49,23 +54,32 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i class="fas fa-briefcase ml-2"></i>
                                         </div>
-                                    </div>
-                                    <input type="text" name="kategori" class="form-control form-jobs" id="kategori"
-                                        placeholder="Kategori" value="{{ app('request')->input('kategori') }}">
-                                    <div class="input-group-prepend">
+                                    </div> --}}
+                                    {{-- <input type="text" name="kategori" class="form-control form-jobs"> --}}
+                                    <select name="kategori[]" id="kategori" class="form-control form-jobs select2"
+                                        multiple>
+                                        {{-- <option value="" selected disabled>Kategori</option> --}}
+                                        @foreach ($kategoris as $key)
+                                            <option value="{{ $key->kategori }}"
+                                                @if (in_array($key->kategori, $kategori)) selected @endif>
+                                                {{ $key->kategori }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                             <i class="fas fa-times-circle" id="clear-kategori" style="display: none;"></i>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <button id="search-button" class="btn btn-primary mr-1 px-4" type="submit"
+                                <button id="search-button" class="btn btn-primary mr-1 px-4 py-2" type="submit"
                                     style="border-radius: 15px;">Cari</button>
                             </div>
                         </form>
@@ -140,7 +154,6 @@
         <div class="d-flex justify-content-center">
             {{ $allResults->withQueryString()->links() }}
         </div>
-        {{-- <div class="fa fa-bookmark d-flex justify-content-end" style="font-size: 2.00em;" id="bookmark" onclick="Klikme()"> --}}
     </main>
 
     <script>
@@ -171,21 +184,24 @@
                     inputId: "lokasi",
                     clearIconId: "clear-lokasi"
                 },
-                {
-                    inputId: "kategori",
-                    clearIconId: "clear-kategori"
-                }
+                // {
+                //     inputId: "kategori",
+                //     clearIconId: "clear-kategori"
+                // }
             ];
 
             const inputValues = {
                 posisi: "",
                 lokasi: "",
-                kategori: ""
+                // kategori: ""
             };
 
             inputsAndIcons.forEach(item => {
                 const input = document.getElementById(item.inputId);
                 const clearIcon = document.getElementById(item.clearIconId);
+
+                inputValues[item.inputId] = input.value;
+                clearIcon.style.display = inputValues[item.inputId] ? "block" : "none";
 
                 input.addEventListener("input", function() {
                     inputValues[item.inputId] = this.value;
@@ -195,8 +211,9 @@
                 clearIcon.addEventListener("click", function() {
                     input.value = "";
                     currentInputValue = "";
+                    inputValues[item.inputId] = "";
                     clearIcon.style.display = "none";
-                    submitForm(currentInputValue);
+                    submitForm(inputValues[item.inputId]);
                 });
 
                 if (input.value) {
@@ -206,26 +223,65 @@
 
             function submitForm(inputValue) {
                 const form = document.getElementById("search-form");
-
                 form.submit();
             }
         });
     </script>
 
+    {{-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const kategoriSelect = document.getElementById("kategori");
+            const clearKategoriIcon = document.getElementById("clear-kategori");
+
+            kategoriSelect.addEventListener("mousedown", function(event) {
+                event.preventDefault();
+                const option = event.target;
+                const selected = option.selected;
+                if (option.tagName === "OPTION") {
+                    option.selected = !selected;
+                    updateClearIcon();
+                }
+            });
+
+            clearKategoriIcon.addEventListener("click", function() {
+                Array.from(kategoriSelect.options).forEach(option => {
+                    option.selected = false;
+                });
+                updateClearIcon();
+                clearFormAndReload();
+            });
+
+            kategoriSelect.addEventListener("change", updateClearIcon);
+
+            function updateClearIcon() {
+                const selectedOptions = Array.from(kategoriSelect.options).filter(option => option.selected);
+                clearKategoriIcon.style.display = selectedOptions.length > 0 ? "block" : "none";
+            }
+
+            function clearFormAndReload() {
+                Array.from(kategoriSelect.options).forEach(option => {
+                    option.selected = false;
+                });
+
+                const form = document.getElementById("search-form");
+                form.submit();
+            }
+        });
+    </script> --}}
+
     <script>
         function handleFormSubmit() {
             document.querySelectorAll('.clear-icon').forEach(icon => {
-                const input = icon.parentElement.querySelector('input');
+                const select = icon.parentElement.querySelector('input, select');
+                icon.style.display = select.value ? "block" : "none";
+            });
+
+            document.querySelectorAll('.input-group input').forEach(input => {
+                const icon = input.parentElement.querySelector('.clear-icon');
                 icon.style.display = input.value ? "block" : "none";
             });
         }
     </script>
-
-    {{-- <script>
-        function Klikme() {
-            document.getElementById('bookmark').style.color = "#6777ef";
-        }
-    </script> --}}
 
     <script>
         $(document).ready(function() {
@@ -291,10 +347,23 @@
     </script>
 @endsection
 
+@push('customStyle')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
+
 @push('customScript')
     <!-- SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
 
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'Kategori',
+            });
+        });
+    </script>
 @endpush

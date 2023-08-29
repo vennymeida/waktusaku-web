@@ -111,8 +111,8 @@
 }
 
 .btn-success {
-    background-color: #4ED373;
-    border-color: #4ED373;
+    background-color: #4ed373;
+    border-color: #4ed373;
 }
 
 .card {
@@ -460,6 +460,7 @@ a.dropdown-item.active {
     border-left: none;
     border-right: none;
     border-radius: 15px;
+    height: 42px;
 }
 
 .form-jobs:focus {
@@ -741,8 +742,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .select2-selection__rendered {
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    /* padding-top: 5px;
+    padding-bottom: 5px; */
 }
 
 .select2-container--default
@@ -769,4 +770,35 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .select2-container .select2-selection--multiple .select2-selection__choice {
     background-color: #eb9481;
     border-color: #eb9481;
+}
+
+select.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+select.custom-select option {
+    background: #ffffff;
+    color: #333333;
+}
+
+select.custom-select option:checked {
+    background: #1967d2;
+    color: #ffffff;
+}
+
+select.custom-select option:disabled {
+    background: #f0f0f0;
+    color: #999999;
+    cursor: not-allowed;
+}
+
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__rendered {
+    margin-top: 2px;
+    color: black;
 }

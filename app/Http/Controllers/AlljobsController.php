@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriPekerjaan;
+use App\Models\Kecamatan;
 use App\Models\lamar;
 use App\Models\LowonganPekerjaan;
 use App\Models\Perusahaan;
@@ -16,10 +18,14 @@ class AlljobsController extends Controller
     {
         $posisiKerja = $request->input('posisi');
         $lokasi = $request->input('lokasi');
-        $kategori = $request->input('kategori');
+        $kategori = $request->input('kategori', []);
+
+        $kecamatan = Kecamatan::all();
+        $kategoris = KategoriPekerjaan::all();
 
         $allResults = DB::table('lowongan_pekerjaans as lp')
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
+            ->join('kecamatans as k', 'p.kecamatan_id', '=', 'k.id')
             ->join('lowongan_kategori as lk', 'lp.id', '=', 'lk.lowongan_id')
             ->join('kategori_pekerjaans as kp', 'lk.kategori_id', '=', 'kp.id')
             ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
@@ -43,30 +49,54 @@ class AlljobsController extends Controller
                 'p.nama',
                 'p.pemilik',
                 'p.logo',
+                'k.kecamatan',
                 DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
             )
             ->when($posisiKerja, function ($allResults, $posisi) {
                 return $allResults->where('lp.judul', 'like', '%' . $posisi . '%');
             })
             ->when($lokasi, function ($allResults, $lokasi) {
-                return $allResults->where('lp.lokasi', 'like', '%' . $lokasi . '%');
+                return $allResults->where('k.kecamatan', 'like', '%' . $lokasi . '%');
             })
-            ->when($kategori, function ($allResults, $kategori) {
-                return $allResults->whereIn('lp.id', function ($query) use ($kategori) {
-                    $query->select('lp.id')
-                        ->from('lowongan_pekerjaans AS lp')
-                        ->join('lowongan_kategori as lk', 'lp.id', '=', 'lk.lowongan_id')
-                        ->join('kategori_pekerjaans as kp', 'lk.kategori_id', '=', 'kp.id')
-                        ->groupBy('lp.id')
-                        ->havingRaw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') LIKE ?", ['%' . $kategori . '%']);
-                });
+            // ->when($kategori, function ($allResults, $kategori) {
+            //     return $allResults->whereIn('lp.id', function ($query) use ($kategori) {
+            //         $query->select('lp.id')
+            //             ->from('lowongan_pekerjaans AS lp')
+            //             ->join('lowongan_kategori as lk', 'lp.id', '=', 'lk.lowongan_id')
+            //             ->join('kategori_pekerjaans as kp', 'lk.kategori_id', '=', 'kp.id')
+            //             ->groupBy('lp.id')
+            //             ->havingRaw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') LIKE ?", ['%' . $kategori . '%']);
+            //     });
+            // })
+            // ->when($kategori, function ($allResults, $kategori) {
+            //     return $allResults->whereIn('lp.id', function ($query) use ($kategori) {
+            //         $kategoriArr = explode(',', $kategori);
+            //         $query->select('lp.id')
+            //             ->from('lowongan_pekerjaans AS lp')
+            //             ->join('lowongan_kategori as lk', 'lp.id', '=', 'lk.lowongan_id')
+            //             ->join('kategori_pekerjaans as kp', 'lk.kategori_id', '=', 'kp.id')
+            //             ->whereIn('kp.kategori', $kategoriArr) // Mencocokkan kategori langsung
+            //             ->groupBy('lp.id');
+            //     });
+            // })
+            ->when(count($kategori) > 0, function ($allResults) use ($kategori) {
+                return $allResults->whereIn('kp.kategori', $kategori);
             })
+
             ->where('lp.status', 'dibuka')
             ->orderBy('lp.created_at', 'desc')
-            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'lp.min_pengalaman', 'lp.min_pendidikan', 'p.pemilik', 'p.logo')
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'lp.min_pengalaman', 'lp.min_pendidikan', 'p.pemilik', 'p.logo', 'k.kecamatan')
             ->paginate(9);
 
-        return view('all-jobs', ['allResults' => $allResults]);
+        // $kecamatan = DB::table('kecamatans')
+        //     ->select('id', 'kecamatan')
+        //     ->get();
+
+        // $kategoris = DB::table('kategori_pekerjaans')
+        //     ->select('id', 'kategori')
+        //     ->get();
+
+        return view('all-jobs', ['allResults' => $allResults, 'kecamatan' => $kecamatan, 'lokasi' => $lokasi, 'kategoris' => $kategoris, 'kategori' => $kategori]);
     }
 
     public function show(LowonganPekerjaan $loker)
