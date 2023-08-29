@@ -4,9 +4,17 @@
         <section class="centered-section">
             <div class="bg-primary-section col-md-10 py-1">
                 <div class="profile-widget-description m-3"
-                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center; color:#6777ef">
                     <div class="flex-grow-1">
-                        <div class="profile-widget-name" style="color:#6777ef">List Data Pendidikan</div>
+                        <div class="row">
+                            <div>
+                                <a href="{{ url('/profile') }}">
+                                    <img class="img-fluid mt-1" style="width: 30px; height: 30px;"
+                                        src="{{ asset('assets/img/Vector.svg') }}">
+                                </a>
+                            </div>
+                            <div class="profile-widget-name mt-2 ml-3">List Data Pendidikan</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,7 +69,7 @@
 
     <!-- Modal Edit Pendidikan -->
     <div id="modal-edit" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog mx-auto" role="document">
+        <div class="modal-dialog modal-lg mx-auto" role="document">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header m-4">
@@ -253,10 +261,4 @@
     </script>
 @endpush
 @push('customStyle')
-    <style>
-        .modal-lg {
-            width: 180%;
-
-        }
-    </style>
 @endpush
