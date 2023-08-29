@@ -1,6 +1,24 @@
 @extends('landing-page.app')
 @section('main')
     <main class="bg-secondary">
+        <section class="centered-section">
+            <div class="bg-primary-section col-md-10 py-1">
+                <div class="profile-widget-description m-3"
+                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center; color:#6777EF">
+                    <div class="flex-grow-1">
+                        <div class="row">
+                            <div>
+                                <a href="{{ url('/dashboard') }}">
+                                    <img class="img-fluid mt-1" style="width: 30px; height: 30px;"
+                                        src="{{ asset('assets/img/Vector.svg') }}">
+                                </a>
+                            </div>
+                            <div class="profile-widget-name mt-2 ml-3">Pelatihan / Sertifikat</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section>
             <div class="container" style="margin-top: 5%; margin-bottom: 5%">
                 <div class="row">
