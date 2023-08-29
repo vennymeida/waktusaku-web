@@ -59,128 +59,135 @@
         @endif
     </main>
 
+    <!-- Modal Edit Pendidikan -->
     <div id="modal-edit" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Pendidikan Edit</h4>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" id="modal-edit-form" class="needs-validation" novalidate=""
-                        enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="row">
-                            <div class="form-group col-md-12 col-12">
-                                <label for="gelar">Gelar</label>
-                                <select class="form-control custom-input @error('gelar') is-invalid @enderror"
-                                    name="gelar" id="gelar">
-                                    <option value="">Pilih Gelar</option>
-                                    <option value="SMA/SMK">SMA/SMK</option>
-                                    <option value="D3">Diploma III</option>
-                                    <option value="D4">Diploma IV</option>
-                                    <option value="S1">Sarjana</option>
-                                    <option value="S2">Magister</option>
-                                </select>
-                                @error('gelar')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+        <div class="modal-dialog mx-auto" role="document">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header m-4">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Edit
+                            Pendidikan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" id="modal-edit-form" class="needs-validation" novalidate=""
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label for="gelar">Gelar</label>
+                                    <select class="form-control custom-input @error('gelar') is-invalid @enderror"
+                                        name="gelar" id="gelar">
+                                        <option value="">Pilih Gelar</option>
+                                        <option value="SMA/SMK">SMA/SMK</option>
+                                        <option value="D3">Diploma III</option>
+                                        <option value="D4">Diploma IV</option>
+                                        <option value="S1">Sarjana</option>
+                                        <option value="S2">Magister</option>
+                                    </select>
+                                    @error('gelar')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12 col-12">
-                                <label>Nama Institusi</label>
-                                <input name="institusi" type="text"
-                                    class="form-control custom-input @error('institusi') is-invalid @enderror"
-                                    value="{{ old('institusi') }}">
-                                @error('institusi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label>Nama Institusi</label>
+                                    <input name="institusi" type="text"
+                                        class="form-control custom-input @error('institusi') is-invalid @enderror"
+                                        value="{{ old('institusi') }}">
+                                    @error('institusi')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12 col-12">
-                                <label>Jurusan</label>
-                                <input name="jurusan" type="text"
-                                    class="form-control custom-input @error('jurusan') is-invalid @enderror"
-                                    value="{{ old('jurusan') }}">
-                                @error('jurusan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label>Jurusan</label>
+                                    <input name="jurusan" type="text"
+                                        class="form-control custom-input @error('jurusan') is-invalid @enderror"
+                                        value="{{ old('jurusan') }}">
+                                    @error('jurusan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12 col-12">
-                                <label>Prestasi Akademik (Opsional)</label>
-                                <textarea name="prestasi" class="form-control custom-input @error('prestasi') is-invalid @enderror" rows="4">{{ old('prestasi') }}</textarea>
-                                @error('prestasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label>Prestasi Akademik (Opsional)</label>
+                                    <textarea name="prestasi" class="form-control custom-input @error('prestasi') is-invalid @enderror" rows="4">{{ old('prestasi') }}</textarea>
+                                    @error('prestasi')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-1 form-group">
-                                <label for="tahun">Periode Waktu</label>
+                            <div class="row ml-4 mr-4">
+                                <div class="col-md-12 mb-1 form-group">
+                                    <label for="tahun">Periode Waktu</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <select class="form-control custom-input @error('tahun_mulai') is-invalid @enderror"
+                                        name="tahun_mulai" id="tahun_mulai">
+                                        <option value="">Pilih Tahun</option>
+                                        @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
+                                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                        @endfor
+                                    </select>
+                                    @error('tahun_mulai')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <span> - </span>
+                                <div class="col-md-4 form-group">
+                                    <select class="form-control custom-input @error('tahun_berakhir') is-invalid @enderror"
+                                        name="tahun_berakhir" id="tahun_berakhir">
+                                        <option value="">Pilih Tahun</option>
+                                        @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
+                                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                                        @endfor
+                                        <option value="Saat Ini">Saat Ini</option>
+                                    </select>
+                                    @error('tahun_berakhir')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 mb-1 form-group">
+                                    <label for="ipk">IPK (Opsional)</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <input name="ipk" type="number" step="0.01"
+                                        class="form-control custom-input @error('ipk') is-invalid @enderror"
+                                        value="{{ old('ipk') }}">
+                                    @error('ipk')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="col-md-3 form-group">
-                                <select
-                                    class="form-control custom-input @error('tahun_mulai') is-invalid @enderror"
-                                    name="tahun_mulai" id="tahun_mulai">
-                                    <option value="">Pilih Tahun</option>
-                                    @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
-                                        <option value="{{ $tahun }}">{{ $tahun }}</option>
-                                    @endfor
-                                </select>
-                                @error('tahun_mulai')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <span> - </span>
-                            <div class="col-md-3 form-group">
-                                <select
-                                    class="form-control custom-input @error('tahun_berakhir') is-invalid @enderror"
-                                    name="tahun_berakhir" id="tahun_berakhir">
-                                    <option value="">Pilih Tahun</option>
-                                    @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
-                                        <option value="{{ $tahun }}">{{ $tahun }}</option>
-                                    @endfor
-                                    <option value="Saat Ini">Saat Ini</option>
-                                </select>
-                                @error('tahun_berakhir')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="col-md-12 mb-1 form-group">
-                                <label for="ipk">IPK (Opsional)</label>
-                            </div>
-                            <div class="col-md-3 form-group">
-                                <input name="ipk" type="number" step="0.01"
-                                    class="form-control custom-input @error('ipk') is-invalid @enderror"
-                                    value="{{ old('ipk') }}">
-                                @error('ipk')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer bg-whitesmoke">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" id="modal-save-button">Simpan</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke m-4">
+                        <button type="button" class="btn btn-primary" id="modal-save-button"
+                            style="border-radius: 15px; font-size: 14px">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            style="border-radius: 15px; font-size: 14px">Batal</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -193,8 +200,10 @@
         $(document).ready(function() {
             $('.modal-edit-trigger').on('click', function() {
                 var itemId = $(this).data('id');
-                var editUrl = "{{ route('pendidikan.edit', ['pendidikan' => '_id']) }}".replace('_id', itemId);
-                var updateUrl = "{{ route('pendidikan.update', ['pendidikan' => '_id']) }}".replace('_id', itemId);
+                var editUrl = "{{ route('pendidikan.edit', ['pendidikan' => '_id']) }}".replace('_id',
+                    itemId);
+                var updateUrl = "{{ route('pendidikan.update', ['pendidikan' => '_id']) }}".replace('_id',
+                    itemId);
                 $('#modal-edit-form').attr('action', updateUrl);
 
                 $.ajax({
@@ -242,4 +251,12 @@
             });
         });
     </script>
+@endpush
+@push('customStyle')
+    <style>
+        .modal-lg {
+            width: 180%;
+
+        }
+    </style>
 @endpush
