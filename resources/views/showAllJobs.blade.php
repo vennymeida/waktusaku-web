@@ -51,16 +51,14 @@
                                 </p>
                             </ul>
                             <ul class="list-unstyled d-flex justify-content-between">
-                                @role('Pencari Kerja')
-                                    @if (Auth::check() && $loker->hasApplied)
-                                        <button class="btn btn-secondary px-5 py-2" style="border-radius: 25px; color: #ffffff;"
-                                            disabled>Terlamar</button>
-                                    @else
-                                        <a id="detail-button" class="btn btn-primary px-5 py-2"
-                                            style="border-radius: 25px; color: #ffffff;" data-toggle="modal"
-                                            data-target="#lamarModal">Lamar</a>
-                                    @endif
-                                @endrole
+                                @if (Auth::check() && $loker->hasApplied)
+                                    <button class="btn btn-secondary px-5 py-2" style="border-radius: 25px; color: #ff0000;"
+                                        disabled>Proses</button>
+                                @else
+                                    <a id="detail-button" class="btn btn-primary px-5 py-2"
+                                        style="border-radius: 25px; color: #ffffff;" data-toggle="modal"
+                                        data-target="#lamarModal">Lamar</a>
+                                @endif
                                 <p class="font-italic mt-2 time" style="font-size: 14px;"><img class="img-fluid img-icon"
                                         src="{{ asset('assets/img/landing-page/Time.svg') }}"> Tayang {{ $updatedAgo }}
                                 </p>
