@@ -58,7 +58,7 @@
                                     <h4>Total Lowongan Pekerjaan</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ App\Models\LowonganPekerjaan::count() }}
+                                    {{ App\Models\LowonganPekerjaan::where('status', 'dibuka')->count() }}
                                 </div>
                             </div>
                         </div>
@@ -73,6 +73,7 @@
                                     <h4>Total Lamaran</h4>
                                 </div>
                                 <div class="card-body">
+                                    {{ App\Models\lamar::count() }}
                                 </div>
                             </div>
                         </div>
@@ -82,7 +83,7 @@
                     <div class="col-lg-12">
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-header">
-                                <h4>Budget vs Sales</h4>
+                                <h4>Perusahaan dengan Pelamar Terbanyak</h4>
                             </div>
                             <div class="card-body">
                                 <canvas id="myChart" height="158"></canvas>
@@ -98,38 +99,20 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled list-unstyled-border">
-                            <li class="media">
-                                <img class="mr-3 rounded-circle" width="50" src="assets/img/avatar/avatar-1.png"
-                                    alt="avatar">
-                                <div class="media-body">
-                                    <div class="media-title">Venny Meida</div>
-                                    <span class="text-small text-muted">PT Hummasoft Technology</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled list-unstyled-border">
-                            <li class="media">
-                                <img class="mr-3 rounded-circle" width="50" src="assets/img/avatar/avatar-1.png"
-                                    alt="avatar">
-                                <div class="media-body">
-                                    <div class="media-title">Venny Meida</div>
-                                    <span class="text-small text-muted">PT Hummasoft Technology</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled list-unstyled-border">
-                            <li class="media">
-                                <img class="mr-3 rounded-circle" width="50" src="assets/img/avatar/avatar-1.png"
-                                    alt="avatar">
-                                <div class="media-body">
-                                    <div class="media-title">Venny Meida</div>
-                                    <span class="text-small text-muted">PT Hummasoft Technology</span>
-                                </div>
-                            </li>
+                            @foreach($dashboard as $lamar)
+                                <li class="media">
+                                    @if ($lamar->foto)
+                                        <img src="{{ asset('storage/' . $lamar->foto) }}" alt="Foto" class="mr-3 rounded-circle" style="width: 50px; height: 50px;">
+                                    @else
+                                        <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                                        class="mr-3 rounded-circle" style="width: 50px; height: 50px;">
+                                    @endif
+                                    <div class="media-body">
+                                        <div class="media-title">{{ $lamar->name }}</div>
+                                        <span class="text-small text-muted">{{ $lamar->perusahaan }}</span>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -137,3 +120,10 @@
         </div>
     </section>
 @endsection
+
+@push('customScript')
+<script src="{{asset('assets/js/jquery.sparkline.min.js')}}"></script>
+<script src="{{asset('assets/js/chart.min.js')}}"></script>
+<script src="{{asset('assets/js/grafik.js')}}"></script>
+
+@endpush

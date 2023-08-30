@@ -11,6 +11,7 @@ use App\Http\Controllers\LowonganPekerjaanController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarListController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LamarController;
 use App\Http\Controllers\LamarPerusahaan;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
@@ -180,4 +181,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //loker-perusahaan
     Route::resource('loker-perusahaan', LokerPerusahaan::class);
     Route::get('/status-lamaran', [StatusLamarController::class, 'index'])->name('melamar.status');
+
+    Route::resource('dashboard', DashboardController::class);
 });
