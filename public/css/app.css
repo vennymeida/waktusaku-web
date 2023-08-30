@@ -802,3 +802,27 @@ select.custom-select option:disabled {
     margin-top: 2px;
     color: black;
 }
+
+.detail-header {
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+}
+
+.logo-container {
+    position: relative;
+    overflow: hidden;
+    margin-top: -40%;
+}
+
+.logo-container::before {
+    content: "";
+    position: absolute;
+    background-color: white;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.logo-container img {
+    position: relative;
+    z-index: 2;
+}

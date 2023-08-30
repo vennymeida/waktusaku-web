@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlljobsController;
+use App\Http\Controllers\DetailPerusahaan;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\KeahlianController;
 use App\Http\Controllers\KecamatanController;
@@ -61,6 +62,7 @@ use App\Http\Controllers\StatusLamarController;
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/all-jobs', [AlljobsController::class, 'index'])->name('all-jobs.index');
 Route::get('/all-jobs/{loker}', [AlljobsController::class, 'show'])->name('all-jobs.show');
+Route::get('/detail-perusahaan/{detail}', [DetailPerusahaan::class, 'show'])->name('detail-perusahaan.show');
 Route::get('/contact-us', function () {
     return view('contact');
 });
