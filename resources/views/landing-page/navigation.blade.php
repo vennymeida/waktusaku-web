@@ -98,7 +98,8 @@
                                     <i class="far fa-bookmark mx-1 mr-2"></i> Bookmark
                                 </a>
                                     <a href="{{ route('melamar.status') }}" class="dropdown-item has-icon">
-                                        <img class="img-fluid img-icon mx-1 mr-2" src="{{ asset('assets/img/lamar/status.svg') }}" style="width: 8%; height: 8%;">Status Lamaran
+                                        <img class="img-fluid img-icon mx-1 mr-2" src="{{ asset('assets/img/lamar/status.svg') }}"
+                                        style="width: 8%; height: 8%;">Status Lamaran
                                     </a>
                                 @endif
                                 @if (auth()->user()->hasRole('Perusahaan'))

@@ -88,10 +88,29 @@ class AlljobsController extends Controller
             $updatedAgo = $loker->updated_at->diffInDays(now()) . ' hari yang lalu';
         }
 
+
+
         $hasApplied = $loker->hasApplied;
+        // Mengecek apakah user sudah melamar untuk loker ini
+        $lamaran = null;
+        if (Auth::check()) {
+            $lamaran = Lamar::where('id_loker', $loker->id)
+                ->where('id_pencari_kerja', Auth::user()->profile->id)
+                ->first();
+        }
+
+        $lamaranStatus = $lamaran ? $lamaran->status : null;
 
         if (Auth::check()) {
-            return view('showAlljobs', ['loker' => $loker, 'perusahaan' => $perusahaan, 'kategori' => $kategori, 'keahlian' => $keahlian, 'hasApplied' => $hasApplied, 'updatedAgo' => $updatedAgo]);
+            return view('showAlljobs', [
+                'loker' => $loker,
+                'perusahaan' => $perusahaan,
+                'kategori' => $kategori,
+                'keahlian' => $keahlian,
+                'hasApplied' => $hasApplied,
+                'lamaranStatus' => $lamaranStatus,
+                'updatedAgo' => $updatedAgo
+            ]);
         } else {
             return view('auth.login');
         }

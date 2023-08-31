@@ -79,7 +79,7 @@
                                 <div class="card-body d-flex flex-column">
                                     <div class="media">
                                         <div class="mr-3 align-self-start">
-                                            @if($lamar && $lamar->loker->perusahaan->logo)
+                                            @if($lamar && $lamar->loker->perusahaan && $lamar->loker->perusahaan->logo)
                                         <img src="{{ asset('storage/' . $lamar->loker->perusahaan->logo) }}" alt="Logo Perusahaan" class="rounded-circle" style="width: 80px; height: 80px;">
                                         @else
                                         <img alt="image" src="{{ asset('assets/img/company/default-company-logo.png') }}" class="rounded-circle" style="width: 80px; height: 80px;">

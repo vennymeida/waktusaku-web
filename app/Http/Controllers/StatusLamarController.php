@@ -17,8 +17,15 @@ class StatusLamarController extends Controller
 
     public function index(Request $request)
     {
+        $user = Auth::user();
+
+        // Cek apakah user memiliki profile
+        if (!$user->profile) {
+            return redirect()->route('profile.edit')->with('error', 'Silahkan lengkapi profil Anda terlebih dahulu.');
+        }
+
         $query = Lamar::with('loker.perusahaan')
-            ->where('id_pencari_kerja', Auth::user()->profile->id);
+            ->where('id_pencari_kerja', $user->profile->id);
 
         // Filter by posisi
         if ($request->has('posisi') && $request->posisi != '') {
@@ -40,6 +47,10 @@ class StatusLamarController extends Controller
         }
 
         $lamaran = $query->get();
+
+        if ($lamaran->isEmpty()) {
+            return view('melamar.status', ['lamaran' => $lamaran, 'message' => 'Belum ada loker tersedia.']);
+        }
 
         return view('melamar.status', ['lamaran' => $lamaran]);
     }

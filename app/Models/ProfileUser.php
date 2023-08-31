@@ -32,6 +32,6 @@ class ProfileUser extends Model
     }
     public function isComplete()
     {
-        return !empty($this->alamat) && !empty($this->no_hp) && !empty($this->foto) && !empty($this->resume);
+        return !empty($this->alamat) && !empty($this->no_hp) && !empty($this->foto);
     }
 }

@@ -2,6 +2,9 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 @if(auth()->user()->profile && auth()->user()->profile->isComplete())
                     <!-- User Profile is Complete -->
                     <p><strong>Hai, {{ auth()->user()->name }}</strong></p>
@@ -54,7 +57,7 @@
 
                                     <!-- Current Resume Name -->
                                     @if(auth()->user()->profile && auth()->user()->profile->resume)
-                                    <span class="mb-2" id="current-resume-name">{{ basename(auth()->user()->profile->resume) }}</span>
+                                    <span class="mb-2" id="current-resume-name" data-url="{{ Storage::url(auth()->user()->profile->resume ?? '') }}">{{ basename(auth()->user()->profile->resume) }}</span>
                                         <a href="#" onclick="return openResume();" class="btn btn-link mb-2">View Current Resume</a>
                                     @endif
 
@@ -79,8 +82,9 @@
                         <a href="{{ route('profile.edit') }}" class="alert-link">Click disini untuk menyelesaikan profile anda</a>.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" id="closeModalButton" data-dismiss="modal">Close</button>
                     </div>
+                    
                 @endif
             </div>
         </div>
@@ -98,28 +102,35 @@
 
 <script>
     function openResume() {
-        window.open("{{ Storage::url(auth()->user()->profile->resume ?? '#') }}", "ResumeWindow", "width=600,height=800");
-        return false;
+    const urlResume = document.getElementById('current-resume-name').getAttribute('data-url');
+    window.open(urlResume, "ResumeWindow", "width=600,height=800");
+    return false;
     }
 
     document.getElementById('new_resume').addEventListener('change', function(e){
-        let file = this.files[0];
-        let fileSize = file.size / 1024 / 1024; //in mb
-        let allowedExtensions = /(\.pdf)$/i;
+    let file = this.files[0];
+    let fileSize = file.size / 1024 / 1024; //in mb
+    let allowedExtensions = /(\.pdf)$/i;
 
-        if (!allowedExtensions.exec(file.name) || fileSize > 2) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Invalid File',
-                text: 'Hanya dokumen berformat PDF yang diizinkan dengan ukuran maksimal 2MB!'
-            });
-            this.value = ''; // reset the input
-            return false;
-        }
-        
-        // Show the file name
-        document.getElementById('current-resume-name').textContent = file.name;
-    });
+    if (!allowedExtensions.exec(file.name) || fileSize > 2) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid File',
+            text: 'Hanya dokumen berformat PDF yang diizinkan dengan ukuran maksimal 2MB!'
+        });
+        this.value = ''; // reset the input
+        return false;
+    }
+    
+    // Show the file name
+    document.getElementById('current-resume-name').textContent = file.name;
+
+    // Update the URL in data-url attribute (assuming you will get a new URL after the file is uploaded)
+    // For now, just using a placeholder URL
+    // NOTE: You should replace this with the actual URL of the uploaded file when integrating with the backend.
+    const newResumeUrl = URL.createObjectURL(file); 
+    document.getElementById('current-resume-name').setAttribute('data-url', newResumeUrl);
+});
 
     document.addEventListener('DOMContentLoaded', function () {
         let successMessage = "{{ session('success') }}";
@@ -131,6 +142,11 @@
             });
         }
     });
+    document.addEventListener('DOMContentLoaded', function () {
+    $('#closeModalButton').on('click', function() {
+        $('#lamarModal').modal('hide');
+    });
+});
 </script>
 
 <style>
@@ -155,4 +171,5 @@
 
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 @endpush
