@@ -79,6 +79,12 @@ class MenuItemSeeder extends Seeder
                     'menu_group_id' => 4,
                 ],
                 [
+                    'name' => 'Keahlian Kerja',
+                    'route' => 'menu-pekerjaan/keahlian',
+                    'permission_name' => 'keahlian.index',
+                    'menu_group_id' => 5,
+                ],
+                [
                     'name' => 'Kategori Pekerjaan',
                     'route' => 'menu-pekerjaan/kategori',
                     'permission_name' => 'kategori.index',
@@ -88,6 +94,12 @@ class MenuItemSeeder extends Seeder
                     'name' => 'Lowongan Pekerjaan',
                     'route' => 'menu-pekerjaan/loker',
                     'permission_name' => 'loker.index',
+                    'menu_group_id' => 5,
+                ],
+                [
+                    'name' => 'Data Pelamar Kerja',
+                    'route' => 'menu-pekerjaan/pelamarkerja',
+                    'permission_name' => 'pelamarkerja.index',
                     'menu_group_id' => 5,
                 ],
                 [

@@ -23,74 +23,86 @@
 <body>
     <div id="app">
         <section class="section">
-            <div class="container mt-2">
-                <div class="row">
-                    <div
-                        class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-                        <div class="login-brand">
-                            <img src="{{ asset('assets/img/landing-page/logo.svg') }}" alt="logo" width="200">
-                        </div>
-
-                        <div class="card card-primary">
-                            <p class="card-header text-primary font-weight-bold">Register</p>
-                            <div class="card-body">
+            <div class="container-fluid">
+                <div class="row" style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
+                    <div class="col-md-6 d-flex flex-column justify-content-center my-5">
+                        <div class="col-md-9 mx-auto">
+                            <div>
+                                <h1 class="font-weight-bold" style="color: black">Selamat Datang!</h1>
+                                <p style="width: 80%;">Yuk, daftarkan diri Anda segera untuk mendapatkan banyak
+                                    rekomendasi sesuai dengan minat bakat Anda</p>
+                                @if (session('status'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
                                 <form action="{{ route('register') }}" method="POST">
                                     @csrf
-                                    <div class="row">
-                                        <div class="form-group col-6">
-                                            <label for="first_name">Full Name</label>
-                                            <input id="first_name" type="text" name="name"
-                                                value="{{ old('name') }}"
-                                                class="form-control @error('name') is-invalid @enderror"
-                                                placeholder="Masukkan Nama Lengkap" autofocus>
-                                            @error('name')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group col-6">
-                                            <label for="email">Email</label>
-                                            <input id="email" type="email" name="email"
-                                                value="{{ old('email') }}"
-                                                class="form-control @error('email') is-invalid @enderror"
-                                                placeholder="Masukkan Alamat Email">
-                                            @error('email')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-6">
-                                            <label for="password" class="d-block">Password</label>
-                                            <input id="password" type="password" name="password"
-                                                class="form-control @error('password') is-invalid @enderror"
-                                                placeholder="Masukkan Password" data-indicator="pwindicator">
-                                            @error('password')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group col-6">
-                                            <label for="password_confirmation" class="d-block">Password
-                                                Confirmation</label>
-                                            <input id="password_confirmation" name="password_confirmation"
-                                                type="password" class="form-control"
-                                                placeholder="Masukkan Konfirmasi Password">
-                                            @error('password')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="first_name" class="font-weight-bold">Nama Lengkap</label>
+                                        <input id="first_name" type="text" name="name" value="{{ old('name') }}"
+                                            class="form-control @error('name') is-invalid @enderror"
+                                            placeholder="Masukkan nama lengkap" autofocus style="border-radius: 15px;">
+                                        @error('name')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="user_type">Daftar sebagai:</label><br>
+                                        <label for="email" class="font-weight-bold">Email</label>
+                                        <input id="email" type="email" name="email" value="{{ old('email') }}"
+                                            class="form-control @error('email') is-invalid @enderror"
+                                            placeholder="Masukkan alamat email anda" style="border-radius: 15px;">
+                                        @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="d-block font-weight-bold">Kata Sandi</label>
+                                        <div class="input-group">
+                                            <input id="password" type="password" name="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                placeholder="Masukkan kata sandi" data-indicator="pwindicator"
+                                                style="border-right: none; border-radius: 15px 0px 0px 15px;">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text toggle-password" id="password-toggle"
+                                                    style="border-left: none; border-radius: 0px 15px 15px 0px;">
+                                                    <i class="fa fa-eye-slash"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password_confirmation" class="d-block font-weight-bold">Konfirmasi
+                                            Kata Sandi</label>
+                                        <div class="input-group">
+                                            <input id="password_confirmation" name="password_confirmation"
+                                                type="password" class="form-control"
+                                                placeholder="Masukkan konfirmasi kata sandi"
+                                                style="border-right: none; border-radius: 15px 0px 0px 15px;">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text toggle-password" id="password-toggle"
+                                                    style="border-left: none; border-radius: 0px 15px 15px 0px;">
+                                                    <i class="fa fa-eye-slash"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_type" class="font-weight-bold">Daftar sebagai:</label><br>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="user_type"
                                                 id="pencari_kerja" value="pencari_kerja"
@@ -109,20 +121,28 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group mb-1">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                            Register
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block"
+                                            style="border-radius: 15px;">
+                                            Daftar
                                         </button>
                                     </div>
                                 </form>
                             </div>
+                            <div class="mt-2 text-muted text-center">
+                                Sudah punya Akun? <a href="/login">Login kuy</a>
+                                <p class="mt-2">Copyright &copy; 2023 Design By <a href="">Mustika Putri</a>
+                                </p>
+                            </div>
                         </div>
-                        <div class="mt-0 text-muted text-center">
-                            Have an account? <a href="/login">Login</a>
-                        </div>
-                        {{-- <div class="simple-footer">
-                            Copyright &copy; Hummatech Kelompok 2 Jaya Jaya
-                        </div> --}}
+                    </div>
+                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-start my-5">
+                        <a href="/" class="img-fluid text-center" style="width: 50%; height: auto;">
+                            <img class="img-fluid" src="{{ asset('assets/img/landing-page/logo.svg') }}"
+                                alt="" style="width: 75%; height: auto;">
+                        </a>
+                        <img class="img-fluid mt-5" src="{{ asset('assets/img/landing-page/regis.svg') }}"
+                            alt="">
                     </div>
                 </div>
             </div>
@@ -149,6 +169,36 @@
     <!-- Template JS File -->
     <script src="../assets/js/scripts.js"></script>
     <script src="../assets/js/custom.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const togglePasswords = document.querySelectorAll(".toggle-password");
+            const passwordInputs = document.querySelectorAll("input[type='password']");
+            const passwordToggleWrappers = document.querySelectorAll("#password-toggle");
+
+            togglePasswords.forEach((togglePassword, index) => {
+                togglePassword.addEventListener("click", function() {
+                    const passwordInput = passwordInputs[index];
+                    if (passwordInput.type === "password") {
+                        passwordInput.type = "text";
+                        togglePassword.innerHTML = '<i class="fa fa-eye"></i>';
+                    } else {
+                        passwordInput.type = "password";
+                        togglePassword.innerHTML = '<i class="fa fa-eye-slash"></i>';
+                    }
+                });
+
+                passwordInputs[index].addEventListener("focus", function() {
+                    passwordToggleWrappers[index].style.borderColor = "#808eec";
+                });
+
+                passwordInputs[index].addEventListener("blur", function() {
+                    passwordToggleWrappers[index].style.borderColor = "#ecedf8";
+                });
+            });
+        });
+    </script>
+
 
     <!-- Page Specific JS File -->
     <script src="../assets/js/page/auth-register.js"></script>

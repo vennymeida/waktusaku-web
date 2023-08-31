@@ -106,8 +106,8 @@
                                                     <td>{{ $loker->kategori }}</td>
                                                     <td class="text-center">{{ $loker->tipe_pekerjaan }}</td>
                                                     <td>
-                                                        {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}<span> -
-                                                        </span>{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}
+                                                        {{ 'IDR ' . $loker->gaji_bawah }}<span> - </span>
+                                                        {{ $loker->gaji_atas }}
                                                     </td>
                                                     <td>{{ $loker->status }}</td>
                                                     <td class="text-center">
@@ -205,6 +205,10 @@
                                     <td>{{ $loker->kategori }}</td>
                                 </tr>
                                 <tr>
+                                    <th class="text-left">Keahlian Kerja</th>
+                                    <td>{{ $loker->keahlian }}</td>
+                                </tr>
+                                <tr>
                                     <th class="text-left">Judul Lowongan</th>
                                     <td>{{ $loker->judul }}</td>
                                 </tr>
@@ -227,8 +231,8 @@
                                 <tr>
                                     <th class="text-left">Gaji</th>
                                     <td>
-                                        {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}<span> -
-                                        </span>{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}
+                                        {{ 'IDR ' . $loker->gaji_bawah }}<span> - </span>
+                                        {{ $loker->gaji_atas }}
                                     </td>
                                 </tr>
                                 <tr>

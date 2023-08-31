@@ -42,7 +42,7 @@
                                 <input type="hidden" name="user_id" value="{{ $profileUser->id }}">
                                 <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id }}">
                             @endrole
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_kategori">Kategori</label>
                                     @role('super-admin')
@@ -70,7 +70,35 @@
                                         @endrole
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id_keahlian">Keahlian</label>
+                                    @role('super-admin')
+                                        <select name="id_keahlian[]" class="form-control select2" multiple disabled>
+                                        @endrole
+                                        @role('Perusahaan')
+                                            <select name="id_keahlian[]"
+                                                class="form-control select2 @error('id_keahlian') is-invalid @enderror"
+                                                multiple>
+                                            @endrole
+                                            <option value="">Pilih Keahlian</option>
+                                            @foreach ($keahlians as $keahlian)
+                                                <option value="{{ $keahlian->id }}"
+                                                    {{ in_array($keahlian->id, $loker->keahlian->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                    {{ $keahlian->keahlian }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @role('Perusahaan')
+                                            @error('id_keahlian')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        @endrole
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="judul">Judul</label>
                                     @role('super-admin')
@@ -88,7 +116,7 @@
                                     @endrole
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tipe_pekerjaan">Tipe Pekerjaan</label>
                                     @role('super-admin')
@@ -99,11 +127,11 @@
                                             <select class="form-control select2 @error('tipe_pekerjaan') is-invalid @enderror"
                                                 id="tipe_pekerjaan" name="tipe_pekerjaan">
                                             @endrole
-                                            <option value="onsite"
-                                                {{ $loker->tipe_pekerjaan === 'onsite' ? 'selected' : '' }}>
+                                            <option value="Onsite"
+                                                {{ $loker->tipe_pekerjaan === 'Onsite' ? 'selected' : '' }}>
                                                 Onsite</option>
-                                            <option value="remote"
-                                                {{ $loker->tipe_pekerjaan === 'remote' ? 'selected' : '' }}>
+                                            <option value="Remote"
+                                                {{ $loker->tipe_pekerjaan === 'Remote' ? 'selected' : '' }}>
                                                 Remote</option>
                                         </select>
                                         @role('Perusahaan')
@@ -136,7 +164,7 @@
                                     <label for="requirement">Persyaratan</label>
                                     @role('super-admin')
                                         <input type="hidden" name="requirement" value="{{ $loker->requirement }}">
-                                        <textarea id="requirement-2" class="form-control" type="text" style="height: 150px;" disabled>{{ str_replace(['<ol>', '</ol>', '<li>', '</li>', '<br>'], ['', '', '', "\n", ''], $loker->requirement) }}
+                                        <textarea id="requirement-2" class="form-control" type="text" style="height: 150px;" disabled>{{ str_replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', "\n"], $loker->requirement) }}
                                         </textarea>
                                     @endrole
                                     @role('Perusahaan')
@@ -229,12 +257,10 @@
                                         <div class="d-flex align-items-center flex-grow-1">
                                             @role('super-admin')
                                                 <input type="text" class="form-control mr-2" id="gaji_bawah"
-                                                    name="gaji_bawah"
-                                                    value="{{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}"
-                                                    disabled>
+                                                    name="gaji_bawah" value="{{ $loker->gaji_bawah }}" disabled>
                                             @endrole
                                             @role('Perusahaan')
-                                                <input type="number"
+                                                <input type="text"
                                                     class="form-control mr-2 @error('gaji_bawah') is-invalid @enderror"
                                                     id="gaji_bawah" name="gaji_bawah" value="{{ $loker->gaji_bawah }}"
                                                     placeholder="contoh: 3000000">
@@ -242,32 +268,31 @@
                                             <span class="mr-2">-</span>
                                             @role('super-admin')
                                                 <input type="text" class="form-control" id="gaji_atas" name="gaji_atas"
-                                                    value="{{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}"
-                                                    disabled>
+                                                    value="{{ $loker->gaji_atas }}" disabled>
                                             @endrole
                                             @role('Perusahaan')
-                                                <input type="number"
+                                                <input type="text"
                                                     class="form-control @error('gaji_atas') is-invalid @enderror"
                                                     id="gaji_atas" name="gaji_atas" value="{{ $loker->gaji_atas }}"
                                                     placeholder="contoh: 3000000">
                                             @endrole
                                         </div>
-                                        @role('Perusahaan')
-                                            @if ($errors->has('gaji_bawah') && !$errors->has('gaji_atas'))
-                                                <div class="invalid-feedback d-block">
-                                                    {{ $errors->first('gaji_bawah') }}
-                                                </div>
-                                            @elseif (!$errors->has('gaji_bawah') && $errors->has('gaji_atas'))
-                                                <div class="invalid-feedback d-block">
-                                                    {{ $errors->first('gaji_atas') }}
-                                                </div>
-                                            @elseif ($errors->has('gaji_bawah') && $errors->has('gaji_atas'))
-                                                <div class="invalid-feedback d-block">
-                                                    {{ $errors->first('gaji_atas') }}
-                                                </div>
-                                            @endif
-                                        @endrole
                                     </div>
+                                    @role('Perusahaan')
+                                        @if ($errors->has('gaji_bawah') && !$errors->has('gaji_atas'))
+                                            <div class="invalid-feedback d-block">
+                                                {{ $errors->first('gaji_bawah') }}
+                                            </div>
+                                        @elseif (!$errors->has('gaji_bawah') && $errors->has('gaji_atas'))
+                                            <div class="invalid-feedback d-block">
+                                                {{ $errors->first('gaji_atas') }}
+                                            </div>
+                                        @elseif ($errors->has('gaji_bawah') && $errors->has('gaji_atas'))
+                                            <div class="invalid-feedback d-block">
+                                                {{ $errors->first('gaji_atas') }}
+                                            </div>
+                                        @endif
+                                    @endrole
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -289,7 +314,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="jumlah_pelamar">Jumlah Pelamar</label>
+                                    <label for="jumlah_pelamar">Kuota Pelamar</label>
                                     @role('super-admin')
                                         <input type="hidden" name="jumlah_pelamar" value="{{ $loker->jumlah_pelamar }}">
                                         <input type="number" class="form-control" id="jumlah_pelamar" name="jumlah_pelamar"
@@ -328,23 +353,23 @@
                                     @role('super-admin')
                                         <label for="status">Status Pekerjaan</label>
                                         <select class="form-control select2" id="status" name="status">
-                                            <option value="pending" {{ $loker->status === 'pending' ? 'selected' : '' }}>
+                                            <option value="Pending" {{ $loker->status === 'Pending' ? 'selected' : '' }}>
                                                 Pending</option>
-                                            <option value="dibuka" {{ $loker->status === 'dibuka' ? 'selected' : '' }}>
+                                            <option value="Dibuka" {{ $loker->status === 'Dibuka' ? 'selected' : '' }}>
                                                 Dibuka</option>
-                                            <option value="ditutup" {{ $loker->status === 'ditutup' ? 'selected' : '' }}>
+                                            <option value="Ditutup" {{ $loker->status === 'Ditutup' ? 'selected' : '' }}>
                                                 Ditutup</option>
                                         </select>
                                     @endrole
                                     @role('Perusahaan')
-                                        @if ($loker->status == 'pending')
-                                            <input type="hidden" name="status" value="pending">
+                                        @if ($loker->status == 'Pending')
+                                            <input type="hidden" name="status" value="Pending">
                                         @else
                                             <label for="status">Status Pekerjaan</label>
                                             <select class="form-control select2" id="status" name="status">
-                                                <option value="dibuka" {{ $loker->status === 'dibuka' ? 'selected' : '' }}>
+                                                <option value="Dibuka" {{ $loker->status === 'Dibuka' ? 'selected' : '' }}>
                                                     Dibuka</option>
-                                                <option value="ditutup" {{ $loker->status === 'ditutup' ? 'selected' : '' }}>
+                                                <option value="Ditutup" {{ $loker->status === 'Ditutup' ? 'selected' : '' }}>
                                                     Ditutup</option>
                                             </select>
                                         @endif
@@ -358,6 +383,15 @@
                                         <option value="{{ $kategori->id }}"
                                             {{ in_array($kategori->id, $loker->kategori->pluck('id')->toArray()) ? 'selected' : '' }}>
                                             {{ $kategori->kategori }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <select name="id_keahlian[]" class="form-control" multiple style="display: none;">
+                                    <option value="">Pilih Keahlian</option>
+                                    @foreach ($keahlians as $keahlian)
+                                        <option value="{{ $keahlian->id }}"
+                                            {{ in_array($keahlian->id, $loker->keahlian->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                            {{ $keahlian->keahlian }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -396,6 +430,30 @@
                 placeholder: 'Masukkan Persyaratan Pekerjaan',
                 height: 200,
             });
+        });
+    </script>
+
+    <script>
+        function formatRupiah(angka) {
+            var formatter = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            });
+            var formatted = formatter.format(angka);
+            // return formatter.format(angka);
+            formatted = formatted.replace("Rp", "");
+            return formatted;
+        }
+
+        document.getElementById('gaji_bawah').addEventListener('input', function() {
+            var value = this.value.replace(/[^0-9]/g, '');
+            this.value = formatRupiah(value);
+        });
+
+        document.getElementById('gaji_atas').addEventListener('input', function() {
+            var value = this.value.replace(/[^0-9]/g, '');
+            this.value = formatRupiah(value);
         });
     </script>
 @endpush

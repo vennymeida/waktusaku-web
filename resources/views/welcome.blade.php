@@ -10,17 +10,19 @@
                             Sesuai Minat Bakat Anda!</h1>
                         <p>Platform yang dirancang untuk memudahkan mencari peluang kerja yang sesuai dengan kebutuhan Anda
                             khusus di daerah Malang Raya.</p>
-                        <div class="form-row">
-                            <div class="form-group col-md-10">
-                                <input type="text" name="name" class="form-control" id="name"
-                                    placeholder="Ketik posisi pekerjaan..." value="{{ app('request')->input('nama') }}"
-                                    style="border-radius: 25px;">
+                        <form method="GET" action="{{ route('all-jobs.index') }}">
+                            <div class="form-row">
+                                <div class="form-group col-md-10">
+                                    <input type="text" name="posisi" class="form-control" id="posisi"
+                                        placeholder="Ketik posisi pekerjaan..."
+                                        value="{{ app('request')->input('posisi') }}" style="border-radius: 25px;">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <button id="search-button" class="btn btn-primary mr-1 px-4" type="submit"
+                                        style="border-radius: 25px;">Cari</button>
+                                </div>
                             </div>
-                            <div class="form-group col-md-2">
-                                <button id="search-button" class="btn btn-primary mr-1 px-4" type="submit"
-                                    style="border-radius: 25px;">Cari</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="col-md-4">
                         <img class="img-fluid" src="{{ asset('assets/img/landing-page/image-1.svg') }}" alt="">
@@ -138,16 +140,26 @@
                                     </div>
                                     <div class="card-text">
                                         <ul class="list-unstyled ml-2">
-                                            {{-- <div class="float-right fas fa-bookmark"></div> --}}
-                                            <li class="mb-2"><img class="img-fluid"
-                                                    src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                                {{ $loker->kategori }}
-                                            </li>
+                                            <ul class="list-unstyled d-flex justify-content-between">
+                                                <li class="mb-2"><img class="img-fluid"
+                                                        src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                                    {{ $loker->kategori }}
+                                                </li>
+                                                <li class="mb-2">
+                                                    @if (auth()->check() &&
+                                                            auth()->user()->hasRole('Pencari Kerja'))
+                                                        <a href="javascript:void(0);" class="bookmark-icon"
+                                                            data-loker-id="{{ $loker->id }}">
+                                                            <i class="far fa-bookmark" style="font-size: 20px;"></i>
+                                                        </a>
+                                                    @endif
+                                                </li>
+                                            </ul>
                                             <li class="mb-2"><img class="img-fluid"
                                                     src="{{ asset('assets/img/landing-page/money.svg') }}">
-                                                {{ 'Rp ' . number_format($loker->gaji_bawah, 0, ',', '.') }}
+                                                {{ 'IDR ' . $loker->gaji_bawah }}
                                                 <span>-</span>
-                                                {{ 'Rp ' . number_format($loker->gaji_atas, 0, ',', '.') }}
+                                                {{ $loker->gaji_atas }}
                                             </li>
                                             <li class="mb-2"><img class="img-fluid"
                                                     src="{{ asset('assets/img/landing-page/job.svg') }}">
@@ -165,7 +177,8 @@
                                     </div>
                                     <div class="text-center mb-3">
                                         <a id="detail-button" class="btn btn-primary px-4 py-2"
-                                            style="border-radius: 25px;" href="#">Lihat Detail</a>
+                                            style="border-radius: 25px;"
+                                            href="{{ route('all-jobs.show', $loker->id) }}">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>
@@ -210,4 +223,77 @@
             });
         });
     </script>
+    <!-- Your existing script includes -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('.bookmark-icon').each(function() {
+                var icon = $(this);
+                var lokerId = icon.data('loker-id');
+                var storageKey = 'bookmark_' + lokerId;
+
+                // Retrieve bookmark status from local storage
+                var isBookmarked = localStorage.getItem(storageKey);
+                if (isBookmarked === 'true') {
+                    icon.find('i').removeClass('far fa-bookmark').addClass('fas fa-bookmark');
+                }
+
+                icon.click(function() {
+                    // Make an AJAX request to update bookmark status
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('bookmark.toggle') }}', // Update this route
+                        data: {
+                            loker_id: lokerId
+                        },
+                        success: function(response) {
+                            if (response.bookmarked) {
+                                icon.find('i').removeClass('far fa-bookmark').addClass(
+                                    'fas fa-bookmark');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Lowongan Pekerjaan Disimpan',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            } else {
+                                icon.find('i').removeClass('fas fa-bookmark').addClass(
+                                    'far fa-bookmark');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Lowongan Pekerjaan Dihapus',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            }
+
+                            // Update bookmark status in local storage
+                            localStorage.setItem(storageKey, response.bookmarked);
+
+                            // Optionally, you can display a toast or notification to indicate success
+                            if (response.bookmarked) {
+                                // Example using Bootstrap Toast component
+                                $('.toast').toast('show');
+                            }
+                            // Refresh the page
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors here if necessary
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection
+
+@push('customScript')
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+@endpush

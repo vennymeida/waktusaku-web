@@ -27,6 +27,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'location.management']);
         Permission::create(['name' => 'menu.kategori']);
         Permission::create(['name' => 'menu.pekerjaan']);
+
         //user
         Permission::create(['name' => 'user.index']);
         Permission::create(['name' => 'user.create']);
@@ -35,7 +36,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'user.import']);
         Permission::create(['name' => 'user.export']);
 
-        //Pelamar
+        //Pencari Kerja
         Permission::create(['name' => 'pelamar.index']);
         Permission::create(['name' => 'pelamar.create']);
         Permission::create(['name' => 'pelamar.edit']);
@@ -114,6 +115,18 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'loker.edit']);
         Permission::create(['name' => 'loker.destroy']);
 
+        //menu pelamar (perusahaan)
+        Permission::create(['name' => 'pelamarkerja.index']);
+        Permission::create(['name' => 'pelamarkerja.create']);
+        Permission::create(['name' => 'pelamarkerja.edit']);
+        Permission::create(['name' => 'pelamarkerja.destroy']);
+
+        //menu keahlian
+        Permission::create(['name' => 'keahlian.index']);
+        Permission::create(['name' => 'keahlian.create']);
+        Permission::create(['name' => 'keahlian.edit']);
+        Permission::create(['name' => 'keahlian.destroy']);
+
         // create roles
         $roleUser = Role::create(['name' => 'Pencari Kerja']);
         $roleUser->givePermissionTo([
@@ -130,8 +143,12 @@ class RoleAndPermissionSeeder extends Seeder
             'loker.create',
             'loker.edit',
             'loker.destroy',
+            'pelamarkerja.index',
+            'pelamarkerja.create',
+            'pelamarkerja.edit',
+            'pelamarkerja.destroy',
         ]);
-        
+
         // create Super Admin
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());

@@ -29,4 +29,12 @@ class ProfileUser extends Model
     {
         return $this->hasOne(ProfileUser::class);
     }
+    public function lamars()
+    {
+        return $this->hasMany(Lamar::class, 'id_pencari_kerja');
+    }
+    public function isComplete()
+    {
+        return !empty($this->alamat) && !empty($this->no_hp) && !empty($this->foto) && !empty($this->resume);
+    }
 }
