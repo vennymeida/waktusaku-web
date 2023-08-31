@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nama_pekerjaan')->nullable();
             $table->string('nama_perusahaan')->nullable();
             $table->text('alamat')->nullable();
-            $table->enum('tipe', ['Freelance', 'Part Time', 'Intership'])->nullable();
+            $table->enum('tipe', ['Fulltime', 'Parttime', 'Freelance', 'Internship'])->nullable();
             $table->string('gaji')->nullable();
             $table->date('tanggal_mulai')->nullable();
             $table->date('tanggal_berakhir')->nullable();

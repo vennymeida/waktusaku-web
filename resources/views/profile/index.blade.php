@@ -130,6 +130,147 @@
     </div>
 </div>
 
+<!-- Modal Tambah Pengalaman -->
+<div class="modal fade" id="modal-create-pengalaman" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header m-4">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Tambah
+                    Pengalaman Kerja</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('pengalaman.store') }}" class="needs-validation"
+                    novalidate="" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-12 col-12">
+                            <label for="nama_pekerjaan">Nama Pekerjaaan</label>
+                            <input name="nama_pekerjaan" type="text"
+                                class="form-control custom-input @error('nama_pekerjaan') is-invalid @enderror"
+                                value="{{ old('nama_pekerjaan') }}">
+                            @error('nama_pekerjaan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-12 col-12">
+                            <label>Nama Perusahaan</label>
+                            <input name="nama_perusahaan" type="text"
+                                class="form-control custom-input @error('nama_perusahaan') is-invalid @enderror"
+                                value="{{ old('nama_perusahaan') }}">
+                            @error('nama_perusahaan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-12 col-12">
+                            <label>Alamat</label>
+                            <textarea name="alamat" class="form-control custom-input @error('alamat') is-invalid @enderror" rows="4">{{ old('alamat') }}</textarea>
+                            @error('alamat')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-6 col-12">
+                            <label>Tipe Pekerjaan</label>
+                            <select class="form-control custom-input @error('tipe') is-invalid @enderror"
+                                name="tipe" id="tipe">
+                                <option value="">Pilih Tipe Pekerjaan</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="Parttime">Part Time</option>
+                                <option value="Freelance">Freelance</option>
+                                <option value="Internship">Internship</option>
+                            </select>
+                            @error('tipe')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6 col-12">
+                            <label for="gaji">Gaji (Opsional)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text custom-input">
+                                        <a>Rp</a>
+                                    </div>
+                                </div>
+                                <input name="gaji" type="number" step="100000"
+                                    class="form-control custom-input @error('gaji') is-invalid @enderror"
+                                    value="{{ old('gaji') }}">
+                                @error('gaji')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-6 col-12">
+                            <label>Tanggal Mulai</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text custom-input">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                                <input name="tanggal_mulai" type="date"
+                                    class="form-control custom-input @error('tanggal_mulai') is-invalid @enderror"
+                                    value="{{ old('tanggal_mulai') }}">
+                                @error('tanggal_mulai')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-6 col-12">
+                            <label>Tanggal Berakhir</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text custom-input">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                                <input name="tanggal_berakhir" type="date"
+                                    class="form-control custom-input @error('tanggal_berakhir') is-invalid @enderror"
+                                    value="{{ old('tanggal_berakhir') }}">
+                                @error('tanggal_berakhir')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-whitesmoke m-4">
+                <button type="button" class="btn btn-primary" onclick="$('form', this.closest('.modal')).submit();"
+                    style="border-radius: 15px; font-size: 14px">Tambah</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="border-radius: 15px; font-size: 14px">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @extends('landing-page.app')
 @section('main')
     <main class="bg-secondary">
@@ -303,7 +444,7 @@
                         <div class="profile-widget-name">Pengalaman Kerja</div>
                     </div>
                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                        <a href="#">
+                        <a href="#" data-toggle="modal" data-target="#modal-create-pengalaman">
                             <img class="img-fluid" style="width: 35px; height: 35px;"
                                 src="{{ asset('assets/img/landing-page/Plus.svg') }}">
                         </a>

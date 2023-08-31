@@ -26,8 +26,8 @@ class UpdatePengalamanRequest extends FormRequest
         return [
             'nama_pekerjaan' => 'nullable|string|max:255',
             'nama_perusahaan' => 'nullable|string|max:255',
-            'alamat' => 'nullable|text|max:2000',
-            'tipe' => 'nullable|in:Freelance, Part Time, Intership',
+            'alamat' => 'nullable|string|max:2000',
+            'tipe' => 'nullable|in:Fulltime,Parttime,Freelance,Internship',
             'gaji' => 'nullable|string|max:255',
             'tanggal_mulai' => 'nullable|date',
             'tanggal_berakhir' => 'nullable|date',

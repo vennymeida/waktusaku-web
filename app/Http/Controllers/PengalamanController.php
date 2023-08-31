@@ -43,8 +43,12 @@ class PengalamanController extends Controller
 
     public function update(UpdatePengalamanRequest $request, Pengalaman $pengalaman)
     {
-        $pengalaman->update($request->all());
-        return redirect()->route('pengalaman.edit')->with('success', 'Pengalaman berhasil diperbarui.');
+        try {
+            $pengalaman->update($request->all());
+            return response()->json(['success' => true, 'message' => 'Pengalaman berhasil diperbarui.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'An error occurred: ' . $e->getMessage()], 500);
+        }
     }
 
     public function destroy(Pengalaman $pengalaman)
