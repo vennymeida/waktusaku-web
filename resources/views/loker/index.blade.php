@@ -49,7 +49,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" name="search"
+                                            <input type="text" class="form-control" name="search" placeholder="Cari..."
                                                 value="{{ app('request')->input('search') }}">
                                         </div>
                                         <div class="form-group col-md-2">

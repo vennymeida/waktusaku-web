@@ -10,7 +10,7 @@ use App\Models\lamar;
 class DashboardController extends Controller
 {
 
-        public function index(Request $request)
+    public function index(Request $request)
     {
         $dashboard = DB::table('lamars as l')
             ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
@@ -31,9 +31,27 @@ class DashboardController extends Controller
                 'l.created_at'
             )
             ->orderBy('l.created_at', 'desc') // Menambahkan pengurutan berdasarkan created_at terbaru
-            ->take(5) //mengambil 5 data teratas
+            ->take(8) //mengambil 5 data teratas
             ->get();
 
-        return view('home', compact('dashboard'));
+
+        $grafik = DB::table('lamars as l')
+            ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
+            ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
+            ->select(
+                DB::raw('COUNT(*) as jumlah_lamars'),
+                DB::raw('MONTH(l.created_at) as month'),
+                DB::raw('COUNT(*) as count'),
+                'p.nama'
+            )
+            ->groupBy(DB::raw('MONTH(l.created_at)'), 'p.nama')
+            ->take(10)
+            ->get();
+
+
+        return view('home')->with([
+            'dashboard' => $dashboard,
+            'grafik' => $grafik
+        ]);
     }
 }

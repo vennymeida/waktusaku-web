@@ -124,6 +124,67 @@
 @push('customScript')
 <script src="{{asset('assets/js/jquery.sparkline.min.js')}}"></script>
 <script src="{{asset('assets/js/chart.min.js')}}"></script>
-<script src="{{asset('assets/js/grafik.js')}}"></script>
+{{-- <script src="{{asset('assets/js/grafik.js')}}"></script> --}}
+
+<script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    const grafikData = @json($grafik);
+
+    const namaBulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+    const labels = grafikData.map(item => {
+      return namaBulan[parseInt(item.month)];
+    });
+
+    // Dapatkan nama-nama perusahaan dan hitung jumlah pelamar untuk masing-masing perusahaan
+    const perusahaanInfo = {};
+    grafikData.forEach(item => {
+      if (!perusahaanInfo[item.nama]) {
+        perusahaanInfo[item.nama] = 0;
+      }
+      perusahaanInfo[item.nama] += item.jumlah_lamars;
+    });
+
+    // Urutkan perusahaan berdasarkan jumlah pelamar secara menurun
+    const perusahaanSorted = Object.keys(perusahaanInfo).sort((a, b) => perusahaanInfo[b] - perusahaanInfo[a]).slice(0, 3);
+
+    const datasets = perusahaanSorted.map(perusahaan => {
+      const data = grafikData
+        .filter(item => item.nama === perusahaan)
+        .map(item => item.jumlah_lamars);
+
+      return {
+        label: perusahaan,
+        data: data,
+        borderColor: getRandomColor(),
+        borderWidth: 1,
+        fill: false,
+      };
+    });
+
+    const myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: datasets,
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+    </script>
 
 @endpush

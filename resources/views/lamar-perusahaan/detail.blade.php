@@ -69,33 +69,72 @@
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Pendidikan </h5>
-                                <p class="mb-2" style="font-size: 14px;">Nama Institusi </p>
-                                <p class="mb-2" style="font-size: 14px;">Gelar </p>
-                                <p class="mb-2" style="font-size: 14px;">Jurusan </p>
-                                <p class="mb-2" style="font-size: 14px;">Prestasi </p>
-                                <p class="mb-2" style="font-size: 14px;">IPK </p>
-                                <p class="mb-2" style="font-size: 14px;">Periode </p>
+                                <dl class="row">
+                                    <dt class="col-sm-4 mt-2">Nama Institusi</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Gelar</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Jurusan</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Prestasi</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">IPK</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Periode</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+                                </dl>
 
                                 <hr class="my-4">
-                                <h5 class="font-weight-bolder">Keahlian </h5>
-                                <p class="mb-2" style="font-size: 14px;">List Keahlian</p>
+                                <h5 class="font-weight-bolder">Keahlian</h5>
+                                {{-- @foreach ($loker->keahlian as $key => $keahlian) --}}
+                                    <button class="px-4 mt-2 mr-1 btn btn-skill"></button>
+                                {{-- @endforeach --}}
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Pengalaman Kerja </h5>
-                                <p class="mb-2" style="font-size: 14px;">Nama Pekerjaan </p>
-                                <p class="mb-2" style="font-size: 14px;">Nama Perusahaan </p>
-                                <p class="mb-2" style="font-size: 14px;">Alamat </p>
-                                <p class="mb-2" style="font-size: 14px;">Tipe Pekerjaan </p>
-                                <p class="mb-2" style="font-size: 14px;">Gaji </p>
-                                <p class="mb-2" style="font-size: 14px;">Periode </p>
+                                <dl class="row">
+                                    <dt class="col-sm-4 mt-2">Nama Pekerjaan</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Nama Perusahaan</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Alamat</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Tipe Pekerjaan</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Gaji</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Periode</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+                                </dl>
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Pelatihan / Sertifikasi </h5>
-                                <p class="mb-2" style="font-size: 14px;">Nama Pelatihan </p>
-                                <p class="mb-2" style="font-size: 14px;">Deskripsi </p>
-                                <p class="mb-2" style="font-size: 14px;">Dikeluarkan oleh </p>
-                                <p class="mb-2" style="font-size: 14px;">Tanggal Dikeluarkan </p>
-                                <p class="mb-2" style="font-size: 14px;">Sertifikat </p>
+                                <dl class="row">
+                                    <dt class="col-sm-4 mt-2">Nama Pelatihan</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Deskripsi</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Dikeluarkan oleh</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Tanggal Dikeluarkan</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+
+                                    <dt class="col-sm-4 mt-2">Sertifikat</dt>
+                                    <dd class="col-sm-8 mt-2"></dd>
+                                </dl>
                             </ul>
                             <br>
                             <br>

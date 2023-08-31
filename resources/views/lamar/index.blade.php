@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control" name="search"
-                                        value="{{ app('request')->input('search') }}">
+                                        value="{{ app('request')->input('search') }}"  placeholder="Cari..." >
                                 </div>
                                 <div class="form-group col-md-2">
                                     <button type="submit" class="btn btn-primary">Submit</button>
