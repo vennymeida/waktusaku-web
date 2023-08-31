@@ -49,6 +49,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
+                                        <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
@@ -56,6 +57,7 @@
                                             <th>Roles</th>
                                             <th class="text-right">Action</th>
                                         </tr>
+                                        </thead>
                                         @foreach ($users as $key => $user)
                                             <tr>
                                                 <td>{{ $users->firstItem() + $key }}</td>

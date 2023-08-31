@@ -72,12 +72,14 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
+                                        <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
                                             <th>Guard Name</th>
                                             <th class="text-right">Action</th>
                                         </tr>
+                                    </thead>
                                         @foreach ($permissions as $key => $permission)
                                             <tr>
                                                 <td>{{ ($permissions->currentPage() - 1) * $permissions->perPage() + $key + 1 }}

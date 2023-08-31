@@ -98,7 +98,7 @@ class LamarPerusahaan extends Controller
 
             })
             ->orderBy('l.created_at', 'desc')
-           ->paginate(10);
+           ->paginate(2);
 
         if (Auth::user()->hasRole('Perusahaan')) {
             if ($profileUser == null && $perusahaan == null) {

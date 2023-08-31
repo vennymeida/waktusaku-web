@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <button id="search-button" class="btn btn-primary mr-1" type="submit">Search</button>
-                                        <a id="reset-button" class="btn btn-danger" href="{{ route('pelamar.index') }}">Reset</a>
+                                        <a id="reset-button" class="btn btn-secondary" href="{{ route('pelamar.index') }}">Reset</a>
                                     </div>
                                 </div>
                             </form>
@@ -41,7 +41,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>No</th>  
+                                            <th>No</th>
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>Alamat</th>
@@ -51,6 +51,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if($pelamar->isEmpty())
+                                            <tr>
+                                                <td colspan="7" class="text-center">Data tidak tersedia</td>
+                                            </tr>
+                                        @else
                                         @foreach ($pelamar as $key => $user)
                                             <tr>
                                                 <td>{{ ($pelamar->currentPage() - 1) * $pelamar->perPage() + $key + 1 }}</td>
@@ -78,6 +83,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>

@@ -72,6 +72,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
+                                        <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Parent</th>
@@ -80,6 +81,7 @@
                                             <th>Permission</th>
                                             <th class="text-right">Action</th>
                                         </tr>
+                                        <thead>
                                         @foreach ($menuItems as $key => $menuItem)
                                             <tr>
                                                 <td>{{ $menuItems->firstItem() + $key }}</td>

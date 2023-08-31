@@ -34,7 +34,7 @@
                                         </div>
                                         <div class="form-group col-md-2">
                                             <button id="search-button" class="btn btn-primary mr-1" type="submit">Search</button>
-                                            <a id="reset-button" class="btn btn-danger" href="{{ route('perusahaan.index') }}">Reset</a>
+                                            <a id="reset-button" class="btn btn-secondary" href="{{ route('perusahaan.index') }}">Reset</a>
                                         </div>
                                     </div>
                                 </form>
@@ -52,6 +52,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @if($perusahaanData->isEmpty())
+                                                <tr>
+                                                    <td colspan="7" class="text-center">Data tidak tersedia</td>
+                                                </tr>
+                                            @else
                                             @foreach ($perusahaanData as $key => $perusahaan)
                                                 <tr>
                                                     <td>{{ ($perusahaanData->currentPage() - 1) * $perusahaanData->perPage() + $key + 1 }}</td>
@@ -67,6 +72,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>

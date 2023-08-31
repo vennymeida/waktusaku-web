@@ -42,11 +42,18 @@
                         <div class="table-responsive">
                             <table class="table table-bordered table-md">
                                 <tbody>
+                                    <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Keahlian</th>
                                         <th class="text-center">Action</th>
                                     </tr>
+                                    </thead>
+                                    @if($keahlians->isEmpty())
+                                            <tr>
+                                                <td colspan="3" class="text-center">Data tidak tersedia</td>
+                                            </tr>
+                                        @else
                                     @foreach ($keahlians as $key => $keahlian)
                                         <tr>
                                             <td>{{ ($keahlians->currentPage() - 1) * $keahlians->perPage() + $key + 1 }}
@@ -68,6 +75,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-center">
