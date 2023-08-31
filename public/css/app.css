@@ -457,6 +457,7 @@ a.dropdown-item.active {
 }
 
 .form-jobs {
+    border-color: #e4e6fc;
     border-left: none;
     border-right: none;
     border-radius: 15px;
@@ -465,8 +466,16 @@ a.dropdown-item.active {
 
 .form-jobs:focus {
     outline: none;
-    border-color: #ced4da;
     box-shadow: none;
+    border-color: #95a0f4;
+}
+
+.icon-form {
+    border-color: #e4e6fc;
+}
+
+.x-form {
+    border-color: #e4e6fc;
 }
 
 .page-item .page-link {
