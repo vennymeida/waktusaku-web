@@ -271,6 +271,105 @@
     </div>
 </div>
 
+<!-- Modal Tambah Pelatihan -->
+<div class="modal fade" id="modal-create-pelatihan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header m-4">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Tambah
+                    Pelatihan/Sertifikat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('pelatihan.store') }}" class="needs-validation"
+                    novalidate="" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-12 col-12">
+                            <label for="nama_sertifikat">Nama</label>
+                            <input name="nama_sertifikat" type="text"
+                                class="form-control custom-input @error('nama_sertifikat') is-invalid @enderror"
+                                value="{{ old('nama_sertifikat') }}">
+                            @error('nama_sertifikat')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-12 col-12">
+                            <label>Deskripsi</label>
+                            <textarea name="deskripsi" class="form-control custom-input @error('deskripsi') is-invalid @enderror" rows="4">{{ old('deskripsi') }}</textarea>
+                            @error('deskripsi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-12 col-12">
+                            <label>Penerbit</label>
+                            <input name="penerbit" type="text"
+                                class="form-control custom-input @error('penerbit') is-invalid @enderror"
+                                value="{{ old('penerbit') }}">
+                            @error('penerbit')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-6 col-12">
+                            <label>Tanggal Dikeluarkan</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text custom-input">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                                <input name="tanggal_dikeluarkan" type="date"
+                                    class="form-control custom-input @error('tanggal_dikeluarkan') is-invalid @enderror"
+                                    value="{{ old('tanggal_dikeluarkan') }}">
+                                @error('tanggal_dikeluarkan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ml-4 mr-4">
+                        <div class="form-group col-md-12 col-12">
+                            <label>Unggah Sertifikat (Opsional)</label>
+                            <input id="sertifikat" name="sertifikat" type="file"
+                                class="form-control custom-input @error('sertifikat') is-invalid @enderror">
+                            @error('sertifikat')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            <div class="text-warning small" style="font-size: 13px; font-weight:medium;">
+                                (Tipe berkas : pdf | Max size : 2MB)</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-whitesmoke m-4">
+                <button type="button" class="btn btn-primary" onclick="$('form', this.closest('.modal')).submit();"
+                    style="border-radius: 15px; font-size: 14px">Tambah</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="border-radius: 15px; font-size: 14px">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @extends('landing-page.app')
 @section('main')
     <main class="bg-secondary">
@@ -488,7 +587,7 @@
                         <div class="profile-widget-name">Pelatihan / Sertifikat</div>
                     </div>
                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                        <a href="#">
+                        <a href="#" data-toggle="modal" data-target="#modal-create-pelatihan">
                             <img class="img-fluid" style="width: 35px; height: 35px;"
                                 src="{{ asset('assets/img/landing-page/Plus.svg') }}">
                         </a>
