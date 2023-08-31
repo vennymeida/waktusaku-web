@@ -22,7 +22,7 @@
                                     <input type="text" name="posisi" class="form-control form-jobs" id="posisi"
                                         placeholder="Cari posisi pekerjaan" value="{{ app('request')->input('posisi') }}">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"
+                                        <div class="input-group-text x-form"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                             <i class="fas fa-times-circle" id="clear-posisi" style="display: none;"></i>
                                         </div>
@@ -31,25 +31,25 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i class="fas fa-map-marker-alt ml-2"></i>
                                         </div>
-                                    </div>
-                                    <select name="lokasi" id="lokasi" class="form-control form-jobs custom-select">
-                                        <option value="" selected disabled>Lokasi</option>
+                                    </div> --}}
+                                    <select name="lokasi" id="lokasi" class="form-control form-jobs select2">
+                                        <option value="" selected>Lokasi</option>
                                         @foreach ($kecamatan as $key)
                                             <option value="{{ $key->kecamatan }}"
                                                 @if ($key->kecamatan == $lokasi) selected @endif>{{ $key->kecamatan }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <div class="input-group-prepend">
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                             <i class="fas fa-times-circle" id="clear-lokasi" style="display: none;"></i>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
@@ -60,7 +60,7 @@
                                         </div>
                                     </div> --}}
                                     {{-- <input type="text" name="kategori" class="form-control form-jobs"> --}}
-                                    <select name="kategori[]" id="kategori" class="form-control form-jobs select2"
+                                    <select name="kategori[]" id="kategori" class="form-control form-jobs select2 kategori"
                                         multiple>
                                         {{-- <option value="" selected disabled>Kategori</option> --}}
                                         @foreach ($kategoris as $key)
@@ -198,16 +198,11 @@
                     inputId: "lokasi",
                     clearIconId: "clear-lokasi"
                 },
-                // {
-                //     inputId: "kategori",
-                //     clearIconId: "clear-kategori"
-                // }
             ];
 
             const inputValues = {
                 posisi: "",
                 lokasi: "",
-                // kategori: ""
             };
 
             inputsAndIcons.forEach(item => {
@@ -242,46 +237,23 @@
         });
     </script>
 
-    {{-- <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const kategoriSelect = document.getElementById("kategori");
-            const clearKategoriIcon = document.getElementById("clear-kategori");
+            const formIcon = document.querySelector(".icon-form");
+            const formX = document.querySelector(".x-form");
+            const posisiInput = document.querySelector("input[name='posisi']");
 
-            kategoriSelect.addEventListener("mousedown", function(event) {
-                event.preventDefault();
-                const option = event.target;
-                const selected = option.selected;
-                if (option.tagName === "OPTION") {
-                    option.selected = !selected;
-                    updateClearIcon();
-                }
+            posisiInput.addEventListener("focus", function() {
+                formIcon.style.borderColor = '#95a0f4';
+                formX.style.borderColor = '#95a0f4';
             });
 
-            clearKategoriIcon.addEventListener("click", function() {
-                Array.from(kategoriSelect.options).forEach(option => {
-                    option.selected = false;
-                });
-                updateClearIcon();
-                clearFormAndReload();
+            posisiInput.addEventListener("blur", function() {
+                formIcon.style.borderColor = '';
+                formX.style.borderColor = '';
             });
-
-            kategoriSelect.addEventListener("change", updateClearIcon);
-
-            function updateClearIcon() {
-                const selectedOptions = Array.from(kategoriSelect.options).filter(option => option.selected);
-                clearKategoriIcon.style.display = selectedOptions.length > 0 ? "block" : "none";
-            }
-
-            function clearFormAndReload() {
-                Array.from(kategoriSelect.options).forEach(option => {
-                    option.selected = false;
-                });
-
-                const form = document.getElementById("search-form");
-                form.submit();
-            }
-        });
-    </script> --}}
+        })
+    </script>
 
     <script>
         function handleFormSubmit() {
@@ -375,7 +347,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
+            $('.kategori').select2({
                 placeholder: 'Kategori',
             });
         });
