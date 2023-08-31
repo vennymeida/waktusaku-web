@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlljobsController;
 use App\Http\Controllers\DetailPerusahaan;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\KeahlianController;
 use App\Http\Controllers\KecamatanController;
@@ -66,6 +67,7 @@ Route::get('/detail-perusahaan/{detail}', [DetailPerusahaan::class, 'show'])->na
 Route::get('/contact-us', function () {
     return view('contact');
 });
+Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact.store');
 Route::get('/about-us', function () {
     return view('about');
 });
@@ -110,6 +112,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::resource('perusahaan', PerusahaanListController::class);
         Route::get('/perusahaan', 'App\Http\Controllers\PerusahaanListController@index')->name('perusahaan.index');
+
+        Route::get('/message', [ContactUsController::class, 'index'])->name('message.index');
+        Route::delete('/message/{contactUs}', [ContactUsController::class, 'destroy'])->name('message.destroy');
+
         // Route::get('/user-management/perusahaan/{user}', 'PerusahaanListController@show')->name('perusahaan.show');
 
         // Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
