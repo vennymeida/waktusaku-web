@@ -22,140 +22,140 @@
         <section>
             <div class="container" style="margin-top: 5%; margin-bottom: 5%">
                 <div class="row">
-                    <div class="col-10 col-md-7">
-                    <div class="col-md-6">
-                        <div class="card border-primary mb-2">
-                            <div class="card-body">
-                                <div class="text-left mb-4 mt-2 ml-2">
-                                    <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Profile</h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4 ml-3">
-                                        @if (Auth::user()->profile && Auth::user()->profile->foto != '')
-                                            <img alt="image"
-                                                src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
-                                                class="rounded-circle profile-widget-picture img-fluid"
-                                                style="width: 140px; height: 140px;">
-                                        @else
-                                            <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                                class="rounded-circle profile-widget-picture img-fluid"
-                                                style="width: 140px; height: 140px;">
-                                        @endif
+                    <div class="col-lg-5">
+                        <div class="col-md-12">
+                            <div class="card border-primary mb-2">
+                                <div class="card-body">
+                                    <div class="text-left mb-4 mt-2 ml-2">
+                                        <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Profile</h5>
                                     </div>
-                                    <div class="col-md-7">
-                                        <form method="POST" action="{{ route('user-profile-information.update') }}"
+                                    <div class="row">
+                                        <div class="col-md-4 ml-3">
+                                            @if (Auth::user()->profile && Auth::user()->profile->foto != '')
+                                                <img alt="image"
+                                                    src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                                    class="rounded-circle profile-widget-picture img-fluid"
+                                                    style="width: 140px; height: 140px;">
+                                            @else
+                                                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                                                    class="rounded-circle profile-widget-picture img-fluid"
+                                                    style="width: 140px; height: 140px;">
+                                            @endif
+                                        </div>
+                                        <div class="col-md-7">
+                                            <form method="POST" action="{{ route('user-profile-information.update') }}"
+                                                class="needs-validation" novalidate="">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="form-group col-md-12 col-12">
+                                                    <label>Nama</label>
+                                                    <input name="name" type="text"
+                                                        class="form-control custom-input @error('name', 'updateProfileInformation')
+                                                is-invalid
+                                                @enderror"
+                                                        value="{{ Auth::user()->name }}">
+                                                    @error('name', 'updateProfileInformation')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-md-12 col-12">
+                                                    <label>Email</label>
+                                                    <input name="email" type="email"
+                                                        class="form-control custom-input @error('email', 'updateProfileInformation')
+                                                is-invalid
+                                                @enderror"
+                                                        value="{{ Auth::user()->email }}">
+                                                    @error('email', 'updateProfileInformation')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-md-6 col-12 text-right">
+                                                    <button class="btn btn-primary custom-input" type="submit">Ubah
+                                                        Profil</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card border-primary mb-2">
+                                <div class="card-body">
+                                    <div class="text-left mb-4 mt-2 ml-2">
+                                        <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Ubah Kata
+                                            Sandi</h5>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <form method="POST" action="{{ route('user-password.update') }}"
                                             class="needs-validation" novalidate="">
                                             @csrf
                                             @method('PUT')
-                                            <div class="form-group col-md-12 col-12">
-                                                <label>Nama</label>
-                                                <input name="name" type="text"
-                                                    class="form-control custom-input @error('name', 'updateProfileInformation')
-                                            is-invalid
-                                            @enderror"
-                                                    value="{{ Auth::user()->name }}">
-                                                @error('name', 'updateProfileInformation')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
+                                            <div class="row">
+                                                <div class="form-group col-md-12 col-12">
+                                                    <label for="current_password">Kata Sandi Saat Ini</label>
+                                                    <input id="current_password" type="password"
+                                                        class="form-control select custom-input @error('current_password', 'updatePassword') is-invalid @enderror"
+                                                        data-indicator="pwindicator" name="current_password" tabindex="2">
+                                                    @error('current_password', 'updatePassword')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                    <div id="pwindicator" class="pwindicator">
+                                                        <div class="bar"></div>
+                                                        <div class="label"></div>
                                                     </div>
-                                                @enderror
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-12 col-12">
-                                                <label>Email</label>
-                                                <input name="email" type="email"
-                                                    class="form-control custom-input @error('email', 'updateProfileInformation')
-                                            is-invalid
-                                            @enderror"
-                                                    value="{{ Auth::user()->email }}">
-                                                @error('email', 'updateProfileInformation')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
+                                            <div class="row">
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label for="password">Kata Sandi Baru</label>
+                                                    <input id="password" type="password"
+                                                        class="form-control select custom-input @error('password', 'updatePassword') is-invalid @enderror"
+                                                        data-indicator="pwindicator" name="password" tabindex="2">
+                                                    @error('password', 'updatePassword')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                    <div id="pwindicator" class="pwindicator">
+                                                        <div class="bar"></div>
+                                                        <div class="label"></div>
                                                     </div>
-                                                @enderror
+                                                </div>
+                                                <div class="form-group col-md-6 col-12">
+                                                    <label for="password_confirmation">Konfirmasi Kata Sandi</label>
+                                                    <input id="password_confirmation" type="password"
+                                                        class="form-control select custom-input @error('password_confirmation') is-invalid @enderror"
+                                                        data-indicator="pwindicator" name="password_confirmation"
+                                                        tabindex="2">
+                                                    @error('password_confirmation')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                    <div id="pwindicator" class="pwindicator">
+                                                        <div class="bar"></div>
+                                                        <div class="label"></div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-6 col-12 text-right">
-                                                <button class="btn btn-primary custom-input" type="submit">Ubah
-                                                    Profil</button>
+                                            <div class="row">
+                                                <div class="form-group col-md-5 col-12 text-right">
+                                                    <button class="btn btn-primary custom-input" type="submit">Ubah Kata
+                                                        Sandi</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card border-primary mb-2">
-                            <div class="card-body">
-                                <div class="text-left mb-4 mt-2 ml-2">
-                                    <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Ubah Kata
-                                        Sandi</h5>
-                                </div>
-                                <div class="col-md-12">
-                                    <form method="POST" action="{{ route('user-password.update') }}"
-                                        class="needs-validation" novalidate="">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="row">
-                                            <div class="form-group col-md-12 col-12">
-                                                <label for="current_password">Kata Sandi Saat Ini</label>
-                                                <input id="current_password" type="password"
-                                                    class="form-control select custom-input @error('current_password', 'updatePassword') is-invalid @enderror"
-                                                    data-indicator="pwindicator" name="current_password" tabindex="2">
-                                                @error('current_password', 'updatePassword')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                                <div id="pwindicator" class="pwindicator">
-                                                    <div class="bar"></div>
-                                                    <div class="label"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6 col-12">
-                                                <label for="password">Kata Sandi Baru</label>
-                                                <input id="password" type="password"
-                                                    class="form-control select custom-input @error('password', 'updatePassword') is-invalid @enderror"
-                                                    data-indicator="pwindicator" name="password" tabindex="2">
-                                                @error('password', 'updatePassword')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                                <div id="pwindicator" class="pwindicator">
-                                                    <div class="bar"></div>
-                                                    <div class="label"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-6 col-12">
-                                                <label for="password_confirmation">Konfirmasi Kata Sandi</label>
-                                                <input id="password_confirmation" type="password"
-                                                    class="form-control select custom-input @error('password_confirmation') is-invalid @enderror"
-                                                    data-indicator="pwindicator" name="password_confirmation"
-                                                    tabindex="2">
-                                                @error('password_confirmation')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                                <div id="pwindicator" class="pwindicator">
-                                                    <div class="bar"></div>
-                                                    <div class="label"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-5 col-12 text-right">
-                                                <button class="btn btn-primary custom-input" type="submit">Ubah Kata
-                                                    Sandi</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     </div>
                     <div class="col-md-6">
                         <div class="card border-primary mb-2">
