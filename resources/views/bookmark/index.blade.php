@@ -18,11 +18,10 @@
                                             <i class="fas fa-search ml-2"></i>
                                         </div>
                                     </div>
-                                    <input type="text" name="posisi" class="form-control form-jobs clearable"
-                                        id="posisi" placeholder="Cari posisi pekerjaan"
-                                        value="{{ app('request')->input('posisi') }}">
+                                    <input type="text" name="posisi" class="form-control form-jobs" id="posisi"
+                                        placeholder="Cari posisi pekerjaan" value="{{ app('request')->input('posisi') }}">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"
+                                        <div class="input-group-text x-form"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                             <i class="fas fa-times-circle" id="clear-posisi" style="display: none;"></i>
                                         </div>
@@ -36,8 +35,8 @@
                                             <i class="fas fa-map-marker-alt ml-2"></i>
                                         </div>
                                     </div> --}}
-                                    <select name="lokasi" id="lokasi" class="form-control select2">
-                                        <option value="" selected disabled>Lokasi</option>
+                                    <select name="lokasi" id="lokasi" class="form-control form-jobs select2">
+                                        <option value="" selected>Lokasi</option>
                                         @foreach ($kecamatan as $item)
                                             <option value="{{ $item->kecamatan }}"
                                                 @if ($item->kecamatan == $selectedLokasi) selected @endif>{{ $item->kecamatan }}</option>
@@ -58,12 +57,14 @@
                                             <i class="fas fa-briefcase ml-2"></i>
                                         </div>
                                     </div> --}}
-                                    <select name="kategori" id="kategori" class="form-control select2"
+                                    <select name="kategori" id="kategori" class="form-control form-jobs select2 kategori"
                                     multiple>
-                                        <option value="">Pilih Kategori</option>
+                                        {{-- <option value="">Pilih Kategori</option> --}}
                                         @foreach ($kategoris as $item)
                                             <option value="{{ $item->kategori }}"
-                                                @if (in_array($item->kategori, $selectedKategori)) selected @endif>{{ $item->kategori }}</option>
+                                                @if (in_array($item->kategori, $selectedKategori)) selected @endif>
+                                                {{ $item->kategori }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     {{-- <div class="input-group-prepend">
@@ -172,16 +173,11 @@
                     inputId: "lokasi",
                     clearIconId: "clear-lokasi"
                 },
-                {
-                    inputId: "kategori",
-                    clearIconId: "clear-kategori"
-                }
             ];
 
             const inputValues = {
                 posisi: "",
                 lokasi: "",
-                kategori: ""
             };
 
             inputsAndIcons.forEach(item => {
@@ -211,6 +207,24 @@
                 form.submit();
             }
         });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const formIcon = document.querySelector(".icon-form");
+            const formX = document.querySelector(".x-form");
+            const posisiInput = document.querySelector("input[name='posisi']");
+
+            posisiInput.addEventListener("focus", function() {
+                formIcon.style.borderColor = '#95a0f4';
+                formX.style.borderColor = '#95a0f4';
+            });
+
+            posisiInput.addEventListener("blur", function() {
+                formIcon.style.borderColor = '';
+                formX.style.borderColor = '';
+            });
+        })
     </script>
 
     <script>
@@ -286,6 +300,7 @@
     </script>
 
 @endsection
+
 @push('customStyle')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 @endpush
@@ -296,11 +311,11 @@
 
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
+            $('.kategori').select2({
                 placeholder: 'Kategori'
             });
         });

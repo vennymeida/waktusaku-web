@@ -60,7 +60,7 @@
                                         </div>
                                     </div> --}}
                                     {{-- <input type="text" name="kategori" class="form-control form-jobs"> --}}
-                                    <select name="kategori[]" id="kategori" class="form-control form-jobs select2 kategori"
+                                    <select name="kategori" id="kategori" class="form-control form-jobs select2 kategori"
                                         multiple>
                                         {{-- <option value="" selected disabled>Kategori</option> --}}
                                         @foreach ($kategoris as $key)

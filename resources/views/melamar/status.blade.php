@@ -15,70 +15,73 @@
                         <div class="form-group col-md-3">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">
+                                    {{-- <div class="input-group-text icon-form">
                                         <i class="fas fa-filter"></i>
-                                    </span>
+                                    </div> --}}
                                 </div>
-                                <select name="status" id="status" class="form-control form-jobs clearable">
-                                    <option value="" selected disabled>Pilih Status</option>
+                                <select name="status" id="status" class="form-control form-jobs select2">
+                                    <option value="" selected>Pilih Status</option>
                                     <option value="pending" @if(request('status') === 'pending') selected @endif>Pending</option>
                                     <option value="diterima" @if(request('status') === 'diterima') selected @endif>Diterima</option>
                                     <option value="ditolak" @if(request('status') === 'ditolak') selected @endif>Ditolak</option>
                                 </select>
-                                <div class="input-group-prepend">
+                                {{-- <div class="input-group-prepend">
                                     <div class="input-group-text"
                                         style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                         <i class="fas fa-times clear-icon" id="clear-status" style="cursor:pointer; display:none;"></i>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="form-group col-md-4">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">
+                                    <div class="input-group-text icon-form">
                                         <i class="fas fa-search"></i>
-                                    </span>
+                                    </div>
                                 </div>
-                                <input type="text" name="posisi" class="form-control form-jobs clearable" id="posisi" placeholder="Cari posisi pekerjaan" value="{{ app('request')->input('posisi') }}">
+                                <input type="text" name="posisi" class="form-control form-jobs" id="posisi"
+                                placeholder="Cari posisi pekerjaan" value="{{ app('request')->input('posisi') }}">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text"
+                                    <div class="input-group-text x-form"
                                     style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                     <i class="fas fa-times clear-icon" id="clear-posisi" style="cursor:pointer; display:none;"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4 ">
                             <div class="input-group">
-                                <div class="input-group-prepend">
+                                {{-- <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="fas fa-map-marker-alt"></i>
                                     </span>
-                                </div>
-                                <select name="lokasi" id="lokasi" class="form-control form-jobs custom-select">
-                                    <option value="" selected disabled>Lokasi</option>
+                                </div> --}}
+                                <select name="lokasi" id="lokasi" class="form-control form-jobs select2">
+                                    <option value="" selected>Lokasi</option>
                                     @foreach ($kecamatan as $kec)
                                         <option value="{{ $kec->kecamatan }}" @if(request('lokasi') === $kec->kecamatan) selected @endif>
                                             {{ $kec->kecamatan }}
                                         </option>
                                     @endforeach
                                 </select>
-                                <div class="input-group-prepend">
+                                {{-- <div class="input-group-prepend">
                                     <div class="input-group-text"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                         <i class="fas fa-times clear-icon" id="clear-lokasi" style="cursor:pointer; display:none;"></i>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="form-group col-md-1">
-                            <button id="search-button" class="btn btn-primary px-4" style="border-radius: 30px" type="submit">Cari</button>
+                            <button id="search-button" class="btn btn-primary px-4"
+                            style="border-radius: 30px" type="submit">Cari</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
     </section>
         <!-- End: Search form -->
 
@@ -164,54 +167,35 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const statusSelect = document.getElementById("status");
-            const clearStatusIcon = document.getElementById("clear-status");
-
-            if (statusSelect.value) {
-                clearStatusIcon.style.display = "block";
-            }
-
-            statusSelect.addEventListener("change", function() {
-                if (statusSelect.value) {
-                    clearStatusIcon.style.display = "block";
-                    document.getElementById("search-form").submit();
-                } else {
-                    clearStatusIcon.style.display = "none";
-                }
-            });
-
-            clearStatusIcon.addEventListener("click", function() {
-                statusSelect.value = "";
-                clearStatusIcon.style.display = "none";
-                document.getElementById("search-form").submit();
-            });
-
-            const posisiInput = document.getElementById("posisi");
-            const lokasiSelect = document.getElementById("lokasi");
-
-            const inputsAndIcons = [
-                {
-                    input: posisiInput,
+            const inputsAndIcons = [{
+                    inputId: "posisi",
                     clearIconId: "clear-posisi"
                 },
                 {
-                    input: lokasiSelect,
+                    inputId: "lokasi",
                     clearIconId: "clear-lokasi"
                 },
             ];
 
+            const inputValues = {
+                posisi: "",
+                lokasi: "",
+            };
+
             inputsAndIcons.forEach(item => {
+                const input = document.getElementById(item.inputId);
                 const clearIcon = document.getElementById(item.clearIconId);
-                const input = item.input;
 
                 input.addEventListener("input", function() {
+                    inputValues[item.inputId] = this.value;
                     clearIcon.style.display = this.value ? "block" : "none";
                 });
 
                 clearIcon.addEventListener("click", function() {
                     input.value = "";
+                    currentInputValue = "";
                     clearIcon.style.display = "none";
-                    document.getElementById("search-form").submit();
+                    submitForm(currentInputValue);
                 });
 
                 if (input.value) {
@@ -219,16 +203,53 @@
                 }
             });
 
-            // Tambahkan kode berikut untuk mengatur ulang form pada tombol reset
-            const resetFormButton = document.getElementById("reset-search");
-            resetFormButton.addEventListener("click", function() {
-                statusSelect.value = "";
-                clearStatusIcon.style.display = "none";
-                document.getElementById("search-form").reset();
-                document.getElementById("search-form").submit();
-            });
+            function submitForm(inputValue) {
+                const form = document.getElementById("search-form");
+
+                form.submit();
+            }
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const formIcon = document.querySelector(".icon-form");
+            const formX = document.querySelector(".x-form");
+            const posisiInput = document.querySelector("input[name='posisi']");
+
+            posisiInput.addEventListener("focus", function() {
+                formIcon.style.borderColor = '#95a0f4';
+                formX.style.borderColor = '#95a0f4';
+            });
+
+            posisiInput.addEventListener("blur", function() {
+                formIcon.style.borderColor = '';
+                formX.style.borderColor = '';
+            });
+        })
+    </script>
+    
     
 
 @endsection
+@push('customStyle')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('customScript')
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.status').select2({
+                placeholder: 'Pilih Status',
+            });
+        });
+    </script>
+@endpush
+
+
