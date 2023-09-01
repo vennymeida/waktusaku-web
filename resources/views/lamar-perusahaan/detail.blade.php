@@ -25,7 +25,7 @@
                                     </a>
                                 </ul>
                                 <h5 class="font-weight-bolder">Ringkasan </h5>
-                                <p class="mb-2" style="font-size: 14px;">Isi Ringkasan</p>
+                                <p class="mb-2 text-justify" style="font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias maxime, iure nostrum laboriosam eaque aspernatur sapiente ratione id autem, voluptatem dignissimos, ex quisquam mollitia deleniti cupiditate ut illum quam iste culpa provident dicta nisi magni. Iste laudantium aliquam saepe perferendis, beatae qui! Tempora quisquam ullam animi consequatur deleniti ex. Voluptatibus!</p>
                                 <h5 class="font-weight-bolder">Personal Info </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Email</dt>
@@ -38,7 +38,7 @@
                                     <dd class="col-sm-8 mt-2">{{ $profileUser->alamat }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Tanggal Lahir</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">2 Mei 2002</dd>
 
                                     <dt class="col-sm-4 mt-2">Jenis Kelamin</dt>
                                     <dd class="col-sm-8 mt-2">
@@ -71,69 +71,71 @@
                                 <h5 class="font-weight-bolder">Pendidikan </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Nama Institusi</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">Politeknik Negeri Malang</dd>
 
                                     <dt class="col-sm-4 mt-2">Gelar</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">S1</dd>
 
                                     <dt class="col-sm-4 mt-2">Jurusan</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">Teknologi Informasi</dd>
 
                                     <dt class="col-sm-4 mt-2">Prestasi</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">Pemain Sepak Bola</dd>
 
                                     <dt class="col-sm-4 mt-2">IPK</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">3,91</dd>
 
                                     <dt class="col-sm-4 mt-2">Periode</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">2020 - 2023</dd>
                                 </dl>
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Keahlian</h5>
                                 {{-- @foreach ($loker->keahlian as $key => $keahlian) --}}
-                                    <button class="px-4 mt-2 mr-1 btn btn-skill"></button>
+                                    <button class="px-4 mt-2 mr-1 btn btn-skill">Laravel</button>
+                                    <button class="px-4 mt-2 mr-1 btn btn-skill">PHP</button>
+                                    <button class="px-4 mt-2 mr-1 btn btn-skill">Javascript</button>
                                 {{-- @endforeach --}}
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Pengalaman Kerja </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Nama Pekerjaan</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">Web Developer</dd>
 
                                     <dt class="col-sm-4 mt-2">Nama Perusahaan</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">PT Hummasoft</dd>
 
                                     <dt class="col-sm-4 mt-2">Alamat</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">Jl Ngijo Karangploso</dd>
 
                                     <dt class="col-sm-4 mt-2">Tipe Pekerjaan</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">Remote</dd>
 
                                     <dt class="col-sm-4 mt-2">Gaji</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">-</dd>
 
                                     <dt class="col-sm-4 mt-2">Periode</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">2023 - sekarang</dd>
                                 </dl>
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Pelatihan / Sertifikasi </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Nama Pelatihan</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">VSGA</dd>
 
                                     <dt class="col-sm-4 mt-2">Deskripsi</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis aliquid pariatur repellendus non voluptatem quam fugiat neque ipsum exercitationem odit.</dd>
 
                                     <dt class="col-sm-4 mt-2">Dikeluarkan oleh</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">Dicoding Indonesia</dd>
 
                                     <dt class="col-sm-4 mt-2">Tanggal Dikeluarkan</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">2023</dd>
 
                                     <dt class="col-sm-4 mt-2">Sertifikat</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dd class="col-sm-8 mt-2">sertifikat.pdf</dd>
                                 </dl>
                             </ul>
                             <br>
