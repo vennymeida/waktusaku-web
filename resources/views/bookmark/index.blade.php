@@ -36,8 +36,13 @@
                                             <i class="fas fa-map-marker-alt ml-2"></i>
                                         </div>
                                     </div>
-                                    <input type="text" name="lokasi" class="form-control form-jobs" id="lokasi"
-                                        placeholder="Lokasi" value="{{ app('request')->input('lokasi') }}">
+                                    <select name="lokasi" id="lokasi" class="form-control form-jobs custom-select">
+                                        <option value="" selected disabled>Lokasi</option>
+                                        @foreach ($kecamatan as $item)
+                                            <option value="{{ $item->kecamatan }}"
+                                                @if ($item->kecamatan == $selectedLokasi) selected @endif>{{ $item->kecamatan }}</option>
+                                        @endforeach
+                                    </select>
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
@@ -48,19 +53,25 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i class="fas fa-briefcase ml-2"></i>
                                         </div>
-                                    </div>
-                                    <input type="text" name="kategori" class="form-control form-jobs" id="kategori"
-                                        placeholder="Kategori" value="{{ app('request')->input('kategori') }}">
-                                    <div class="input-group-prepend">
+                                    </div> --}}
+                                    <select name="kategori[]" id="kategori" class="form-control form-jobs select2"
+                                    multiple>
+                                        <option value="">Pilih Kategori</option>
+                                        @foreach ($kategoris as $item)
+                                            <option value="{{ $item->kategori }}"
+                                                @if (in_array($item->kategori, $selectedKategori)) selected @endif>{{ $item->kategori }}</option>
+                                        @endforeach
+                                    </select>
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                             <i class="fas fa-times-circle" id="clear-kategori" style="display: none;"></i>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
@@ -76,9 +87,11 @@
         <section>
             <div class="col-md-12 mt-5 mx-auto d-flex flex-wrap justify-content-center">
                 @if ($bookmarks->isEmpty())
-                    <p class="mt-4">Anda belum memiliki pekerjaan yang di-bookmark.</p>
+                <div class="alert alert-warning">
+                    <p class="mt-4">Tidak ada pekerjaan yang di-bookmark ditemukan.</p>
+                </div>
                 @else
-                    @foreach ($bookmarks as $bookmark)
+                    @foreach ($bookmarks as $key => $bookmark)
                         @if ($bookmark->lowonganPekerjaan)
                             <div class="card col-md-3 mb-4 mx-4">
                                 <div class="card-body d-flex flex-column">
@@ -101,9 +114,8 @@
                                                 <li class="mb-2">
                                                     <img class="img-fluid img-icon"
                                                         src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                                    @foreach ($bookmark->lowonganPekerjaan->kategori as $index => $kategori)
-                                                        {{ $kategori->kategori }}@if ($index < count($bookmark->lowonganPekerjaan->kategori) - 1)
-                                                            ,
+                                                        @foreach ($bookmark->lowonganPekerjaan->kategori as $index => $kategori)
+                                                        {{ $kategori->kategori }}@if ($index < count($bookmark->lowonganPekerjaan->kategori) - 1),
                                                         @endif
                                                     @endforeach
                                                 </li>
@@ -274,6 +286,9 @@
     </script>
 
 @endsection
+@push('customStyle')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
 
 @push('customScript')
     <!-- SweetAlert CSS -->
@@ -281,4 +296,13 @@
 
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'Kategori',
+            });
+        });
+    </script>
 @endpush

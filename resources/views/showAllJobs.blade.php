@@ -51,7 +51,7 @@
                                 </p>
                             </ul>
                             <ul class="list-unstyled d-flex justify-content-between">
-                                @if (Auth::check())
+                                @if (Auth::check() && auth()->user()->hasRole('Pencari Kerja'))
                                     @if (!$hasApplied)
                                         <a id="detail-button" class="btn btn-primary px-5 py-2" style="border-radius: 25px; color: #ffffff;" data-toggle="modal" data-target="#lamarModal">Lamar</a>
                                     @else
@@ -67,8 +67,6 @@
                                                 @break
                                         @endswitch
                                     @endif
-                                @else
-                                    <a id="detail-button" class="btn btn-primary px-5 py-2" style="border-radius: 25px; color: #ffffff;" href="{{ route('login') }}">Lamar</a>
                                 @endif
                                 <p class="font-italic mt-2 time" style="font-size: 14px;"><img class="img-fluid img-icon"
                                         src="{{ asset('assets/img/landing-page/Time.svg') }}"> Tayang {{ $updatedAgo }}

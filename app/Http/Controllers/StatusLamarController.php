@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Lamar;
@@ -41,17 +42,20 @@ class StatusLamarController extends Controller
 
         // Filter by lokasi
         if ($request->has('lokasi') && $request->lokasi != '') {
-            $query->whereHas('loker', function (Builder $q) use ($request) {
-                $q->where('lokasi', 'like', '%' . $request->lokasi . '%');
+            $query->whereHas('loker.perusahaan.kecamatan', function (Builder $q) use ($request) {
+                $q->where('kecamatan', 'like', '%' . $request->lokasi . '%');
             });
         }
 
-        $lamaran = $query->get();
+        // Fetch all kecamatan for the select box
+        $kecamatan = Kecamatan::all();
+
+        $lamaran = $query->orderByDesc('created_at')->paginate(3);
 
         if ($lamaran->isEmpty()) {
-            return view('melamar.status', ['lamaran' => $lamaran, 'message' => 'Belum ada loker tersedia.']);
+            return view('melamar.status', ['lamaran' => $lamaran, 'message' => 'Belum ada loker tersedia.', 'kecamatan' => $kecamatan]);
         }
 
-        return view('melamar.status', ['lamaran' => $lamaran]);
+        return view('melamar.status', ['lamaran' => $lamaran, 'kecamatan' => $kecamatan]);
     }
 }
