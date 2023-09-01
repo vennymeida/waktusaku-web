@@ -24,6 +24,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
+                                        <thead>
                                         <tr>
                                             <th style="width: 10px">No</th>
                                             <th style="width: 250px">Nama</th>
@@ -31,6 +32,7 @@
                                             <th>Pesan</th>
                                             <th class="text-center" style="width: 200px">Action</th>
                                         </tr>
+                                        </thead>
                                         @foreach ($messages as $key => $message)
                                             <tr>
                                                 <td>
