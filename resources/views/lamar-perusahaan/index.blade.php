@@ -66,6 +66,9 @@
             <div class="col-md-10 mt-2 mx-auto justify-content-center">
                 @include('layouts.alert')
                     <div class="card-body">
+                        @if ($loggedInUserResults->isEmpty())
+                            <p class="mt-8" style="text-align: center;">Data Tidak Tersedia</p>
+                        @else
                         @foreach ($loggedInUserResults as $key => $lamar)
                         <div class="col-12 col-sm-12 mb-4">
                             <div class="card h-100">
@@ -135,7 +138,8 @@
                                 </div>
                             </div>
                         </div>
-                        @endforeach
+                    @endforeach
+                    @endif
                 </div>
             </div>
             <div class="d-flex justify-content-center">

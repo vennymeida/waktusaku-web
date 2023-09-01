@@ -145,6 +145,7 @@
       perusahaanInfo[item.nama] += item.jumlah_lamars;
     });
 
+
     // Urutkan perusahaan berdasarkan jumlah pelamar secara menurun
     const perusahaanSorted = Object.keys(perusahaanInfo).sort((a, b) => perusahaanInfo[b] - perusahaanInfo[a]).slice(0, 3);
 
