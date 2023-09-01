@@ -31,24 +31,24 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i class="fas fa-map-marker-alt ml-2"></i>
                                         </div>
-                                    </div>
-                                    <select name="lokasi" id="lokasi" class="form-control form-jobs custom-select">
+                                    </div> --}}
+                                    <select name="lokasi" id="lokasi" class="form-control select2">
                                         <option value="" selected disabled>Lokasi</option>
                                         @foreach ($kecamatan as $item)
                                             <option value="{{ $item->kecamatan }}"
                                                 @if ($item->kecamatan == $selectedLokasi) selected @endif>{{ $item->kecamatan }}</option>
                                         @endforeach
                                     </select>
-                                    <div class="input-group-prepend">
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                             <i class="fas fa-times-circle" id="clear-lokasi" style="display: none;"></i>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
@@ -58,7 +58,7 @@
                                             <i class="fas fa-briefcase ml-2"></i>
                                         </div>
                                     </div> --}}
-                                    <select name="kategori[]" id="kategori" class="form-control form-jobs select2"
+                                    <select name="kategori" id="kategori" class="form-control select2"
                                     multiple>
                                         <option value="">Pilih Kategori</option>
                                         @foreach ($kategoris as $item)
@@ -301,7 +301,7 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2({
-                placeholder: 'Kategori',
+                placeholder: 'Kategori'
             });
         });
     </script>
