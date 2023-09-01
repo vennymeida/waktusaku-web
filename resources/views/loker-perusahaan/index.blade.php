@@ -68,6 +68,9 @@
 
         <section>
             <div class="col-md-12 mx-auto d-flex flex-wrap justify-content-center">
+                @if ($loggedInUserResults->isEmpty())
+                    <p class="mt-4">Data Tidak Tersedia</p>
+                @else
                 @foreach ($loggedInUserResults as $key => $loker)
                     <div class="card col-md-5 mb-3 mx-2">
                         <div class="card-body d-flex flex-column">
@@ -106,9 +109,9 @@
                                 </a>
                                 <ul class="list-unstyled d-flex justify-content-between align-items-center mt-2">
                                     <button
-                                        class="px-4 mt-2 mr-1 btn btn-status 
-                                        @if ($loker->status === 'Pending') btn-warning 
-                                        @elseif ($loker->status === 'Dibuka') btn-success 
+                                        class="px-4 mt-2 mr-1 btn btn-status
+                                        @if ($loker->status === 'Pending') btn-warning
+                                        @elseif ($loker->status === 'Dibuka') btn-success
                                         @elseif ($loker->status === 'Ditutup') btn-secondary @endif">
                                         {{ $loker->status }}
                                     </button>
@@ -122,6 +125,7 @@
                         </div>
                     </div>
                 @endforeach
+                @endif
             </div>
         </section>
         <div class="d-flex justify-content-center mt-5">

@@ -49,7 +49,7 @@
                                             </select>
                                             <div class="ml-2 d-flex">
                                                 <button type="submit" class="btn btn-primary">Search</button>
-                                                <a href="{{ route('user.index') }}" class="btn btn-danger ml-2">Reset</a>
+                                                <a href="{{ route('user.index') }}" class="btn btn-secondary ml-2">Reset</a>
                                             </div>
                                         </div>
                                     </div>
@@ -68,6 +68,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @if($users->isEmpty())
+                                        <tr>
+                                            <td colspan="6" class="text-center">Data tidak tersedia</td>
+                                        </tr>
+                                    @else
                                         @foreach ($users as $key => $user)
                                             <tr>
                                                 <td>{{ ($users->currentPage() - 1) * $users->perPage() + $key + 1 }}</td>
@@ -101,6 +106,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-center">

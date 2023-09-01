@@ -83,11 +83,18 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
+                                        <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th>Kecamatan</th>
                                             <th class="text-center">Action</th>
                                         </tr>
+                                        </thead>
+                                        @if($kecamatans->isEmpty())
+                                            <tr>
+                                                <td colspan="3" class="text-center">Data tidak tersedia</td>
+                                            </tr>
+                                        @else
                                         @foreach ($kecamatans as $key => $kecamatan)
                                             <tr>
                                                 <td>{{ ($kecamatans->currentPage() - 1) * $kecamatans->perPage() + $key + 1 }}
@@ -111,6 +118,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-center">

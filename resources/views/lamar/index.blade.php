@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control" name="search"
-                                        value="{{ app('request')->input('search') }}">
+                                        value="{{ app('request')->input('search') }}"  placeholder="Cari..." >
                                 </div>
                                 <div class="form-group col-md-2">
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -45,6 +45,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
+                                        <thead>
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th class="text-center">Nama Pelamar</th>
@@ -53,6 +54,12 @@
                                             <th class="text-center">Status</th>
                                             <th class="text-center">Action</th>
                                         </tr>
+                                        </thead>
+                                        @if($allResults->isEmpty())
+                                            <tr>
+                                                <td colspan="6" class="text-center">Data tidak tersedia</td>
+                                            </tr>
+                                        @else
                                         @foreach ($allResults as $key => $lamar)
                                             <tr>
                                                 <td class="text-center">
@@ -80,6 +87,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-center">

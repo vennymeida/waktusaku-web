@@ -37,16 +37,23 @@
                                             <a id="reset-button" class="btn btn-secondary"
                                                 href="{{ route('kategori.index') }}">Reset</a>
                                         </div>
-                                    </form>
-                            </div>
+                                    </div>
+                                </form>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
+                                        <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Kategori Pekerjaan</th>
                                             <th class="text-center">Action</th>
                                         </tr>
+                                        </thead>
+                                        @if($kategoris->isEmpty())
+                                            <tr>
+                                                <td colspan="3" class="text-center">Data tidak tersedia</td>
+                                            </tr>
+                                        @else
                                         @foreach ($kategoris as $key => $kategori)
                                             <tr>
                                                 <td>{{ ($kategoris->currentPage() - 1) * $kategoris->perPage() + $key + 1 }}
@@ -64,12 +71,14 @@
                                                                 <input type="hidden" name="_token"
                                                                     value="{{ csrf_token() }}">
                                                                 <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                    <i class="fas fa-times"></i> Hapus </button>
+                                                                    <i class="fas fa-times"></i> Hapus
+                                                                </button>
                                                             </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-center">

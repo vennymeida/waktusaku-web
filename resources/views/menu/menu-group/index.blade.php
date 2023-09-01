@@ -70,12 +70,14 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
+                                        <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
                                             <th>Permission</th>
                                             <th class="text-right">Action</th>
                                         </tr>
+                                        <thead>
                                         @foreach ($menuGroups as $key => $item)
                                             <tr>
                                                 <td>{{ $menuGroups->firstItem() + $key }}</td>

@@ -49,7 +49,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" name="search"
+                                            <input type="text" class="form-control" name="search" placeholder="Cari..."
                                                 value="{{ app('request')->input('search') }}">
                                         </div>
                                         <div class="form-group col-md-2">
@@ -78,9 +78,10 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
+                                        <thead>
                                         <tr>
                                             @role('super-admin')
-                                                <th>#</th>
+                                                <th>No</th>
                                                 <th>Nama Perusahaan</th>
                                                 <th class="col-md-3">Kategori Pekerjaan</th>
                                                 <th>Tipe Pekerjaan</th>
@@ -96,6 +97,12 @@
                                             @endrole
                                             <th class="text-center">Action</th>
                                         </tr>
+                                    </thead>
+                                        @if($allResults->isEmpty())
+                                            <tr>
+                                                <td colspan="6" class="text-center">Data tidak tersedia</td>
+                                            </tr>
+                                        @else
                                         @role('super-admin')
                                             @foreach ($allResults as $key => $loker)
                                                 <tr>
@@ -128,6 +135,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+                                            @endif
                                         @endrole
                                         @role('Perusahaan')
                                             @foreach ($loggedInUserResults as $key => $loker)
