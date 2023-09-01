@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', function () {
         return view('home');
     });
+    Route::get('/welcome', [WelcomeController::class, 'index']);
     Route::GET('/profile', [ProfileUserController::class, 'profile'])
         ->name('profile.edit');
     Route::get('/getKelurahans', [ProfileUserController::class, 'getKelurahans'])->name('getKelurahans');
@@ -180,4 +181,3 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/status-lamaran', [StatusLamarController::class, 'index'])->name('melamar.status');
     Route::resource('dashboard', DashboardController::class);
 });
-
