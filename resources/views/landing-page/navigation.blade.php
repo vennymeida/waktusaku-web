@@ -90,9 +90,16 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
-                                    <i class="far fa-user mx-1 mr-2"></i> Profile
-                                </a>
+                                @if (Auth::user()->hasRole('Pencari Kerja') || Auth::user()->hasRole('Perusahaan'))
+                                    <a href="{{ url('/profile') }}" class="dropdown-item has-icon">
+                                        <i class="far fa-user mx-1 mr-2"></i> Profile
+                                    </a>
+                                @endif
+                                @if (Auth::user()->hasRole('super-admin'))
+                                    <a href="{{ url('/profile-admin') }}" class="dropdown-item has-icon">
+                                        <i class="far fa-user mx-1 mr-2"></i> Profile
+                                    </a>
+                                @endif
                                 @if (auth()->user()->hasRole('Pencari Kerja'))
                                 <a href="{{ route('bookmark.index') }}" class="dropdown-item has-icon">
                                     <i class="far fa-bookmark mx-1 mr-2"></i> Bookmark
