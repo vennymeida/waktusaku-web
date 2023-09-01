@@ -110,7 +110,9 @@
 
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="font-weight-bold">Alamat Perusahaan</h5>
-                        <p class="text-justify">{{ $loker->perusahaan->alamat }}</p>
+                        <p class="text-justify">{{ $loker->perusahaan->alamat }},
+                            {{ $loker->perusahaan->kelurahan->kelurahan }}, {{ $loker->perusahaan->kecamatan->kecamatan }}
+                        </p>
                     </div>
 
                     <div class="col-md-11 mx-auto mt-5">

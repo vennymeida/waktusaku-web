@@ -22,7 +22,7 @@
                                     <input type="text" name="posisi" class="form-control form-jobs" id="posisi"
                                         placeholder="Cari posisi pekerjaan" value="{{ app('request')->input('posisi') }}">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"
+                                        <div class="input-group-text x-form"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                             <i class="fas fa-times-circle" id="clear-posisi" style="display: none;"></i>
                                         </div>
@@ -31,25 +31,25 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <i class="fas fa-map-marker-alt ml-2"></i>
                                         </div>
-                                    </div>
-                                    <select name="lokasi" id="lokasi" class="form-control form-jobs custom-select">
-                                        <option value="" selected disabled>Lokasi</option>
+                                    </div> --}}
+                                    <select name="lokasi" id="lokasi" class="form-control form-jobs select2">
+                                        <option value="" selected>Lokasi</option>
                                         @foreach ($kecamatan as $key)
                                             <option value="{{ $key->kecamatan }}"
                                                 @if ($key->kecamatan == $lokasi) selected @endif>{{ $key->kecamatan }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <div class="input-group-prepend">
+                                    {{-- <div class="input-group-prepend">
                                         <div class="input-group-text"
                                             style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                             <i class="fas fa-times-circle" id="clear-lokasi" style="display: none;"></i>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
@@ -60,7 +60,7 @@
                                         </div>
                                     </div> --}}
                                     {{-- <input type="text" name="kategori" class="form-control form-jobs"> --}}
-                                    <select name="kategori[]" id="kategori" class="form-control form-jobs select2"
+                                    <select name="kategori[]" id="kategori" class="form-control form-jobs select2 kategori"
                                         multiple>
                                         {{-- <option value="" selected disabled>Kategori</option> --}}
                                         @foreach ($kategoris as $key)
@@ -101,16 +101,19 @@
                                     style="font-size: 20px;">
                                     {{ $loker->judul }}
                                 </p>
-                                <p class="text-white mb-4 ml-2 overlap-text-2" style="font-size: 14px;">
+                                <a class="text-white ml-2 overlap-text-2"
+                                    href="{{ route('detail-perusahaan.show', $loker->id_perusahaan) }}"
+                                    style="font-size: 14px;">
                                     {{ $loker->nama }}
-                                </p>
+                                </a>
                             </div>
-                            <div class="card-text">
+                            <div class="card-text mt-4">
                                 <ul class="list-unstyled ml-2">
                                     <ul class="list-unstyled d-flex justify-content-between">
-                                        <li class="mb-2"><img class="img-fluid img-icon"
-                                                src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                            {{ $loker->kategori }}
+                                        <li class="d-flex justify-content-start">
+                                            <img class="img-fluid img-icon mr-2"
+                                                src="{{ asset('assets/img/landing-page/list.svg') }}">
+                                            <p class="mb-2">{{ $loker->kategori }}</p>
                                         </li>
                                         <li class="mb-2">
                                             @if (auth()->check() &&
@@ -122,23 +125,34 @@
                                             @endif
                                         </li>
                                     </ul>
-                                    <li class="mb-2"><img class="img-fluid img-icon"
+                                    <li class="d-flex justify-content-start">
+                                        <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/money.svg') }}">
-                                        {{ 'IDR ' . $loker->gaji_bawah }}
-                                        <span>-</span>
-                                        {{ $loker->gaji_atas }}
+                                        <p class="mb-2">{{ 'IDR ' . $loker->gaji_bawah }}
+                                            <span>-</span>
+                                            {{ $loker->gaji_atas }}
+                                        </p>
                                     </li>
-                                    <li class="mb-2"><img class="img-fluid img-icon"
+                                    <li class="d-flex justify-content-start">
+                                        <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/job.svg') }}">
-                                        {{ $loker->min_pengalaman }}
+                                        <p class="mb-2">{{ $loker->min_pengalaman }}</p>
                                     </li>
-                                    <li class="mb-2"><img class="img-fluid img-icon"
+                                    <li class="d-flex justify-content-start">
+                                        <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
-                                        Minimal {{ $loker->min_pendidikan }}
+                                        <p class="mb-2">Minimal {{ $loker->min_pendidikan }}</p>
                                     </li>
-                                    <li class="mb-2"><img class="img-fluid img-icon"
+                                    <li class="d-flex justify-content-start">
+                                        <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                        {{ $loker->lokasi }}
+                                        <p class="mb-2">{{ $loker->lokasi }}</p>
+                                    </li>
+                                    <li class="d-flex justify-content-start">
+                                        <img class="img-fluid img-icon mr-2"
+                                            src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                        <p class="mb-2">{{ $loker->alamat }}, {{ $loker->kelurahan }},
+                                            {{ $loker->kecamatan }}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -184,16 +198,11 @@
                     inputId: "lokasi",
                     clearIconId: "clear-lokasi"
                 },
-                // {
-                //     inputId: "kategori",
-                //     clearIconId: "clear-kategori"
-                // }
             ];
 
             const inputValues = {
                 posisi: "",
                 lokasi: "",
-                // kategori: ""
             };
 
             inputsAndIcons.forEach(item => {
@@ -228,46 +237,23 @@
         });
     </script>
 
-    {{-- <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const kategoriSelect = document.getElementById("kategori");
-            const clearKategoriIcon = document.getElementById("clear-kategori");
+            const formIcon = document.querySelector(".icon-form");
+            const formX = document.querySelector(".x-form");
+            const posisiInput = document.querySelector("input[name='posisi']");
 
-            kategoriSelect.addEventListener("mousedown", function(event) {
-                event.preventDefault();
-                const option = event.target;
-                const selected = option.selected;
-                if (option.tagName === "OPTION") {
-                    option.selected = !selected;
-                    updateClearIcon();
-                }
+            posisiInput.addEventListener("focus", function() {
+                formIcon.style.borderColor = '#95a0f4';
+                formX.style.borderColor = '#95a0f4';
             });
 
-            clearKategoriIcon.addEventListener("click", function() {
-                Array.from(kategoriSelect.options).forEach(option => {
-                    option.selected = false;
-                });
-                updateClearIcon();
-                clearFormAndReload();
+            posisiInput.addEventListener("blur", function() {
+                formIcon.style.borderColor = '';
+                formX.style.borderColor = '';
             });
-
-            kategoriSelect.addEventListener("change", updateClearIcon);
-
-            function updateClearIcon() {
-                const selectedOptions = Array.from(kategoriSelect.options).filter(option => option.selected);
-                clearKategoriIcon.style.display = selectedOptions.length > 0 ? "block" : "none";
-            }
-
-            function clearFormAndReload() {
-                Array.from(kategoriSelect.options).forEach(option => {
-                    option.selected = false;
-                });
-
-                const form = document.getElementById("search-form");
-                form.submit();
-            }
-        });
-    </script> --}}
+        })
+    </script>
 
     <script>
         function handleFormSubmit() {
@@ -361,7 +347,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.select2').select2({
+            $('.kategori').select2({
                 placeholder: 'Kategori',
             });
         });

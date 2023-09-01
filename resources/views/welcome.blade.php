@@ -103,14 +103,37 @@
                     <div class="col-md-4">
                         <img class="img-fluid" src="{{ asset('assets/img/landing-page/image-2.svg') }}" alt="">
                     </div>
-                    <div class="col-md-6">
-                        <h1>Mau Tahu Status Lamaran Kamu Saat Ini Bagaimana ? <span class="text-primary">Bisa!</span></h1>
-                        <p>Lacak status terbaru lamaran kerjamu kapan saja.</p>
-                        <p>Yuk Buat Akun Sekarang juga!</p>
-                        <a id="register-button" class="btn btn-primary px-4" href="{{ route('register') }}"
-                            style="border-radius: 25px;">Buat Akun
-                            Sekarang</a>
-                    </div>
+                    @guest
+                        <div class="col-md-6">
+                            <h1>Temukan Peluang Kerja yang Tepat <span class="text-primary">di Sini!</span></h1>
+                            <p>Temukan berbagai peluang kerja menarik yang sesuai dengan keahlian Anda.</p>
+                            <p>Yuk, bergabung dan jelajahi peluang karir masa depan Anda!</p>
+                            <a id="register-button" class="btn btn-primary px-4" href="{{ route('register') }}"
+                                style="border-radius: 25px;">Buat Akun
+                                Sekarang</a>
+                        </div>
+                    @endguest
+                    @role('Perusahaan')
+                        <div class="col-md-6">
+                            <h1>Temukan Bakat Terbaik untuk Tim Anda
+                                <span class="text-primary">di Sini!</span>
+                            </h1>
+                            <p>Temukan calon karyawan yang berpotensi untuk mengisi peran penting dalam perusahaan Anda.</p>
+                            <p>Bergabunglah dengan kami dan temukan bakat-bakat terbaik untuk mendorong kesuksesan bisnis Anda!
+                            </p>
+                            <a id="register-button" class="btn btn-primary px-4" href="{{ route('loker-perusahaan.index') }}"
+                                style="border-radius: 25px;">Mulai Merekrut</a>
+                        </div>
+                    @endrole
+                    @role('Pencari Kerja')
+                        <div class="col-md-6">
+                            <h1>Mau Tahu Status Lamaran Kamu Saat Ini Bagaimana ? <span class="text-primary">Bisa!</span></h1>
+                            <p>Lacak status terbaru lamaran kerjamu kapan saja.</p>
+                            <p>Yuk Buat Akun Sekarang juga!</p>
+                            <a id="register-button" class="btn btn-primary px-4" href="{{ route('melamar.status') }}"
+                                style="border-radius: 25px;">Cek Lamaran</a>
+                        </div>
+                    @endrole
                 </div>
             </div>
         </section>
@@ -134,16 +157,19 @@
                                             style="font-size: 20px;">
                                             {{ $loker->judul }}
                                         </p>
-                                        <p class="text-white mb-4 ml-2 overlap-text-2" style="font-size: 14px;">
+                                        <a class="text-white ml-2 overlap-text-2"
+                                            href="{{ route('detail-perusahaan.show', $loker->id_perusahaan) }}"
+                                            style="font-size: 14px;">
                                             {{ $loker->nama }}
-                                        </p>
+                                        </a>
                                     </div>
-                                    <div class="card-text">
+                                    <div class="card-text mt-3">
                                         <ul class="list-unstyled ml-2">
                                             <ul class="list-unstyled d-flex justify-content-between">
-                                                <li class="mb-2"><img class="img-fluid"
-                                                        src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                                    {{ $loker->kategori }}
+                                                <li class="d-flex justify-content-start">
+                                                    <img class="img-fluid img-icon mr-2"
+                                                        src="{{ asset('assets/img/landing-page/list.svg') }}">
+                                                    <p class="mb-2">{{ $loker->kategori }}</p>
                                                 </li>
                                                 <li class="mb-2">
                                                     @if (auth()->check() &&
@@ -155,23 +181,28 @@
                                                     @endif
                                                 </li>
                                             </ul>
-                                            <li class="mb-2"><img class="img-fluid"
+                                            <li class="d-flex justify-content-start">
+                                                <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/money.svg') }}">
-                                                {{ 'IDR ' . $loker->gaji_bawah }}
-                                                <span>-</span>
-                                                {{ $loker->gaji_atas }}
+                                                <p class="mb-2">{{ 'IDR ' . $loker->gaji_bawah }}
+                                                    <span>-</span>
+                                                    {{ $loker->gaji_atas }}
+                                                </p>
                                             </li>
-                                            <li class="mb-2"><img class="img-fluid"
+                                            <li class="d-flex justify-content-start">
+                                                <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/job.svg') }}">
-                                                {{ $loker->min_pengalaman }}
+                                                <p class="mb-2">{{ $loker->min_pengalaman }}</p>
                                             </li>
-                                            <li class="mb-2"><img class="img-fluid"
+                                            <li class="d-flex justify-content-start">
+                                                <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
-                                                Minimal {{ $loker->min_pendidikan }}
+                                                <p class="mb-2">Minimal {{ $loker->min_pendidikan }}</p>
                                             </li>
-                                            <li class="mb-4"><img class="img-fluid"
+                                            <li class="d-flex justify-content-start">
+                                                <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                                {{ $loker->lokasi }}
+                                                <p class="mb-2">{{ $loker->lokasi }}</p>
                                             </li>
                                         </ul>
                                     </div>
