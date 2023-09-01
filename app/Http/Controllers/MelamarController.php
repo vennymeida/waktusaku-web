@@ -10,8 +10,13 @@ class MelamarController extends Controller
     public function store(Request $request)
     {
 
+        // Validasi jika tidak ada resume di profil dan juga tidak di-upload
+        if (!auth()->user()->profile->resume && !$request->hasFile('resume')) {
+            return back()->with('error', 'Anda harus mengunggah resume sebelum melamar.');
+        }
+
         $request->validate([
-            'resume' => 'mimes:pdf|max:2048' // mimes untuk format dan max untuk ukuran (dalam KB)
+            'resume' => 'required|mimes:pdf|max:2048' // mimes untuk format dan max untuk ukuran (dalam KB)
         ]);
         
         $data = $request->all();
