@@ -2,6 +2,9 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 @if(auth()->user()->profile && auth()->user()->profile->isComplete())
                     <!-- User Profile is Complete -->
                     <p><strong>Hai, {{ auth()->user()->name }}</strong></p>
@@ -46,27 +49,27 @@
                             <form action="{{ route('melamar.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <h6 class="mb-3">CV / Resume *</h6>
-                                
+                    
                                 <div class="d-flex flex-column align-items-center">
-                                    <!-- Upload Icon (Placeholder, replace with your icon path) -->
-                                    <img src="{{ asset('assets/img/lamar/file2.svg') }}" alt="Upload Icon" class="img-fluid img-icon" style="width: 50px; height: 50px;">
-
-
-                                    <!-- Current Resume Name -->
                                     @if(auth()->user()->profile && auth()->user()->profile->resume)
-                                    <span class="mb-2" id="current-resume-name">{{ basename(auth()->user()->profile->resume) }}</span>
-                                        <a href="#" onclick="return openResume();" class="btn btn-link mb-2">View Current Resume</a>
+                                        <img id="fileIcon" src="{{ asset('assets/img/lamar/file2.svg') }}" alt="Upload Icon" class="img-fluid img-icon" style="width: 50px; height: 50px;">
+                                        <span class="mb-2" id="current-resume-name" data-url="{{ Storage::url(auth()->user()->profile->resume ?? '') }}">{{ basename(auth()->user()->profile->resume) }}</span>
+                                        <a href="#" id="viewResumeLink" onclick="return openResume();" class="btn btn-link mb-2">View Current Resume</a>
+                                        <small class="text-muted mb-2">Unggah berkas dalam format PDF (maksimal 2mb)</small>
+                                        <button type="button" onclick="document.getElementById('new_resume').click();" class="btn btn-secondary mb-3">Ganti</button>
+                                    @else
+                                        <img id="fileIcon" src="{{ asset('assets/img/lamar/file2.svg') }}" alt="Upload Icon" class="img-fluid img-icon" style="width: 50px; height: 50px;" hidden>
+                                        <span class="mb-2" id="current-resume-name"></span>
+                                        <a href="#" id="viewResumeLink" onclick="return openResume();" class="btn btn-link mb-2" hidden>View Current Resume</a>
+                                        <small id="uploadInstruction" class="text-muted mb-2">Anda belum memiliki CV.</small>
+                                        <small class="text-muted mb-2">Unggah berkas dalam format PDF (maksimal 2mb)</small>
+                                        <button type="button" onclick="document.getElementById('new_resume').click();" class="btn btn-primary mb-3">Unggah Resume</button>
                                     @endif
-
-                                    <!-- Upload Instruction -->
-                                    <small class="text-muted mb-2">Unggah berkas dalam format PDF (maksimal 2mb)</small>
-                                    <button type="button" onclick="document.getElementById('new_resume').click();" class="btn btn-secondary mb-3">Ganti</button>
                                 </div>
-
+                    
                                 <input type="file" class="form-control-file d-none" name="resume" id="new_resume">
                                 <input type="hidden" name="loker_id" value="{{ $loker->id }}">
-                                
-                                <!-- Lamar Sekarang Button outside of the div to make it span across the card's width -->
+                    
                                 <button type="submit" class="btn btn-primary btn-block mt-3">Lamar Sekarang</button>
                             </form>
                         </div>
@@ -79,8 +82,9 @@
                         <a href="{{ route('profile.edit') }}" class="alert-link">Click disini untuk menyelesaikan profile anda</a>.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" id="closeModalButton" data-dismiss="modal">Close</button>
                     </div>
+                    
                 @endif
             </div>
         </div>
@@ -97,31 +101,50 @@
 
 
 <script>
-    function openResume() {
-        window.open("{{ Storage::url(auth()->user()->profile->resume ?? '#') }}", "ResumeWindow", "width=600,height=800");
-        return false;
-    }
-
-    document.getElementById('new_resume').addEventListener('change', function(e){
-        let file = this.files[0];
-        let fileSize = file.size / 1024 / 1024; //in mb
-        let allowedExtensions = /(\.pdf)$/i;
-
-        if (!allowedExtensions.exec(file.name) || fileSize > 2) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Invalid File',
-                text: 'Hanya dokumen berformat PDF yang diizinkan dengan ukuran maksimal 2MB!'
-            });
-            this.value = ''; // reset the input
+    $(document).ready(function() {
+        function openResume() {
+            const urlResume = $('#current-resume-name').attr('data-url');
+            window.open(urlResume, "ResumeWindow", "width=600,height=800");
             return false;
         }
-        
-        // Show the file name
-        document.getElementById('current-resume-name').textContent = file.name;
-    });
 
-    document.addEventListener('DOMContentLoaded', function () {
+        $('#new_resume').on('change', function(e) {
+            let file = this.files[0];
+            let fileSize = file.size / 1024 / 1024; // in MB
+            let allowedExtensions = /(\.pdf)$/i;
+
+            if (!allowedExtensions.exec(file.name) || fileSize > 2) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid File',
+                    text: 'Hanya dokumen dalam format PDF yang diperbolehkan dengan ukuran maksimal 2MB!'
+                });
+                this.value = ''; // reset the input
+                return false;
+            }
+
+            $('#current-resume-name').text(file.name);
+            const newResumeUrl = URL.createObjectURL(file);
+            $('#current-resume-name').attr('data-url', newResumeUrl);
+            $('#fileIcon').removeAttr('hidden');
+            $('#viewResumeLink').removeAttr('hidden');
+            $('#uploadInstruction').hide();
+        });
+
+        $('form').on('submit', function(e) {
+            let currentResume = $('#current-resume-name').attr('data-url');
+            let newResume = $('#new_resume').val();
+
+            if (!currentResume && !newResume) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Peringatan',
+                    text: 'Anda harus mengunggah resume sebelum melamar!'
+                });
+                e.preventDefault();
+            }
+        });
+
         let successMessage = "{{ session('success') }}";
         if (successMessage) {
             Swal.fire({
@@ -130,6 +153,12 @@
                 text: successMessage
             });
         }
+
+        $('#closeModalButton').on('click', function() {
+            $('#lamarModal').modal('hide');
+        });
+
+        window.openResume = openResume; // Make it global
     });
 </script>
 
@@ -155,4 +184,5 @@
 
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 @endpush

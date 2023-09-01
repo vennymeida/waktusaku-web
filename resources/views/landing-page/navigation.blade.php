@@ -98,7 +98,8 @@
                                     <i class="far fa-bookmark mx-1 mr-2"></i> Bookmark
                                 </a>
                                     <a href="{{ route('melamar.status') }}" class="dropdown-item has-icon">
-                                        <img class="img-fluid img-icon mx-1 mr-2" src="{{ asset('assets/img/lamar/status.svg') }}" style="width: 8%; height: 8%;">Status Lamaran
+                                        <img class="img-fluid img-icon mx-1 mr-2" src="{{ asset('assets/img/lamar/status.svg') }}"
+                                        style="width: 8%; height: 8%;">Status Lamaran
                                     </a>
                                 @endif
                                 @if (auth()->user()->hasRole('Perusahaan'))
@@ -149,7 +150,6 @@
     <script src="/assets/js/custom.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 <script>
     // Inisialisasi dropdown
     $(document).ready(function() {
