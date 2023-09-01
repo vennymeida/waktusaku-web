@@ -22,7 +22,7 @@
         <section>
             <div class="container" style="margin-top: 5%; margin-bottom: 5%">
                 <div class="row">
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
                         <div class="col-md-12">
                             <div class="card border-primary mb-2">
                                 <div class="card-body">
@@ -157,6 +157,7 @@
                             </div>
                         </div>
                     </div>
+                    @if (Auth::user()->hasRole('Pencari Kerja') || Auth::user()->hasRole('Perusahaan'))
                     <div class="col-md-6">
                         <div class="card border-primary mb-2">
                             <div class="card-body">
@@ -169,6 +170,7 @@
                                         class="needs-validation" novalidate="" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
+                                        @if (Auth::user()->hasRole('Pencari Kerja'))
                                         <div class="form-group col-md-12 col-12">
                                             <label>Tanggal Lahir</label>
                                             <div class="input-group">
@@ -187,6 +189,7 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="form-group col-md-12 col-12">
                                             <label for="jenis_kelamin">Jenis Kelamin</label>
                                             <select
@@ -235,6 +238,7 @@
                                                 </div>
                                             @enderror
                                         </div>
+                                        @if (Auth::user()->hasRole('Pencari Kerja'))
                                         <div class="form-group col-md-12 col-12">
                                             <label>Ringkasan</label>
                                             <input name="ringkasan" type="text"
@@ -265,6 +269,7 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="form-group col-md-12 col-12">
                                             <label>Unggah Foto</label>
                                             <input id="foto" name="foto" type="file"
@@ -277,6 +282,7 @@
                                             <div class="text-warning small" style="font-size: 13px; font-weight:bolder;">
                                                 (Tipe berkas : jpeg,jpg,png | Max size : 2MB)</div>
                                         </div>
+                                        @if (Auth::user()->hasRole('Pencari Kerja'))
                                         <div class="form-group col-md-12 col-12">
                                             <label>Unggah Resume</label>
                                             <input id="resume" name="resume" type="file"
@@ -289,6 +295,7 @@
                                             <div class="text-warning small" style="font-size: 13px; font-weight:bolder;">
                                                 (Tipe berkas : pdf | Max size : 2MB)</div>
                                         </div>
+                                        @endif
                                         <div class="form-group col-md-3 col-12 text-right">
                                             <button class="btn btn-primary custom-input" type="submit">Simpan</button>
                                         </div>
@@ -297,6 +304,185 @@
                             </div>
                         </div>
                     </div>
+                    @endif
+                    @if (Auth::user()->hasRole('Perusahaan'))
+                    <div class="col-md-6">
+                        <div class="card border-primary mb-2">
+                            <div class="card-body">
+                                <div class="text-left mb-4 mt-2 ml-2">
+                                    <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Ubah Data
+                                        Perusahaan</h5>
+                                </div>
+                                <div class="col-md-12">
+                                    <form method="POST" action="{{ route('profile.perusahaan.update') }}" class="needs-validation" novalidate="" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Nama Pemilik Perusahaan</label>
+                                            <input name="pemilik" type="text"
+                                                class="form-control @error('pemilik') is-invalid @enderror"
+                                                value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->pemilik : '' }}">
+                                            @error('pemilik')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Nama Perusahaan</label>
+                                            <input name="nama" type="text"
+                                                class="form-control @error('nama') is-invalid @enderror"
+                                                value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->nama : '' }}">
+                                            @error('nama')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Alamat Perusahaan</label>
+                                            <textarea name="alamat" type="text"
+                                                class="form-control @error('alamat') is-invalid @enderror" rows="3"
+                                                value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat : '' }}"></textarea>
+                                            @error('alamat')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="row col-12">
+                                            <div class="form-group col-md-6 col-12">
+                                                <label for="kecamatan_id">Kecamatan</label>
+                                                <select class="form-control select2 @error('kecamatan_id') is-invalid @enderror" name="kecamatan_id"
+                                                    data-id="select-kecamatan" id="kecamatan_id">
+                                                    <option value="">Pilih Kecamatan</option>
+                                                    @foreach ($kecamatans as $kecamatan)
+                                                        @if (!empty($perusahaans->kecamatan_id))
+                                                            <option @selected($perusahaans->kecamatan_id == $kecamatan->id) value="{{ $kecamatan->id }}">
+                                                                {{ $kecamatan->kecamatan }}</option>
+                                                        @else
+                                                            <option value="{{ $kecamatan->id }}">
+                                                                {{ $kecamatan->kecamatan }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                @error('kecamatan_id')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group col-md-6 col-12">
+                                                <label for="kelurahan_id">Kelurahan</label>
+                                                <select class="form-control select2 @error('kelurahan_id') is-invalid @enderror"
+                                                    name="kelurahan_id" data-id="select-kelurahan" id="kelurahan_id" disabled="disabled ">
+                                                    <option value="">Pilih Kelurahan</option>
+                                                </select>
+                                                @error('kelurahan_id')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Email Perusahaan</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-envelope"></i>
+                                                    </div>
+                                                </div>
+                                                <input name="email" type="text"
+                                                    class="form-control email @error('email') is-invalid @enderror"
+                                                    value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->email : '' }}">
+                                            </div>
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Website Perusahaan</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-globe"></i>
+                                                    </div>
+                                                </div>
+                                                <input name="website" type="text"
+                                                    class="form-control website @error('website') is-invalid @enderror"
+                                                    value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->website : '' }}">
+                                            </div>
+                                            @error('website')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>No Telp Perusahaan</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-phone"></i>
+                                                    </div>
+                                                </div>
+                                                <input name="no_hp" type="text"
+                                                    class="form-control phone-number @error('no_hp') is-invalid @enderror"
+                                                    value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp : '' }}">
+                                            </div>
+                                            @error('no_hp')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Informasi Tentang Perusahaan</label>
+                                            <textarea id="deskripsi" name="deskripsi" type="text"
+                                                class="form-control summernote-simple @error('deskripsi') is-invalid @enderror">
+                                                @if (!empty($perusahaans->deskripsi))
+                                                {{ $perusahaans->deskripsi }}
+                                                @else
+                                                @endif
+                                            </textarea>
+                                            @error('deskripsi')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Perbarui Logo Perusahaan</label>
+                                            <input id="logo" name="logo" type="file"
+                                                    class="form-control @error('logo') is-invalid @enderror">
+                                            @error('logo')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Perbarui Surat Izin Usaha</label>
+                                            <input id="siu" name="siu" type="file"
+                                                    class="form-control @error('siu') is-invalid @enderror">
+                                            @error('siu')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-3 col-12 text-right">
+                                            <button class="btn btn-primary custom-input" type="submit">Simpan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </section>
