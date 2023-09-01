@@ -145,7 +145,7 @@ class LokerPerusahaan extends Controller
         $lowongan->keahlian()->attach($request->id_keahlian);
 
         return redirect()->route('loker-perusahaan.index')
-            ->with('success', 'Lowongan Pekerjaan berhasil ditambahkan');
+            ->with('success', 'success-create');
     }
 
     public function show(LowonganPekerjaan $loker_perusahaan)
@@ -196,7 +196,7 @@ class LokerPerusahaan extends Controller
         $loker_perusahaan->keahlian()->sync($request->id_keahlian);
 
         return redirect()->route('loker-perusahaan.index')
-            ->with('success', 'Data lowongan pekerjaan berhasil diperbarui.');
+            ->with('success', 'success-edit');
     }
 
     public function destroy($id)
