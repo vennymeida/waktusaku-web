@@ -467,6 +467,7 @@
                 </div>
             </div>
         </section>
+        @if (Auth::user()->hasRole('Pencari Kerja'))
         <section class="centered-section">
             <div class="bg-primary-section col-md-10 py-1">
                 <div class="profile-widget-description m-3"
@@ -624,6 +625,7 @@
                 </a>
             </div>
         </section>
+        @endif
     </main>
 @endsection
 
