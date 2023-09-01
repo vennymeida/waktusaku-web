@@ -85,7 +85,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // Route::get('/dashboard', function () {
     //     return view('welcome');
     // });
-    Route::get('/dashboard', [WelcomeController::class, 'index']);
+    Route::get('/dashboard', function () {
+        return view('home');
+    });
     Route::GET('/profile', [ProfileUserController::class, 'profile'])
         ->name('profile.edit');
     Route::get('/getKelurahans', [ProfileUserController::class, 'getKelurahans'])->name('getKelurahans');
