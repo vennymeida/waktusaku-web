@@ -6,9 +6,9 @@
     <!-- Begin: Search form -->
     <section> <!-- Added some margin at the bottom -->
         <div class="col-md-10 mt-4 mx-auto">
-            <div class="card" style="border-radius: 15px;"> <!-- Added a slight shadow -->
+            <div class="card" style="border-radius: 15px;">
                 <div class="card-title mt-4 mb-0 ml-4">
-                    <h4 class="font-weight-bold">Cari Status Lamaran</h4> <!-- Moved the title to the card header for distinction -->
+                    <h4 class="font-weight-bold">Cari Status Lamaran</h4>
                 </div>
                 <div class="card-body">
                     <form id="search-form" class="form-row" method="GET" action="{{ route('melamar.status') }}" onsubmit="handleFormSubmit()">
@@ -19,12 +19,18 @@
                                         <i class="fas fa-filter"></i>
                                     </span>
                                 </div>
-                                <select name="status" class="form-control form-jobs clearable" id="status">
-                                    <option value=""> -> Pilih ini untuk reset <- </option>
-                                    <option value="pending">Pending</option>
-                                    <option value="diterima">Diterima</option>
-                                    <option value="ditolak">Ditolak</option>
+                                <select name="status" id="status" class="form-control form-jobs clearable">
+                                    <option value="" selected disabled>Pilih Status</option>
+                                    <option value="pending" @if(request('status') === 'pending') selected @endif>Pending</option>
+                                    <option value="diterima" @if(request('status') === 'diterima') selected @endif>Diterima</option>
+                                    <option value="ditolak" @if(request('status') === 'ditolak') selected @endif>Ditolak</option>
                                 </select>
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"
+                                        style="border-left: none; border-radius: 0px 15px 15px 0px;">
+                                        <i class="fas fa-times clear-icon" id="clear-status" style="cursor:pointer; display:none;"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -50,11 +56,18 @@
                                         <i class="fas fa-map-marker-alt"></i>
                                     </span>
                                 </div>
-                                <input type="text" name="lokasi" class="form-control form-jobs" id="lokasi" placeholder="Lokasi" value="{{ app('request')->input('lokasi') }}">
+                                <select name="lokasi" id="lokasi" class="form-control form-jobs custom-select">
+                                    <option value="" selected disabled>Lokasi</option>
+                                    @foreach ($kecamatan as $kec)
+                                        <option value="{{ $kec->kecamatan }}" @if(request('lokasi') === $kec->kecamatan) selected @endif>
+                                            {{ $kec->kecamatan }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"
-                                    style="border-left: none; border-radius: 0px 15px 15px 0px;">
-                                    <i class="fas fa-times clear-icon" id="clear-lokasi" style="cursor:pointer; display:none;"></i>
+                                            style="border-left: none; border-radius: 0px 15px 15px 0px;">
+                                        <i class="fas fa-times clear-icon" id="clear-lokasi" style="cursor:pointer; display:none;"></i>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +92,7 @@
                                 <div class="card-body d-flex flex-column">
                                     <div class="media">
                                         <div class="mr-3 align-self-start">
-                                            @if($lamar && $lamar->loker->perusahaan->logo)
+                                            @if($lamar && $lamar->loker->perusahaan && $lamar->loker->perusahaan->logo)
                                         <img src="{{ asset('storage/' . $lamar->loker->perusahaan->logo) }}" alt="Logo Perusahaan" class="rounded-circle" style="width: 80px; height: 80px;">
                                         @else
                                         <img alt="image" src="{{ asset('assets/img/company/default-company-logo.png') }}" class="rounded-circle" style="width: 80px; height: 80px;">
@@ -142,55 +155,80 @@
                         </div>
                         @endforelse
                     </div>
+                    <div class="pagination justify-content-center mt-4">
+                        {{ $lamaran->withQueryString()->links() }} <!-- withQueryString agar filter tetap berjalan saat pindah paginate #ilmubaru -->
+                    </div>
                 </div>
         </section>
     </main>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const statusSelect = document.getElementById("status");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const statusSelect = document.getElementById("status");
+            const clearStatusIcon = document.getElementById("clear-status");
 
-        statusSelect.addEventListener("change", function() {
-        document.getElementById("search-form").submit(); // Kirim form saat opsi berubah
-        });
-
-        const inputsAndIcons = [{
-                inputId: "posisi",
-                clearIconId: "clear-posisi"
-            },
-            {
-                inputId: "lokasi",
-                clearIconId: "clear-lokasi"
+            if (statusSelect.value) {
+                clearStatusIcon.style.display = "block";
             }
-        ]; // Removed "kategori" as it was not in your HTML
 
-        const inputValues = {
-            posisi: "",
-            lokasi: ""
-        };
-
-        inputsAndIcons.forEach(item => {
-            const input = document.getElementById(item.inputId);
-            const clearIcon = document.getElementById(item.clearIconId);
-
-            // Display the 'x' icon when the user types in the search form
-            input.addEventListener("input", function() {
-                inputValues[item.inputId] = this.value;
-                clearIcon.style.display = this.value ? "block" : "none";
+            statusSelect.addEventListener("change", function() {
+                if (statusSelect.value) {
+                    clearStatusIcon.style.display = "block";
+                    document.getElementById("search-form").submit();
+                } else {
+                    clearStatusIcon.style.display = "none";
+                }
             });
 
-            // Clear the input and refresh the page when the 'x' icon is clicked
-            clearIcon.addEventListener("click", function() {
-                input.value = "";
-                const url = window.location.origin + window.location.pathname; // Dapatkan URL tanpa parameter query
-                window.location.href = url; // Muat ulang halaman dengan URL tanpa parameter query
+            clearStatusIcon.addEventListener("click", function() {
+                statusSelect.value = "";
+                clearStatusIcon.style.display = "none";
+                document.getElementById("search-form").submit();
             });
 
-            if (input.value) {
-                clearIcon.style.display = "block";
-            }
+            const posisiInput = document.getElementById("posisi");
+            const lokasiSelect = document.getElementById("lokasi");
+
+            const inputsAndIcons = [
+                {
+                    input: posisiInput,
+                    clearIconId: "clear-posisi"
+                },
+                {
+                    input: lokasiSelect,
+                    clearIconId: "clear-lokasi"
+                },
+            ];
+
+            inputsAndIcons.forEach(item => {
+                const clearIcon = document.getElementById(item.clearIconId);
+                const input = item.input;
+
+                input.addEventListener("input", function() {
+                    clearIcon.style.display = this.value ? "block" : "none";
+                });
+
+                clearIcon.addEventListener("click", function() {
+                    input.value = "";
+                    clearIcon.style.display = "none";
+                    document.getElementById("search-form").submit();
+                });
+
+                if (input.value) {
+                    clearIcon.style.display = "block";
+                }
+            });
+
+            // Tambahkan kode berikut untuk mengatur ulang form pada tombol reset
+            const resetFormButton = document.getElementById("reset-search");
+            resetFormButton.addEventListener("click", function() {
+                statusSelect.value = "";
+                clearStatusIcon.style.display = "none";
+                document.getElementById("search-form").reset();
+                document.getElementById("search-form").submit();
+            });
         });
-    });
-</script>
+    </script>
+    
 
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Lamar;
@@ -17,8 +18,15 @@ class StatusLamarController extends Controller
 
     public function index(Request $request)
     {
+        $user = Auth::user();
+
+        // Cek apakah user memiliki profile
+        if (!$user->profile) {
+            return redirect()->route('profile.edit')->with('error', 'Silahkan lengkapi profil Anda terlebih dahulu.');
+        }
+
         $query = Lamar::with('loker.perusahaan')
-            ->where('id_pencari_kerja', Auth::user()->profile->id);
+            ->where('id_pencari_kerja', $user->profile->id);
 
         // Filter by posisi
         if ($request->has('posisi') && $request->posisi != '') {
@@ -34,13 +42,20 @@ class StatusLamarController extends Controller
 
         // Filter by lokasi
         if ($request->has('lokasi') && $request->lokasi != '') {
-            $query->whereHas('loker', function (Builder $q) use ($request) {
-                $q->where('lokasi', 'like', '%' . $request->lokasi . '%');
+            $query->whereHas('loker.perusahaan.kecamatan', function (Builder $q) use ($request) {
+                $q->where('kecamatan', 'like', '%' . $request->lokasi . '%');
             });
         }
 
-        $lamaran = $query->get();
+        // Fetch all kecamatan for the select box
+        $kecamatan = Kecamatan::all();
 
-        return view('melamar.status', ['lamaran' => $lamaran]);
+        $lamaran = $query->orderByDesc('created_at')->paginate(3);
+
+        if ($lamaran->isEmpty()) {
+            return view('melamar.status', ['lamaran' => $lamaran, 'message' => 'Belum ada loker tersedia.', 'kecamatan' => $kecamatan]);
+        }
+
+        return view('melamar.status', ['lamaran' => $lamaran, 'kecamatan' => $kecamatan]);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bookmark;
+use App\Models\KategoriPekerjaan;
+use App\Models\Kecamatan;
 use App\Models\LowonganPekerjaan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,31 +17,46 @@ class BookmarkController extends Controller
     {
         $user = Auth::user();
 
-        $query = $user->bookmarks()->with('lowonganPekerjaan.perusahaan', 'lowonganPekerjaan.kategori');
+        $query = $user->bookmarks()->with(['lowonganPekerjaan.perusahaan', 'lowonganPekerjaan.kategori', 'lowonganPekerjaan.perusahaan.kecamatan']);
+
+        $kecamatan = Kecamatan::all();
+        $kategoris = KategoriPekerjaan::all();
+
 
         // Apply search filters if provided
-        if ($request->has('posisi')) {
-            $query->whereHas('lowonganPekerjaan', function ($q) use ($request) {
-                $q->where('judul', 'like', '%' . $request->input('posisi') . '%');
+        $posisi = $request->input('posisi');
+        $lokasi = $request->input('lokasi');
+        $kategori = $request->input('kategori', []);
+        
+        // Apply search filters if provided
+        if ($posisi) {
+            $query->whereHas('lowonganPekerjaan', function ($q) use ($posisi) {
+                $q->where('judul', 'like', '%' . $posisi . '%');
             });
         }
 
-        if ($request->has('lokasi')) {
-            $query->whereHas('lowonganPekerjaan', function ($q) use ($request) {
-                $q->where('lokasi', 'like', '%' . $request->input('lokasi') . '%');
+        if ($lokasi) {
+            $query->whereHas('lowonganPekerjaan.perusahaan', function ($q) use ($lokasi) {
+                $q->whereHas('kecamatan', function ($q) use ($lokasi) {
+                    $q->where('kecamatan', 'like', '%' . $lokasi . '%');
+                });
             });
         }
 
-        if ($request->has('kategori')) {
-            $query->whereHas('lowonganPekerjaan.kategori', function ($q) use ($request) {
-                $q->where('kategori', 'like', '%' . $request->input('kategori') . '%');
+        if (!empty($kategori)) {
+            $query->whereHas('lowonganPekerjaan.kategori', function ($q) use ($kategori) {
+                $q->whereIn('kategori', $kategori);
             });
         }
 
-        $bookmarks = $query->paginate(10);
+        $bookmarks = $query->orderByDesc('created_at')->paginate(3);
 
         return view('bookmark.index', [
             'bookmarks' => $bookmarks,
+            'kecamatan' => $kecamatan,
+            'kategoris' => $kategoris,
+            'selectedLokasi' => $lokasi,
+            'selectedKategori' => $kategori,
         ]);
     }
 

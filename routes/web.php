@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AlljobsController;
+use App\Http\Controllers\DetailPerusahaan;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\KeahlianController;
 use App\Http\Controllers\KecamatanController;
@@ -62,9 +64,11 @@ use App\Http\Controllers\StatusLamarController;
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/all-jobs', [AlljobsController::class, 'index'])->name('all-jobs.index');
 Route::get('/all-jobs/{loker}', [AlljobsController::class, 'show'])->name('all-jobs.show');
+Route::get('/detail-perusahaan/{detail}', [DetailPerusahaan::class, 'show'])->name('detail-perusahaan.show');
 Route::get('/contact-us', function () {
     return view('contact');
 });
+Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact.store');
 Route::get('/about-us', function () {
     return view('about');
 });
@@ -79,8 +83,11 @@ Route::get('/login', function () {
 
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
+    // Route::get('/dashboard', function () {
+    //     return view('welcome');
+    // });
     Route::get('/dashboard', function () {
-        return view('home', ['users' => User::get(),]);
+        return view('home');
     });
     Route::GET('/profile', [ProfileUserController::class, 'profile'])
         ->name('profile.edit');
@@ -109,14 +116,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::resource('perusahaan', PerusahaanListController::class);
         Route::get('/perusahaan', 'App\Http\Controllers\PerusahaanListController@index')->name('perusahaan.index');
-        // Route::get('/user-management/perusahaan/{user}', 'PerusahaanListController@show')->name('perusahaan.show');
 
-        // Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
-        // Route::get('/pelamar/{pelamar}/edit', [PelamarController::class, 'edit'])->name('pelamar.edit');
-        // Route::put('/pelamar/{pelamar}', [PelamarController::class, 'update'])->name('pelamar.update');
-        // Route::delete('/pelamar/{pelamar}', [PelamarController::class, 'destroy'])->name('pelamar.destroy');
-        // Route::get('/pelamar/{pelamar}', [PelamarController::class, 'show'])->name('pelamar.show');
-
+        Route::get('/message', [ContactUsController::class, 'index'])->name('message.index');
+        Route::delete('/message/{contactUs}', [ContactUsController::class, 'destroy'])->name('message.destroy');
     });
 
     Route::prefix('menu-management')->group(function () {
@@ -147,13 +149,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('assign-user', [AssignUserToRoleController::class, 'store'])->name('assign.user.store');
         Route::get('assing-user/{user}/edit', [AssignUserToRoleController::class, 'edit'])->name('assign.user.edit');
         Route::put('assign-user/{user}', [AssignUserToRoleController::class, 'update'])->name('assign.user.update');
-
-        // Route::group(['prefix' => 'menu-kategori'], function () {
-        //     //role
-        //     Route::resource('kategori', KategoriPekerjaanController::class);
-        // });
-
     });
+
     Route::prefix('menu-pekerjaan')->group(function () {
         Route::resource('keahlian', KeahlianController::class);
         Route::resource('kategori', KategoriPekerjaanController::class);
@@ -181,6 +178,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //loker-perusahaan
     Route::resource('loker-perusahaan', LokerPerusahaan::class);
     Route::get('/status-lamaran', [StatusLamarController::class, 'index'])->name('melamar.status');
-
     Route::resource('dashboard', DashboardController::class);
 });
+

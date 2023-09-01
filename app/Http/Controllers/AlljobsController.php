@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KategoriPekerjaan;
 use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\lamar;
 use App\Models\LowonganPekerjaan;
 use App\Models\Perusahaan;
@@ -26,6 +27,7 @@ class AlljobsController extends Controller
         $allResults = DB::table('lowongan_pekerjaans as lp')
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
             ->join('kecamatans as k', 'p.kecamatan_id', '=', 'k.id')
+            ->join('kelurahans as kl', 'p.kelurahan_id', '=', 'kl.id')
             ->join('lowongan_kategori as lk', 'lp.id', '=', 'lk.lowongan_id')
             ->join('kategori_pekerjaans as kp', 'lk.kategori_id', '=', 'kp.id')
             ->join('profile_users as pu', 'lp.user_id', '=', 'pu.id')
@@ -49,7 +51,9 @@ class AlljobsController extends Controller
                 'p.nama',
                 'p.pemilik',
                 'p.logo',
+                'p.alamat',
                 'k.kecamatan',
+                'kl.kelurahan',
                 DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
             )
             ->when($posisiKerja, function ($allResults, $posisi) {
@@ -85,7 +89,7 @@ class AlljobsController extends Controller
 
             ->where('lp.status', 'dibuka')
             ->orderBy('lp.created_at', 'desc')
-            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'lp.min_pengalaman', 'lp.min_pendidikan', 'p.pemilik', 'p.logo', 'k.kecamatan')
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'lp.min_pengalaman', 'lp.min_pendidikan', 'p.pemilik', 'p.logo', 'p.alamat', 'k.kecamatan', 'kl.kelurahan')
             ->paginate(9);
 
         // $kecamatan = DB::table('kecamatans')
@@ -102,6 +106,8 @@ class AlljobsController extends Controller
     public function show(LowonganPekerjaan $loker)
     {
         $perusahaan = Perusahaan::all();
+        $kecamatan = Kecamatan::all();
+        $kelurahan = Kelurahan::all();
         $kategori = $loker->kategori()->pluck('kategori')->implode(', ');
         $keahlian = $loker->keahlian()->pluck('keahlian');
         $loker->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $loker->requirement);
@@ -118,10 +124,36 @@ class AlljobsController extends Controller
             $updatedAgo = $loker->updated_at->diffInDays(now()) . ' hari yang lalu';
         }
 
+
+
         $hasApplied = $loker->hasApplied;
+        // Mengecek apakah user sudah melamar untuk loker ini
+        $lamaran = null;
 
         if (Auth::check()) {
-            return view('showAlljobs', ['loker' => $loker, 'perusahaan' => $perusahaan, 'kategori' => $kategori, 'keahlian' => $keahlian, 'hasApplied' => $hasApplied, 'updatedAgo' => $updatedAgo]);
+            // Check if user has a profile before attempting to access the profile's id.
+            if (Auth::user()->profile) {
+                $lamaran = Lamar::where('id_loker', $loker->id)
+                    ->where('id_pencari_kerja', Auth::user()->profile->id)
+                    ->first();
+            }
+            // If the user doesn't have a profile or isn't authenticated, $lamaran will remain null.
+        }
+
+        $lamaranStatus = $lamaran ? $lamaran->status : null;
+
+        if (Auth::check()) {
+            return view('showAlljobs', [
+                'loker' => $loker,
+                'perusahaan' => $perusahaan,
+                'kategori' => $kategori,
+                'keahlian' => $keahlian,
+                'hasApplied' => $hasApplied,
+                'lamaranStatus' => $lamaranStatus,
+                'updatedAgo' => $updatedAgo,
+                'kecamatan' => $kecamatan, 
+                'kelurahan' => $kelurahan
+            ]);
         } else {
             return view('auth.login');
         }

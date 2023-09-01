@@ -3,9 +3,9 @@
     <main class="bg-light">
         <section>
             <div class="col-md-12 py-3 mb-4">
-                <div class="col-md-10 mx-auto">
+                {{-- <div class="col-md-10 mx-auto">
                     @include('layouts.alert')
-                </div>
+                </div> --}}
                 <div class="col-md-11 mt-4 mx-auto">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-title mt-4 mb-0 ml-5">
@@ -172,4 +172,20 @@
             }
         });
     </script>
+
+    <script>
+        @if (session('success') === 'success-create')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Lowongan Pekerjaan berhasil ditambahkan.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
 @endsection
+
+@push('customScript')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+@endpush

@@ -43,6 +43,12 @@ class MenuItemSeeder extends Seeder
                     'menu_group_id' => 2,
                 ],
                 [
+                    'name' => 'Message List',
+                    'route' => 'user-management/message',
+                    'permission_name' => 'message.index',
+                    'menu_group_id' => 2,
+                ],
+                [
                     'name' => 'Role List',
                     'route' => 'role-and-permission/role',
                     'permission_name' => 'role.index',
