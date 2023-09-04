@@ -152,8 +152,8 @@
                         </div>
                         @empty
                         <div class="col-12">
-                            <div class="alert alert-warning">
-                                Tidak ada lamaran ditemukan.
+                            <div class="alert">
+                                Tidak ada status lamaran ditemukan.
                             </div>
                         </div>
                         @endforelse

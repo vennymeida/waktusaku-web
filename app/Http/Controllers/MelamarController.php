@@ -16,7 +16,7 @@ class MelamarController extends Controller
         }
 
         $request->validate([
-            'resume' => 'required|mimes:pdf|max:2048' // mimes untuk format dan max untuk ukuran (dalam KB)
+            'resume' => 'mimes:pdf|max:2048' // mimes untuk format dan max untuk ukuran (dalam KB)
         ]);
         
         $data = $request->all();
