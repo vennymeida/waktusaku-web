@@ -21,8 +21,8 @@
                             <div class="form-group">
                                 <label for="id_kategori">Kategori Pekerjaan</label>
                                 <select name="id_kategori[]"
-                                    class="form-control select2 @error('id_kategori') is-invalid @enderror" multiple>
-                                    <option value="" disabled selected>Pilih Kategori</option>
+                                    class="form-control select2 @error('id_kategori') is-invalid @enderror kategori"
+                                    multiple>
                                     @foreach ($kategoris as $kategori)
                                         <option
                                             value="{{ $kategori->id }}"{{ in_array($kategori->id, old('id_kategori', [])) ? 'selected' : '' }}>
@@ -107,8 +107,8 @@
                             <div class="form-group">
                                 <label for="id_keahlian">Keahlian</label>
                                 <select name="id_keahlian[]"
-                                    class="form-control select2 @error('id_keahlian') is-invalid @enderror" multiple>
-                                    <option value="" disabled selected>Pilih Keahlian</option>
+                                    class="form-control select2 @error('id_keahlian') is-invalid @enderror keahlian"
+                                    multiple>
                                     @foreach ($keahlians as $keahlian)
                                         <option
                                             value="{{ $keahlian->id }}"{{ in_array($keahlian->id, old('id_keahlian', [])) ? 'selected' : '' }}>
@@ -255,7 +255,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('.select2').select2();
+            $('.kategori').select2({
+                placeholder: 'Pilih Kategori',
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.keahlian').select2({
+                placeholder: 'Pilih Keahlian',
+            });
         });
     </script>
 
