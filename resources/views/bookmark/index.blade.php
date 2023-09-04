@@ -88,7 +88,7 @@
         <section>
             <div class="col-md-12 mt-5 mx-auto d-flex flex-wrap justify-content-center">
                 @if ($bookmarks->isEmpty())
-                <div class="alert alert-warning">
+                <div class="alert">
                     <p class="mt-4">Tidak ada pekerjaan yang di-bookmark ditemukan.</p>
                 </div>
                 @else
