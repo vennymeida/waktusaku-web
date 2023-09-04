@@ -15,7 +15,10 @@ class ProfileUser extends Model
         'jenis_kelamin',
         'no_hp',
         'foto',
-        'resume'
+        'resume',
+        'tgl_lahir',
+        'ringkasan',
+        'harapan_gaji',
     ];
 
     public function user()
