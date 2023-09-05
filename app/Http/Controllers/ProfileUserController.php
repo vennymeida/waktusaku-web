@@ -24,7 +24,7 @@ class ProfileUserController extends Controller
         $kelurahans = Kelurahan::all();
         $perusahaans = Perusahaan::where('user_id',$userId)->first();
         // dd($perusahaans);
-        return view ('profile.index')->with([
+        return view ('profile.edit')->with([
             'kecamatans'=>$kecamatans,
             'kelurahans'=>$kelurahans,
             'profileUser'=>$profileUser,
@@ -47,6 +47,9 @@ class ProfileUserController extends Controller
             'no_hp' => 'nullable|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'resume' => 'nullable|file|mimes:pdf|max:2048',
+            'tgl_lahir' => 'nullable|date:d/m/Y',
+            'ringkasan' => 'nullable|string|max:500',
+            'harapan_gaji' => 'nullable|numeric',
         ], [
             'alamat.max' => 'Alamat Melebihi Batas Maksimal',
             'jenis_kelamin.in' => 'Jenis Kelamin Hanya Pada Pilihan L/P',
@@ -56,6 +59,9 @@ class ProfileUserController extends Controller
             'foto.max' => 'Ukuran Foto Terlalu Besar',
             'resume.mimes' => 'Resume Hanya Mendukung Format pdf',
             'resume.max' => 'Ukuran Resume Terlalu Besar',
+            'tgl_lahir.date' => 'Tanggal Lahir Harus Sesuai Format',
+            'ringkasan.max' => 'Ringkasan Melebihi Batas Maksimal',
+            'harapan_gaji.numeric' => 'Harapan Gaji Harus Angka',
         ]);
 
         $fotoLama = DB::table('profile_users')->where('user_id', Auth::user()->id)->first();
@@ -68,6 +74,9 @@ class ProfileUserController extends Controller
             $profileUserBaru->alamat = $request->input('alamat');
             $profileUserBaru->jenis_kelamin = $request->input('jenis_kelamin');
             $profileUserBaru->no_hp = $request->input('no_hp');
+            $profileUserBaru->tgl_lahir = $request->input('tgl_lahir');
+            $profileUserBaru->ringkasan = $request->input('ringkasan');
+            $profileUserBaru->harapan_gaji = $request->input('harapan_gaji');
             $profileUserBaru->save();
         }
 
