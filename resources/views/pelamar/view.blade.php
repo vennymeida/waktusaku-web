@@ -31,7 +31,7 @@
                         <div class="col-md-9">
                             <h4><strong>{{ $pelamar->name }}</strong></h4>
                             <h6 class="mt-4"><strong>Ringkasan</strong></h6>
-                            <p>{{ $pelamar->profile->ringkasan }}</p>
+                            <p>{{ optional($pelamar->profile)->ringkasan ?: '-' }}</p>
                             
                             <h6 class="mt-5"><strong>Personal Info</strong></h6>
                             <dl class="row">
@@ -45,13 +45,13 @@
                                 <dd class="col-sm-7 mt-3">{{ optional($pelamar->profile)->alamat ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Tanggal Lahir</dt>
-                                <dd class="col-sm-7 mt-3">{{ \Carbon\Carbon::parse($pelamar->profile->tgl_lahir)->locale('id')->isoFormat('D MMMM Y') }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->profile)->tgl_lahir ? \Carbon\Carbon::parse($pelamar->profile->tgl_lahir)->locale('id')->isoFormat('D MMMM Y') : '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Jenis Kelamin</dt>
                                 <dd class="col-sm-7 mt-3">{{ $pelamar->profile ? ($pelamar->profile->jenis_kelamin === 'L' ? 'Laki-Laki' : 'Perempuan') : '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Harapan Gaji</dt>
-                                <dd class="col-sm-7 mt-3">IDR {{ number_format($pelamar->profile->harapan_gaji, 0, ',', '.') }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->profile)->harapan_gaji ? 'IDR ' . number_format($pelamar->profile->harapan_gaji, 0, ',', '.') : '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Resume</dt>
                                 <dd class="col-sm-7 mt-3">
@@ -66,65 +66,75 @@
                             <h6 class="mt-5"><strong>Pendidikan</strong></h6>
                             <dl class="row">
                                 <dt class="col-sm-3 mt-3">Nama Institusi</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pendidikan->institusi }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pendidikan)->institusi ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Gelar</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pendidikan->gelar }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pendidikan)->gelar ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Jurusan</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pendidikan->jurusan }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pendidikan)->jurusan ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Prestasi</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pendidikan->prestasi }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pendidikan)->prestasi ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">IPK</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pendidikan->ipk }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pendidikan)->ipk ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Periode</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pendidikan->tahun_mulai }} - {{ $pelamar->pendidikan->tahun_berakhir }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pendidikan)->tahun_mulai && optional($pelamar->pendidikan)->tahun_berakhir ? optional($pelamar->pendidikan)->tahun_mulai . ' - ' . optional($pelamar->pendidikan)->tahun_berakhir : '-' }}</dd>
                             </dl>
                             <h6 class="mt-5"><strong>Keahlian</strong></h6>
                             <dl class="row">
-                                <dt class="col-sm-3 mt-3">Gelar</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pendidikan->gelar }}</dd>
+                                <dt class="col-sm-3 mt-3">
+                                    @if ($pelamar->profileKeahlians && $pelamar->profileKeahlians->count() > 0)
+                                    <ul>
+                                    @foreach ($pelamar->profileKeahlians as $profileKeahlian)
+                                        <li>{{ $profileKeahlian->keahlian->keahlian }}</li>
+                                    @endforeach
+                                    </ul>
+                                @else
+                                    -
+                                @endif
+                                </dt>
                             </dl>
 
                             <h6 class="mt-5"><strong>Pengalaman Kerja</strong></h6>
                             <dl class="row">
                                 <dt class="col-sm-3 mt-3">Nama Pekerjaan</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pengalaman->nama_pekerjaan }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pengalaman)->nama_pekerjaan ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Nama Perusahaan</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pengalaman->nama_perusahaan }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pengalaman)->nama_perusahaan ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Alamat</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pengalaman->alamat }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pengalaman)->alamat ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Tipe Pekerjaan</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pengalaman->tipe }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pengalaman)->tipe ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Gaji</dt>
-                                <dd class="col-sm-7 mt-3">IDR {{ number_format($pelamar->pengalaman->gaji, 0, ',', '.') }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pengalaman)->gaji ? 'IDR ' . number_format($pelamar->pengalaman->gaji, 0, ',', '.') : '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Periode</dt>
                                 <dd class="col-sm-7 mt-3">
-                                    {{ date('d-m-Y', strtotime($pelamar->pengalaman->tanggal_mulai)) }} s/d
-                                    {{ date('d-m-Y', strtotime($pelamar->pengalaman->tanggal_berakhir)) }}
+                                    {{ optional($pelamar->pengalaman)->tanggal_mulai ? date('d-m-Y', strtotime($pelamar->pengalaman->tanggal_mulai)) : '-' }}
+                                    s/d
+                                    {{ optional($pelamar->pengalaman)->tanggal_berakhir ? date('d-m-Y', strtotime($pelamar->pengalaman->tanggal_berakhir)) : '-' }}
                                 </dd>
                             </dl>
                             <h6 class="mt-5"><strong>Pelatihan / Sertifikat</strong></h6>
                             <dl class="row">
                                 <dt class="col-sm-3 mt-3">Nama Pelatihan</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pelatihan->nama_sertifikat }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pelatihan)->nama_sertifikat ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Deskripsi</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pelatihan->deskripsi }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pelatihan)->deskripsi ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Dikeluarkan Oleh</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->pelatihan->penerbit }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pelatihan)->penerbit ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Tanggal Dikeluarkan</dt>
-                                <dd class="col-sm-7 mt-3">{{ \Carbon\Carbon::parse($pelamar->pelatihan->tanggal_dikeluarkan)->locale('id')->isoFormat('D MMMM Y') }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->pelatihan)->tanggal_dikeluarkan ? \Carbon\Carbon::parse($pelamar->pelatihan->tanggal_dikeluarkan)->locale('id')->isoFormat('D MMMM Y') : '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Sertifikat</dt>
                                 <dd class="col-sm-7 mt-3">
