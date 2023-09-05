@@ -33,6 +33,7 @@
                                     <p class="mb-2 text-primary font-weight-bold" style="font-size: 28px;">{{$namaPengguna}}
                                     </p>
                                     <h5 class="font-weight-bolder">Ringkasan </h5>
+                                    <p class="mb-2 text-justify" style="font-size: 14px;">{{ $profileUser->ringkasan }}</p>
                                     <dl class="row">
                                         <dt class="col-sm-4 mt-2">Email</dt>
                                         <dd class="col-sm-8 mt-2">{{ $email }}</dd>
@@ -50,7 +51,7 @@
                                         <dd class="col-sm-8 mt-2">{{ $profileUser->jenis_kelamin }}</dd>
 
                                         <dt class="col-sm-4 mt-2">Gaji</dt>
-                                        <dd class="col-sm-8 mt-2"></dd>
+                                        <dd class="col-sm-8 mt-2">{{ $profileUser->harapan_gaji }}</dd>
 
                                         <dt class="col-sm-4 mt-2">Resume</dt>
                                         <dd class="col-sm-8 mt-2">
@@ -65,12 +66,26 @@
 
                                     <hr class="my-4">
                                     <h5 class="font-weight-bolder">Pendidikan </h5>
-                                    <p class="mb-2" style="font-size: 14px;">Nama Institusi  </p>
-                                    <p class="mb-2" style="font-size: 14px;">Gelar </p>
-                                    <p class="mb-2" style="font-size: 14px;">Jurusan  </p>
-                                    <p class="mb-2" style="font-size: 14px;">Prestasi </p>
-                                    <p class="mb-2" style="font-size: 14px;">IPK </p>
-                                    <p class="mb-2" style="font-size: 14px;">Periode </p>
+                                    <dl class="row">
+                                        <dt class="col-sm-4 mt-2">Nama Institusi</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pendidikan->institusi }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Gelar</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pendidikan->gelar }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Jurusan</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pendidikan->jurusan }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Prestasi</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pendidikan->prestasi }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">IPK</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pendidikan->ipk }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Periode</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pendidikan->tahun_mulai }}<span> - </span>
+                                            {{ $pendidikan->tahun_berakhir }}</dd>
+                                    </dl>
 
                                     <hr class="my-4">
                                     <h5 class="font-weight-bolder">Keahlian </h5>
@@ -78,20 +93,55 @@
 
                                     <hr class="my-4">
                                     <h5 class="font-weight-bolder">Pengalaman Kerja </h5>
-                                    <p class="mb-2" style="font-size: 14px;">Nama Pekerjaan  </p>
-                                    <p class="mb-2" style="font-size: 14px;">Nama Perusahaan </p>
-                                    <p class="mb-2" style="font-size: 14px;">Alamat  </p>
-                                    <p class="mb-2" style="font-size: 14px;">Tipe Pekerjaan </p>
-                                    <p class="mb-2" style="font-size: 14px;">Gaji </p>
-                                    <p class="mb-2" style="font-size: 14px;">Periode </p>
+                                    <dl class="row">
+                                        <dt class="col-sm-4 mt-2">Nama Pekerjaan</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pengalaman->nama_pekerjaan }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Nama Perusahaan</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pengalaman->nama_perusahaan }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Alamat</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pengalaman->alamat }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Tipe Pekerjaan</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pengalaman->tipe }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Gaji</dt>
+                                        <dd class="col-sm-8 mt-2">{{'IDR ' . $pengalaman->gaji }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Periode</dt>
+                                        <?php
+                                            // Mengambil tanggal mulai dan tanggal berakhir dari kode HTML
+                                            $tanggal_mulai = $pengalaman->tanggal_mulai;
+                                            $tanggal_berakhir = $pengalaman->tanggal_berakhir;
+
+                                            // Mengubah format tanggal ke "d F Y" (contoh: "4 August 2023")
+                                            $tanggal_mulai = date("j F Y", strtotime($tanggal_mulai));
+                                            $tanggal_berakhir = date("j F Y", strtotime($tanggal_berakhir));
+                                            ?>
+
+                                            <!-- Menampilkan tanggal dalam format yang diubah -->
+                                            <dd class="col-sm-8 mt-2"><?= $tanggal_mulai ?><span> - </span><?= $tanggal_berakhir ?></dd>
+                                    </dl>
 
                                     <hr class="my-4">
                                     <h5 class="font-weight-bolder">Pelatihan / Sertifikasi </h5>
-                                    <p class="mb-2" style="font-size: 14px;">Nama Pelatihan  </p>
-                                    <p class="mb-2" style="font-size: 14px;">Deskripsi </p>
-                                    <p class="mb-2" style="font-size: 14px;">Dikeluarkan oleh  </p>
-                                    <p class="mb-2" style="font-size: 14px;">Tanggal Dikeluarkan </p>
-                                    <p class="mb-2" style="font-size: 14px;">Sertifikat </p>
+                                    <dl class="row">
+                                        <dt class="col-sm-4 mt-2">Nama Pelatihan</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pelatihan->nama_sertifikat }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Deskripsi</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pelatihan->deskripsi }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Dikeluarkan oleh</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pelatihan->penerbit }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Tanggal Dikeluarkan</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pelatihan->tanggal_dikeluarkan }}</dd>
+
+                                        <dt class="col-sm-4 mt-2">Sertifikat</dt>
+                                        <dd class="col-sm-8 mt-2">{{ $pelatihan->sertifikat }}</dd>
+                                    </dl>
                                 </ul>
                                 <br>
                                 <br>
