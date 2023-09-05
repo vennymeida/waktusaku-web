@@ -204,6 +204,12 @@
                                                     src="{{ asset('assets/img/landing-page/location pin.svg') }}">
                                                 <p class="mb-2">{{ $loker->lokasi }}</p>
                                             </li>
+                                            <li class="d-flex justify-content-start">
+                                                <img class="img-fluid img-icon mr-2"
+                                                    src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                                <p class="mb-2">{{ $loker->alamat }}, {{ $loker->kelurahan }},
+                                                    {{ $loker->kecamatan }}</p>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="text-center mb-3">
