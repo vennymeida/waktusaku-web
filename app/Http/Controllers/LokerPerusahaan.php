@@ -17,6 +17,15 @@ use Illuminate\Support\Str;
 
 class LokerPerusahaan extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:loker-perusahaan.index')->only('index');
+        $this->middleware('permission:loker-perusahaan.create')->only('create', 'store');
+        $this->middleware('permission:loker-perusahaan.edit')->only('edit', 'update');
+        $this->middleware('permission:loker-perusahaan.show')->only('show');
+    }
+
     public function getTimeAgo($timestamp)
     {
         $currentTime = Carbon::now();

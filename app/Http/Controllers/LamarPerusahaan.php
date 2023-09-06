@@ -19,10 +19,9 @@ class LamarPerusahaan extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:pelamarkerja.index')->only('index');
-        $this->middleware('permission:pelamarkerja.create')->only('create', 'store');
-        $this->middleware('permission:pelamarkerja.edit')->only('edit', 'update');
-        $this->middleware('permission:pelamarkerja.destroy')->only('destroy');
+        $this->middleware('permission:lamarperusahaan.index')->only('index');
+        $this->middleware('permission:lamarperusahaan.edit')->only('edit', 'update');
+        $this->middleware('permission:lamarperusahaan.show')->only('show');
     }
 
     public function index(Request $request)
