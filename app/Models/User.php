@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes; // Tambahkan ini
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\ProfileKeahlian;
+use App\Models\Keahlian;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -67,5 +69,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function lamars()
     {
         return $this->hasMany(Lamar::class, 'id_pencari_kerja');
+    }
+
+    public function profileKeahlians()
+    {
+        return $this->hasMany(ProfileKeahlian::class);
+    }
+
+    public function keahlians()
+    {
+        return $this->belongsToMany(Keahlian::class, 'profile_keahlians', 'user_id', 'keahlian_id')->withTimestamps();
     }
 }

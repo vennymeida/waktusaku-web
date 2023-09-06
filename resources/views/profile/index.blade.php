@@ -519,7 +519,7 @@
                         <div class="profile-widget-name">Keahlian Saya</div>
                     </div>
                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                        <a href="#">
+                        <a href="{{ url('/profile/keahlian/edit') }}">
                             <img class="img-fluid" style="width: 35px; height: 35px;"
                                 src="{{ asset('assets/img/landing-page/Plus.svg') }}">
                         </a>

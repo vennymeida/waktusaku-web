@@ -30,6 +30,7 @@ use App\Http\Controllers\RoleAndPermission\RoleController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PerusahaanListController;
+use App\Http\Controllers\ProfileKeahlianController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -109,6 +110,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         ->name('profile.perusahaan.update');
     //user list
 
+    Route::get('profile/keahlian/edit', [ProfileKeahlianController::class, 'edit'])->name('profile.keahlian.edit');
+    Route::put('profile/keahlian/update', [ProfileKeahlianController::class, 'update'])->name('profile.keahlian.update');
+    Route::delete('profile/keahlian/delete', [ProfileKeahlianController::class, 'deleteKeahlian'])->name('profile.keahlian.delete');
     Route::resource('pendidikan', PendidikanController::class);
     Route::resource('pengalaman', PengalamanController::class);
     Route::resource('pelatihan', PelatihanController::class);
