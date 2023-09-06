@@ -536,6 +536,7 @@ h4 .badge {
 }
 
 .custom-input {
+    height: 40px;
     width: 100%;
     font-size: 14px;
     font-weight: lighter;

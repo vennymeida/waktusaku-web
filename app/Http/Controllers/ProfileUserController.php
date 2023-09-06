@@ -44,15 +44,21 @@ class ProfileUserController extends Controller
         $request->validate([
             'alamat' => 'nullable|string|max:255',
             'jenis_kelamin' => 'nullable|in:L,P',
-            'no_hp' => 'nullable|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/',
+            'no_hp' => [
+                'nullable',
+                'regex:/^08[0-9]{8,13}$/'
+            ],
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'resume' => 'nullable|file|mimes:pdf|max:2048',
             'tgl_lahir' => 'nullable|date:d/m/Y',
             'ringkasan' => 'nullable|string|max:500',
-            'harapan_gaji' => 'nullable|numeric',
+            'harapan_gaji' => 'nullable|string',
         ], [
             'alamat.max' => 'Alamat Melebihi Batas Maksimal',
             'jenis_kelamin.in' => 'Jenis Kelamin Hanya Pada Pilihan L/P',
+            'no_hp' => [
+                'regex: Nomor Hp Tidak Sesuai Format'
+            ],
             'no_hp.regex' => 'Nomor Hp Tidak Sesuai Format',
             'foto.image' => 'Foto Tidak Sesuai Format',
             'foto.mimes' => 'Foto Hanya Mendukung Format jpeg, png, jpg',
@@ -61,7 +67,7 @@ class ProfileUserController extends Controller
             'resume.max' => 'Ukuran Resume Terlalu Besar',
             'tgl_lahir.date' => 'Tanggal Lahir Harus Sesuai Format',
             'ringkasan.max' => 'Ringkasan Melebihi Batas Maksimal',
-            'harapan_gaji.numeric' => 'Harapan Gaji Harus Angka',
+            'harapan_gaji.string' => 'Harapan Gaji Harus Angka',
         ]);
 
         $fotoLama = DB::table('profile_users')->where('user_id', Auth::user()->id)->first();

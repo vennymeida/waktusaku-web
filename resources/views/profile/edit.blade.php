@@ -1,8 +1,45 @@
+<!-- Modal for Foto Preview -->
+<div class="modal fade" id="fotoPreviewModal" tabindex="-1" role="dialog" aria-labelledby="fotoPreviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header m-4">
+                <h5 class="modal-title" id="fotoPreviewModalLabel" style="color: #6777ef; font-weight: bold;">Foto
+                    Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="fotoPreviewImage" src="" alt="Foto Preview" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Resume Preview -->
+<div class="modal fade" id="resumePreviewModal" tabindex="-1" role="dialog" aria-labelledby="resumePreviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header m-4">
+                <h5 class="modal-title" id="resumePreviewModalLabel" style="color: #6777ef; font-weight: bold;">Resume
+                    Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="resumePreviewFrame" src="" frameborder="0" width="100%" height="500"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
 @extends('landing-page.app')
 @section('main')
     <main class="bg-light">
         <section>
-            {{-- <div class="bg-primary-section col-md-10 mx-auto"> --}}
             <div class="col-md-12">
                 <div class="card bg-white col-md-10 mx-auto my-3">
                     <ul class="list-unstyled d-flex">
@@ -12,28 +49,12 @@
                         </a>
                         <p class="text-primary font-weight-bolder my-4 " style="font-size: 22px;">Edit Data Diri</p>
                     </ul>
-                    {{-- <div class="profile-widget-description m-3"
-                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center; color:#6777EF">
-                    <div class="flex-grow-1">
-                        <div class="row">
-                            <div>
-                                <a href="{{ url('/profile') }}">
-                                    <img class="img-fluid mt-1" style="width: 30px; height: 30px;"
-                                        src="{{ asset('assets/img/Vector.svg') }}">
-                                </a>
-                            </div>
-                            <div class="profile-widget-name mt-2 ml-3">Edit Data Diri</div>
-                        </div>
-                    </div>
-                </div> --}}
                 </div>
             </div>
         </section>
         <section>
             <div class="col-md-10 mx-auto mt-4">
                 <div class="row">
-                    {{-- <div class="col-lg-6"> --}}
-                    {{-- <div class="col-md-12"> --}}
                     <div class="col-md-6">
                         <div class="card border-primary mb-2">
                             <div class="card-body">
@@ -66,7 +87,7 @@
                                                     class="form-control custom-input @error('name', 'updateProfileInformation')
                                                 is-invalid
                                                 @enderror"
-                                                    value="{{ Auth::user()->name }}">
+                                                    value="{{ Auth::user()->name }}" placeholder="Masukkan nama anda">
                                                 @error('name', 'updateProfileInformation')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -79,16 +100,17 @@
                                                     class="form-control custom-input @error('email', 'updateProfileInformation')
                                                 is-invalid
                                                 @enderror"
-                                                    value="{{ Auth::user()->email }}">
+                                                    value="{{ Auth::user()->email }}" placeholder="Masukkan email anda">
                                                 @error('email', 'updateProfileInformation')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div class="form-group col-md-6 col-12 text-right">
-                                                <button class="btn btn-primary custom-input" type="submit">Ubah
-                                                    Profil</button>
+                                            <div class="form-group col-md-12 text-right my-4">
+                                                <button class="btn btn-primary mr-1 px-3"
+                                                    style="border-radius: 15px; font-size: 14px; font-weight: lighter;"
+                                                    type="submit">Ubah Profil</button>
                                             </div>
                                         </form>
                                     </div>
@@ -96,8 +118,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- </div> --}}
-                    {{-- <div class="col-md-12"> --}}
                     <div class="col-md-6">
                         <div class="card border-primary mb-2">
                             <div class="card-body">
@@ -116,7 +136,8 @@
                                                 <label for="current_password">Kata Sandi Saat Ini</label>
                                                 <input id="current_password" type="password"
                                                     class="form-control select custom-input @error('current_password', 'updatePassword') is-invalid @enderror"
-                                                    data-indicator="pwindicator" name="current_password" tabindex="2">
+                                                    data-indicator="pwindicator" name="current_password" tabindex="2"
+                                                    placeholder="Masukkan kata sandi saat ini">
                                                 @error('current_password', 'updatePassword')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -133,7 +154,8 @@
                                                 <label for="password">Kata Sandi Baru</label>
                                                 <input id="password" type="password"
                                                     class="form-control select custom-input @error('password', 'updatePassword') is-invalid @enderror"
-                                                    data-indicator="pwindicator" name="password" tabindex="2">
+                                                    data-indicator="pwindicator" name="password" tabindex="2"
+                                                    placeholder="Masukkan kata sandi baru">
                                                 @error('password', 'updatePassword')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -149,7 +171,7 @@
                                                 <input id="password_confirmation" type="password"
                                                     class="form-control select custom-input @error('password_confirmation') is-invalid @enderror"
                                                     data-indicator="pwindicator" name="password_confirmation"
-                                                    tabindex="2">
+                                                    tabindex="2" placeholder="Masukkan ulang kata sandi baru">
                                                 @error('password_confirmation')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -162,10 +184,10 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-5 col-12 text-right">
-                                                <button class="btn btn-primary custom-input" type="submit">Ubah
-                                                    Kata
-                                                    Sandi</button>
+                                            <div class="form-group col-md-12 text-right my-4">
+                                                <button class="btn btn-primary mr-1 px-3"
+                                                    style="border-radius: 15px; font-size: 14px; font-weight: lighter;"
+                                                    type="submit">Ubah Kata Sandi</button>
                                             </div>
                                         </div>
                                     </form>
@@ -173,8 +195,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- </div> --}}
-                    {{-- </div> --}}
                     @if (Auth::user()->hasRole('Pencari Kerja') || Auth::user()->hasRole('Perusahaan'))
                         <div class="col-md-6">
                             <div class="card border-primary mb-2">
@@ -194,11 +214,6 @@
                                                 <div class="form-group col-md-12 col-12">
                                                     <label>Tanggal Lahir</label>
                                                     <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text custom-input">
-                                                                <i class="fa fa-calendar"></i>
-                                                            </div>
-                                                        </div>
                                                         <input name="tgl_lahir" type="date"
                                                             class="form-control phone-number custom-input @error('tgl_lahir') is-invalid @enderror"
                                                             value="{{ Auth::user()->profile ? Auth::user()->profile->tgl_lahir : '' }}">
@@ -239,7 +254,8 @@
                                                     </div>
                                                     <input name="no_hp" type="number"
                                                         class="form-control phone-number custom-input @error('no_hp') is-invalid @enderror"
-                                                        value="{{ Auth::user()->profile ? Auth::user()->profile->no_hp : '' }}">
+                                                        value="{{ Auth::user()->profile ? Auth::user()->profile->no_hp : '' }}"
+                                                        placeholder="Contoh: 08...">
                                                     @error('no_hp')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -248,40 +264,30 @@
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-12 col-12">
-                                                <label>Alamat</label>
-                                                <input name="alamat" type="text"
-                                                    class="form-control custom-input @error('alamat') is-invalid @enderror"
-                                                    value="{{ Auth::user()->profile ? Auth::user()->profile->alamat : '' }}">
+                                                <label for="alamat">Alamat</label>
+                                                <textarea name="alamat" id="alamat" class="text-loker form-control @error('alamat') is-invalid @enderror"
+                                                    type="text" style="height: 100px;" placeholder="Masukkan alamat anda">{{ Auth::user()->profile ? Auth::user()->profile->alamat : '' }}</textarea>
                                                 @error('alamat')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
+                                                    <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             @if (Auth::user()->hasRole('Pencari Kerja'))
                                                 <div class="form-group col-md-12 col-12">
-                                                    <label>Ringkasan</label>
-                                                    <input name="ringkasan" type="text"
-                                                        class="form-control custom-input @error('ringkasan') is-invalid @enderror"
-                                                        value="{{ Auth::user()->profile ? Auth::user()->profile->ringkasan : '' }}"
-                                                        style="height: 70px">
+                                                    <label for="ringkasan">Ringkasan</label>
+                                                    <textarea name="ringkasan" id="ringkasan"
+                                                        class="form-control summernote-simple @error('ringkasan') is-invalid @enderror" type="text"
+                                                        placeholder="Masukkan ringkasan tentang diri anda">{{ Auth::user()->profile ? Auth::user()->profile->ringkasan : '' }}</textarea>
                                                     @error('ringkasan')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group col-md-12 col-12">
                                                     <label>Gaji yang diharapkan</label>
                                                     <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text custom-input">
-                                                                <i>Rp</i>
-                                                            </div>
-                                                        </div>
-                                                        <input name="harapan_gaji" type="number"
+                                                        <input id="harapan_gaji" name="harapan_gaji" type="text"
                                                             class="form-control custom-input @error('harapan_gaji') is-invalid @enderror"
-                                                            value="{{ Auth::user()->profile ? Auth::user()->profile->harapan_gaji : '' }}">
+                                                            value="{{ Auth::user()->profile ? Auth::user()->profile->harapan_gaji : '' }}"
+                                                            placeholder="Masukkan nominal gaji yang ingin anda terima">
                                                         @error('harapan_gaji')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -318,8 +324,35 @@
                                                         (Tipe berkas : pdf | Max size : 2MB)</div>
                                                 </div>
                                             @endif
-                                            <div class="form-group col-md-3 col-12 text-right">
-                                                <button class="btn btn-primary custom-input"
+                                            <div class="row col-12 mb-4">
+                                                <div class="form-group col-md-6">
+                                                    @if (Auth::user()->profile && Auth::user()->profile->foto != '')
+                                                        <div>
+                                                            <a href="#" class="btn btn-sm btn-warning btn-icon"
+                                                                data-toggle="modal" data-target="#fotoPreviewModal"
+                                                                data-pdf="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                                                style="border-radius: 15px;">
+                                                                <i class="fas fa-eye mt-6"></i> Lihat Foto
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    @if (Auth::user()->profile && Auth::user()->profile->resume != '')
+                                                        <div>
+                                                            <a href="#" class="btn btn-sm btn-warning btn-icon"
+                                                                data-toggle="modal" data-target="#resumePreviewModal"
+                                                                data-pdf="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
+                                                                style="border-radius: 15px;">
+                                                                <i class="fas fa-eye mt-6"></i> Lihat Resume
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12 text-right my-4">
+                                                <button class="btn btn-primary mr-1 px-3"
+                                                    style="border-radius: 15px; font-size: 14px; font-weight: lighter;"
                                                     type="submit">Simpan</button>
                                             </div>
                                         </form>
@@ -472,11 +505,11 @@
                                                 <label>Informasi Tentang Perusahaan</label>
                                                 <textarea id="deskripsi" name="deskripsi" type="text"
                                                     class="form-control summernote-simple @error('deskripsi') is-invalid @enderror">
-                                                @if (!empty($perusahaans->deskripsi))
+                                                    @if (!empty($perusahaans->deskripsi))
 {{ $perusahaans->deskripsi }}
 @else
 @endif
-                                            </textarea>
+                                                </textarea>
                                                 @error('deskripsi')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -518,3 +551,55 @@
         </section>
     </main>
 @endsection
+
+@push('customStyle')
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+@endpush
+
+@push('customScript')
+    <script src="{{ asset('assets/js/summernote-bs4.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        function formatRupiah(angka) {
+            var formatter = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            });
+            var formatted = formatter.format(angka);
+            return formatted;
+        }
+
+        document.getElementById('harapan_gaji').addEventListener('input', function() {
+            var value = this.value.replace(/[^0-9]/g, '');
+            this.value = formatRupiah(value);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#resumePreviewModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var pdfUrl = button.data('pdf');
+
+                var modal = $(this);
+                modal.find('.modal-body iframe').attr('src', pdfUrl);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#fotoPreviewModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var fotoUrl = button.data('pdf');
+
+                var modal = $(this);
+                modal.find('#fotoPreviewImage').attr('src', fotoUrl);
+            });
+        });
+    </script>
+@endpush
