@@ -134,21 +134,15 @@
         "Oktober", "November", "Desember"
     ];
 
-    // Mengelompokkan data berdasarkan perusahaan
-    const perusahaanData = {};
 
+    const perusahaanData = {};
     grafikData.forEach(item => {
         if (!perusahaanData[item.nama]) {
-            perusahaanData[item.nama] = {
-                labels: [],
-                data: []
-            };
+            perusahaanData[item.nama] = Array(12).fill(0);
         }
-        perusahaanData[item.nama].labels.push(monthNames[parseInt(item.month)]);
-        perusahaanData[item.nama].data.push(item.jumlah_lamars);
+        perusahaanData[item.nama][parseInt(item.month) - 1] = item.jumlah_lamars;
     });
 
-    // Mendefinisikan warna yang berbeda untuk setiap perusahaan
     const colors = [
         'rgba(75, 192, 192, 1)',
         'rgba(255, 99, 132, 1)',
@@ -156,16 +150,16 @@
         'rgba(255, 206, 86, 1)',
         'rgba(153, 102, 255, 1)',
         'rgba(255, 159, 64, 1)',
-        // Tambahkan warna lain jika diperlukan
+
     ];
 
     const datasets = [];
-
-    for (const [index, perusahaan] of Object.entries(perusahaanData)) {
+    let colorIndex = 0;
+    for (const [perusahaan, data] of Object.entries(perusahaanData)) {
         datasets.push({
-            label: index,
-            data: perusahaan.data,
-            borderColor: colors[datasets.length % colors.length], // Gunakan warna sesuai dengan urutan dataset
+            label: perusahaan,
+            data: data,
+            borderColor: colors[colorIndex++ % colors.length],
             borderWidth: 1,
             fill: false,
         });
@@ -174,7 +168,7 @@
     const myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: perusahaanData[Object.keys(perusahaanData)[0]].labels, // Gunakan satu set label dari salah satu perusahaan
+            labels: monthNames.slice(1),
             datasets: datasets,
         },
         options: {
