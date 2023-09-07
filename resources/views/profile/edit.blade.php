@@ -36,6 +36,45 @@
     </div>
 </div>
 
+<!-- Modal for Logo Preview -->
+<div class="modal fade" id="logoPreviewModal" tabindex="-1" role="dialog" aria-labelledby="logoPreviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header m-4">
+                <h5 class="modal-title" id="logoPreviewModalLabel" style="color: #6777ef; font-weight: bold;">Logo
+                    Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="logoPreviewImage" src="" alt="logo Preview" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for SIU Preview -->
+<div class="modal fade" id="siuPreviewModal" tabindex="-1" role="dialog" aria-labelledby="siuPreviewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header m-4">
+                <h5 class="modal-title" id="siuPreviewModalLabel" style="color: #6777ef; font-weight: bold;">Surat Izin
+                    Usaha
+                    Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="siuPreviewFrame" src="" frameborder="0" width="100%" height="500"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
 @extends('landing-page.app')
 @section('main')
     <main class="bg-light">
@@ -379,8 +418,9 @@
                                             <div class="form-group col-md-12 col-12">
                                                 <label>Nama Pemilik Perusahaan</label>
                                                 <input name="pemilik" type="text"
-                                                    class="form-control @error('pemilik') is-invalid @enderror"
-                                                    value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->pemilik : '' }}">
+                                                    class="form-control custom-input @error('pemilik') is-invalid @enderror"
+                                                    value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->pemilik : '' }}"
+                                                    placeholder="Masukkan nama pemilik perusahaan">
                                                 @error('pemilik')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -390,8 +430,9 @@
                                             <div class="form-group col-md-12 col-12">
                                                 <label>Nama Perusahaan</label>
                                                 <input name="nama" type="text"
-                                                    class="form-control @error('nama') is-invalid @enderror"
-                                                    value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->nama : '' }}">
+                                                    class="form-control custom-input @error('nama') is-invalid @enderror"
+                                                    value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->nama : '' }}"
+                                                    placeholder="Masukkan nama perusahaan">
                                                 @error('nama')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -399,13 +440,12 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-12 col-12">
-                                                <label>Alamat Perusahaan</label>
-                                                <textarea name="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" rows="3"
-                                                    value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat : '' }}"></textarea>
-                                                @error('alamat')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
+                                                <label for="alamat-perusahaan">Alamat Perusahaan</label>
+                                                <textarea name="alamat-perusahaan" id="alamat-perusahaan"
+                                                    class="text-loker form-control @error('alamat-perusahaan') is-invalid @enderror" rows="3" type="text"
+                                                    style="height: 100px;" placeholder="Masukkan alamat-perusahaan perusahaan">{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat - perusahaan : '' }}</textarea>
+                                                @error('alamat-perusahaan')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="row col-12">
@@ -456,14 +496,15 @@
                                                         </div>
                                                     </div>
                                                     <input name="email" type="text"
-                                                        class="form-control email @error('email') is-invalid @enderror"
-                                                        value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->email : '' }}">
+                                                        class="form-control custom-input email @error('email') is-invalid @enderror"
+                                                        value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->email : '' }}"
+                                                        placeholder="Masukkan email perusahaan">
+                                                    @error('email')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
-                                                @error('email')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
                                             </div>
                                             <div class="form-group col-md-12 col-12">
                                                 <label>Website Perusahaan</label>
@@ -474,32 +515,34 @@
                                                         </div>
                                                     </div>
                                                     <input name="website" type="text"
-                                                        class="form-control website @error('website') is-invalid @enderror"
-                                                        value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->website : '' }}">
+                                                        class="form-control custom-input website @error('website') is-invalid @enderror"
+                                                        value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->website : '' }}"
+                                                        placeholder="Masukkan website perusahaan">
+                                                    @error('website')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
-                                                @error('website')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
                                             </div>
                                             <div class="form-group col-md-12 col-12">
                                                 <label>No Telp Perusahaan</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <div class="input-group-text">
+                                                        <div class="input-group-text custom-input">
                                                             <i class="fas fa-phone"></i>
                                                         </div>
                                                     </div>
-                                                    <input name="no_hp" type="text"
-                                                        class="form-control phone-number @error('no_hp') is-invalid @enderror"
-                                                        value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp : '' }}">
+                                                    <input name="no_hp-perusahaan" type="number"
+                                                        class="form-control phone-number custom-input @error('no_hp-perusahaan') is-invalid @enderror"
+                                                        value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp - perusahaan : '' }}"
+                                                        placeholder="Contoh: 08...">
+                                                    @error('no_hp-perusahaan')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
-                                                @error('no_hp')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
                                             </div>
                                             <div class="form-group col-md-12 col-12">
                                                 <label>Informasi Tentang Perusahaan</label>
@@ -517,27 +560,60 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-12 col-12">
-                                                <label>Perbarui Logo Perusahaan</label>
+                                                <label>Unggah Logo Perusahaan</label>
                                                 <input id="logo" name="logo" type="file"
-                                                    class="form-control @error('logo') is-invalid @enderror">
+                                                    class="form-control custom-input @error('logo') is-invalid @enderror">
                                                 @error('logo')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
+                                                <div class="text-warning small"
+                                                    style="font-size: 13px; font-weight:bolder;">
+                                                    (Tipe berkas : jpeg,jpg,png | Max size : 2MB)</div>
                                             </div>
                                             <div class="form-group col-md-12 col-12">
-                                                <label>Perbarui Surat Izin Usaha</label>
+                                                <label>Unggah Surat Izin Usaha</label>
                                                 <input id="siu" name="siu" type="file"
-                                                    class="form-control @error('siu') is-invalid @enderror">
+                                                    class="form-control custom-input @error('siu') is-invalid @enderror">
                                                 @error('siu')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
+                                                <div class="text-warning small"
+                                                    style="font-size: 13px; font-weight:bolder;">
+                                                    (Tipe berkas : PDF | Max size : 2MB)</div>
                                             </div>
-                                            <div class="form-group col-md-3 col-12 text-right">
-                                                <button class="btn btn-primary custom-input"
+                                            <div class="row col-12 mb-4">
+                                                <div class="form-group col-md-6">
+                                                    @if (Auth::user()->perusahaan && Auth::user()->perusahaan->logo != '')
+                                                        <div>
+                                                            <a href="#" class="btn btn-sm btn-warning btn-icon"
+                                                                data-toggle="modal" data-target="#logoPreviewModal"
+                                                                data-pdf="{{ Storage::url(Auth::user()->perusahaan->logo) }}"
+                                                                style="border-radius: 15px;">
+                                                                <i class="fas fa-eye mt-6"></i> Lihat Logo
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    @if (Auth::user()->perusahaan && Auth::user()->perusahaan->siu != '')
+                                                        <div>
+                                                            <a href="#" class="btn btn-sm btn-warning btn-icon"
+                                                                data-toggle="modal" data-target="#siuPreviewModal"
+                                                                data-pdf="{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->siu) : '' }}"
+                                                                style="border-radius: 15px;">
+                                                                <i class="fas fa-eye mt-6"></i> Lihat SIU
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12 text-right my-4">
+                                                <button class="btn btn-primary mr-1 px-3"
+                                                    style="border-radius: 15px; font-size: 14px; font-weight: lighter;"
                                                     type="submit">Simpan</button>
                                             </div>
                                         </form>
@@ -599,6 +675,61 @@
 
                 var modal = $(this);
                 modal.find('#fotoPreviewImage').attr('src', fotoUrl);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#siuPreviewModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var pdfUrl = button.data('pdf');
+
+                var modal = $(this);
+                modal.find('.modal-body iframe').attr('src', pdfUrl);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#logoPreviewModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var logoUrl = button.data('pdf');
+
+                var modal = $(this);
+                modal.find('#logoPreviewImage').attr('src', logoUrl);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#kecamatan_id').change(function() {
+                if ($(this).val() == '') {
+                    $('#kelurahan_id').attr('disabled', true);
+                } else {
+                    $('#kelurahan_id').removeAttr('disabled', false);
+                }
+
+                var kecamatanId = $(this).val();
+                $.ajax({
+                    url: '{{ route('getKelurahans') }}',
+                    type: 'GET',
+                    data: {
+                        kecamatan_id: kecamatanId
+                    },
+                    success: function(response) {
+                        $('#kelurahan_id').html('<option value="">Pilih Kelurahan</option>');
+                        $.each(response.kelurahans, function(key, kelurahan) {
+                            $('#kelurahan_id').append('<option value="' + kelurahan.id +
+                                '">' + kelurahan.kelurahan + '</option>');
+                        });
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
     </script>

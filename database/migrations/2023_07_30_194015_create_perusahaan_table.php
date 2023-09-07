@@ -20,11 +20,11 @@ return new class extends Migration
             $table->unsignedBigInteger('kelurahan_id')->nullable();
             $table->string('pemilik')->nullable();
             $table->string('nama')->nullable();
-            $table->string('alamat')->nullable();
+            $table->string('alamat-perusahaan')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
             $table->string('logo')->nullable();
-            $table->string('no_hp')->nullable();
+            $table->string('no_hp-perusahaan')->nullable();
             $table->string('deskripsi')->nullable();
             $table->string('siu')->nullable();
             $table->timestamps();
