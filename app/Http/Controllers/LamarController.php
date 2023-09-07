@@ -132,6 +132,7 @@ class LamarController extends Controller
     $pendidikan = $relasiLamar->pencarikerja->user->pendidikan;
     $pengalaman = $relasiLamar->pencarikerja->user->pengalaman;
     $pelatihan = $relasiLamar->pencarikerja->user->pelatihan;
+    $keahlian = $relasiLamar->pencarikerja->user->profileKeahlians;
     $judulPekerjaan = $relasiLamar->loker->judul;
     $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 
@@ -145,7 +146,8 @@ class LamarController extends Controller
         'profileUser' => $profileUser,
         'pendidikan' => $pendidikan,
         'pengalaman' => $pengalaman,
-        'pelatihan' => $pelatihan
+        'pelatihan' => $pelatihan,
+        'keahlian' => $keahlian,
     ]);
 }
 
