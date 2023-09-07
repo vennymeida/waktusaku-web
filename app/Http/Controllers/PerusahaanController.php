@@ -18,19 +18,19 @@ class PerusahaanController extends Controller
         $request->validate([
             'pemilik' => 'nullable|string|max:255',
             'nama' => 'nullable|string|max:255',
-            'alamat-perusahaan' => 'nullable|string|max:255',
+            'alamat_perusahaan' => 'nullable|string|max:255',
             'kecamatan_id' => 'nullable',
             'kelurahan_id' => 'nullable',
             'email' => 'nullable|string|max:255',
             'website' => 'nullable|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'no_hp-perusahaan' => 'nullable|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/',
+            'no_hp_perusahaan' => 'nullable|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/',
             'deskripsi' => 'nullable|string|max:255',
             'siu' => 'nullable|file|mimes:pdf|max:2048',
         ], [
             'pemilik.max' => 'Nama Pemilik Melebihi Batas Maksimal',
             'nama.max' => 'Nama Perusahaan Melebihi Batas Maksimal',
-            'alamat-perusahaan.max' => 'Alamat Melebihi Batas Maksimal',
+            'alamat_perusahaan.max' => 'Alamat Melebihi Batas Maksimal',
             'kecamatan_id.exists' => 'Kecamatan tidak valid.',
             'kelurahan_id.exists' => 'Kelurahan tidak valid.',
             'email.max' => 'Email Melebihi Batas Maksimal',
@@ -38,7 +38,7 @@ class PerusahaanController extends Controller
             'logo.image' => 'Logo Tidak Sesuai Format',
             'logo.mimes' => 'Logo Hanya Mendukung Format jpeg, png, jpg',
             'logo.max' => 'Ukuran Logo Terlalu Besar',
-            'no_hp-perusahaan.regex' => 'Nomor Hp Tidak Sesuai Format',
+            'no_hp_perusahaan.regex' => 'Nomor Hp Tidak Sesuai Format',
             'deskripsi.max' => 'Deskripsi Melebihi Batas Maksimal',
             'siu.mimes' => 'Surat Izin Usaha Hanya Mendukung Format pdf',
             'siu.max' => 'Ukuran Surat Izin Usaha Terlalu Besar',
@@ -55,10 +55,10 @@ class PerusahaanController extends Controller
         if ($perusahaanUser === null) {
             $perusahaanUserBaru->pemilik = $request->input('pemilik');
             $perusahaanUserBaru->nama = $request->input('nama');
-            $perusahaanUserBaru->alamat = $request->input('alamat');
+            $perusahaanUserBaru->alamat_perusahaan = $request->input('alamat_perusahaan');
             $perusahaanUserBaru->email = $request->input('email');
             $perusahaanUserBaru->website = $request->input('website');
-            $perusahaanUserBaru->no_hp = $request->input('no_hp');
+            $perusahaanUserBaru->no_hp_perusahaan = $request->input('no_hp_perusahaan');
             $perusahaanUserBaru->deskripsi = $request->input('deskripsi');
             $perusahaanUserBaru->kecamatan_id = $request->input('kecamatan_id');
             $perusahaanUserBaru->kelurahan_id = $request->input('kelurahan_id');

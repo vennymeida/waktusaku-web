@@ -440,11 +440,11 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-12 col-12">
-                                                <label for="alamat-perusahaan">Alamat Perusahaan</label>
-                                                <textarea name="alamat-perusahaan" id="alamat-perusahaan"
-                                                    class="text-loker form-control @error('alamat-perusahaan') is-invalid @enderror" rows="3" type="text"
-                                                    style="height: 100px;" placeholder="Masukkan alamat-perusahaan perusahaan">{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat - perusahaan : '' }}</textarea>
-                                                @error('alamat-perusahaan')
+                                                <label for="alamat_perusahaan">Alamat Perusahaan</label>
+                                                <textarea name="alamat_perusahaan" id="alamat_perusahaan"
+                                                    class="text-loker form-control @error('alamat_perusahaan') is-invalid @enderror" rows="3" type="text"
+                                                    style="height: 100px;" placeholder="Masukkan alamat_perusahaan perusahaan">{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }}</textarea>
+                                                @error('alamat_perusahaan')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -533,11 +533,11 @@
                                                             <i class="fas fa-phone"></i>
                                                         </div>
                                                     </div>
-                                                    <input name="no_hp-perusahaan" type="number"
-                                                        class="form-control phone-number custom-input @error('no_hp-perusahaan') is-invalid @enderror"
-                                                        value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp - perusahaan : '' }}"
+                                                    <input name="no_hp_perusahaan" type="number"
+                                                        class="form-control phone-number custom-input @error('no_hp_perusahaan') is-invalid @enderror"
+                                                        value="{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp_perusahaan : '' }}"
                                                         placeholder="Contoh: 08...">
-                                                    @error('no_hp-perusahaan')
+                                                    @error('no_hp_perusahaan')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
