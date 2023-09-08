@@ -3,7 +3,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>View Pencari Kerja</h1>
+        <h1>Daftar Pencari Kerja</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
             <div class="breadcrumb-item"><a href="{{ route('pelamar.index') }}">Pencari Kerja</a></div>
@@ -11,11 +11,21 @@
         </div>
     </div>
     <div class="section-body">
+        <h2 class="section-title">Detail Pencari Kerja</h2>
         <div class="d-flex justify-content-center">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Detail Pencari Kerja</h5>
-                    <div class="row">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <a href="{{ route('pelamar.index') }}">
+                                <img class="img-fluid mt-1" style="width: 50px; height: 35px;" src="{{ asset('assets/img/Vector.svg') }}">
+                            </a>
+                        </div>
+                        <div class="profile-widget-name mt-2 ml-3 text-primary" style="font-size: 20px;">
+                            <a href="{{ route('pelamar.index') }}" style="text-decoration: none; color: inherit;"><strong>Pertinjau Detail Pencari Kerja</strong></a>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
                         <!-- Foto -->
                         <div class="col-md-2">
                             <div class="text-center mb-4">
@@ -57,9 +67,9 @@
                                 <dd class="col-sm-7 mt-3">
                                     @if ($pelamar->profile && $pelamar->profile->resume)
                                     <a href="{{ asset('storage/' . $pelamar->profile->resume) }}" target="_blank"
-                                        class="btn btn-primary btn-sm">View Resume</a>
+                                        class="btn btn-primary btn-sm">Lihat Resume</a>
                                     @else
-                                    <span class="text-muted">No Resume Available</span>
+                                    <span class="text-muted">Tidak ada Resume</span>
                                     @endif
                                 </dd>
                             </dl>
@@ -140,7 +150,7 @@
                                 <dd class="col-sm-7 mt-3">
                                     @if ($pelamar->pelatihan && $pelamar->pelatihan->sertifikat)
                                     <a href="{{ asset('storage/' . $pelamar->pelatihan->sertifikat) }}" target="_blank"
-                                        class="btn btn-primary btn-sm">View Sertifikat</a>
+                                        class="btn btn-primary btn-sm">Lihat Sertifikat</a>
                                     @else
                                     <span class="text-muted">Tidak ada Sertifikat</span>
                                     @endif
@@ -149,9 +159,9 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="text-center mt-4">
+                    {{-- <div class="text-center mt-4">
                         <a href="{{ route('pelamar.index') }}" class="btn btn-info">Kembali</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
