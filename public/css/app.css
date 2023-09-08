@@ -1,3 +1,15 @@
+p {
+    font-weight: normal;
+}
+
+span {
+    font-weight: normal;
+}
+
+ol {
+    font-weight: normal;
+}
+
 .bg-primary {
     background-color: #6777ef !important;
     /* height: 100%; */
@@ -8,24 +20,24 @@
     border-radius: 30px !important;
     padding-left: 13px !important;
     padding-right: 13px !important;
-    background-color: #EB9481;
+    background-color: #eb9481;
     color: #fff;
 }
 
 #skill-button {
-    border-color: #EB9481;
+    border-color: #eb9481;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 #skill-button:hover {
-    background-color: #ff2f00;;
-    border-color: #ff2f00;;
+    background-color: #ff2f00;
+    border-color: #ff2f00;
 }
 
 #skill-button:focus {
-    background-color: #EB9481;
+    background-color: #eb9481;
     color: white;
-    border-color: #ff2f00;;
+    border-color: #ff2f00;
 }
 
 .corner-text {
@@ -38,7 +50,7 @@
 }
 
 .bg-header {
-    background-color: #F7F7F7;
+    background-color: #f7f7f7;
 }
 .bg-primary-nav {
     background-color: #ffffff !important;
@@ -578,6 +590,7 @@ h4 .badge {
 }
 
 .custom-input {
+    height: 40px;
     width: 100%;
     font-size: 14px;
     font-weight: lighter;
@@ -759,6 +772,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display: block;
     margin-bottom: 10px;
     font-size: 14px;
+    font-weight: normal;
 }
 
 .form-loker {
@@ -911,6 +925,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .select2-results__option--highlighted[aria-selected] {
     background-color: #6777ef;
     color: #fff;
+    font-weight: normal;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
+    font-weight: normal;
+}
+
+.select2-container--default .select2-results__option[aria-selected="true"],
+.select2-container--default
+    .select2-results__option--highlighted[aria-selected] {
+    background-color: #6777ef;
+    color: #fff;
+    font-weight: normal;
 }
 
 .select2-results__option {
@@ -975,4 +1004,8 @@ select.custom-select option:disabled {
 .logo-container img {
     position: relative;
     z-index: 2;
+}
+
+.note-placeholder {
+    font-weight: normal !important;
 }

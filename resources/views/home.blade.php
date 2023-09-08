@@ -123,6 +123,7 @@
 @endsection
 
 @push('customScript')
+
 <script src="{{ asset('assets/js/jquery.sparkline.min.js') }}"></script>
 <script src="{{ asset('assets/js/chart.min.js') }}"></script>
 

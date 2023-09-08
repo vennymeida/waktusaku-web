@@ -49,7 +49,7 @@ class DetailPerusahaan extends Controller
 
         return view('detailPerusahaan', ['allResults' => $allResults]);
     }
-
+  
     public function getTimeAgo($timestamp)
     {
         $currentTime = Carbon::now();

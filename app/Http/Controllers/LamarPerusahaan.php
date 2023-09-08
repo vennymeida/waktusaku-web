@@ -129,7 +129,7 @@ class LamarPerusahaan extends Controller
         $profileUser = $lamar->pencarikerja;
 
         // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
-        $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan',]);
+        $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
 
         // Mendapatkan informasi yang diperlukan dari relasi
         $namaPengguna = $relasiLamar->pencarikerja->user->name;
