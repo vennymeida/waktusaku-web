@@ -25,7 +25,7 @@
                                     </a>
                                 </ul>
                                 <h5 class="font-weight-bolder">Ringkasan </h5>
-                                <p class="mb-2 text-justify" style="font-size: 14px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias maxime, iure nostrum laboriosam eaque aspernatur sapiente ratione id autem, voluptatem dignissimos, ex quisquam mollitia deleniti cupiditate ut illum quam iste culpa provident dicta nisi magni. Iste laudantium aliquam saepe perferendis, beatae qui! Tempora quisquam ullam animi consequatur deleniti ex. Voluptatibus!</p>
+                                <p class="mb-2 text-justify" style="font-size: 14px;">{{ $profileUser->ringkasan }}</p>
                                 <h5 class="font-weight-bolder">Personal Info </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Email</dt>
@@ -38,7 +38,7 @@
                                     <dd class="col-sm-8 mt-2">{{ $profileUser->alamat }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Tanggal Lahir</dt>
-                                    <dd class="col-sm-8 mt-2">2 Mei 2002</dd>
+                                    <dd class="col-sm-8 mt-2">{{ $profileUser->tgl_lahir }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Jenis Kelamin</dt>
                                     <dd class="col-sm-8 mt-2">
@@ -51,8 +51,9 @@
                                         @endif
                                     </dd>
 
-                                    <dt class="col-sm-4 mt-2">Gaji</dt>
-                                    <dd class="col-sm-8 mt-2"></dd>
+                                    <dt class="col-sm-4 mt-2">Harapan Gaji</dt>
+                                    <dd class="col-sm-8 mt-2">
+                                        {{ 'IDR ' . number_format($profileUser->harapan_gaji, 0, ',', '.') }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Resume</dt>
                                     <dd class="col-sm-8 mt-2">
@@ -62,7 +63,7 @@
                                                 {{ basename($lamar->resume) }}
                                             </a>
                                         @else
-                                            <span class="text-muted">No Resume Available</span>
+                                            <span class="text-muted">Tidak ada resume</span>
                                         @endif
                                     </dd>
                                 </dl>
@@ -71,71 +72,105 @@
                                 <h5 class="font-weight-bolder">Pendidikan </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Nama Institusi</dt>
-                                    <dd class="col-sm-8 mt-2">Politeknik Negeri Malang</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pendidikan)->institusi ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Gelar</dt>
-                                    <dd class="col-sm-8 mt-2">S1</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pendidikan)->gelar ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Jurusan</dt>
-                                    <dd class="col-sm-8 mt-2">Teknologi Informasi</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pendidikan)->jurusan ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Prestasi</dt>
-                                    <dd class="col-sm-8 mt-2">Pemain Sepak Bola</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pendidikan)->prestasi ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">IPK</dt>
-                                    <dd class="col-sm-8 mt-2">3,91</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pendidikan)->ipk ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Periode</dt>
-                                    <dd class="col-sm-8 mt-2">2020 - 2023</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pendidikan)->tahun_mulai ?: '-' }}<span> -
+                                        </span>
+                                        {{ optional($pendidikan)->tahun_berakhir ?: '-' }}</dd>
                                 </dl>
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Keahlian</h5>
-                                {{-- @foreach ($loker->keahlian as $key => $keahlian) --}}
-                                    <button class="px-4 mt-2 mr-1 btn btn-skill">Laravel</button>
-                                    <button class="px-4 mt-2 mr-1 btn btn-skill">PHP</button>
-                                    <button class="px-4 mt-2 mr-1 btn btn-skill">Javascript</button>
-                                {{-- @endforeach --}}
+                                <dl class="row">
+                                    <dt class="col-sm-3 mt-3">
+                                        @if ($keahlian && $keahlian->count() > 0)
+                                            <ul>
+                                                @foreach ($keahlian as $keahlian)
+                                                    <li>{{ $keahlian->keahlian }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            -
+                                        @endif
+                                    </dt>
+                                </dl>
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Pengalaman Kerja </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Nama Pekerjaan</dt>
-                                    <dd class="col-sm-8 mt-2">Web Developer</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pengalaman)->nama_pekerjaan ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Nama Perusahaan</dt>
-                                    <dd class="col-sm-8 mt-2">PT Hummasoft</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pengalaman)->nama_perusahaan ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Alamat</dt>
-                                    <dd class="col-sm-8 mt-2">Jl Ngijo Karangploso</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pengalaman)->alamat ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Tipe Pekerjaan</dt>
-                                    <dd class="col-sm-8 mt-2">Remote</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pengalaman)->tipe ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Gaji</dt>
-                                    <dd class="col-sm-8 mt-2">-</dd>
+                                    <dd class="col-sm-8 mt-2">
+                                        {{ 'IDR ' . number_format(optional($pengalaman)->gaji, 0, ',', '.') ?: '-' }}
+                                    </dd>
+
 
                                     <dt class="col-sm-4 mt-2">Periode</dt>
-                                    <dd class="col-sm-8 mt-2">2023 - sekarang</dd>
+                                    <?php
+                                    // Mengambil tanggal mulai dan tanggal berakhir dari kode HTML
+                                    $tanggal_mulai = $pengalaman->tanggal_mulai;
+                                    $tanggal_berakhir = $pengalaman->tanggal_berakhir;
+
+                                    // Mengubah format tanggal ke "d F Y" (contoh: "4 August 2023")
+                                    $tanggal_mulai = date('j F Y', strtotime($tanggal_mulai));
+                                    $tanggal_berakhir = date('j F Y', strtotime($tanggal_berakhir));
+                                    ?>
+
+                                    <!-- Menampilkan tanggal dalam format yang diubah -->
+                                    <dd class="col-sm-8 mt-2"><?= $tanggal_mulai ?><span> - </span><?= $tanggal_berakhir ?>
+                                    </dd>
                                 </dl>
 
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Pelatihan / Sertifikasi </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Nama Pelatihan</dt>
-                                    <dd class="col-sm-8 mt-2">VSGA</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pelatihan)->nama_sertifikat ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Deskripsi</dt>
-                                    <dd class="col-sm-8 mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis aliquid pariatur repellendus non voluptatem quam fugiat neque ipsum exercitationem odit.</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pelatihan)->deskripsi ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Dikeluarkan oleh</dt>
-                                    <dd class="col-sm-8 mt-2">Dicoding Indonesia</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pelatihan)->penerbit ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Tanggal Dikeluarkan</dt>
-                                    <dd class="col-sm-8 mt-2">2023</dd>
+                                    <dd class="col-sm-8 mt-2">{{ optional($pelatihan)->tanggal_dikeluarkan ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Sertifikat</dt>
-                                    <dd class="col-sm-8 mt-2">sertifikat.pdf</dd>
+                                    <dd class="col-sm-8 mt-2">
+                                        @if ($pelatihan && $pelatihan->sertifikat)
+                                            <a href="{{ asset('storage/' . $pelatihan->sertifikat) }}"
+                                                onclick="return openResume();" target="_blank" class="mb-2">
+                                                {{ basename($pelatihan->sertifikat) }}
+                                            </a>
+                                        @else
+                                            <span class="text-muted">Tidak ada sertifikat</span>
+                                        @endif
+                                    </dd>
                                 </dl>
                             </ul>
                             <br>

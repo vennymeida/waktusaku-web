@@ -19,10 +19,9 @@ class LamarPerusahaan extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:pelamarkerja.index')->only('index');
-        $this->middleware('permission:pelamarkerja.create')->only('create', 'store');
-        $this->middleware('permission:pelamarkerja.edit')->only('edit', 'update');
-        $this->middleware('permission:pelamarkerja.destroy')->only('destroy');
+        $this->middleware('permission:lamarperusahaan.index')->only('index');
+        $this->middleware('permission:lamarperusahaan.edit')->only('edit', 'update');
+        $this->middleware('permission:lamarperusahaan.show')->only('show');
     }
 
     public function index(Request $request)
@@ -81,6 +80,7 @@ class LamarPerusahaan extends Controller
                 'pu.foto',
                 'pu.resume',
                 'pu.alamat',
+                'pu.harapan_gaji',
                 'u.email',
                 'p.nama',
                 'lp.judul',
@@ -129,12 +129,16 @@ class LamarPerusahaan extends Controller
         $profileUser = $lamar->pencarikerja;
 
         // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
-        $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
+        $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan',]);
 
         // Mendapatkan informasi yang diperlukan dari relasi
         $namaPengguna = $relasiLamar->pencarikerja->user->name;
         $email = $relasiLamar->pencarikerja->user->email;
         $resume = $relasiLamar->pencarikerja->user->resume;
+        $pendidikan = $relasiLamar->pencarikerja->user->pendidikan;
+        $pengalaman = $relasiLamar->pencarikerja->user->pengalaman;
+        $pelatihan = $relasiLamar->pencarikerja->user->pelatihan;
+        $keahlian = $relasiLamar->pencarikerja->user->profileKeahlians;
         $judulPekerjaan = $relasiLamar->loker->judul;
         $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 
@@ -145,7 +149,11 @@ class LamarPerusahaan extends Controller
             'judulPekerjaan' => $judulPekerjaan,
             'namaPerusahaan' => $namaPerusahaan,
             'lamar' => $lamar,
-            'profileUser' => $profileUser
+            'profileUser' => $profileUser,
+            'pendidikan' => $pendidikan,
+            'pengalaman' => $pengalaman,
+            'pelatihan' => $pelatihan,
+            'keahlian' => $keahlian,
         ]);
     }
 

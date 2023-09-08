@@ -14,6 +14,7 @@ class StatusLamarController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:status-lamaran.index')->only('index');
     }
 
     public function index(Request $request)

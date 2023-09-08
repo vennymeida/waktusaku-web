@@ -90,6 +90,9 @@
 
         <section>
             <div class="col-md-12 mt-5 mx-auto d-flex flex-wrap justify-content-center">
+                @if ($allResults->isEmpty())
+                    <p class="mt-4">Data Tidak Tersedia</p>
+                @else
                 @foreach ($allResults as $key => $loker)
                     <div class="card col-md-3 mb-4 mx-4">
                         <div class="card-body d-flex flex-column">
@@ -163,6 +166,7 @@
                         </div>
                     </div>
                 @endforeach
+                @endif
             </div>
         </section>
         <div class="d-flex justify-content-center">

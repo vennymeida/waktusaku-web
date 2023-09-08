@@ -119,7 +119,7 @@
                                                 <div class="media-right">
                                                     <a href="{{ route('lamarperusahaan.show', $lamar->id) }}"
                                                         class="btn btn-sm btn-primary btn-icon"
-                                                        style="border-radius: 15px";>
+                                                        style="border-radius: 10px";>
                                                         <i class="far fa-eye"></i> Detail
                                                     </a>
                                                     <br>

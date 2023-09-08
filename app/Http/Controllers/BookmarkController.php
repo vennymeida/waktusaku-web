@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Log;
 
 class BookmarkController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:bookmarks.index')->only('index');
+    }
+
     public function index(Request $request)
     {
         $user = Auth::user();
