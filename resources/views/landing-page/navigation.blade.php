@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary-nav sticky-top">
         <div class="container">
@@ -67,12 +71,10 @@
                 <ul class="navbar-nav ml-auto">
                     @if (!auth()->user())
                         <li class="nav-item">
-                            <a class="nav-link px-4 py-1 btn btn-outline-primary text-primary mr-2"
-                                href="{{ route('login') }}" style="border-radius: 10px;">Login</a>
+                            <a class="px-4 py-1 btn text-primary mr-2 btn-login" href="{{ route('login') }}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link px-4 py-1 btn btn-outline-warning text-white"
-                                href="{{ route('register') }}" style="border-radius: 10px;">Daftar</a>
+                            <a class="px-4 py-1 btn btn-regis" href="{{ route('register') }}">Daftar</a>
                         </li>
                     @else
                         <li class="nav-item dropdown">
@@ -101,12 +103,13 @@
                                     </a>
                                 @endif
                                 @if (auth()->user()->hasRole('Pencari Kerja'))
-                                <a href="{{ route('bookmark.index') }}" class="dropdown-item has-icon">
-                                    <i class="far fa-bookmark mx-1 mr-2"></i> Bookmark
-                                </a>
+                                    <a href="{{ route('bookmark.index') }}" class="dropdown-item has-icon">
+                                        <i class="far fa-bookmark mx-1 mr-2"></i> Bookmark
+                                    </a>
                                     <a href="{{ route('melamar.status') }}" class="dropdown-item has-icon">
-                                        <img class="img-fluid img-icon mx-1 mr-2" src="{{ asset('assets/img/lamar/status.svg') }}"
-                                        style="width: 8%; height: 8%;">Status Lamaran
+                                        <img class="img-fluid img-icon mx-1 mr-2"
+                                            src="{{ asset('assets/img/lamar/status.svg') }}"
+                                            style="width: 8%; height: 8%;">Status Lamaran
                                     </a>
                                 @endif
                                 @if (auth()->user()->hasRole('Perusahaan'))
@@ -161,7 +164,11 @@
     // Inisialisasi dropdown
     $(document).ready(function() {
         $('.dropdown-toggle').dropdown();
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Inisialisasi dropdown
+        $(document).ready(function() {
+            $('.dropdown-toggle').dropdown();
             // Additional styling using script
             $('.dropdown-username').css('font-weight', 'bold');
             $('.dropdown-menu .dropdown-item').hover(function() {

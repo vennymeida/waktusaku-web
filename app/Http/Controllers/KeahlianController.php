@@ -13,10 +13,10 @@ class KeahlianController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:kategori.index')->only('index');
-        $this->middleware('permission:kategori.create')->only('create', 'store');
-        $this->middleware('permission:kategori.edit')->only('edit', 'update');
-        $this->middleware('permission:kategori.destroy')->only('destroy');
+        $this->middleware('permission:keahlian.index')->only('index');
+        $this->middleware('permission:keahlian.create')->only('create', 'store');
+        $this->middleware('permission:keahlian.edit')->only('edit', 'update');
+        $this->middleware('permission:keahlian.destroy')->only('destroy');
     }
     public function index(Request $request)
     {

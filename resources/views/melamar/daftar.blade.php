@@ -158,9 +158,47 @@
             $('#lamarModal').modal('hide');
         });
 
+        // Tambahkan event handler untuk tombol "Lamar Sekarang"
+        $('#lamar-sekarang-button').on('click', function() {
+            let currentResume = $('#current-resume-name').attr('data-url');
+
+            if (currentResume) {
+                // Lakukan tindakan melamar, misalnya dengan menggunakan AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('melamar.store') }}',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        loker_id: '{{ $loker->id }}'
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Anda telah berhasil melamar pekerjaan.'
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Terjadi kesalahan saat melakukan lamaran.'
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Peringatan',
+                    text: 'Anda harus mengunggah resume sebelum melamar!'
+                });
+            }
+        });
+
         window.openResume = openResume; // Make it global
     });
 </script>
+
 
 <style>
 .fixed-height-image {

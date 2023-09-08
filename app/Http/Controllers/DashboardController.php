@@ -31,7 +31,7 @@ class DashboardController extends Controller
                 'l.created_at'
             )
             ->orderBy('l.created_at', 'desc') // Menambahkan pengurutan berdasarkan created_at terbaru
-            ->take(8) //mengambil 5 data teratas
+            ->take(5) //mengambil 5 data teratas
             ->get();
 
 
@@ -45,7 +45,7 @@ class DashboardController extends Controller
                 'p.nama'
             )
             ->groupBy(DB::raw('MONTH(l.created_at)'), 'p.nama')
-            ->take(10)
+            ->take(5)
             ->get();
 
 

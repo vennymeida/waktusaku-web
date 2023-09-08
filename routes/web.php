@@ -77,13 +77,27 @@ Route::get('/about-us', function () {
     return view('about');
 });
 
+// Route::get('/login', function () {
+//     if (auth()->check()) {
+//         return redirect('/dashboard');
+//     } else {
+//         return view('auth/login');
+//     }
+// })->name('login');
+
 Route::get('/login', function () {
     if (auth()->check()) {
-        return redirect('/dashboard');
+        $user = auth()->user();
+        if ($user->hasRole('super-admin')) {
+            return redirect('/dashboard');
+        } elseif ($user->hasRole('Pencari Kerja') || $user->hasRole('Perusahaan')) {
+            return redirect('/welcome');
+        }
     } else {
         return view('auth/login');
     }
 })->name('login');
+
 
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
@@ -98,6 +112,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/profile', function () {
         return view('profile.index');
     });
+    Route::get('/welcome', [WelcomeController::class, 'index']);
+    Route::GET('/profile', [ProfileUserController::class, 'profile']);
+//     Route::get('/profile', function () {
+//         return view('profile.index');
+//     });
     Route::get('/profile-admin', function () {
         return view('profile.super-admin');
     });
