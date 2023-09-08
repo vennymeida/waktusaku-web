@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('profile_users', function (Blueprint $table) {
+        Schema::create('pelatihan', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('alamat')->nullable();
-            $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
-            $table->string('no_hp')->nullable();
-            $table->string('foto')->nullable();
-            $table->string('resume')->nullable();
-            $table->string('tgl_lahir')->nullable();
-            $table->string('ringkasan')->nullable();
-            $table->string('harapan_gaji')->nullable();
+            $table->string('nama_sertifikat')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->string('penerbit')->nullable();
+            $table->date('tanggal_dikeluarkan')->nullable();
+            $table->string('sertifikat')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();
         });
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile_users');
+        Schema::dropIfExists('pelatihan');
     }
 };

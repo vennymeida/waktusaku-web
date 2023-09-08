@@ -99,14 +99,13 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled list-unstyled-border">
-                            @foreach ($dashboard as $lamar)
+                            @foreach($dashboard as $lamar)
                                 <li class="media">
                                     @if ($lamar->foto)
-                                        <img src="{{ asset('storage/' . $lamar->foto) }}" alt="Foto"
-                                            class="mr-3 rounded-circle" style="width: 50px; height: 50px;">
+                                        <img src="{{ asset('storage/' . $lamar->foto) }}" alt="Foto" class="mr-3 rounded-circle" style="width: 50px; height: 50px;">
                                     @else
                                         <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                            class="mr-3 rounded-circle" style="width: 50px; height: 50px;">
+                                        class="mr-3 rounded-circle" style="width: 50px; height: 50px;">
                                     @endif
                                     <div class="media-body">
                                         <div class="media-title">{{ $lamar->name }}</div>
@@ -123,61 +122,44 @@
 @endsection
 
 @push('customScript')
-<script src="{{ asset('assets/js/jquery.sparkline.min.js') }}"></script>
-<script src="{{ asset('assets/js/chart.min.js') }}"></script>
+<script src="{{asset('assets/js/jquery.sparkline.min.js')}}"></script>
+<script src="{{asset('assets/js/chart.min.js')}}"></script>
+{{-- <script src="{{asset('assets/js/grafik.js')}}"></script> --}}
 
 <script>
+
     var ctx = document.getElementById("myChart").getContext('2d');
-    const grafikData = @json($grafik);
+const grafikData = @json($grafik);
 
-    const monthNames = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
-        "Oktober", "November", "Desember"
-    ];
+const monthNames = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
+const labels = grafikData.map(item => {
+  return monthNames[parseInt(item.month)];
+});
 
-    const perusahaanData = {};
-    grafikData.forEach(item => {
-        if (!perusahaanData[item.nama]) {
-            perusahaanData[item.nama] = Array(12).fill(0);
-        }
-        perusahaanData[item.nama][parseInt(item.month) - 1] = item.jumlah_lamars;
-    });
+const data = grafikData.map(item => item.jumlah_lamars);
+const perusahaan = grafikData.map(item => item.nama);
 
-    const colors = [
-        'rgba(75, 192, 192, 1)',
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-
-    ];
-
-    const datasets = [];
-    let colorIndex = 0;
-    for (const [perusahaan, data] of Object.entries(perusahaanData)) {
-        datasets.push({
-            label: perusahaan,
-            data: data,
-            borderColor: colors[colorIndex++ % colors.length],
-            borderWidth: 1,
-            fill: false,
-        });
-    }
-
-    const myLineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: monthNames.slice(1),
-            datasets: datasets,
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                },
-            },
-        },
-    });
+const myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: perusahaan,
+      data: data,
+      borderColor: 'rgba(75, 192, 192, 1)',
+      borderWidth: 1,
+      fill: false,
+    }],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
 </script>
+
 @endpush

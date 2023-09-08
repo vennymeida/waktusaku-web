@@ -14,6 +14,9 @@ use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\PelamarListController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PendidikanController;
+use App\Http\Controllers\PengalamanController;
+use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\LamarController;
 use App\Http\Controllers\LamarPerusahaan;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
@@ -27,6 +30,7 @@ use App\Http\Controllers\RoleAndPermission\RoleController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PerusahaanListController;
+use App\Http\Controllers\ProfileKeahlianController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -104,7 +108,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         return view('home');
     });
     Route::get('/welcome', [WelcomeController::class, 'index']);
-    Route::GET('/profile', [ProfileUserController::class, 'profile'])
+    Route::GET('/profile', [ProfileUserController::class, 'profile']);
+    Route::get('/profile', function () {
+        return view('profile.index');
+    });
+    Route::get('/profile-admin', function () {
+        return view('profile.super-admin');
+    });
+    Route::GET('/profile-edit', [ProfileUserController::class, 'profile'])
         ->name('profile.edit');
     Route::get('/getKelurahans', [ProfileUserController::class, 'getKelurahans'])->name('getKelurahans');
     Route::PUT('/update-profile-information', [ProfileUserController::class, 'update'])
@@ -112,6 +123,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::PUT('/update-perusahaan-information', [PerusahaanController::class, 'update'])
         ->name('profile.perusahaan.update');
     //user list
+
+    Route::get('profile/keahlian/edit', [ProfileKeahlianController::class, 'edit'])->name('profile.keahlian.edit');
+    Route::put('profile/keahlian/update', [ProfileKeahlianController::class, 'update'])->name('profile.keahlian.update');
+    Route::delete('profile/keahlian/delete', [ProfileKeahlianController::class, 'deleteKeahlian'])->name('profile.keahlian.delete');
+    Route::resource('pendidikan', PendidikanController::class);
+    Route::resource('pengalaman', PengalamanController::class);
+    Route::resource('pelatihan', PelatihanController::class);
 
     Route::prefix('user-management')->group(function () {
         Route::resource('user', UserController::class);

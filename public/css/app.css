@@ -1,16 +1,79 @@
 .bg-primary {
     background-color: #6777ef !important;
-    height: 100%;
+    /* height: 100%; */
 }
 
+.card-header-action .btn {
+    font-size: 12px;
+    border-radius: 30px !important;
+    padding-left: 13px !important;
+    padding-right: 13px !important;
+    background-color: #EB9481;
+    color: #fff;
+}
+
+#skill-button {
+    border-color: #EB9481;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#skill-button:hover {
+    background-color: #ff2f00;;
+    border-color: #ff2f00;;
+}
+
+#skill-button:focus {
+    background-color: #EB9481;
+    color: white;
+    border-color: #ff2f00;;
+}
+
+.corner-text {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 45px;
+    font-style: italic;
+    font-size: small;
+}
+
+.bg-header {
+    background-color: #F7F7F7;
+}
 .bg-primary-nav {
     background-color: #ffffff !important;
-    height: 100%;
+    /* height: 100%; */
 }
 
 .bg-secondary {
     background-color: #cbd1fe !important;
-    height: 100%;
+}
+
+.bg-profile {
+    background-color: white;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.centered-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-height: 100vh;
+    margin-top: 50px;
+}
+
+.bg-primary-section {
+    width: 80%; /* Atur lebar div */
+    margin: 0 auto; /* Menggunakan margin otomatis */
+    padding: 20px;
+    background-color: #007bff;
+}
+
+.bg-primary-section {
+    background-color: #ffffff !important;
+    /* height: 100%; */
+    border-radius: 10px;
 }
 
 .btn-skill {
@@ -503,6 +566,30 @@ a.dropdown-item.active {
     z-index: 0;
     opacity: 0.6;
     filter: grayscale(30%);
+}
+
+h4 .badge {
+    font-size: 16px;
+    padding: 8px 13px;
+}
+
+.custom-input {
+    border-radius: 15px;
+}
+
+.custom-input {
+    width: 100%;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.form-group {
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.text-right {
+    text-align: right;
 }
 
 .input-group-text {
