@@ -4,11 +4,11 @@
     <!-- Main Content -->
     <section class="section">
         <div class="section-header">
-            <h1>User Details</h1>
+            <h1>Detail Pengguna</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="#">User Management</a></div>
-                <div class="breadcrumb-item">User Details</div>
+                <div class="breadcrumb-item">Detail Pengguna</div>
             </div>
         </div>
         <div class="section-body">
@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4>User Details</h4>
+                            <h4>Detail Pengguna</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.index') }}">Back to User List</a>
                             </div>
@@ -49,7 +49,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">User Details</h5>
+                    <h5 class="modal-title" id="detailsModalLabel">Detail Pengguna</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -57,7 +57,7 @@
                 <div class="modal-body">
                     <table class="table">
                         <tr>
-                            <th>Name</th>
+                            <th>Nama Pengguna</th>
                             <td>{{ $user->name }}</td>
                         </tr>
                         <tr>

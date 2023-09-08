@@ -4,7 +4,7 @@
     <!-- Main Content -->
     <section class="section">
         <div class="section-header">
-            <h1>User List</h1>
+            <h1>Daftar Pengguna</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="#">Components</a></div>
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="section-body">
-            <h2 class="section-title">User Management</h2>
+            <h2 class="section-title">Manajemen Pengguna</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -126,7 +126,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel{{$user->id}}">User Details</h5>
+                    <h5 class="modal-title" id="detailsModalLabel{{$user->id}}">Detail Pengguna</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -134,7 +134,7 @@
                 <div class="modal-body">
                     <table class="table">
                         <tr>
-                            <th>Name</th>
+                            <th>Name Pengguna</th>
                             <td>{{ $user->name }}</td>
                         </tr>
                         <tr>
