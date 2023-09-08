@@ -33,7 +33,7 @@ class BookmarkController extends Controller
         $posisi = $request->input('posisi');
         $lokasi = $request->input('lokasi');
         $kategori = $request->input('kategori', []);
-
+        
         // Apply search filters if provided
         if ($posisi) {
             $query->whereHas('lowonganPekerjaan', function ($q) use ($posisi) {

@@ -70,7 +70,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Lamar::class, 'id_pencari_kerja');
     }
-
+  
     public function pengalaman()
     {
         return $this->hasOne(Pengalaman::class);
@@ -79,7 +79,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function pelatihan()
     {
         return $this->hasOne(Pelatihan::class);
-
     }
 
     public function profileKeahlians()

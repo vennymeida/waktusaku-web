@@ -147,7 +147,7 @@
                 </div>
             </div>
         </section>
-
+        
         <section>
             <div class="col-md-10 mt-5 mx-auto">
                 <h2 class="text-center">Lowongan Kerja Terbaru di <span class="text-primary">WaktuSaku</span></h2>

@@ -88,10 +88,10 @@ class DetailPerusahaan extends Controller
             ->where('lp.status', 'dibuka')
             ->groupBy('lp.id', 'lp.judul', 'lp.deskripsi', 'lp.user_id', 'lp.gaji_atas', 'lp.gaji_bawah', 'lp.lokasi', 'lp.min_pendidikan', 'lp.min_pengalaman', 'lp.updated_at')
             ->paginate(6);
-
+      
         $kecamatan = Kecamatan::all();
         $kelurahan = Kelurahan::all();
-
+      
         foreach ($lowonganPekerjaan as $time) {
             $time->timeAgo = $this->getTimeAgo($time->updated_at);
         }

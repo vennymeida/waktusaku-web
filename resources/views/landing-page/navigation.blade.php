@@ -159,12 +159,16 @@
     <script src="/assets/js/scripts.js"></script>
     <script src="/assets/js/custom.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    // Inisialisasi dropdown
+    $(document).ready(function() {
+        $('.dropdown-toggle').dropdown();
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         // Inisialisasi dropdown
         $(document).ready(function() {
             $('.dropdown-toggle').dropdown();
-
             // Additional styling using script
             $('.dropdown-username').css('font-weight', 'bold');
             $('.dropdown-menu .dropdown-item').hover(function() {

@@ -154,7 +154,6 @@ class LamarPerusahaan extends Controller
             'pengalaman' => $pengalaman,
             'pelatihan' => $pelatihan,
             'keahlian' => $keahlian,
-
         ]);
     }
 
@@ -181,6 +180,6 @@ class LamarPerusahaan extends Controller
 
     public function destroy($id)
     {
-        //
+        // 
     }
 }

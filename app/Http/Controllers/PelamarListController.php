@@ -15,7 +15,7 @@ class PelamarListController extends Controller
         $rolePencariKerja = Role::where('name', 'Pencari Kerja')->first();
 
         // Mengambil data pengguna dengan role "Pencari Kerja" dan memiliki profil terkait
-        $query = User::with('profile') // Eager-load the "profile" relation
+        $query = User::with(['profile', 'profileKeahlians.keahlian']) // Eager-load the "profile" relation
             ->whereHas('roles', function ($query) use ($rolePencariKerja) {
                 $query->where('id', $rolePencariKerja->id);
             });
@@ -71,6 +71,7 @@ class PelamarListController extends Controller
 
     public function show(User $pelamar)
     {
+        $pelamar->load(['profileKeahlians.keahlian']);
         return view('pelamar.view', compact('pelamar'));
     }
 }

@@ -74,7 +74,7 @@
                 </div>
             </div>
         </section>
-
+        
         @if (Auth::guest() || (Auth::check() && Auth::user()->hasRole('Pencari Kerja')))
             <section>
                 <div class="col-md-12 mt-4 mx-auto d-flex flex-wrap justify-content-center">

@@ -129,7 +129,6 @@
 <script>
     var ctx = document.getElementById("myChart").getContext('2d');
     const grafikData = @json($grafik);
-
     const monthNames = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
         "Oktober", "November", "Desember"
     ];

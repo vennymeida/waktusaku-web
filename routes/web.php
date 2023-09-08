@@ -109,9 +109,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
     Route::get('/welcome', [WelcomeController::class, 'index']);
     Route::GET('/profile', [ProfileUserController::class, 'profile']);
-    Route::get('/profile', function () {
-        return view('profile.index');
-    });
+//     Route::get('/profile', function () {
+//         return view('profile.index');
+//     });
     Route::get('/profile-admin', function () {
         return view('profile.super-admin');
     });
