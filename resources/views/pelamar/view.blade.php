@@ -41,8 +41,8 @@
                         <div class="col-md-9">
                             <h4><strong>{{ $pelamar->name }}</strong></h4>
                             <h6 class="mt-4"><strong>Ringkasan</strong></h6>
-                            <p>{{ optional($pelamar->profile)->ringkasan ?: '-' }}</p>
-                            
+                            <p>{{ ($pelamar->profile)->ringkasan ?: '-' }}</p>
+
                             <h6 class="mt-5"><strong>Personal Info</strong></h6>
                             <dl class="row">
                                 <dt class="col-sm-3 mt-3">Email</dt>
@@ -61,7 +61,7 @@
                                 <dd class="col-sm-7 mt-3">{{ $pelamar->profile ? ($pelamar->profile->jenis_kelamin === 'L' ? 'Laki-Laki' : 'Perempuan') : '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Harapan Gaji</dt>
-                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->profile)->harapan_gaji ? 'IDR ' . number_format($pelamar->profile->harapan_gaji, 0, ',', '.') : '-' }}</dd>
+                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->profile)->harapan_gaji ?: '-' }}</dd>
 
                                 <dt class="col-sm-3 mt-3">Resume</dt>
                                 <dd class="col-sm-7 mt-3">

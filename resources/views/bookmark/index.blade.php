@@ -114,7 +114,7 @@
                                             <ul class="list-unstyled d-flex justify-content-between">
                                                 <li class="mb-2">
                                                     <img class="img-fluid img-icon"
-                                                        src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                                        src="{{ asset('assets/img/landing-page/list.svg') }}">
                                                         @foreach ($bookmark->lowonganPekerjaan->kategori as $index => $kategori)
                                                         {{ $kategori->kategori }}@if ($index < count($bookmark->lowonganPekerjaan->kategori) - 1),
                                                         @endif
@@ -145,6 +145,11 @@
                                                     src="{{ asset('assets/img/landing-page/location pin.svg') }}">
                                                 {{ $bookmark->lowonganPekerjaan->lokasi }}
                                             </li>
+                                            <li class="mb-2"><img class="img-fluid img-icon"
+                                                src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                            {{ $bookmark->lowonganPekerjaan->perusahaan->alamat_perusahaan }}, {{$bookmark->lowonganPekerjaan->perusahaan->kelurahan->kelurahan}},
+                                            {{$bookmark->lowonganPekerjaan->perusahaan->kecamatan->kecamatan}}
+                                        </li>
                                         </ul>
                                     </div>
                                     <div class="text-center mb-3">

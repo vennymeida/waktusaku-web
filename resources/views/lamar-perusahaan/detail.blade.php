@@ -38,7 +38,7 @@
                                     <dd class="col-sm-8 mt-2">{{ $profileUser->alamat }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Tanggal Lahir</dt>
-                                    <dd class="col-sm-8 mt-2">{{ $profileUser->tgl_lahir }}</dd>
+                                    <dd class="col-sm-8 mt-2">{{ $tglLahir }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Jenis Kelamin</dt>
                                     <dd class="col-sm-8 mt-2">
@@ -52,8 +52,8 @@
                                     </dd>
 
                                     <dt class="col-sm-4 mt-2">Harapan Gaji</dt>
-                                    <dd class="col-sm-8 mt-2">
-                                        {{ 'IDR ' . number_format($profileUser->harapan_gaji, 0, ',', '.') }}</dd>
+                                    <dd class="col-sm-8 mt-2">{{ $profileUser->harapan_gaji }}
+                                    </dd>
 
                                     <dt class="col-sm-4 mt-2">Resume</dt>
                                     <dd class="col-sm-8 mt-2">
@@ -95,11 +95,11 @@
                                 <hr class="my-4">
                                 <h5 class="font-weight-bolder">Keahlian</h5>
                                 <dl class="row">
-                                    <dt class="col-sm-3 mt-3">
+                                    <dt class="col-sm-3 mt-1">
                                         @if ($keahlian && $keahlian->count() > 0)
                                             <ul>
                                                 @foreach ($keahlian as $keahlian)
-                                                    <li>{{ $keahlian->keahlian }}</li>
+                                                    <li>{{ $keahlian->keahlian->keahlian }}</li>
                                                 @endforeach
                                             </ul>
                                         @else
@@ -124,8 +124,7 @@
                                     <dd class="col-sm-8 mt-2">{{ optional($pengalaman)->tipe ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Gaji</dt>
-                                    <dd class="col-sm-8 mt-2">
-                                        {{ 'IDR ' . number_format(optional($pengalaman)->gaji, 0, ',', '.') ?: '-' }}
+                                    <dd class="col-sm-8 mt-2">{{ 'Rp ' . number_format(optional($pengalaman)->gaji, 0, ',', '.') ?: '-' }}
                                     </dd>
 
 

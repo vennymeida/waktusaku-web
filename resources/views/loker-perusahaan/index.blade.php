@@ -183,6 +183,17 @@
             });
         @endif
     </script>
+
+<script>
+    @if (session('success') === 'success-edit')
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: 'Lowongan Pekerjaan berhasil diubah.',
+            confirmButtonText: 'OK'
+        });
+    @endif
+</script>
 @endsection
 
 @push('customScript')

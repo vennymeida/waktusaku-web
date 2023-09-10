@@ -13,6 +13,8 @@ use App\Http\Requests\UpdatelamarRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class LamarPerusahaan extends Controller
 {
@@ -127,6 +129,9 @@ class LamarPerusahaan extends Controller
     {
         $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
         $profileUser = $lamar->pencarikerja;
+        $profileUser->ringkasan = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $profileUser->ringkasan);
+        // $profileUser->tgl_lahir;
+        $tanggalLahir = Carbon::parse($profileUser->tgl_lahir)->format('j F Y');
 
         // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
         $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
@@ -154,6 +159,7 @@ class LamarPerusahaan extends Controller
             'pengalaman' => $pengalaman,
             'pelatihan' => $pelatihan,
             'keahlian' => $keahlian,
+            'tglLahir' => $tanggalLahir,
         ]);
     }
 
@@ -180,6 +186,6 @@ class LamarPerusahaan extends Controller
 
     public function destroy($id)
     {
-        // 
+        //
     }
 }

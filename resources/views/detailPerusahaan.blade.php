@@ -43,7 +43,7 @@
                         <li class="col-md-12 d-flex justify-content-end ml-5">
                             <img class="img-fluid img-icon mr-1"
                                 src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                            <p class="mb-5" style="font-size: 15px;">{{ $detail->alamat }},
+                            <p class="mb-5" style="font-size: 15px;">{{ $detail->alamat_perusahaan }},
                                 {{ $detail->kelurahan->kelurahan }},
                                 {{ $detail->kecamatan->kecamatan }} </p>
                         </li>
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </section>
-        
+
         @if (Auth::guest() || (Auth::check() && Auth::user()->hasRole('Pencari Kerja')))
             <section>
                 <div class="col-md-12 mt-4 mx-auto d-flex flex-wrap justify-content-center">
@@ -137,7 +137,7 @@
                                         <li class="d-flex justify-content-start">
                                             <img class="img-fluid img-icon mr-2"
                                                 src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                            <p class="mb-2">{{ $detail->alamat }}, {{ $detail->kelurahan->kelurahan }},
+                                            <p class="mb-2">{{ $detail->alamat_perusahaan }}, {{ $detail->kelurahan->kelurahan }},
                                                 {{ $detail->kecamatan->kecamatan }}</p>
                                         </li>
                                     </ul>

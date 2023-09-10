@@ -110,7 +110,7 @@
 
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="font-weight-bold">Alamat Perusahaan</h5>
-                        <p class="text-justify">{{ $loker->perusahaan->alamat }},
+                        <p class="text-justify">{{ $loker->perusahaan->alamat_perusahaan }},
                             {{ $loker->perusahaan->kelurahan->kelurahan }}, {{ $loker->perusahaan->kecamatan->kecamatan }}
                         </p>
                     </div>
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="card-primary-left col-md-3 mr-5 mb-1 text-center">
                                     <i class="fas fa-phone my-3"></i>
-                                    <p class="mb-4">{{ $loker->perusahaan->no_hp }}</p>
+                                    <p class="mb-4">{{ $loker->perusahaan->no_hp_perusahaan }}</p>
                                 </div>
                                 <div class="card-primary-left col-md-3 mb-1 text-center">
                                     <i class="fas fa-envelope my-3"></i>

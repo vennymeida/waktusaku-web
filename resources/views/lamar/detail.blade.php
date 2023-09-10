@@ -75,9 +75,8 @@
                                                     @endif
                                                 </dd>
 
-                                                <dt class="col-sm-4 mt-2">Gaji</dt>
-                                                <dd class="col-sm-8 mt-2">
-                                                    {{ 'IDR ' . number_format(optional($profileUser)->harapan_gaji, 0, ',', '.') ?: '-' }}
+                                                <dt class="col-sm-4 mt-2">Harapan Gaji</dt>
+                                                <dd class="col-sm-8 mt-2">{{ $profileUser->harapan_gaji }}
                                                 </dd>
 
                                                 <dt class="col-sm-4 mt-2">Resume</dt>
@@ -154,7 +153,7 @@
 
                                                 <dt class="col-sm-4 mt-2">Gaji</dt>
                                                 <dd class="col-sm-8 mt-2">
-                                                    {{ 'IDR ' . number_format(optional($pengalaman)->gaji, 0, ',', '.') ?: '-' }}
+                                                    {{ 'Rp ' . number_format(optional($pengalaman)->gaji, 0, ',', '.') ?: '-' }}
                                                 </dd>
 
                                                 <dt class="col-sm-4 mt-2">Periode</dt>

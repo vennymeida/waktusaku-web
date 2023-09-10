@@ -13,6 +13,7 @@ use App\Http\Requests\UpdatelamarRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class LamarController extends Controller
 {
@@ -121,6 +122,7 @@ class LamarController extends Controller
 {
     $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
     $profileUser = $lamar->pencarikerja;
+    $tanggalLahir = Carbon::parse($profileUser->tgl_lahir)->format('j F Y');
 
     // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
     $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
@@ -148,6 +150,7 @@ class LamarController extends Controller
         'pengalaman' => $pengalaman,
         'pelatihan' => $pelatihan,
         'keahlian' => $keahlian,
+        'tglLahir' => $tanggalLahir,
     ]);
 }
 

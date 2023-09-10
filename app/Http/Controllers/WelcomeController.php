@@ -40,14 +40,14 @@ class WelcomeController extends Controller
                 'p.nama',
                 'p.pemilik',
                 'p.logo',
-                'p.alamat',
+                'p.alamat_perusahaan',
                 'k.kecamatan',
                 'kl.kelurahan',
                 DB::raw("GROUP_CONCAT(kp.kategori SEPARATOR ', ') as kategori"),
             )
             ->where('lp.status', 'dibuka')
             ->orderBy('lp.created_at', 'desc')
-            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'lp.min_pengalaman', 'lp.min_pendidikan', 'p.pemilik', 'p.logo', 'p.alamat', 'k.kecamatan', 'kl.kelurahan')
+            ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'lp.min_pengalaman', 'lp.min_pendidikan', 'p.pemilik', 'p.logo', 'p.alamat_perusahaan', 'k.kecamatan', 'kl.kelurahan')
             ->paginate(10);
 
         return view('welcome', ['allResults' => $allResults]);

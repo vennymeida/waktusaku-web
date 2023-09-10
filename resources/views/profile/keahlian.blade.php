@@ -2,7 +2,7 @@
 
 @section('main')
     <div class="container">
-        <form action="{{ route('profile.keahlian.update') }}" method="POST">
+        {{-- <form action="{{ route('profile.keahlian.update') }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -16,10 +16,10 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
-        </form>
+        </form> --}}
 
-        <h2>Keahlian yang Dipilih:</h2>
-        @foreach (auth()->user()->keahlians as $keahlian)
+        {{-- <h2>Keahlian yang Dipilih:</h2> --}}
+        {{-- @foreach (auth()->user()->keahlians as $keahlian)
             <div>
                 {{ $keahlian->keahlian }}
                 <form action="{{ route('profile.keahlian.delete') }}" method="POST">
@@ -30,8 +30,8 @@
                 </form>
             </div>
         @endforeach
-    </div>
-@endsection
+    </div> --}}
+{{-- @endsection --}}
     <main class="bg-light">
         <section>
             <div class="col-md-11 mx-auto mt-4">

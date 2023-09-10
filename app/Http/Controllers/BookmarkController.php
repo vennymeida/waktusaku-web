@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Bookmark;
 use App\Models\KategoriPekerjaan;
 use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\LowonganPekerjaan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,8 @@ class BookmarkController extends Controller
     {
         $user = Auth::user();
 
-        $query = $user->bookmarks()->with(['lowonganPekerjaan.perusahaan', 'lowonganPekerjaan.kategori', 'lowonganPekerjaan.perusahaan.kecamatan']);
-
+        $query = $user->bookmarks()->with(['lowonganPekerjaan.perusahaan', 'lowonganPekerjaan.kategori', 'lowonganPekerjaan.perusahaan.kecamatan','lowonganPekerjaan.perusahaan.kelurahan']);
+        $kelurahan = Kelurahan::all();
         $kecamatan = Kecamatan::all();
         $kategoris = KategoriPekerjaan::all();
 
@@ -33,7 +34,7 @@ class BookmarkController extends Controller
         $posisi = $request->input('posisi');
         $lokasi = $request->input('lokasi');
         $kategori = $request->input('kategori', []);
-        
+
         // Apply search filters if provided
         if ($posisi) {
             $query->whereHas('lowonganPekerjaan', function ($q) use ($posisi) {
@@ -60,6 +61,7 @@ class BookmarkController extends Controller
         return view('bookmark.index', [
             'bookmarks' => $bookmarks,
             'kecamatan' => $kecamatan,
+            'kelurahan' => $kelurahan,
             'kategoris' => $kategoris,
             'selectedLokasi' => $lokasi,
             'selectedKategori' => $kategori,
