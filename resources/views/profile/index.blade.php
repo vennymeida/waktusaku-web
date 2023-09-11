@@ -528,9 +528,9 @@
                 <div class="col-md-12 mb-4">
                     <div class="flex-grow-1 mb-2">
                         <div class="card-header-action">
-                            <a href="#" class="btn btn-primary" id="skill-button">Leadership</a>
-                            <a href="#" class="btn btn-primary" id="skill-button">Edit Foto dan Video</a>
-                            <a href="#" class="btn btn-primary" id="skill-button">Public Speaking</a>
+                            @foreach (auth()->user()->keahlians as $keahlian)
+                            <button class="btn btn-primary" id="skill-button">{{ $keahlian->keahlian }}</button>
+                            @endforeach
                         </div>
                     </div>
                 </div>

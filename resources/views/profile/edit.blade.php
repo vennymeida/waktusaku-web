@@ -400,6 +400,40 @@
                             </div>
                         </div>
                     @endif
+                    @if (Auth::user()->hasRole('Pencari Kerja'))
+                        <div class="col-md-6">
+                            <div class="card border-primary mb-2">
+                                <div class="card-body">
+                                    <div class="text-left mb-4 mt-2 ml-2">
+                                        <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">
+                                            Tambah Keahlian Yang Dimiliki</h5>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <form action="{{ route('profile.keahlian.update') }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="form-group col-md-12 col-12">
+                                                <select name="keahlian_ids[]" multiple class="form-control select2">
+                                                    <option value="" disabled selected>Pilih Keahlian</option>
+                                                    @foreach ($keahlians as $keahlian)
+                                                        <option value="{{ $keahlian->id }}"
+                                                            {{ in_array($keahlian->id, $selectedKeahlians) ? 'selected' : '' }}>
+                                                            {{ $keahlian->keahlian }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-12 text-right my-4">
+                                                <button class="btn btn-primary mr-1 px-3"
+                                                    style="border-radius: 15px; font-size: 14px; font-weight: lighter;"
+                                                    type="submit">Tambah</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     @if (Auth::user()->hasRole('Perusahaan'))
                         <div class="col-md-6">
                             <div class="card border-primary mb-2">

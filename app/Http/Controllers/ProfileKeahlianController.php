@@ -18,7 +18,7 @@ class ProfileKeahlianController extends Controller
 
         $selectedKeahlians = auth()->user()->keahlians->pluck('id')->toArray();
 
-        return view('profile.keahlian', compact('keahlians', 'selectedKeahlians'));
+        return view('profile.edit', compact('keahlians', 'selectedKeahlians'));
     }
 
     public function update(Request $request)
