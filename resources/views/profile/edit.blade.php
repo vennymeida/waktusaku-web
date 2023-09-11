@@ -766,5 +766,38 @@
                 });
             });
         });
+        var selectKecamatanId = "{{ $perusahaans ? $perusahaans->kecamatan_id : '' }}";
+        var selectKelurahanId =
+            "{{ auth()->user()->perusahaans ? optional(auth()->user()->perusahaans->kelurahan)->id : '' }}";
+
+        // Mengisi dropdown Kelurahan sesuai dengan Kecamatan yang terpilih
+        if (selectKecamatanId != null) {
+            if ($("#kecamatan_id").val() != null) {
+                $('#kelurahan_id').removeAttr('disabled', true);
+            }
+            var selectkelProfile = "{{ $perusahaans ? $perusahaans->kelurahan_id : '' }}";
+            var idKecamatanSelected = $("#kecamatan_id").val();
+            console.log(idKecamatanSelected);
+            $.ajax({
+                url: '/load-filter',
+                method: 'POST',
+                data: {
+                    id: idKecamatanSelected,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                    $('#kelurahan_id').empty();
+                    $('#kelurahan_id').append('<option value="">Pilih Kelurahan</option>');
+                    $.each(response['kelurahans'], function(key, value) {
+                        $('#kelurahan_id').append('<option value="' + value.id + '">' +
+                            value.kelurahan + '</option>');
+                    });
+                    $("#kelurahan_id option[value='" + selectkelProfile + "']").attr("selected",
+                        "selected");
+                }
+            });
+        }
     </script>
 @endpush

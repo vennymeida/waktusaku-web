@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Keahlian;
+use App\Models\Pendidikan;
+use App\Models\Perusahaan;
 use App\Models\ProfileKeahlian;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +17,23 @@ class ProfileKeahlianController extends Controller
     public function edit()
     {
         $keahlians = Keahlian::all();
+        $userId = Auth::id();
+        $perusahaans = Perusahaan::where('user_id', $userId)->first();
 
-        $selectedKeahlians = auth()->user()->keahlians->pluck('id')->toArray();
+        $selectedKeahlians = auth()
+            ->user()
+            ->keahlians->pluck('id')
+            ->toArray();
+        $pendidikans = Pendidikan::select('pendidikan.*')
+            ->where('user_id', $userId)
+            ->get();
 
-        return view('profile.edit', compact('keahlians', 'selectedKeahlians'));
+        return view('profile.edit')->with([
+            'keahlians' => $keahlians,
+            'selectedKeahlians' => $selectedKeahlians,
+            'pendidikans' => $pendidikans,
+            'perusahaans' => $perusahaans,
+        ]);
     }
 
     public function update(Request $request)
@@ -28,9 +43,13 @@ class ProfileKeahlianController extends Controller
             'keahlian_ids.*' => 'exists:keahlians,id',
         ]);
 
-        auth()->user()->keahlians()->sync($request->keahlian_ids);
+        auth()
+            ->user()
+            ->keahlians()
+            ->sync($request->keahlian_ids);
 
-        return redirect()->route('profile.keahlian.edit')
+        return redirect()
+            ->route('profile.keahlian.edit')
             ->with('success', 'Keahlian berhasil disimpan.');
     }
 
@@ -40,9 +59,13 @@ class ProfileKeahlianController extends Controller
             'keahlian_id' => 'required|exists:keahlians,id',
         ]);
 
-        auth()->user()->keahlians()->detach($request->keahlian_id);
+        auth()
+            ->user()
+            ->keahlians()
+            ->detach($request->keahlian_id);
 
-        return redirect()->route('profile.keahlian.edit')
+        return redirect()
+            ->route('profile.keahlian.edit')
             ->with('success', 'Keahlian berhasil dihapus.');
     }
 }

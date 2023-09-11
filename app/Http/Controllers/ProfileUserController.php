@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileUserRequest;
+use App\Models\Keahlian;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
+use App\Models\Pendidikan;
 use App\Models\Perusahaan;
 use App\Models\ProfileUser;
 use Illuminate\Support\Facades\Auth;
@@ -14,22 +16,46 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileUserController extends Controller
 {
-    public function index(Request $request) {
-
+    public function index(Request $request)
+    {
+        $userId = Auth::id();
+        $pendidikans = Pendidikan::select('pendidikan.*')
+            ->where('user_id', $userId)
+            ->get();
+        return view('profile.index')->with([
+            'pendidikans' => $pendidikans,
+        ]);
     }
     public function profile(ProfileUser $profileUser)
     {
         $userId = Auth::id();
         $kecamatans = Kecamatan::all();
         $kelurahans = Kelurahan::all();
-        $perusahaans = Perusahaan::where('user_id',$userId)->first();
-        // dd($perusahaans);
-        return view ('profile.edit')->with([
-            'kecamatans'=>$kecamatans,
-            'kelurahans'=>$kelurahans,
-            'profileUser'=>$profileUser,
-            'perusahaans'=>$perusahaans,
+        $keahlians = Keahlian::all();
+        $perusahaans = Perusahaan::where('user_id', $userId)->first();
+        $pendidikans = Pendidikan::select('pendidikan.*')
+            ->where('user_id', $userId)
+            ->get();
+        $selectedKeahlians = auth()
+            ->user()
+            ->keahlians->pluck('id')
+            ->toArray();
+
+        return view('profile.edit')->with([
+            'kecamatans' => $kecamatans,
+            'kelurahans' => $kelurahans,
+            'profileUser' => $profileUser,
+            'perusahaans' => $perusahaans,
+            'pendidikans' => $pendidikans,
+            'keahlians' => $keahlians,
+            'selectedKeahlians' => $selectedKeahlians,
         ]);
+    }
+
+    public function loadFilter(Request $request)
+    {
+        $kelurahans = Kelurahan::all()->where('id_kecamatan', $request->id);
+        return response()->json(['kelurahans' => $kelurahans]);
     }
 
     public function getKelurahans(Request $request)
@@ -41,39 +67,41 @@ class ProfileUserController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
-            'alamat' => 'nullable|string|max:255',
-            'jenis_kelamin' => 'nullable|in:L,P',
-            'no_hp' => [
-                'nullable',
-                'regex:/^08[0-9]{8,13}$/'
+        $request->validate(
+            [
+                'alamat' => 'nullable|string|max:255',
+                'jenis_kelamin' => 'nullable|in:L,P',
+                'no_hp' => ['nullable', 'regex:/^08[0-9]{8,13}$/'],
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+                'resume' => 'nullable|file|mimes:pdf|max:2048',
+                'tgl_lahir' => 'nullable|date:d/m/Y',
+                'ringkasan' => 'nullable|string|max:500',
+                'harapan_gaji' => 'nullable|string',
             ],
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'resume' => 'nullable|file|mimes:pdf|max:2048',
-            'tgl_lahir' => 'nullable|date:d/m/Y',
-            'ringkasan' => 'nullable|string|max:500',
-            'harapan_gaji' => 'nullable|string',
-        ], [
-            'alamat.max' => 'Alamat Melebihi Batas Maksimal',
-            'jenis_kelamin.in' => 'Jenis Kelamin Hanya Pada Pilihan L/P',
-            'no_hp' => [
-                'regex: Nomor Hp Tidak Sesuai Format'
+            [
+                'alamat.max' => 'Alamat Melebihi Batas Maksimal',
+                'jenis_kelamin.in' => 'Jenis Kelamin Hanya Pada Pilihan L/P',
+                'no_hp' => ['regex: Nomor Hp Tidak Sesuai Format'],
+                'no_hp.regex' => 'Nomor Hp Tidak Sesuai Format',
+                'foto.image' => 'Foto Tidak Sesuai Format',
+                'foto.mimes' => 'Foto Hanya Mendukung Format jpeg, png, jpg',
+                'foto.max' => 'Ukuran Foto Terlalu Besar',
+                'resume.mimes' => 'Resume Hanya Mendukung Format pdf',
+                'resume.max' => 'Ukuran Resume Terlalu Besar',
+                'tgl_lahir.date' => 'Tanggal Lahir Harus Sesuai Format',
+                'ringkasan.max' => 'Ringkasan Melebihi Batas Maksimal',
+                'harapan_gaji.string' => 'Harapan Gaji Harus Angka',
             ],
-            'no_hp.regex' => 'Nomor Hp Tidak Sesuai Format',
-            'foto.image' => 'Foto Tidak Sesuai Format',
-            'foto.mimes' => 'Foto Hanya Mendukung Format jpeg, png, jpg',
-            'foto.max' => 'Ukuran Foto Terlalu Besar',
-            'resume.mimes' => 'Resume Hanya Mendukung Format pdf',
-            'resume.max' => 'Ukuran Resume Terlalu Besar',
-            'tgl_lahir.date' => 'Tanggal Lahir Harus Sesuai Format',
-            'ringkasan.max' => 'Ringkasan Melebihi Batas Maksimal',
-            'harapan_gaji.string' => 'Harapan Gaji Harus Angka',
-        ]);
+        );
 
-        $fotoLama = DB::table('profile_users')->where('user_id', Auth::user()->id)->first();
+        $fotoLama = DB::table('profile_users')
+            ->where('user_id', Auth::user()->id)
+            ->first();
         $user = $request->user();
         $user->profile()->update($request->except('_token', '_method', 'foto', 'resume', 'show_resume', 'show_foto'));
-        $profileUser = DB::table('profile_users')->where('user_id', Auth::user()->id)->first();
+        $profileUser = DB::table('profile_users')
+            ->where('user_id', Auth::user()->id)
+            ->first();
         $profileUserBaru = new \App\Models\ProfileUser();
         $profileUserBaru->user_id = Auth::user()->id;
         if ($profileUser === null) {
@@ -142,6 +170,8 @@ class ProfileUserController extends Controller
             $user->profile->save();
         }
 
-        return redirect()->back()->with('success', 'Profile updated successfully.');
+        return redirect()
+            ->back()
+            ->with('success', 'Profile updated successfully.');
     }
 }

@@ -98,8 +98,6 @@ Route::get('/login', function () {
     }
 })->name('login');
 
-
-
 Route::group(['middleware' => ['auth', 'verified']], function () {
     // Route::get('/dashboard', function () {
     //     return view('welcome');
@@ -114,22 +112,21 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // });
     Route::get('/welcome', [WelcomeController::class, 'index']);
     Route::GET('/profile', [ProfileUserController::class, 'profile']);
-    Route::get('/profile', function () {
-        return view('profile.index');
-    });
+    Route::GET('/profile', [ProfileUserController::class, 'index']);
+    // Route::get('/profile', function () {
+    //     return view('profile.index');
+    // });
     Route::get('/profile-admin', function () {
         return view('profile.super-admin');
     });
-    Route::GET('/profile-edit', [ProfileUserController::class, 'profile'])
-        ->name('profile.edit');
+    Route::GET('/profile-edit', [ProfileUserController::class, 'profile'])->name('profile.edit');
     Route::get('/getKelurahans', [ProfileUserController::class, 'getKelurahans'])->name('getKelurahans');
-    Route::PUT('/update-profile-information', [ProfileUserController::class, 'update'])
-        ->name('profile.user.update');
-    Route::PUT('/update-perusahaan-information', [PerusahaanController::class, 'update'])
-        ->name('profile.perusahaan.update');
+    Route::PUT('/update-profile-information', [ProfileUserController::class, 'update'])->name('profile.user.update');
+    Route::PUT('/update-perusahaan-information', [PerusahaanController::class, 'update'])->name('profile.perusahaan.update');
     //user list
 
     Route::get('profile/keahlian/edit', [ProfileKeahlianController::class, 'edit'])->name('profile.keahlian.edit');
+    Route::POST('/load-filter', [ProfileUserController::class, 'loadFilter'])->name('load.filter');
     Route::put('profile/keahlian/update', [ProfileKeahlianController::class, 'update'])->name('profile.keahlian.update');
     Route::delete('profile/keahlian/delete', [ProfileKeahlianController::class, 'deleteKeahlian'])->name('profile.keahlian.delete');
     Route::resource('pendidikan', PendidikanController::class);
@@ -138,16 +135,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::prefix('user-management')->group(function () {
         Route::resource('user', UserController::class);
-        Route::match(['get', 'post'], '/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])
-            ->name('user.verify-email');
-        Route::delete('/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])
-            ->name('user.delete-verify-email');
+        Route::match(['get', 'post'], '/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])->name('user.verify-email');
+        Route::delete('/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])->name('user.delete-verify-email');
         Route::post('import', [UserController::class, 'import'])->name('user.import');
         Route::get('export', [UserController::class, 'export'])->name('user.export');
         Route::get('demo', DemoController::class)->name('user.demo');
         Route::post('user/update-roles/{user}', [UserController::class, 'updateRoles'])->name('user.update-roles'); // <- Add this line
         Route::get('/user/show/{user}', [UserController::class, 'view'])->name('user.view');
-
 
         Route::resource('pelamar', PelamarListController::class);
         Route::get('/pelamar', 'App\Http\Controllers\PelamarListController@index')->name('pelamar.index');
