@@ -6,6 +6,7 @@ use App\Models\ProfileUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 class PelamarListController extends Controller
 {
@@ -72,6 +73,16 @@ class PelamarListController extends Controller
     public function show(User $pelamar)
     {
         $pelamar->load(['profileKeahlians.keahlian']);
+
+        if ($pelamar->profile && $pelamar->profile->ringkasan) {
+            $pelamar->profile->ringkasan = Str::replace(
+                ['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'],
+                ['', '', '', ", ", '', '', "\n"],
+                $pelamar->profile->ringkasan
+            );
+            $pelamar->profile->ringkasan = rtrim($pelamar->profile->ringkasan, ', ');
+        }
+
         return view('pelamar.view', compact('pelamar'));
     }
 }

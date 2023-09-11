@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Models\Perusahaan;
+use Illuminate\Support\Str;
 
 class PerusahaanListController extends Controller
 {
@@ -29,6 +30,8 @@ class PerusahaanListController extends Controller
 
         // Paginasi hasil query
         $perusahaanData = $query->paginate(10);
+
+
 
         return view('perusahaan.index', compact('perusahaanData'));
     }
@@ -72,6 +75,16 @@ class PerusahaanListController extends Controller
     {
         // Eager load the "perusahaan" relation with its "profile"
         $perusahaan->load(['perusahaan', 'profile']);
+
+        // Menghilangkan tag <p> dan tag lainnya dari deskripsi
+        if ($perusahaan->perusahaan && $perusahaan->perusahaan->deskripsi) {
+            $perusahaan->perusahaan->deskripsi = Str::replace(
+                ['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'],
+                ['', '', '', ", ", '', '', "\n"],
+                $perusahaan->perusahaan->deskripsi
+            );
+            $perusahaan->perusahaan->deskripsi = rtrim($perusahaan->perusahaan->deskripsi, ', ');
+        }
 
         return view('perusahaan.view', compact('perusahaan'));
     }

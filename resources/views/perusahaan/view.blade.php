@@ -12,14 +12,20 @@
     </div>
     <div class="section-body">
         <h2 class="section-title">Detail Perusahaan</h2>
-
-    <div class="section-body">
-        <div class="row justify-content-center">
-            <div class="col-12"> <!-- Use col-12 to take up the full width -->
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Detail Perusahaan</h5>
-                        <div class="row">
+        <div class="d-flex justify-content-center">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <a href="{{ route('perusahaan.index') }}">
+                                <img class="img-fluid mt-1" style="width: 50px; height: 35px;" src="{{ asset('assets/img/Vector.svg') }}">
+                            </a>
+                        </div>
+                        <div class="profile-widget-name mt-2 ml-3 text-primary" style="font-size: 20px;">
+                            <a href="{{ route('pelamar.index') }}" style="text-decoration: none; color: inherit;"><strong>Pertinjau Detail Pencari Kerja</strong></a>
+                        </div>
+                    </div>
+                        <div class="row mt-5">
                             <div class="col-md-4">
                                 <div class="text-center">
                                     @if ($perusahaan->perusahaan && $perusahaan->perusahaan->logo)
@@ -30,7 +36,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <dl class="row">
                                     <dt class="col-sm-4">Nama User</dt>
                                     <dd class="col-sm-8">{{ $perusahaan->name }}</dd>
@@ -45,7 +51,7 @@
                                     <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->nama ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-3">Alamat Perusahaan</dt>
-                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->alamat ?: '-' }}</dd>
+                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->alamat_perusahaan ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-3">Email Perusahaan</dt>
                                     <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->email ?: '-' }}</dd>
@@ -54,7 +60,7 @@
                                     <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->website ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-3">No. Telp</dt>
-                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->no_hp ?: '-' }}</dd>
+                                    <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->no_hp_perusahaan ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-3">Deskripsi</dt>
                                     <dd class="col-sm-8 mt-3">{{ optional($perusahaan->perusahaan)->deskripsi ?: '-' }}</dd>
@@ -72,9 +78,9 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="text-center mt-4">
+                        {{-- <div class="text-center mt-4">
                             <a href="{{ route('perusahaan.index') }}" class="btn btn-info">Kembali</a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
