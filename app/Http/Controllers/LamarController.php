@@ -7,12 +7,14 @@ use App\Models\LowonganPekerjaan;
 use App\Models\Perusahaan;
 use App\Models\KategoriPekerjaan;
 use App\Models\ProfileUser;
+use App\Models\ProfileKeahlian;
 use App\Models\User;
 use App\Http\Requests\StorelamarRequest;
 use App\Http\Requests\UpdatelamarRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class LamarController extends Controller
@@ -122,6 +124,7 @@ class LamarController extends Controller
 {
     $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
     $profileUser = $lamar->pencarikerja;
+    $profileUser->ringkasan = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $profileUser->ringkasan);
     $tanggalLahir = Carbon::parse($profileUser->tgl_lahir)->format('j F Y');
 
     // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail

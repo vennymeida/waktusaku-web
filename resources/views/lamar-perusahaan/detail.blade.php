@@ -59,8 +59,8 @@
                                     <dd class="col-sm-8 mt-2">
                                         @if ($lamar && $lamar->resume)
                                             <a href="{{ asset('storage/' . $lamar->resume) }}"
-                                                onclick="return openResume();" target="_blank" class="mb-2">
-                                                {{ basename($lamar->resume) }}
+                                                onclick="return openResume();" target="_blank" class="btn btn-primary btn-sm">
+                                                Lihat Resume
                                             </a>
                                         @else
                                             <span class="text-muted">Tidak ada resume</span>
@@ -140,8 +140,14 @@
                                     ?>
 
                                     <!-- Menampilkan tanggal dalam format yang diubah -->
-                                    <dd class="col-sm-8 mt-2"><?= $tanggal_mulai ?><span> - </span><?= $tanggal_berakhir ?>
+                                    <dd class="col-sm-8 mt-2">
+                                        @if ($tanggal_mulai && $tanggal_berakhir)
+                                            {{ $tanggal_mulai }} <span> - </span> {{ $tanggal_berakhir }}
+                                        @else
+                                            -
+                                        @endif
                                     </dd>
+
                                 </dl>
 
                                 <hr class="my-4">
@@ -163,8 +169,8 @@
                                     <dd class="col-sm-8 mt-2">
                                         @if ($pelatihan && $pelatihan->sertifikat)
                                             <a href="{{ asset('storage/' . $pelatihan->sertifikat) }}"
-                                                onclick="return openResume();" target="_blank" class="mb-2">
-                                                {{ basename($pelatihan->sertifikat) }}
+                                                onclick="return openResume();" target="_blank" class="btn btn-primary btn-sm">
+                                                Lihat Sertifikat
                                             </a>
                                         @else
                                             <span class="text-muted">Tidak ada sertifikat</span>
