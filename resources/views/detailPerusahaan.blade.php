@@ -18,7 +18,7 @@
                         <ul class="list-unstyled d-flex justify-content-start">
                             <li class="col-md-2 d-flex justify-content-satrt mr-5 mt-3">
                                 <img class="img-fluid img-icon mr-2" src="{{ asset('assets/img/landing-page/phone.svg') }}">
-                                <p class="mb-3" style="font-size: 15px;">{{ $detail->no_hp }} </p>
+                                <p class="mb-3" style="font-size: 15px;">{{ $detail->no_hp_perusahaan }} </p>
                             </li>
                             <li class="col-md-10 mt-3">
                                 <h5 class="font-weight-bolder">{{ $detail->nama }} </h5>
@@ -137,7 +137,8 @@
                                         <li class="d-flex justify-content-start">
                                             <img class="img-fluid img-icon mr-2"
                                                 src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                            <p class="mb-2">{{ $detail->alamat_perusahaan }}, {{ $detail->kelurahan->kelurahan }},
+                                            <p class="mb-2">{{ $detail->alamat_perusahaan }},
+                                                {{ $detail->kelurahan->kelurahan }},
                                                 {{ $detail->kecamatan->kecamatan }}</p>
                                         </li>
                                     </ul>
