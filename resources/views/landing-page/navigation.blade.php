@@ -29,6 +29,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-primary" href="{{ url('/about-us') }}">About Us</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="{{ url('/postingan') }}">Feed</a>
+                    </li>
                 </ul>
                 {{-- @else
                     <li class="nav-item dropdown">

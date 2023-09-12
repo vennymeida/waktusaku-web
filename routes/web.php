@@ -17,6 +17,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PendidikanController;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\PelatihanController;
+use App\Http\Controllers\PostinganController;
 use App\Http\Controllers\LamarController;
 use App\Http\Controllers\LamarPerusahaan;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
@@ -76,6 +77,7 @@ Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact
 Route::get('/about-us', function () {
     return view('about');
 });
+Route::resource('postingan', PostinganController::class);
 
 // Route::get('/login', function () {
 //     if (auth()->check()) {

@@ -17,7 +17,7 @@
                             <ul class="list-unstyled">
                                 <ul class="list-unstyled d-flex justify-content-between align-items-end">
                                     <p class="mb-2 text-primary font-weight-bold" style="font-size: 28px;">
-                                        {{ $namaPengguna }}
+                                        {{ $user->name }}
                                     </p>
                                     <a class="btn btn-secondary px-4 text-right" href="{{ route('lamarperusahaan.index') }}"
                                         style="border-radius: 15px;">
@@ -29,7 +29,7 @@
                                 <h5 class="font-weight-bolder">Personal Info </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Email</dt>
-                                    <dd class="col-sm-8 mt-2">{{ $email }}</dd>
+                                    <dd class="col-sm-8 mt-2">{{ $user->email }}</dd>
 
                                     <dt class="col-sm-4 mt-2">No Telepon</dt>
                                     <dd class="col-sm-8 mt-2">{{ $profileUser->no_hp }}</dd>

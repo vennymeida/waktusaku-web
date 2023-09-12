@@ -130,16 +130,13 @@ class LamarPerusahaan extends Controller
         $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
         $profileUser = $lamar->pencarikerja;
         $profileUser->ringkasan = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $profileUser->ringkasan);
-        // $profileUser->tgl_lahir;
         $tanggalLahir = Carbon::parse($profileUser->tgl_lahir)->format('j F Y');
 
         // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
         $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
 
         // Mendapatkan informasi yang diperlukan dari relasi
-        $namaPengguna = $relasiLamar->pencarikerja->user->name;
-        $email = $relasiLamar->pencarikerja->user->email;
-        $resume = $relasiLamar->pencarikerja->user->resume;
+        $user = $relasiLamar->pencarikerja->user;
         $pendidikan = $relasiLamar->pencarikerja->user->pendidikan;
         $pengalaman = $relasiLamar->pencarikerja->user->pengalaman;
         $pelatihan = $relasiLamar->pencarikerja->user->pelatihan;
@@ -148,9 +145,7 @@ class LamarPerusahaan extends Controller
         $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 
         return view('lamar-perusahaan.detail', [
-            'namaPengguna' => $namaPengguna,
-            'email' => $email,
-            'resume' => $resume,
+            'user' => $user,
             'judulPekerjaan' => $judulPekerjaan,
             'namaPerusahaan' => $namaPerusahaan,
             'lamar' => $lamar,

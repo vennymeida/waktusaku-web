@@ -1,3 +1,77 @@
+<!-- Modal Tambah Postingan -->
+<div class="modal fade" id="modal-create-postingan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header m-4">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Tambah
+                    Postingan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('pendidikan.store') }}" class="needs-validation" novalidate=""
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-body">
+                                <!-- Informasi Nama User dan Profile -->
+                                <div class="media mb-4">
+                                    <img class="mr-3 rounded-circle" width="50" src="{{ auth()->user()->foto }}"
+                                        alt="Profile Image">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">{{ auth()->user()->name }}</h5>
+                                        <!-- Informasi tambahan mengenai user, seperti bio atau status -->
+                                        <!-- Misalnya: <p>{{ auth()->user()->alamat }}</p> -->
+                                    </div>
+                                </div>
+
+                                <!-- Form untuk Membuat Postingan -->
+                                <form method="POST" action="" enctype="multipart/form-data">
+                                    @csrf
+
+                                    <div class="form-group">
+                                        <label for="content">Konten Postingan</label>
+                                        <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" rows="4"
+                                            required>{{ old('content') }}</textarea>
+
+                                        @error('content')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="image">Gambar (Opsional)</label>
+                                        <input id="image" type="file"
+                                            class="form-control-file @error('image') is-invalid @enderror"
+                                            name="image" accept="image/*">
+
+                                        @error('image')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-whitesmoke m-4">
+                <button type="button" class="btn btn-primary" onclick="$('form', this.closest('.modal')).submit();"
+                    style="border-radius: 15px; font-size: 14px">Tambah Postingan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="border-radius: 15px; font-size: 14px">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal Tambah Pendidikan -->
 <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -131,8 +205,8 @@
 </div>
 
 <!-- Modal Tambah Pengalaman -->
-<div class="modal fade" id="modal-create-pengalaman" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal-create-pengalaman" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header m-4">
@@ -272,8 +346,8 @@
 </div>
 
 <!-- Modal Tambah Pelatihan -->
-<div class="modal fade" id="modal-create-pelatihan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal-create-pelatihan" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header m-4">
@@ -303,7 +377,8 @@
                     <div class="row ml-4 mr-4">
                         <div class="form-group col-md-12 col-12">
                             <label>Deskripsi</label>
-                            <textarea name="deskripsi" class="form-control custom-input @error('deskripsi') is-invalid @enderror" rows="4">{{ old('deskripsi') }}</textarea>
+                            <textarea name="deskripsi" class="form-control custom-input @error('deskripsi') is-invalid @enderror"
+                                rows="4">{{ old('deskripsi') }}</textarea>
                             @error('deskripsi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -468,163 +543,199 @@
             </div>
         </section>
         @if (Auth::user()->hasRole('Pencari Kerja'))
-        <section class="centered-section">
-            <div class="bg-primary-section col-md-10 py-1">
-                <div class="profile-widget-description m-3"
-                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
-                    <div class="flex-grow-1">
-                        <div class="profile-widget-name">Pendidikan</div>
-                    </div>
-                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                        <a href="#" data-toggle="modal" data-target="#modal-create">
-                            <img class="img-fluid" style="width: 35px; height: 35px;"
-                                src="{{ asset('assets/img/landing-page/Plus.svg') }}">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="flex-grow-1 mb-2">
-                        <div class="profile-widget-name"
-                            style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                            Politeknik Negeri Malang
+            <section class="centered-section">
+                <div class="bg-primary-section col-md-10 py-1">
+                    <div class="profile-widget-description m-3"
+                        style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                        <div class="flex-grow-1">
+                            <div class="profile-widget-name">Activity / Postingan</div>
+                        </div>
+                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                            <a href="#" data-toggle="modal" data-target="#modal-create-postingan">
+                                <img class="img-fluid" style="width: 35px; height: 35px;"
+                                    src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            </a>
                         </div>
                     </div>
-                    <ul class="list-unstyled ml-2">
-                        <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbspD4
-                            Teknik Informatika
-                        </li>
-                        <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Award.svg') }}">&nbsp&nbsp&nbspMengikuti Lomba
-                            KMIPN
-                        </li>
-                        <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/timeline.svg') }}">&nbsp&nbsp&nbsp&nbsp3.75
-                        </li>
-                        <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp2020-2024
-                        </li>
-                    </ul>
-                </div>
-                <a href="{{ url('/pendidikan') }}">
-                    <p class="corner-text">Lihat Selengkapnya...</p>
-                </a>
-            </div>
-        </section>
-        <section class="centered-section">
-            <div class="bg-primary-section col-md-10 py-1">
-                <div class="profile-widget-description m-3"
-                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
-                    <div class="flex-grow-1">
-                        <div class="profile-widget-name">Keahlian Saya</div>
+                    <div class="col-md-12">
+                        <div class="media mb-2">
+                            <img class="mr-3 rounded" width="50" src="assets/img/products/product-1-50.png"
+                                alt="product">
+                            <div class="media-body">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus nulla quibusdam
+                                architecto aut hic itaque sed! Mollitia facilis quasi
+                                nulla asperiores voluptatum alias dolore aut delectus veniam eveniet optio ipsa excepturi
+                                esse eos tempore doloremque perspiciatis, unde ratione
+                                ut dicta hic quis veritatis explicabo nihil?
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                        <a href="{{ url('/profile/keahlian/edit') }}">
-                            <img class="img-fluid" style="width: 35px; height: 35px;"
-                                src="{{ asset('assets/img/landing-page/Plus.svg') }}">
-                        </a>
-                    </div>
+                    <br>
+                    <br>
+                    <a href="{{ url('/pendidikan') }}">
+                        <p class="corner-text">Lihat Selengkapnya...</p>
+                    </a>
                 </div>
-                <div class="col-md-12 mb-4">
-                    <div class="flex-grow-1 mb-2">
-                        <div class="card-header-action">
-                            <a href="#" class="btn btn-primary" id="skill-button">Leadership</a>
-                            <a href="#" class="btn btn-primary" id="skill-button">Edit Foto dan Video</a>
-                            <a href="#" class="btn btn-primary" id="skill-button">Public Speaking</a>
+            </section>
+            <section class="centered-section">
+                <div class="bg-primary-section col-md-10 py-1">
+                    <div class="profile-widget-description m-3"
+                        style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                        <div class="flex-grow-1">
+                            <div class="profile-widget-name">Pendidikan</div>
+                        </div>
+                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                            <a href="#" data-toggle="modal" data-target="#modal-create">
+                                <img class="img-fluid" style="width: 35px; height: 35px;"
+                                    src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="flex-grow-1 mb-2">
+                            <div class="profile-widget-name"
+                                style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                                Politeknik Negeri Malang
+                            </div>
+                        </div>
+                        <ul class="list-unstyled ml-2">
+                            <li class="mb-2"><img class="img-fluid"
+                                    src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbspD4
+                                Teknik Informatika
+                            </li>
+                            <li class="mb-2"><img class="img-fluid"
+                                    src="{{ asset('assets/img/landing-page/Award.svg') }}">&nbsp&nbsp&nbspMengikuti Lomba
+                                KMIPN
+                            </li>
+                            <li class="mb-2"><img class="img-fluid"
+                                    src="{{ asset('assets/img/landing-page/timeline.svg') }}">&nbsp&nbsp&nbsp&nbsp3.75
+                            </li>
+                            <li class="mb-2"><img class="img-fluid"
+                                    src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp2020-2024
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="{{ url('/pendidikan') }}">
+                        <p class="corner-text">Lihat Selengkapnya...</p>
+                    </a>
+                </div>
+            </section>
+            <section class="centered-section">
+                <div class="bg-primary-section col-md-10 py-1">
+                    <div class="profile-widget-description m-3"
+                        style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                        <div class="flex-grow-1">
+                            <div class="profile-widget-name">Keahlian Saya</div>
+                        </div>
+                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                            <a href="{{ url('/profile/keahlian/edit') }}">
+                                <img class="img-fluid" style="width: 35px; height: 35px;"
+                                    src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <div class="flex-grow-1 mb-2">
+                            <div class="card-header-action">
+                                <a href="#" class="btn btn-primary" id="skill-button">Leadership</a>
+                                <a href="#" class="btn btn-primary" id="skill-button">Edit Foto dan Video</a>
+                                <a href="#" class="btn btn-primary" id="skill-button">Public Speaking</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section class="centered-section">
-            <div class="bg-primary-section col-md-10 py-1">
-                <div class="profile-widget-description m-3"
-                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
-                    <div class="flex-grow-1">
-                        <div class="profile-widget-name">Pengalaman Kerja</div>
-                    </div>
-                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                        <a href="#" data-toggle="modal" data-target="#modal-create-pengalaman">
-                            <img class="img-fluid" style="width: 35px; height: 35px;"
-                                src="{{ asset('assets/img/landing-page/Plus.svg') }}">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="flex-grow-1 mb-2">
-                        <div class="profile-widget-name"
-                            style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                            Desain Grafis
+            </section>
+            <section class="centered-section">
+                <div class="bg-primary-section col-md-10 py-1">
+                    <div class="profile-widget-description m-3"
+                        style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                        <div class="flex-grow-1">
+                            <div class="profile-widget-name">Pengalaman Kerja</div>
+                        </div>
+                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                            <a href="#" data-toggle="modal" data-target="#modal-create-pengalaman">
+                                <img class="img-fluid" style="width: 35px; height: 35px;"
+                                    src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            </a>
                         </div>
                     </div>
-                    <div class="flex-grow-1 mb-2">
-                        <div class="profile-widget-name" style="font-size: 16px; display: flex; align-items: center;">
-                            PT Husada Jaya | Jl Gajayana No.8
+                    <div class="col-md-12">
+                        <div class="flex-grow-1 mb-2">
+                            <div class="profile-widget-name"
+                                style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                                Desain Grafis
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 mb-2">
+                            <div class="profile-widget-name" style="font-size: 16px; display: flex; align-items: center;">
+                                PT Husada Jaya | Jl Gajayana No.8
+                            </div>
+                        </div>
+                        <ul class="list-unstyled ml-2">
+                            <li class="mb-2"><img class="img-fluid"
+                                    src="{{ asset('assets/img/landing-page/Hourglass.svg') }}">&nbsp&nbsp&nbspParuh Waktu
+                            </li>
+                            <li class="mb-2"><img class="img-fluid"
+                                    src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR 700.000,00
+                            </li>
+                            <li class="mb-2"><img class="img-fluid"
+                                    src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp13 Mei 2020 - 13
+                                Agustus 2023
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="{{ url('/pengalaman') }}">
+                        <p class="corner-text">Lihat Selengkapnya...</p>
+                    </a>
+                </div>
+            </section>
+            <section class="centered-section" style="margin-bottom: 10%;">
+                <div class="bg-primary-section col-md-10 py-1">
+                    <div class="profile-widget-description m-3"
+                        style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                        <div class="flex-grow-1">
+                            <div class="profile-widget-name">Pelatihan / Sertifikat</div>
+                        </div>
+                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                            <a href="#" data-toggle="modal" data-target="#modal-create-pelatihan">
+                                <img class="img-fluid" style="width: 35px; height: 35px;"
+                                    src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            </a>
                         </div>
                     </div>
-                    <ul class="list-unstyled ml-2">
-                        <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Hourglass.svg') }}">&nbsp&nbsp&nbspParuh Waktu
-                        </li>
-                        <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR 700.000,00
-                        </li>
-                        <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp13 Mei 2020 - 13
-                            Agustus 2023
-                        </li>
-                    </ul>
-                </div>
-                <a href="{{ url('/pengalaman') }}">
-                    <p class="corner-text">Lihat Selengkapnya...</p>
-                </a>
-            </div>
-        </section>
-        <section class="centered-section" style="margin-bottom: 10%;">
-            <div class="bg-primary-section col-md-10 py-1">
-                <div class="profile-widget-description m-3"
-                    style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
-                    <div class="flex-grow-1">
-                        <div class="profile-widget-name">Pelatihan / Sertifikat</div>
-                    </div>
-                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                        <a href="#" data-toggle="modal" data-target="#modal-create-pelatihan">
-                            <img class="img-fluid" style="width: 35px; height: 35px;"
-                                src="{{ asset('assets/img/landing-page/Plus.svg') }}">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="flex-grow-1 mb-2">
-                        <div class="profile-widget-name"
-                            style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                            Pelatihan Data Analyst Dicoding
+                    <div class="col-md-12">
+                        <div class="flex-grow-1 mb-2">
+                            <div class="profile-widget-name"
+                                style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                                Pelatihan Data Analyst Dicoding
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex-grow-1 mb-2">
-                        <div class="profile-widget-name" style="font-size: 16px; display: flex; align-items: center;">
-                            Lorem Ipsum is simply dummy text of the
-                            printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                            ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-                            type specimen book. It has survived not only five centuries
+                        <div class="flex-grow-1 mb-2">
+                            <div class="profile-widget-name" style="font-size: 16px; display: flex; align-items: center;">
+                                Lorem Ipsum is simply dummy text of the
+                                printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                                ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                                a
+                                type specimen book. It has survived not only five centuries
+                            </div>
                         </div>
+                        <ul class="list-unstyled ml-2">
+                            <li class="mb-2"><img class="img-fluid"
+                                    src="{{ asset('assets/img/landing-page/Office Building-2.svg') }}">&nbsp&nbsp&nbspDikeluarkan
+                                oleh Dicoding
+                            </li>
+                            <li class="mb-2"><img class="img-fluid"
+                                    src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp&nbsp13
+                                Agustus
+                                2023
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="list-unstyled ml-2">
-                        <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Office Building-2.svg') }}">&nbsp&nbsp&nbspDikeluarkan
-                            oleh Dicoding
-                        </li>
-                        <li class="mb-2"><img class="img-fluid"
-                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp&nbsp13 Agustus
-                            2023
-                        </li>
-                    </ul>
+                    <a href="{{ url('/pelatihan') }}">
+                        <p class="corner-text">Lihat Selengkapnya...</p>
+                    </a>
                 </div>
-                <a href="{{ url('/pelatihan') }}">
-                    <p class="corner-text">Lihat Selengkapnya...</p>
-                </a>
-            </div>
-        </section>
+            </section>
         @endif
     </main>
 @endsection
