@@ -67,11 +67,14 @@
         @role('Pencari Kerja')
             <section>
                 <div class="col-md-10 mt-0 mx-auto">
-                    <p class="mt-3 font-weight-bold ml-4" style="font-size: 19px;">Rekomendasi Lowongan Kerja Sesuai Keahlian
+                    <p class="mt-4 font-weight-bold ml-4" style="font-size: 19px;">Rekomendasi Lowongan Kerja Sesuai Keahlian
                         Anda!
                     </p>
                     @if ($allRekomendasi->isEmpty())
-                        <p class="mt-4">Belum ada lowongan kerja rekomendasi untukmu</p>
+                        <div class="col-md-12 text-center my-4">
+                            <img src="{{ asset('assets/img/landing-page/sad-face.png') }}">
+                            <p class="mt-2 text-not">Belum ada rekomendasi untukmu</p>
+                        </div>
                     @else
                         <div class="row flex-nowrap overflow-auto mt-4 horizontal-scroll equal-height-cards">
                             <div class="scroll-arrow left bg-transparent text-secondary">
@@ -171,7 +174,10 @@
             @endrole
             <div class="col-md-12 mt-4 mx-auto d-flex flex-wrap justify-content-center">
                 @if ($allResults->isEmpty())
-                    <p class="mt-4">Data Tidak Tersedia</p>
+                    <div class="col-md-12 text-center my-4">
+                        <img src="{{ asset('assets/img/landing-page/folder.png') }}">
+                        <p class="mt-1 text-not">Data tidak tersedia</p>
+                    </div>
                 @else
                     @foreach ($allResults as $key => $loker)
                         <div class="card col-md-3 mb-4 mx-4">
