@@ -17,7 +17,7 @@
                     <div class="row ml-4 mr-4">
                         <div class="form-group col-md-12 col-12">
                             <label for="gelar">Gelar</label>
-                            <select class="form-control custom-input @error('gelar') is-invalid @enderror"
+                            <select class="form-control select2 custom-input @error('gelar') is-invalid @enderror"
                                 name="gelar" id="gelar">
                                 <option value="">Pilih Gelar</option>
                                 <option value="SMA/SMK">SMA/SMK</option>
@@ -38,7 +38,7 @@
                             <label>Nama Institusi</label>
                             <input name="institusi" type="text"
                                 class="form-control custom-input @error('institusi') is-invalid @enderror"
-                                value="{{ old('institusi') }}">
+                                value="{{ old('institusi') }}" placeholder="Masukkan nama institusi anda">
                             @error('institusi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -51,7 +51,7 @@
                             <label>Jurusan</label>
                             <input name="jurusan" type="text"
                                 class="form-control custom-input @error('jurusan') is-invalid @enderror"
-                                value="{{ old('jurusan') }}">
+                                value="{{ old('jurusan') }}" placeholder="Masukkan jurusan anda">
                             @error('jurusan')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -62,7 +62,8 @@
                     <div class="row ml-4 mr-4">
                         <div class="form-group col-md-12 col-12">
                             <label>Prestasi Akademik (Opsional)</label>
-                            <textarea name="prestasi" class="form-control custom-input @error('prestasi') is-invalid @enderror" rows="4">{{ old('prestasi') }}</textarea>
+                            <textarea name="prestasi" class="form-control custom-input @error('prestasi') is-invalid @enderror" rows="4"
+                                placeholder="Masukkan prestasi akademik yang anda miliki">{{ old('prestasi') }}</textarea>
                             @error('prestasi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -75,7 +76,7 @@
                             <label for="tahun">Periode Waktu</label>
                         </div>
                         <div class="col-md-3 form-group">
-                            <select class="form-control custom-input @error('tahun_mulai') is-invalid @enderror"
+                            <select class="form-control select2 custom-input @error('tahun_mulai') is-invalid @enderror"
                                 name="tahun_mulai" id="tahun_mulai">
                                 <option value="">Pilih Tahun</option>
                                 @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
@@ -90,7 +91,8 @@
                         </div>
                         <span> - </span>
                         <div class="col-md-3 form-group">
-                            <select class="form-control custom-input @error('tahun_berakhir') is-invalid @enderror"
+                            <select
+                                class="form-control select2 custom-input @error('tahun_berakhir') is-invalid @enderror"
                                 name="tahun_berakhir" id="tahun_berakhir">
                                 <option value="">Pilih Tahun</option>
                                 @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
@@ -110,7 +112,7 @@
                         <div class="col-md-3 form-group">
                             <input name="ipk" type="number" step="0.01"
                                 class="form-control custom-input @error('ipk') is-invalid @enderror"
-                                value="{{ old('ipk') }}">
+                                value="{{ old('ipk') }}" placeholder="Contoh : 3,75 / 4.00">
                             @error('ipk')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -484,7 +486,7 @@
                         </div>
                     </div>
                     @foreach ($pendidikans as $item)
-                        <hr>
+                        {{-- <hr> --}}
                         <div class="mr-5 ml-5">
                             <div class="profile-widget-description m-3"
                                 style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
@@ -666,7 +668,7 @@
                             <div class="row ml-4 mr-4">
                                 <div class="form-group col-md-12 col-12">
                                     <label for="gelar">Gelar</label>
-                                    <select class="form-control custom-input @error('gelar') is-invalid @enderror"
+                                    <select class="form-control select2 custom-input @error('gelar') is-invalid @enderror"
                                         name="gelar" id="gelar">
                                         <option value="">Pilih Gelar</option>
                                         <option value="SMA/SMK">SMA/SMK</option>
@@ -687,7 +689,7 @@
                                     <label>Nama Institusi</label>
                                     <input name="institusi" type="text"
                                         class="form-control custom-input @error('institusi') is-invalid @enderror"
-                                        value="{{ old('institusi') }}">
+                                        value="{{ old('institusi') }}" placeholder="Masukkan nama institusi anda">
                                     @error('institusi')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -700,7 +702,7 @@
                                     <label>Jurusan</label>
                                     <input name="jurusan" type="text"
                                         class="form-control custom-input @error('jurusan') is-invalid @enderror"
-                                        value="{{ old('jurusan') }}">
+                                        value="{{ old('jurusan') }}" placeholder="Masukkan jurusan anda">
                                     @error('jurusan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -711,7 +713,8 @@
                             <div class="row ml-4 mr-4">
                                 <div class="form-group col-md-12 col-12">
                                     <label>Prestasi Akademik (Opsional)</label>
-                                    <textarea name="prestasi" class="form-control custom-input @error('prestasi') is-invalid @enderror" rows="4">{{ old('prestasi') }}</textarea>
+                                    <textarea name="prestasi" class="form-control custom-input @error('prestasi') is-invalid @enderror" rows="4"
+                                        placeholder="Masukkan prestasi akademik yang anda miliki">{{ old('prestasi') }}</textarea>
                                     @error('prestasi')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -724,7 +727,8 @@
                                     <label for="tahun">Periode Waktu</label>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <select class="form-control custom-input @error('tahun_mulai') is-invalid @enderror"
+                                    <select
+                                        class="form-control select2 custom-input @error('tahun_mulai') is-invalid @enderror"
                                         name="tahun_mulai" id="tahun_mulai">
                                         <option value="">Pilih Tahun</option>
                                         @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
@@ -740,7 +744,7 @@
                                 <span> - </span>
                                 <div class="col-md-4 form-group">
                                     <select
-                                        class="form-control custom-input @error('tahun_berakhir') is-invalid @enderror"
+                                        class="form-control select2 custom-input @error('tahun_berakhir') is-invalid @enderror"
                                         name="tahun_berakhir" id="tahun_berakhir">
                                         <option value="">Pilih Tahun</option>
                                         @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
@@ -760,7 +764,7 @@
                                 <div class="col-md-4 form-group">
                                     <input name="ipk" type="number" step="0.01"
                                         class="form-control custom-input @error('ipk') is-invalid @enderror"
-                                        value="{{ old('ipk') }}">
+                                        value="{{ old('ipk') }}" placeholder="Contoh : 3,75 / 4.00">
                                     @error('ipk')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -839,6 +843,7 @@
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 @endpush
 @push('customStyle')
     {{-- <style>
@@ -846,4 +851,5 @@
             max-width: 60%;
         }
     </style> --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 @endpush
