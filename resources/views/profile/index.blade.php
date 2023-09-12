@@ -19,7 +19,7 @@
                             <div class="card-body">
                                 <!-- Informasi Nama User dan Profile -->
                                 <div class="media mb-4">
-                                    <img class="mr-3 rounded-circle" width="50" src="{{ auth()->user()->foto }}"
+                                    <img class="mr-3 rounded-circle" width="50" src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
                                         alt="Profile Image">
                                     <div class="media-body">
                                         <h5 class="mt-0">{{ auth()->user()->name }}</h5>
