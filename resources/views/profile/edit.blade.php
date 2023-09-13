@@ -477,7 +477,7 @@
                                                 <label for="alamat_perusahaan">Alamat Perusahaan</label>
                                                 <textarea name="alamat_perusahaan" id="alamat_perusahaan"
                                                     class="text-loker form-control @error('alamat_perusahaan') is-invalid @enderror" rows="3" type="text"
-                                                    style="height: 100px;" placeholder="Masukkan alamat_perusahaan perusahaan">{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }}</textarea>
+                                                    style="height: 100px;" placeholder="Masukkan alamat perusahaan">{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }}</textarea>
                                                 @error('alamat_perusahaan')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror

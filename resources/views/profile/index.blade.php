@@ -153,7 +153,8 @@
                             <label for="nama_pekerjaan">Nama Pekerjaaan</label>
                             <input name="nama_pekerjaan" type="text"
                                 class="form-control custom-input @error('nama_pekerjaan') is-invalid @enderror"
-                                value="{{ old('nama_pekerjaan') }}">
+                                value="{{ old('nama_pekerjaan') }}"
+                                placeholder="Masukkan nama pekerjaan yang pernah anda lakukan">
                             @error('nama_pekerjaan')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -166,7 +167,8 @@
                             <label>Nama Perusahaan</label>
                             <input name="nama_perusahaan" type="text"
                                 class="form-control custom-input @error('nama_perusahaan') is-invalid @enderror"
-                                value="{{ old('nama_perusahaan') }}">
+                                value="{{ old('nama_perusahaan') }}"
+                                placeholder="Masukkan nama perusahaan tempat anda bekerja">
                             @error('nama_perusahaan')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -177,7 +179,8 @@
                     <div class="row ml-4 mr-4">
                         <div class="form-group col-md-12 col-12">
                             <label>Alamat</label>
-                            <textarea name="alamat" class="form-control custom-input @error('alamat') is-invalid @enderror" rows="4">{{ old('alamat') }}</textarea>
+                            <textarea name="alamat" class="form-control custom-input @error('alamat') is-invalid @enderror" rows="4"
+                                placeholder="Masukkan alamat perusahaan tempat anda bekerja">{{ old('alamat') }}</textarea>
                             @error('alamat')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -188,7 +191,7 @@
                     <div class="row ml-4 mr-4">
                         <div class="form-group col-md-6 col-12">
                             <label>Tipe Pekerjaan</label>
-                            <select class="form-control custom-input @error('tipe') is-invalid @enderror"
+                            <select class="form-control select2 custom-input @error('tipe') is-invalid @enderror"
                                 name="tipe" id="tipe">
                                 <option value="">Pilih Tipe Pekerjaan</option>
                                 <option value="Fulltime">Fulltime</option>
@@ -212,7 +215,7 @@
                                 </div>
                                 <input name="gaji" type="number" step="100000"
                                     class="form-control custom-input @error('gaji') is-invalid @enderror"
-                                    value="{{ old('gaji') }}">
+                                    value="{{ old('gaji') }}" placeholder="Masukkan gaji anda bekerja">
                                 @error('gaji')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -933,7 +936,7 @@
                                 <div class="form-group col-md-12 col-12">
                                     <label>Alamat</label>
                                     <textarea name="alamat" class="form-control custom-input @error('alamat') is-invalid @enderror" rows="4"
-                                        placeholder="Masukkan alamat tempat anda bekerja">{{ old('alamat') }}</textarea>
+                                        placeholder="Masukkan alamat perusahaan tempat anda bekerja">{{ old('alamat') }}</textarea>
                                     @error('alamat')
                                         <div class="invalid-feedback">
                                             {{ $message }}
