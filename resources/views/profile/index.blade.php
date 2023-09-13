@@ -375,102 +375,186 @@
 
 @extends('landing-page.app')
 @section('main')
-    <main class="bg-secondary">
-        <section>
-            <div class="bg-header col-md-12 py-3">
-                <h4 class="text-center" style="text-align: center; font-weight: bold;">Data Diri</h4>
-            </div>
-        </section>
-        <section>
-            <div class="bg-profile col-md-12 py-5">
-                <div class="d-flex justify-content-around align-items-center">
-                    <div class="col-md-2">
-                        <div class="profile-widget-header" style="position: relative;">
-                            @if (Auth::user()->profile && Auth::user()->profile->foto != '')
-                                <img alt="image"
-                                    src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
-                                    class="rounded-circle profile-widget-picture img-fluid"
-                                    style="width: 200px; height: 190px; position: absolute; top: -170px; left: 50%; transform: translateX(-50%);">
-                            @else
-                                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                    class="rounded-circle profile-widget-picture img-fluid"
-                                    style="width: 200px; height: 190px; position: absolute; top: -170px; left: 50%; transform: translateX(-50%);">
-                            @endif
-                        </div>
+    @if (Auth::user()->hasRole('Perusahaan'))
+        <main class="bg-light">
+            <section>
+                <div class="bg-header col-md-12 py-3">
+                    <h4 class="text-center" style="text-align: center; font-weight: bold; color:#6777ef">Data Perusahaan
+                    </h4>
+                </div>
+            </section>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-11 mx-auto">
+                        <a href="{{ route('all-jobs.index') }}">
+                            <img class="img-fluid img-icon mt-3" src="{{ asset('assets/img/landing-page/back.svg') }}"
+                                style="width: 30px; height: auto;">
+                        </a>
                     </div>
-                    <div class="col-md-8">
-                        <div class="profile-widget-description"
-                            style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
-                            <div class="flex-grow-1">
-                                <div class="profile-widget-name">{{ Auth::user()->name }}</div>
-                            </div>
-                            <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                <a href="{{ url('/profile-edit') }}">
-                                    <img class="img-fluid" style="width: 35px; height: 35px;"
-                                        src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                </a>
+                    <div class="col-md-11 d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                        <a href="{{ url('/profile-edit') }}">
+                            <img class="img-fluid" style="width: 35px; height: 35px;"
+                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <section>
+                <div class="col-md-12 detail-header">
+                    <div class="col-md-10 mx-auto">
+                        <ul class="list-unstyled">
+                            <ul class="list-unstyled d-flex justify-content-start">
+                                <li class="col-md-2 d-flex justify-content-satrt mr-5 mt-3">
+                                    <img class="img-fluid img-icon mr-2"
+                                        src="{{ asset('assets/img/landing-page/phone.svg') }}">
+                                    <p class="mb-3" style="font-size: 15px;">
+                                        {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp_perusahaan : '' }}
+                                    </p>
+                                </li>
+                                <li class="col-md-10 mt-3">
+                                    <h5 class="font-weight-bolder">
+                                        {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->nama : '' }}</h5>
+                                </li>
+                            </ul>
+                            <ul class="list-unstyled d-flex justify-content-start text-justify">
+                                <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <img class="img-fluid img-icon mr-2"
+                                        src="{{ asset('assets/img/landing-page/Email.svg') }}">
+                                    <p class="mb-3" style="font-size: 15px;">
+                                        {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->email : '' }}</p>
+                                </li>
+                                <li class="col-md-10">
+                                    <p style="font-size: 15px;">
+                                        {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' }}</p>
+                                </li>
+                            </ul>
+                            <ul class="list-unstyled d-flex justify-content-start">
+                                <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <img class="img-fluid img-icon mr-2"
+                                        src="{{ asset('assets/img/landing-page/global.svg') }}">
+                                    <p class="mb-3" style="font-size: 15px;">
+                                        {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->website : '' }}</p>
+                                </li>
+                            </ul>
+                            <li class="col-md-12 d-flex justify-content-end ml-5">
+                                <img class="img-fluid img-icon mr-1"
+                                    src="{{ asset('assets/img/landing-page/location pin.svg') }}">
+                                <p class="mb-5" style="font-size: 15px;">
+                                    {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }},
+                                    {{-- {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->kecamatan_id : '' }},
+                                {{ $kecamatan->id }}</p> --}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <div class="col-md-10 mx-auto">
+                <div class="col-md-3">
+                    <div class="logo-container">
+                        <img class="img-fluid bg-white mt-4" src="{{ Storage::url(Auth::user()->perusahaan->logo) }}"
+                            style="width: 75%; height: 40%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
+                    </div>
+                </div>
+            </div>
+        </main>
+    @endif
+
+    @if (Auth::user()->hasRole('Pencari Kerja'))
+        <main class="bg-secondary">
+            <section>
+                <div class="bg-header col-md-12 py-3">
+                    <h4 class="text-center" style="text-align: center; font-weight: bold;">Data Diri</h4>
+                </div>
+            </section>
+            <section>
+                <div class="bg-profile col-md-12 py-5">
+                    <div class="d-flex justify-content-around align-items-center">
+                        <div class="col-md-2">
+                            <div class="profile-widget-header" style="position: relative;">
+                                @if (Auth::user()->profile && Auth::user()->profile->foto != '')
+                                    <img alt="image"
+                                        src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                        class="rounded-circle profile-widget-picture img-fluid"
+                                        style="width: 200px; height: 190px; position: absolute; top: -170px; left: 50%; transform: translateX(-50%);">
+                                @else
+                                    <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                                        class="rounded-circle profile-widget-picture img-fluid"
+                                        style="width: 200px; height: 190px; position: absolute; top: -170px; left: 50%; transform: translateX(-50%);">
+                                @endif
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <div class="profile-widget-description mt-4" style="font-size: 14px;">
-                                    @if (Auth::user()->profile && Auth::user()->profile->ringkasan != '')
-                                        <p style="font-weight: bold;">Ringkasan</p>
-                                        <p style="line-height: 1.5; margin-top: -2%;">
-                                            {{ Auth::user()->profile ? Auth::user()->profile->ringkasan : '' }}
-                                        </p>
-                                    @else
-                                        <p style="font-weight: bold;">Ringkasan</p>
-                                        <p style="line-height: 1.5; margin-top: -2%;"><br><br><br><br></p>
-                                    @endif
+                        <div class="col-md-8">
+                            <div class="profile-widget-description"
+                                style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                                <div class="flex-grow-1">
+                                    <div class="profile-widget-name">{{ Auth::user()->name }}</div>
+                                </div>
+                                <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                                    <a href="{{ url('/profile-edit') }}">
+                                        <img class="img-fluid" style="width: 35px; height: 35px;"
+                                            src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                    </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="profile-widget-description mt-2" style="font-size: 14px;">
-                            <p style="font-weight: bold;">Personal Info</p>
                             <div class="row">
-                                <div class="col-md-4">
-                                    @if (Auth::user()->email != '')
-                                        <p style="line-height: 0.5; font-weight: bold;">Email</p>
-                                        <p style="line-height: 1.5; margin-top: -1%;">{{ Auth::user()->email }}</p>
-                                    @else
-                                        <p style="line-height: 0.5; font-weight: bold;">Email</p>
-                                        <p style="line-height: 1.5; margin-top: -1%;"><br></p>
-                                    @endif
-                                    @if (Auth::user()->profile && Auth::user()->profile->no_hp != '')
-                                        <p style="line-height: 0.5; font-weight: bold;">Nomor Telepon</p>
-                                        <p style="line-height: 1.5; margin-top: -1%;">
-                                            {{ Auth::user()->profile ? Auth::user()->profile->no_hp : '' }}</p>
-                                    @else
-                                        <p style="line-height: 0.5; font-weight: bold;">Nomor Telepon</p>
-                                        <p style="line-height: 1.5; margin-top: -1%;"><br></p>
-                                    @endif
+                                <div class="col-md-10">
+                                    <div class="profile-widget-description mt-4" style="font-size: 14px;">
+                                        @if (Auth::user()->profile && Auth::user()->profile->ringkasan != '')
+                                            <p style="font-weight: bold;">Ringkasan</p>
+                                            <p style="line-height: 1.5; margin-top: -2%;">
+                                                {{ Auth::user()->profile ? Auth::user()->profile->ringkasan : '' }}
+                                            </p>
+                                        @else
+                                            <p style="font-weight: bold;">Ringkasan</p>
+                                            <p style="line-height: 1.5; margin-top: -2%;"><br><br><br><br></p>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="col-md-5">
-                                    @if (Auth::user()->profile && Auth::user()->profile->alamat != '')
-                                        <p style="line-height: 0.5; font-weight: bold;">Alamat</p>
-                                        <p style="line-height: 1.5; margin-top: -1%;">
-                                            {{ Auth::user()->profile ? Auth::user()->profile->alamat : '' }}</p>
-                                    @else
-                                        <p style="line-height: 0.5; font-weight: bold;">Alamat</p>
-                                        <p style="line-height: 1.5; margin-top: -1%;"><br></p>
-                                    @endif
-                                    @if (Auth::user()->profile && Auth::user()->profile->tgl_lahir != '')
-                                        <p style="line-height: 0.5; font-weight: bold;">Tanggal Lahir</p>
-                                        <p style="line-height: 1.5; margin-top: -1%;">
-                                            {{ Auth::user()->profile ? Auth::user()->profile->tgl_lahir : '' }}</p>
-                                    @else
-                                        <p style="line-height: 0.5; font-weight: bold;">Tanggal Lahir</p>
-                                        <p style="line-height: 1.5; margin-top: -1%;"><br></p>
-                                    @endif
+                            </div>
+                            <div class="profile-widget-description mt-2" style="font-size: 14px;">
+                                <p style="font-weight: bold;">Personal Info</p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        @if (Auth::user()->email != '')
+                                            <p style="line-height: 0.5; font-weight: bold;">Email</p>
+                                            <p style="line-height: 1.5; margin-top: -1%;">{{ Auth::user()->email }}</p>
+                                        @else
+                                            <p style="line-height: 0.5; font-weight: bold;">Email</p>
+                                            <p style="line-height: 1.5; margin-top: -1%;"><br></p>
+                                        @endif
+                                        @if (Auth::user()->profile && Auth::user()->profile->no_hp != '')
+                                            <p style="line-height: 0.5; font-weight: bold;">Nomor Telepon</p>
+                                            <p style="line-height: 1.5; margin-top: -1%;">
+                                                {{ Auth::user()->profile ? Auth::user()->profile->no_hp : '' }}</p>
+                                        @else
+                                            <p style="line-height: 0.5; font-weight: bold;">Nomor Telepon</p>
+                                            <p style="line-height: 1.5; margin-top: -1%;"><br></p>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-5">
+                                        @if (Auth::user()->profile && Auth::user()->profile->alamat != '')
+                                            <p style="line-height: 0.5; font-weight: bold;">Alamat</p>
+                                            <p style="line-height: 1.5; margin-top: -1%;">
+                                                {{ Auth::user()->profile ? Auth::user()->profile->alamat : '' }}</p>
+                                        @else
+                                            <p style="line-height: 0.5; font-weight: bold;">Alamat</p>
+                                            <p style="line-height: 1.5; margin-top: -1%;"><br></p>
+                                        @endif
+                                        @if (Auth::user()->profile && Auth::user()->profile->tgl_lahir != '')
+                                            <p style="line-height: 0.5; font-weight: bold;">Tanggal Lahir</p>
+                                            <p style="line-height: 1.5; margin-top: -1%;">
+                                                {{ Auth::user()->profile ? Auth::user()->profile->tgl_lahir : '' }}</p>
+                                        @else
+                                            <p style="line-height: 0.5; font-weight: bold;">Tanggal Lahir</p>
+                                            <p style="line-height: 1.5; margin-top: -1%;"><br></p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        @if (Auth::user()->hasRole('Pencari Kerja'))
+            </section>
             <section class="centered-section">
                 <div class="bg-primary-section col-md-10 py-1">
                     <div class="profile-widget-description m-3"
@@ -645,8 +729,8 @@
                     </a>
                 </div>
             </section>
-        @endif
-    </main>
+        </main>
+    @endif
 
     <!-- Modal Edit Pendidikan -->
     <div id="modal-edit" class="modal fade" tabindex="-1" role="dialog">
