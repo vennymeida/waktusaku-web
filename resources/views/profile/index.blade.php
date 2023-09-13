@@ -583,7 +583,7 @@
                                 <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                                     <a href="#" data-id="{{ $item->id }}"
                                         data-edit-url="{{ route('pendidikan.edit', ['pendidikan' => $item->id]) }}"
-                                        class="modal-edit-trigger">
+                                        class="modal-edit-trigger-pendidikan">
                                         <img class="img-fluid" style="width: 30px; height: 30px;"
                                             src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                     </a>
@@ -643,7 +643,7 @@
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
-                            <div class="profile-widget-name">Pengalaman Kerja</div>
+                            <div class="profile-widget-name" style="color:#6777ef;">Pengalaman Kerja</div>
                         </div>
                         <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                             <a href="#" data-toggle="modal" data-target="#modal-create-pengalaman">
@@ -652,34 +652,49 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="flex-grow-1 mb-2">
-                            <div class="profile-widget-name"
+                    @foreach ($pengalamans as $pl)
+                        {{-- <hr> --}}
+                        <div class="mr-5 ml-5">
+                            <div class="profile-widget-description m-3"
                                 style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                                Desain Grafis
+                                <div class="flex-grow-1">
+                                    <div class="profile-widget-name"
+                                        style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
+                                        {{ $pl->nama_pekerjaan }}
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                                    <a href="#" data-id="{{ $pl->id }}"
+                                        data-edit-url="{{ route('pengalaman.edit', ['pengalaman' => $pl->id]) }}"
+                                        class="modal-edit-trigger-pengalaman">
+                                        <img class="img-fluid" style="width: 30px; height: 30px;"
+                                            src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="flex-grow-1 mb-2">
+                                    <div class="profile-widget-name"
+                                        style="font-size: 16px; display: flex; align-items: center;">
+                                        {{ $pl->nama_perusahaan }} | {{ $pl->alamat }}
+                                    </div>
+                                </div>
+                                <ul class="list-unstyled ml-2">
+                                    <li class="mb-2"><img class="img-fluid"
+                                            src="{{ asset('assets/img/landing-page/Hourglass.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tipe }}
+                                    </li>
+                                    <li class="mb-2"><img class="img-fluid"
+                                            src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR
+                                        {{ $pl->gaji }}
+                                    </li>
+                                    <li class="mb-2"><img class="img-fluid"
+                                            src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tanggal_mulai }}
+                                        - {{ $pl->tanggal_berakhir }}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="flex-grow-1 mb-2">
-                            <div class="profile-widget-name" style="font-size: 16px; display: flex; align-items: center;">
-                                PT Husada Jaya | Jl Gajayana No.8
-                            </div>
-                        </div>
-                        <ul class="list-unstyled ml-2">
-                            <li class="mb-2"><img class="img-fluid"
-                                    src="{{ asset('assets/img/landing-page/Hourglass.svg') }}">&nbsp&nbsp&nbspParuh Waktu
-                            </li>
-                            <li class="mb-2"><img class="img-fluid"
-                                    src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR 700.000,00
-                            </li>
-                            <li class="mb-2"><img class="img-fluid"
-                                    src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp13 Mei 2020 - 13
-                                Agustus 2023
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="{{ url('/pengalaman') }}">
-                        <p class="corner-text">Lihat Selengkapnya...</p>
-                    </a>
+                    @endforeach
                 </div>
             </section>
             <section class="centered-section" style="margin-bottom: 10%;">
@@ -733,7 +748,7 @@
     @endif
 
     <!-- Modal Edit Pendidikan -->
-    <div id="modal-edit" class="modal fade" tabindex="-1" role="dialog">
+    <div id="modal-edit-pendidikan" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg mx-auto" role="document">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -745,7 +760,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" id="modal-edit-form" class="needs-validation" novalidate=""
+                        <form method="POST" id="modal-edit-pendidikan-form" class="needs-validation" novalidate=""
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -859,7 +874,153 @@
                         </form>
                     </div>
                     <div class="modal-footer bg-whitesmoke m-4">
-                        <button type="button" class="btn btn-primary" id="modal-save-button"
+                        <button type="button" class="btn btn-primary" id="modal-save-button-pendidikan"
+                            style="border-radius: 15px; font-size: 14px">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            style="border-radius: 15px; font-size: 14px">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Pengalaman -->
+    <div id="modal-edit-pengalaman" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg mx-auto" role="document">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header m-4">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Edit
+                            Pengalaman Kerja</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" id="modal-edit-pengalaman-form" class="needs-validation" novalidate=""
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label for="nama_pekerjaan">Nama Pekerjaaan</label>
+                                    <input name="nama_pekerjaan" type="text"
+                                        class="form-control custom-input @error('nama_pekerjaan') is-invalid @enderror"
+                                        value="{{ old('nama_pekerjaan') }}"
+                                        placeholder="Masukkan nama pekerjaan yang pernah anda lakukan">
+                                    @error('nama_pekerjaan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label>Nama Perusahaan</label>
+                                    <input name="nama_perusahaan" type="text"
+                                        class="form-control custom-input @error('nama_perusahaan') is-invalid @enderror"
+                                        value="{{ old('nama_perusahaan') }}"
+                                        placeholder="Masukkan nama perusahaan tempat anda bekerja">
+                                    @error('nama_perusahaan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label>Alamat</label>
+                                    <textarea name="alamat" class="form-control custom-input @error('alamat') is-invalid @enderror" rows="4"
+                                        placeholder="Masukkan alamat tempat anda bekerja">{{ old('alamat') }}</textarea>
+                                    @error('alamat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Tipe Pekerjaan</label>
+                                    <select class="form-control select2 custom-input @error('tipe') is-invalid @enderror"
+                                        name="tipe" id="tipe">
+                                        <option value="">Pilih Tipe Pekerjaan</option>
+                                        <option value="Fulltime">Fulltime</option>
+                                        <option value="Parttime">Part Time</option>
+                                        <option value="Freelance">Freelance</option>
+                                        <option value="Internship">Internship</option>
+                                    </select>
+                                    @error('tipe')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <label for="gaji">Gaji (Opsional)</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text custom-input">
+                                                <a>Rp</a>
+                                            </div>
+                                        </div>
+                                        <input name="gaji" type="number" step="100000"
+                                            class="form-control custom-input @error('gaji') is-invalid @enderror"
+                                            value="{{ old('gaji') }}" placeholder="Masukkan gaji anda bekerja">
+                                        @error('gaji')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Tanggal Mulai</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text custom-input">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                        <input name="tanggal_mulai" type="date"
+                                            class="form-control custom-input @error('tanggal_mulai') is-invalid @enderror"
+                                            value="{{ old('tanggal_mulai') }}">
+                                        @error('tanggal_mulai')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Tanggal Berakhir</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text custom-input">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                        <input name="tanggal_berakhir" type="date"
+                                            class="form-control custom-input @error('tanggal_berakhir') is-invalid @enderror"
+                                            value="{{ old('tanggal_berakhir') }}">
+                                        @error('tanggal_berakhir')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke m-4">
+                        <button type="button" class="btn btn-primary" id="modal-save-button-pengalaman"
                             style="border-radius: 15px; font-size: 14px">Simpan</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
                             style="border-radius: 15px; font-size: 14px">Batal</button>
@@ -874,34 +1035,70 @@
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('.modal-edit-trigger').on('click', function() {
+            $('.modal-edit-trigger-pendidikan').on('click', function() {
                 var itemId = $(this).data('id');
                 var editUrl = "{{ route('pendidikan.edit', ['pendidikan' => '_id']) }}".replace('_id',
                     itemId);
                 var updateUrl = "{{ route('pendidikan.update', ['pendidikan' => '_id']) }}".replace('_id',
                     itemId);
-                $('#modal-edit-form').attr('action', updateUrl);
+
+                $('#modal-edit-pendidikan-form').attr('action', updateUrl);
 
                 $.ajax({
                     url: editUrl,
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#modal-edit select[name="gelar"]').val(data.gelar);
-                        $('#modal-edit input[name="institusi"]').val(data.institusi);
-                        $('#modal-edit input[name="jurusan"]').val(data.jurusan);
-                        $('#modal-edit textarea[name="prestasi"]').val(data.prestasi);
-                        $('#modal-edit select[name="tahun_mulai"]').val(data.tahun_mulai);
-                        $('#modal-edit select[name="tahun_berakhir"]').val(data.tahun_berakhir);
-                        $('#modal-edit input[name="ipk"]').val(data.ipk);
+                        $('#modal-edit-pendidikan select[name="gelar"]').val(data.gelar)
+                            .change();
+                        $('#modal-edit-pendidikan input[name="institusi"]').val(data.institusi);
+                        $('#modal-edit-pendidikan input[name="jurusan"]').val(data.jurusan);
+                        $('#modal-edit-pendidikan textarea[name="prestasi"]').val(data
+                            .prestasi);
+                        $('#modal-edit-pendidikan select[name="tahun_mulai"]').val(data
+                            .tahun_mulai).change();
+                        $('#modal-edit-pendidikan select[name="tahun_berakhir"]').val(data
+                            .tahun_berakhir).change();
+                        $('#modal-edit-pendidikan input[name="ipk"]').val(data.ipk);
 
-                        $('#modal-edit').modal('show');
+                        $('#modal-edit-pendidikan').modal('show');
                     }
                 });
             });
 
-            $('#modal-save-button').on('click', function() {
-                var form = $('#modal-edit-form');
+            $('.modal-edit-trigger-pengalaman').on('click', function() {
+                var itemId = $(this).data('id');
+                var editUrl = "{{ route('pengalaman.edit', ['pengalaman' => '_id']) }}".replace('_id',
+                    itemId);
+                var updateUrl = "{{ route('pengalaman.update', ['pengalaman' => '_id']) }}".replace('_id',
+                    itemId);
+
+                $('#modal-edit-pengalaman-form').attr('action', updateUrl);
+
+                $.ajax({
+                    url: editUrl,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#modal-edit-pengalaman input[name="nama_pekerjaan"]').val(data
+                            .nama_pekerjaan);
+                        $('#modal-edit-pengalaman input[name="nama_perusahaan"]').val(data
+                            .nama_perusahaan);
+                        $('#modal-edit-pengalaman textarea[name="alamat"]').val(data.alamat);
+                        $('#modal-edit-pengalaman select[name="tipe"]').val(data.tipe).change();
+                        $('#modal-edit-pengalaman input[name="gaji"]').val(data.gaji);
+                        $('#modal-edit-pengalaman input[name="tanggal_mulai"]').val(data
+                            .tanggal_mulai);
+                        $('#modal-edit-pengalaman input[name="tanggal_berakhir"]').val(data
+                            .tanggal_berakhir);
+
+                        $('#modal-edit-pengalaman').modal('show');
+                    }
+                });
+            });
+
+            $('#modal-save-button-pendidikan').on('click', function() {
+                var form = $('#modal-edit-pendidikan-form');
                 var formData = new FormData(form[0]);
                 formData.append('_token', "{{ csrf_token() }}");
 
@@ -914,7 +1111,33 @@
                     success: function(response) {
                         if (response.success) {
                             alert(response.message);
-                            $('#modal-edit').modal('hide');
+                            $('#modal-edit-pendidikan').modal('hide');
+                            location.reload();
+                        } else {
+                            alert('Error! ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Error while updating data!');
+                    }
+                });
+            });
+
+            $('#modal-save-button-pengalaman').on('click', function() {
+                var form = $('#modal-edit-pengalaman-form');
+                var formData = new FormData(form[0]);
+                formData.append('_token', "{{ csrf_token() }}");
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            $('#modal-edit-pengalaman').modal('hide');
                             location.reload();
                         } else {
                             alert('Error! ' + response.message);
@@ -930,10 +1153,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 @endpush
 @push('customStyle')
-    {{-- <style>
-        .modal-lg {
-            max-width: 60%;
-        }
-    </style> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 @endpush

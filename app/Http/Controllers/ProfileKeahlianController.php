@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Keahlian;
 use App\Models\Pendidikan;
+use App\Models\Pengalaman;
 use App\Models\Perusahaan;
 use App\Models\ProfileKeahlian;
 use Illuminate\Support\Facades\Auth;
@@ -27,11 +28,15 @@ class ProfileKeahlianController extends Controller
         $pendidikans = Pendidikan::select('pendidikan.*')
             ->where('user_id', $userId)
             ->get();
+        $pengalamans = Pengalaman::select('pengalaman.*')
+            ->where('user_id', $userId)
+            ->get();
 
         return view('profile.edit')->with([
             'keahlians' => $keahlians,
             'selectedKeahlians' => $selectedKeahlians,
             'pendidikans' => $pendidikans,
+            'pengalamans' => $pengalamans,
             'perusahaans' => $perusahaans,
         ]);
     }

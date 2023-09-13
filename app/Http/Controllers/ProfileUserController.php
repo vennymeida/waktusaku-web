@@ -7,6 +7,7 @@ use App\Models\Keahlian;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Pendidikan;
+use App\Models\Pengalaman;
 use App\Models\Perusahaan;
 use App\Models\ProfileUser;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +23,12 @@ class ProfileUserController extends Controller
         $pendidikans = Pendidikan::select('pendidikan.*')
             ->where('user_id', $userId)
             ->get();
+        $pengalamans = Pengalaman::select('pengalaman.*')
+            ->where('user_id', $userId)
+            ->get();
         return view('profile.index')->with([
             'pendidikans' => $pendidikans,
+            'pengalamans' => $pengalamans,
         ]);
     }
     public function profile(ProfileUser $profileUser)
@@ -34,6 +39,9 @@ class ProfileUserController extends Controller
         $keahlians = Keahlian::all();
         $perusahaans = Perusahaan::where('user_id', $userId)->first();
         $pendidikans = Pendidikan::select('pendidikan.*')
+            ->where('user_id', $userId)
+            ->get();
+        $pengalamans = Pengalaman::select('pengalaman.*')
             ->where('user_id', $userId)
             ->get();
         $selectedKeahlians = auth()
@@ -47,6 +55,7 @@ class ProfileUserController extends Controller
             'profileUser' => $profileUser,
             'perusahaans' => $perusahaans,
             'pendidikans' => $pendidikans,
+            'pengalamans' => $pengalamans,
             'keahlians' => $keahlians,
             'selectedKeahlians' => $selectedKeahlians,
         ]);
