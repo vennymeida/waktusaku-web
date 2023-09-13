@@ -56,6 +56,12 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'message.index']);
         Permission::create(['name' => 'message.destroy']);
 
+        //Postingan
+        Permission::create(['name' => 'postinganadmin.index']);
+        Permission::create(['name' => 'postinganadmin.create']);
+        Permission::create(['name' => 'postinganadmin.edit']);
+        Permission::create(['name' => 'postinganadmin.destroy']);
+
         //role
         Permission::create(['name' => 'role.index']);
         Permission::create(['name' => 'role.create']);
@@ -190,6 +196,5 @@ class RoleAndPermissionSeeder extends Seeder
         $user->assignRole('Pencari Kerja');
         $user = User::find(4);
         $user->assignRole('Perusahaan');
-
     }
 }

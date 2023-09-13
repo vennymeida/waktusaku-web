@@ -38,7 +38,7 @@ class MenuItemSeeder extends Seeder
                 ],
                 [
                     'name' => 'Perusahaan List',
-                    'route' => 'user-management/perusahaan',
+                'route' => 'user-management/perusahaan',
                     'permission_name' => 'perusahaan.index',
                     'menu_group_id' => 2,
                 ],
@@ -46,6 +46,12 @@ class MenuItemSeeder extends Seeder
                     'name' => 'Message List',
                     'route' => 'user-management/message',
                     'permission_name' => 'message.index',
+                    'menu_group_id' => 2,
+                ],
+                [
+                    'name' => 'Postingan List',
+                    'route' => 'user-management/postinganadmin',
+                    'permission_name' => 'postinganadmin.index',
                     'menu_group_id' => 2,
                 ],
                 [

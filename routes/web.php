@@ -32,6 +32,7 @@ use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PerusahaanListController;
 use App\Http\Controllers\ProfileKeahlianController;
+use App\Http\Controllers\PostinganAdminController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -159,6 +160,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::get('/message', [ContactUsController::class, 'index'])->name('message.index');
         Route::delete('/message/{contactUs}', [ContactUsController::class, 'destroy'])->name('message.destroy');
+
+        Route::resource('postinganadmin', PostinganAdminController::class);
     });
 
     Route::prefix('menu-management')->group(function () {
