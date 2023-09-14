@@ -62,7 +62,7 @@
                                                 <dd class="col-sm-8 mt-2">{{ $profileUser->alamat }}</dd>
 
                                                 <dt class="col-sm-4 mt-2">Tanggal Lahir</dt>
-                                                <dd class="col-sm-8 mt-2">{{ $profileUser->tgl_lahir }}</dd>
+                                                <dd class="col-sm-8 mt-2">{{ $tglLahir }}</dd>
 
                                                 <dt class="col-sm-4 mt-2">Jenis Kelamin</dt>
                                                 <dd class="col-sm-8 mt-2">
@@ -83,8 +83,8 @@
                                                 <dd class="col-sm-8 mt-2">
                                                     @if ($lamar && $lamar->resume)
                                                         <a href="{{ asset('storage/' . $lamar->resume) }}"
-                                                            onclick="return openResume();" target="_blank" class="mb-2">
-                                                            {{ basename($lamar->resume) }}
+                                                            onclick="return openResume();" target="_blank" class="btn btn-primary btn-sm">
+                                                            Lihat Resume
                                                         </a>
                                                     @else
                                                         <span class="text-muted">Tidak ada resume</span>
@@ -125,7 +125,7 @@
                                                     @if ($keahlian && $keahlian->count() > 0)
                                                         <ul>
                                                             @foreach ($keahlian as $keahlian)
-                                                                <li>{{ $keahlian->keahlian }}</li>
+                                                                <li>{{ $keahlian->keahlian->keahlian }}</li>
                                                             @endforeach
                                                         </ul>
                                                     @else
@@ -197,8 +197,7 @@
                                                     @if ($pelatihan && $pelatihan->sertifikat)
                                                         <a href="{{ asset('storage/' . $pelatihan->sertifikat) }}"
                                                             onclick="return openResume();" target="_blank"
-                                                            class="mb-2">
-                                                            {{ basename($pelatihan->sertifikat) }}
+                                                            class="btn btn-primary btn-sm">Lihat Sertifikat
                                                         </a>
                                                     @else
                                                         <span class="text-muted">Tidak ada sertifikat</span>
