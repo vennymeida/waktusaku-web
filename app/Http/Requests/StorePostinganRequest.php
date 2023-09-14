@@ -13,7 +13,7 @@ class StorePostinganRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class StorePostinganRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'konteks' => 'required',
+            'gambar' => 'nullable'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'konteks.required' => 'Konteks postingan harus diisi.',
+            'gambar.image' => 'Gambar harus berupa file gambar.',
         ];
     }
 }

@@ -11,7 +11,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('pendidikan.store') }}" class="needs-validation" novalidate=""
+                <form method="POST" action="{{ route('postingan.store') }}" class="needs-validation" novalidate=""
                     enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -19,44 +19,37 @@
                             <div class="card-body">
                                 <!-- Informasi Nama User dan Profile -->
                                 <div class="media mb-4">
-                                    <img class="mr-3 rounded-circle" width="50" src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                    <img class="mr-3 rounded-circle" style="width: 50px; height: 50px;"
+                                        src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
                                         alt="Profile Image">
                                     <div class="media-body">
-                                        <h5 class="mt-0">{{ auth()->user()->name }}</h5>
+                                        <h5 class="mt-0" style="font-weight: bold;">{{ auth()->user()->name }}</h5>
                                         <!-- Informasi tambahan mengenai user, seperti bio atau status -->
-                                        <!-- Misalnya: <p>{{ auth()->user()->alamat }}</p> -->
+                                        <p>{{ auth()->user()->email }}</p>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="content">Konten Postingan</label>
+                                    <textarea id="content" class="form-control @error('konteks') is-invalid @enderror" name="konteks" rows="4"
+                                        required>{{ old('konteks') }}</textarea>
+                                    @error('konteks')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">Gambar (Opsional)</label>
+                                    <input id="image" type="file"
+                                        class="form-control-file @error('gambar') is-invalid @enderror" name="gambar"
+                                        accept="gambar/*">
 
-                                <!-- Form untuk Membuat Postingan -->
-                                <form method="POST" action="" enctype="multipart/form-data">
-                                    @csrf
-
-                                    <div class="form-group">
-                                        <label for="content">Konten Postingan</label>
-                                        <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" rows="4"
-                                            required>{{ old('content') }}</textarea>
-
-                                        @error('content')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="image">Gambar (Opsional)</label>
-                                        <input id="image" type="file"
-                                            class="form-control-file @error('image') is-invalid @enderror"
-                                            name="image" accept="image/*">
-
-                                        @error('image')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </form>
+                                    @error('gambar')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -551,30 +544,39 @@
                             <div class="profile-widget-name">Activity / Postingan</div>
                         </div>
                         <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                            <a href="#" data-toggle="modal" data-target="#modal-create-postingan">
+                            <a href="#" data-toggle="modal" data-target="#modal-create-postingan"
+                                id="tambah-postingan-btn">
                                 <img class="img-fluid" style="width: 35px; height: 35px;"
                                     src="{{ asset('assets/img/landing-page/Plus.svg') }}">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="media mb-2">
-                            <img class="mr-3 rounded" width="50" src="assets/img/products/product-1-50.png"
-                                alt="product">
-                            <div class="media-body">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus nulla quibusdam
-                                architecto aut hic itaque sed! Mollitia facilis quasi
-                                nulla asperiores voluptatum alias dolore aut delectus veniam eveniet optio ipsa excepturi
-                                esse eos tempore doloremque perspiciatis, unde ratione
-                                ut dicta hic quis veritatis explicabo nihil?
+                        @php
+                            $totalPosts = $postingan->count();
+                            $displayLimit = $showAllPosts ? $totalPosts : 3;
+                        @endphp
+
+                        @foreach ($postingan->take($displayLimit) as $post)
+                            <div class="media mb-2">
+                                <img class="mr-3 rounded"width="100" height="100" src="{{ asset('storage/' . $post->gambar) }}">
+                                <div class="media-body">
+                                    {{ $post->konteks }}
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                     <br>
                     <br>
-                    <a href="{{ url('/pendidikan') }}">
-                        <p class="corner-text">Lihat Selengkapnya...</p>
-                    </a>
+                    @if ($showAllPosts && $totalPosts > 3)
+                        <a href="{{ route('postingan.index') }}">
+                            <p class="corner-text">Lebih Sedikit</p>
+                        </a>
+                    @elseif (!$showAllPosts && $totalPosts > 3)
+                        <a href="{{ route('postingan.index', ['show_all' => true]) }}">
+                            <p class="corner-text">Lihat Selengkapnya...</p>
+                        </a>
+                    @endif
                 </div>
             </section>
             <section class="centered-section">
@@ -742,6 +744,7 @@
 
 @push('customScript')
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @endpush
 @push('customStyle')
     <style>
@@ -749,4 +752,44 @@
             max-width: 60%;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            // Ketika tombol "Tambah Postingan" ditekan
+            $('#tambah-postingan-btn').click(function() {
+                // Reset pesan kesalahan dan nilai input
+                $('.invalid-feedback').hide();
+                $('.form-control').removeClass('is-invalid');
+                $('#content').val('');
+
+                // Buka modal
+                $('#modal-create-postingan').modal('show');
+            });
+
+            // Ketika form disubmit
+            $('#postingan-form').submit(function(e) {
+                e.preventDefault(); // Mencegah form submit default
+
+                // Kirim form secara asinkronus
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Sukses, tutup modal
+                        $('#modal-create-postingan').modal('hide');
+                    },
+                    error: function(xhr, status, error) {
+                        // Tampilkan pesan kesalahan validasi
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            $('#' + key).addClass('is-invalid');
+                            $('#' + key + '-error').text(value[0]);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 @endpush

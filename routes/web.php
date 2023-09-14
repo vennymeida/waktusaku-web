@@ -78,7 +78,7 @@ Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact
 Route::get('/about-us', function () {
     return view('about');
 });
-Route::resource('postingan', PostinganController::class);
+// Route::resource('postingan', PostinganController::class);
 
 // Route::get('/login', function () {
 //     if (auth()->check()) {
@@ -138,6 +138,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('pendidikan', PendidikanController::class);
     Route::resource('pengalaman', PengalamanController::class);
     Route::resource('pelatihan', PelatihanController::class);
+    Route::resource('postingan', PostinganController::class);
 
     Route::prefix('user-management')->group(function () {
         Route::resource('user', UserController::class);
