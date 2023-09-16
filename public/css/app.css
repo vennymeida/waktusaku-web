@@ -71,7 +71,6 @@ ol {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    max-height: 100vh;
     margin-top: 50px;
 }
 
