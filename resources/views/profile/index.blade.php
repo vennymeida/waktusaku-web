@@ -684,71 +684,7 @@
                 </div>
             </section>
             <section class="centered-section" style="margin-top: -50px;">
-                <div class="bg-primary-section col-md-10 py-1">
-                    <div class="profile-widget-description m-3"
-                        style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
-                        <div class="flex-grow-1">
-                            <div class="profile-widget-name" style="color:#6777ef;">Pendidikan</div>
-                        </div>
-                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                            <a href="#" data-toggle="modal" data-target="#modal-create">
-                                <img class="img-fluid" style="width: 35px; height: 35px;"
-                                    src="{{ asset('assets/img/landing-page/Plus.svg') }}">
-                            </a>
-                        </div>
-                    </div>
-                    <div id="pendidikan-container">
-                        @foreach ($pendidikans as $item)
-                            <div class="mr-5 ml-5">
-                                <div class="profile-widget-description m-3"
-                                    style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                                    <div class="flex-grow-1">
-                                        <div class="profile-widget-name"
-                                            style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
-                                            {{ $item->institusi }}
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                        <a href="#" data-id="{{ $item->id }}"
-                                            data-edit-url="{{ route('pendidikan.edit', ['pendidikan' => $item->id]) }}"
-                                            class="modal-edit-trigger-pendidikan">
-                                            <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <ul class="list-unstyled ml-2">
-                                        <li class="mb-2"><img class="img-fluid"
-                                                src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbsp
-                                            {{ $item->gelar }} - {{ $item->jurusan }}
-                                        </li>
-                                        <li class="mb-2"><img class="img-fluid"
-                                                src="{{ asset('assets/img/landing-page/Award.svg') }}">&nbsp&nbsp&nbsp
-                                            {{ $item->prestasi }}
-                                        </li>
-                                        <li class="mb-2"><img class="img-fluid"
-                                                src="{{ asset('assets/img/landing-page/timeline.svg') }}">&nbsp&nbsp&nbsp&nbsp
-                                            {{ $item->ipk }}
-                                        </li>
-                                        <li class="mb-2"><img class="img-fluid"
-                                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp
-                                            {{ $item->tahun_mulai }} - {{ $item->tahun_berakhir }}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="text-center mt-4">
-                        <button id="load-more" class="btn btn-primary"
-                            style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                            data-page="{{ $pendidikans->currentPage() }}">Muat Lebih Banyak</button>
-                    </div>
-                </div>
-            </section>
-            <section class="centered-section">
-                <div class="bg-primary-section col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -761,19 +697,97 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-12 mb-4">
-                        <div class="flex-grow-1 mb-2">
-                            <div class="card-header-action">
-                                @foreach (auth()->user()->keahlians as $keahlian)
-                                    <button class="btn btn-primary" id="skill-button">{{ $keahlian->keahlian }}</button>
-                                @endforeach
+                    @if (count(auth()->user()->keahlians) > 0)
+                        <div class="col-md-12 mb-4">
+                            <div class="flex-grow-1 mb-2">
+                                <div class="card-header-action">
+                                    @foreach (auth()->user()->keahlians as $keahlian)
+                                        <button class="btn btn-primary"
+                                            id="skill-button">{{ $keahlian->keahlian }}</button>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="text-center" style="color:#808080">
+                            <p>Data Keahlian Masih Kosong</p>
+                        </div>
+                    @endif
                 </div>
             </section>
             <section class="centered-section">
-                <div class="bg-primary-section col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1">
+                    <div class="profile-widget-description m-3"
+                        style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                        <div class="flex-grow-1">
+                            <div class="profile-widget-name" style="color:#6777ef;">Pendidikan</div>
+                        </div>
+                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                            <a href="#" data-toggle="modal" data-target="#modal-create">
+                                <img class="img-fluid" style="width: 35px; height: 35px;"
+                                    src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            </a>
+                        </div>
+                    </div>
+                    @if (count($pendidikans) > 0)
+                        <div id="pendidikan-container">
+                            @foreach ($pendidikans as $item)
+                                <div class="mr-5 ml-5">
+                                    <div class="profile-widget-description m-3"
+                                        style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                                        <div class="flex-grow-1">
+                                            <div class="profile-widget-name"
+                                                style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
+                                                {{ $item->institusi }}
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
+                                            id="fluid">
+                                            <a href="#" data-id="{{ $item->id }}"
+                                                data-edit-url="{{ route('pendidikan.edit', ['pendidikan' => $item->id]) }}"
+                                                class="modal-edit-trigger-pendidikan">
+                                                <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                    src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <ul class="list-unstyled ml-2">
+                                            <li class="mb-2"><img class="img-fluid"
+                                                    src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbsp
+                                                {{ $item->gelar }} - {{ $item->jurusan }}
+                                            </li>
+                                            <li class="mb-2"><img class="img-fluid"
+                                                    src="{{ asset('assets/img/landing-page/Award.svg') }}">&nbsp&nbsp&nbsp
+                                                {{ $item->prestasi }}
+                                            </li>
+                                            <li class="mb-2"><img class="img-fluid"
+                                                    src="{{ asset('assets/img/landing-page/timeline.svg') }}">&nbsp&nbsp&nbsp&nbsp
+                                                {{ $item->ipk }}
+                                            </li>
+                                            <li class="mb-2"><img class="img-fluid"
+                                                    src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp
+                                                {{ $item->tahun_mulai }} - {{ $item->tahun_berakhir }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="text-center mt-4">
+                            <button id="load-more" class="btn btn-primary"
+                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
+                                data-page="{{ $pendidikans->currentPage() }}">Muat Lebih Banyak</button>
+                        </div>
+                    @else
+                        <div class="text-center" style="color:#808080">
+                            <p>Data Pendidikan Masih Kosong</p>
+                        </div>
+                    @endif
+                </div>
+            </section>
+            <section class="centered-section">
+                <div class="bg-primary-section card col-md-10 py-1">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -786,60 +800,67 @@
                             </a>
                         </div>
                     </div>
-                    <div id="pengalaman-container">
-                        @foreach ($pengalamans as $pl)
-                            {{-- <hr> --}}
-                            <div class="mr-5 ml-5">
-                                <div class="profile-widget-description m-3"
-                                    style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                                    <div class="flex-grow-1">
-                                        <div class="profile-widget-name"
-                                            style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
-                                            {{ $pl->nama_pekerjaan }}
+                    @if (count($pengalamans) > 0)
+                        <div id="pengalaman-container">
+                            @foreach ($pengalamans as $pl)
+                                {{-- <hr> --}}
+                                <div class="mr-5 ml-5">
+                                    <div class="profile-widget-description m-3"
+                                        style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                                        <div class="flex-grow-1">
+                                            <div class="profile-widget-name"
+                                                style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
+                                                {{ $pl->nama_pekerjaan }}
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
+                                            id="fluid">
+                                            <a href="#" data-id="{{ $pl->id }}"
+                                                data-edit-url="{{ route('pengalaman.edit', ['pengalaman' => $pl->id]) }}"
+                                                class="modal-edit-trigger-pengalaman">
+                                                <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                    src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                        <a href="#" data-id="{{ $pl->id }}"
-                                            data-edit-url="{{ route('pengalaman.edit', ['pengalaman' => $pl->id]) }}"
-                                            class="modal-edit-trigger-pengalaman">
-                                            <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="flex-grow-1 mb-2">
-                                        <div class="profile-widget-name"
-                                            style="font-size: 16px; display: flex; align-items: center;">
-                                            {{ $pl->nama_perusahaan }} | {{ $pl->alamat }}
+                                    <div class="col-md-12">
+                                        <div class="flex-grow-1 mb-2">
+                                            <div class="profile-widget-name"
+                                                style="font-size: 16px; display: flex; align-items: center;">
+                                                {{ $pl->nama_perusahaan }} | {{ $pl->alamat }}
+                                            </div>
                                         </div>
+                                        <ul class="list-unstyled ml-2">
+                                            <li class="mb-2"><img class="img-fluid"
+                                                    src="{{ asset('assets/img/landing-page/Hourglass.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tipe }}
+                                            </li>
+                                            <li class="mb-2"><img class="img-fluid"
+                                                    src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR
+                                                {{ $pl->gaji }}
+                                            </li>
+                                            <li class="mb-2"><img class="img-fluid"
+                                                    src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tanggal_mulai }}
+                                                - {{ $pl->tanggal_berakhir }}
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul class="list-unstyled ml-2">
-                                        <li class="mb-2"><img class="img-fluid"
-                                                src="{{ asset('assets/img/landing-page/Hourglass.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tipe }}
-                                        </li>
-                                        <li class="mb-2"><img class="img-fluid"
-                                                src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR
-                                            {{ $pl->gaji }}
-                                        </li>
-                                        <li class="mb-2"><img class="img-fluid"
-                                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tanggal_mulai }}
-                                            - {{ $pl->tanggal_berakhir }}
-                                        </li>
-                                    </ul>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="text-center mt-4">
-                        <button id="load-more-pengalaman" class="btn btn-primary"
-                            style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                            data-page="{{ $pengalamans->currentPage() }}">Muat Lebih Banyak</button>
-                    </div>
+                            @endforeach
+                        </div>
+                        <div class="text-center mt-4">
+                            <button id="load-more-pengalaman" class="btn btn-primary"
+                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
+                                data-page="{{ $pengalamans->currentPage() }}">Muat Lebih Banyak</button>
+                        </div>
+                    @else
+                        <div class="text-center" style="color:#808080">
+                            <p>Data Pengalaman Kerja Masih Kosong</p>
+                        </div>
+                    @endif
                 </div>
             </section>
             <section class="centered-section" style="margin-bottom: 10%;">
-                <div class="bg-primary-section col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -852,57 +873,65 @@
                             </a>
                         </div>
                     </div>
-                    <div id="pelatihan-container">
-                        @foreach ($pelatihans as $lat)
-                            <div class="mr-5 ml-5">
-                                <div class="profile-widget-description m-3"
-                                    style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                                    <div class="flex-grow-1">
-                                        <div class="profile-widget-name"
-                                            style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
-                                            {{ $lat->nama_sertifikat }}
+                    @if (count($pelatihans) > 0)
+                        <div id="pelatihan-container">
+                            @foreach ($pelatihans as $lat)
+                                <div class="mr-5 ml-5">
+                                    <div class="profile-widget-description m-3"
+                                        style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                                        <div class="flex-grow-1">
+                                            <div class="profile-widget-name"
+                                                style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
+                                                {{ $lat->nama_sertifikat }}
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
+                                            id="fluid">
+                                            <a href="#" data-id="{{ $lat->id }}"
+                                                data-edit-url="{{ route('pelatihan.edit', ['pelatihan' => $lat->id]) }}"
+                                                class="modal-edit-trigger-pelatihan">
+                                                <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                    src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                        <a href="#" data-id="{{ $lat->id }}"
-                                            data-edit-url="{{ route('pelatihan.edit', ['pelatihan' => $lat->id]) }}"
-                                            class="modal-edit-trigger-pelatihan">
-                                            <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="flex-grow-1 mb-2">
-                                        <div class="profile-widget-name"
-                                            style="font-size: 16px; display: flex; align-items: center;">
-                                            {{ $lat->deskripsi }}
+                                    <div class="col-md-12">
+                                        <div class="flex-grow-1 mb-2">
+                                            <div class="profile-widget-name"
+                                                style="font-size: 16px; display: flex; align-items: center;">
+                                                {{ $lat->deskripsi }}
+                                            </div>
+                                        </div>
+                                        <ul class="list-unstyled ml-2">
+                                            <li class="mb-2"><img class="img-fluid"
+                                                    src="{{ asset('assets/img/landing-page/Office Building-2.svg') }}">&nbsp&nbsp&nbsp
+                                                {{ $lat->penerbit }}
+                                            </li>
+                                            <li class="mb-2"><img class="img-fluid"
+                                                    src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                {{ $lat->tanggal_dikeluarkan }}
+                                            </li>
+                                        </ul>
+                                        <div style="font-size: 16px;">
+                                            <a href="#" class="open-pdf"
+                                                data-sertifikat="{{ $lat->sertifikat }}">
+                                                <p class="">Lihat Sertifikat</p>
+                                            </a>
                                         </div>
                                     </div>
-                                    <ul class="list-unstyled ml-2">
-                                        <li class="mb-2"><img class="img-fluid"
-                                                src="{{ asset('assets/img/landing-page/Office Building-2.svg') }}">&nbsp&nbsp&nbsp
-                                            {{ $lat->penerbit }}
-                                        </li>
-                                        <li class="mb-2"><img class="img-fluid"
-                                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp&nbsp
-                                            {{ $lat->tanggal_dikeluarkan }}
-                                        </li>
-                                    </ul>
-                                    <div style="font-size: 16px;">
-                                        <a href="#" class="open-pdf" data-sertifikat="{{ $lat->sertifikat }}">
-                                            <p class="">Lihat Sertifikat</p>
-                                        </a>
-                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="text-center mt-4">
-                        <button id="load-more-pelatihan" class="btn btn-primary"
-                            style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                            data-page="{{ $pelatihans->currentPage() }}">Muat Lebih Banyak</button>
-                    </div>
+                            @endforeach
+                        </div>
+                        <div class="text-center mt-4">
+                            <button id="load-more-pelatihan" class="btn btn-primary"
+                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
+                                data-page="{{ $pelatihans->currentPage() }}">Muat Lebih Banyak</button>
+                        </div>
+                    @else
+                        <div class="text-center" style="color:#808080">
+                            <p>Data Pelatihan/Sertifikat Masih Kosong</p>
+                        </div>
+                    @endif
                 </div>
             </section>
         </main>
