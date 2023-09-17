@@ -8,6 +8,7 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Pendidikan;
 use App\Models\Pengalaman;
+use App\Models\Pelatihan;
 use App\Models\Perusahaan;
 use App\Models\ProfileUser;
 use Illuminate\Support\Facades\Auth;
@@ -29,9 +30,14 @@ class ProfileUserController extends Controller
             ->where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->paginate(2);
+        $pelatihans = Pelatihan::select('pelatihan.*')
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate(2);
         return view('profile.index')->with([
             'pendidikans' => $pendidikans,
             'pengalamans' => $pengalamans,
+            'pelatihans' => $pelatihans,
         ]);
     }
     public function profile(ProfileUser $profileUser)
@@ -47,6 +53,9 @@ class ProfileUserController extends Controller
         $pengalamans = Pengalaman::select('pengalaman.*')
             ->where('user_id', $userId)
             ->get();
+        $pelatihans = Pelatihan::select('pelatihan.*')
+            ->where('user_id', $userId)
+            ->get();
         $selectedKeahlians = auth()
             ->user()
             ->keahlians->pluck('id')
@@ -59,6 +68,7 @@ class ProfileUserController extends Controller
             'perusahaans' => $perusahaans,
             'pendidikans' => $pendidikans,
             'pengalamans' => $pengalamans,
+            'pelatihans' => $pelatihans,
             'keahlians' => $keahlians,
             'selectedKeahlians' => $selectedKeahlians,
         ]);

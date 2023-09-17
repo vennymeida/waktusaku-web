@@ -316,7 +316,8 @@
                             <label for="nama_sertifikat">Nama</label>
                             <input name="nama_sertifikat" type="text"
                                 class="form-control custom-input @error('nama_sertifikat') is-invalid @enderror"
-                                value="{{ old('nama_sertifikat') }}">
+                                value="{{ old('nama_sertifikat') }}"
+                                placeholder="Masukkan nama pelatihan/sertifikat anda">
                             @error('nama_sertifikat')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -327,8 +328,8 @@
                     <div class="row ml-4 mr-4">
                         <div class="form-group col-md-12 col-12">
                             <label>Deskripsi</label>
-                            <textarea name="deskripsi" class="form-control custom-input @error('deskripsi') is-invalid @enderror"
-                                rows="4">{{ old('deskripsi') }}</textarea>
+                            <textarea name="deskripsi" class="form-control custom-input @error('deskripsi') is-invalid @enderror" rows="4"
+                                placeholder="Tuliskan deskripsi mengenai pelatihan/sertifikat anda">{{ old('deskripsi') }}</textarea>
                             @error('deskripsi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -341,7 +342,7 @@
                             <label>Penerbit</label>
                             <input name="penerbit" type="text"
                                 class="form-control custom-input @error('penerbit') is-invalid @enderror"
-                                value="{{ old('penerbit') }}">
+                                value="{{ old('penerbit') }}" placeholder="Masukkan nama penerbit sertifikat">
                             @error('penerbit')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -682,7 +683,7 @@
                     </div>
                 </div>
             </section>
-            <section class="centered-section">
+            <section class="centered-section" style="margin-top: -50px;">
                 <div class="bg-primary-section col-md-10 py-1">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
@@ -751,7 +752,7 @@
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
-                            <div class="profile-widget-name">Keahlian Saya</div>
+                            <div class="profile-widget-name" style="color:#6777ef;">Keahlian</div>
                         </div>
                         <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                             <a href="{{ url('/profile/keahlian/edit') }}">
@@ -842,7 +843,7 @@
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
-                            <div class="profile-widget-name">Pelatihan / Sertifikat</div>
+                            <div class="profile-widget-name" style="color:#6777ef;">Pelatihan / Sertifikat</div>
                         </div>
                         <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                             <a href="#" data-toggle="modal" data-target="#modal-create-pelatihan">
@@ -851,37 +852,57 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="flex-grow-1 mb-2">
-                            <div class="profile-widget-name"
-                                style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                                Pelatihan Data Analyst Dicoding
+                    <div id="pelatihan-container">
+                        @foreach ($pelatihans as $lat)
+                            <div class="mr-5 ml-5">
+                                <div class="profile-widget-description m-3"
+                                    style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                                    <div class="flex-grow-1">
+                                        <div class="profile-widget-name"
+                                            style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
+                                            {{ $lat->nama_sertifikat }}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                                        <a href="#" data-id="{{ $lat->id }}"
+                                            data-edit-url="{{ route('pelatihan.edit', ['pelatihan' => $lat->id]) }}"
+                                            class="modal-edit-trigger-pelatihan">
+                                            <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="flex-grow-1 mb-2">
+                                        <div class="profile-widget-name"
+                                            style="font-size: 16px; display: flex; align-items: center;">
+                                            {{ $lat->deskripsi }}
+                                        </div>
+                                    </div>
+                                    <ul class="list-unstyled ml-2">
+                                        <li class="mb-2"><img class="img-fluid"
+                                                src="{{ asset('assets/img/landing-page/Office Building-2.svg') }}">&nbsp&nbsp&nbsp
+                                            {{ $lat->penerbit }}
+                                        </li>
+                                        <li class="mb-2"><img class="img-fluid"
+                                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp&nbsp
+                                            {{ $lat->tanggal_dikeluarkan }}
+                                        </li>
+                                    </ul>
+                                    <div style="font-size: 16px;">
+                                        <a href="#" class="open-pdf" data-sertifikat="{{ $lat->sertifikat }}">
+                                            <p class="">Lihat Sertifikat</p>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex-grow-1 mb-2">
-                            <div class="profile-widget-name" style="font-size: 16px; display: flex; align-items: center;">
-                                Lorem Ipsum is simply dummy text of the
-                                printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                                ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                a
-                                type specimen book. It has survived not only five centuries
-                            </div>
-                        </div>
-                        <ul class="list-unstyled ml-2">
-                            <li class="mb-2"><img class="img-fluid"
-                                    src="{{ asset('assets/img/landing-page/Office Building-2.svg') }}">&nbsp&nbsp&nbspDikeluarkan
-                                oleh Dicoding
-                            </li>
-                            <li class="mb-2"><img class="img-fluid"
-                                    src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp&nbsp13
-                                Agustus
-                                2023
-                            </li>
-                        </ul>
+                        @endforeach
                     </div>
-                    <a href="{{ url('/pelatihan') }}">
-                        <p class="corner-text">Lihat Selengkapnya...</p>
-                    </a>
+                    <div class="text-center mt-4">
+                        <button id="load-more-pelatihan" class="btn btn-primary"
+                            style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
+                            data-page="{{ $pelatihans->currentPage() }}">Muat Lebih Banyak</button>
+                    </div>
                 </div>
             </section>
         </main>
@@ -1169,6 +1190,109 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Edit Pelatihan -->
+    <div id="modal-edit-pelatihan" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg mx-auto" role="document">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header m-4">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Edit
+                            Pelatihan Kerja</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" id="modal-edit-pelatihan-form" class="needs-validation" novalidate=""
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label for="nama_sertifikat">Nama</label>
+                                    <input name="nama_sertifikat" type="text"
+                                        class="form-control custom-input @error('nama_sertifikat') is-invalid @enderror"
+                                        value="{{ old('nama_sertifikat') }}"
+                                        placeholder="Masukkan nama pelatihan/sertifikat anda">
+                                    @error('nama_sertifikat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label>Deskripsi</label>
+                                    <textarea name="deskripsi" class="form-control custom-input @error('deskripsi') is-invalid @enderror" rows="4"
+                                        placeholder="Tuliskan deskripsi mengenai pelatihan/sertifikat anda">{{ old('deskripsi') }}</textarea>
+                                    @error('deskripsi')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label>Penerbit</label>
+                                    <input name="penerbit" type="text"
+                                        class="form-control custom-input @error('penerbit') is-invalid @enderror"
+                                        value="{{ old('penerbit') }}" placeholder="Masukkan nama penerbit sertifikat">
+                                    @error('penerbit')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Tanggal Dikeluarkan</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text custom-input">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                        <input name="tanggal_dikeluarkan" type="date"
+                                            class="form-control custom-input @error('tanggal_dikeluarkan') is-invalid @enderror"
+                                            value="{{ old('tanggal_dikeluarkan') }}">
+                                        @error('tanggal_dikeluarkan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ml-4 mr-4">
+                                <div class="form-group col-md-12 col-12">
+                                    <label>Unggah Sertifikat (Opsional)</label>
+                                    <input id="sertifikat" name="sertifikat" type="file"
+                                        class="form-control custom-input @error('sertifikat') is-invalid @enderror">
+                                    @error('sertifikat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                    <div class="text-warning small" style="font-size: 13px; font-weight:medium;">
+                                        (Tipe berkas : pdf | Max size : 2MB)</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke m-4">
+                        <button type="button" class="btn btn-primary" id="modal-save-button-pelatihan"
+                            style="border-radius: 15px; font-size: 14px">Simpan</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            style="border-radius: 15px; font-size: 14px">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('customScript')
@@ -1303,6 +1427,67 @@
     </script>
     <script>
         $(document).ready(function() {
+            var editModal = $('#modal-edit-pelatihan');
+
+            function openEditModal(latId) {
+                var editUrl = "{{ route('pelatihan.edit', ['pelatihan' => '_id']) }}".replace('_id', latId);
+                var updateUrl = "{{ route('pelatihan.update', ['pelatihan' => '_id']) }}".replace('_id',
+                    latId);
+
+                $('#modal-edit-pelatihan-form').attr('action', updateUrl);
+
+                $.ajax({
+                    url: editUrl,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#modal-edit-pelatihan input[name="nama_sertifikat"]').val(data
+                            .nama_sertifikat);
+                        $('#modal-edit-pelatihan textarea[name="deskripsi"]').val(data.deskripsi);
+                        $('#modal-edit-pelatihan input[name="penerbit"]').val(data.penerbit);
+                        $('#modal-edit-pelatihan input[name="tanggal_dikeluarkan"]').val(data
+                            .tanggal_dikeluarkan);
+                        $('#modal-edit-pelatihan input[name="sertifikat"]').val(data.sertifikat);
+
+                        editModal.modal('show');
+                    }
+                });
+            }
+
+            $('#pelatihan-container').on('click', '.modal-edit-trigger-pelatihan', function() {
+                var latId = $(this).data('id');
+                openEditModal(latId);
+            });
+
+            $('#modal-save-button-pelatihan').on('click', function() {
+                var form = $('#modal-edit-pelatihan-form');
+                var formData = new FormData(form[0]);
+                formData.append('_token', "{{ csrf_token() }}");
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            editModal.modal('hide');
+                            location.reload();
+                        } else {
+                            alert('Error! ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Error while updating data!');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
             $('#resumePreviewModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var pdfUrl = button.data('pdf');
@@ -1371,6 +1556,38 @@
                         } else {
                             $('#load-more-pengalaman').css('display', 'none');
                             hasMoreDataPengalaman = false;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        let isLoadingMorePelatihan = false;
+        let hasMoreDataPelatihan = true;
+
+        $(document).ready(function() {
+            $('#load-more-pelatihan').on('click', function(e) {
+                e.preventDefault();
+
+                if (!isLoadingMorePelatihan && hasMoreDataPelatihan) {
+                    isLoadingMorePelatihan = true;
+                    let nextPage = parseInt($(this).data('page')) + 1;
+
+                    $.get('{{ route('profile.index') }}?page=' + nextPage, function(data) {
+                        let content = $(data).find('#pelatihan-container').html();
+                        if (content) {
+                            $('#pelatihan-container').append(content);
+                            isLoadingMorepelatihan = false;
+                            $('#load-more-pelatihan').data('page', nextPage);
+
+                            if ($.trim(content).length === 0) {
+                                $('#load-more-pelatihan').css('display', 'none');
+                                hasMoreDataPelatihan = false;
+                            }
+                        } else {
+                            $('#load-more-pelatihan').css('display', 'none');
+                            hasMoreDataPelatihan = false;
                         }
                     });
                 }
