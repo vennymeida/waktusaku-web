@@ -152,8 +152,8 @@
 </div>
 
 <!-- Modal Tambah Pengalaman -->
-<div class="modal fade" id="modal-create-pengalaman" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal-create-pengalaman" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header m-4">
@@ -696,48 +696,54 @@
                             </a>
                         </div>
                     </div>
-                    @foreach ($pendidikans as $item)
-                        {{-- <hr> --}}
-                        <div class="mr-5 ml-5">
-                            <div class="profile-widget-description m-3"
-                                style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                                <div class="flex-grow-1">
-                                    <div class="profile-widget-name"
-                                        style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
-                                        {{ $item->institusi }}
+                    <div id="pendidikan-container">
+                        @foreach ($pendidikans as $item)
+                            <div class="mr-5 ml-5">
+                                <div class="profile-widget-description m-3"
+                                    style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                                    <div class="flex-grow-1">
+                                        <div class="profile-widget-name"
+                                            style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
+                                            {{ $item->institusi }}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                                        <a href="#" data-id="{{ $item->id }}"
+                                            data-edit-url="{{ route('pendidikan.edit', ['pendidikan' => $item->id]) }}"
+                                            class="modal-edit-trigger-pendidikan">
+                                            <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                    <a href="#" data-id="{{ $item->id }}"
-                                        data-edit-url="{{ route('pendidikan.edit', ['pendidikan' => $item->id]) }}"
-                                        class="modal-edit-trigger-pendidikan">
-                                        <img class="img-fluid" style="width: 30px; height: 30px;"
-                                            src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                    </a>
+                                <div class="col-md-12">
+                                    <ul class="list-unstyled ml-2">
+                                        <li class="mb-2"><img class="img-fluid"
+                                                src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbsp
+                                            {{ $item->gelar }} - {{ $item->jurusan }}
+                                        </li>
+                                        <li class="mb-2"><img class="img-fluid"
+                                                src="{{ asset('assets/img/landing-page/Award.svg') }}">&nbsp&nbsp&nbsp
+                                            {{ $item->prestasi }}
+                                        </li>
+                                        <li class="mb-2"><img class="img-fluid"
+                                                src="{{ asset('assets/img/landing-page/timeline.svg') }}">&nbsp&nbsp&nbsp&nbsp
+                                            {{ $item->ipk }}
+                                        </li>
+                                        <li class="mb-2"><img class="img-fluid"
+                                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp
+                                            {{ $item->tahun_mulai }} - {{ $item->tahun_berakhir }}
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <ul class="list-unstyled ml-2">
-                                    <li class="mb-2"><img class="img-fluid"
-                                            src="{{ asset('assets/img/landing-page/Graduation Cap (2).svg') }}">&nbsp&nbsp&nbsp&nbsp
-                                        {{ $item->gelar }} - {{ $item->jurusan }}
-                                    </li>
-                                    <li class="mb-2"><img class="img-fluid"
-                                            src="{{ asset('assets/img/landing-page/Award.svg') }}">&nbsp&nbsp&nbsp
-                                        {{ $item->prestasi }}
-                                    </li>
-                                    <li class="mb-2"><img class="img-fluid"
-                                            src="{{ asset('assets/img/landing-page/timeline.svg') }}">&nbsp&nbsp&nbsp&nbsp
-                                        {{ $item->ipk }}
-                                    </li>
-                                    <li class="mb-2"><img class="img-fluid"
-                                            src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp&nbsp
-                                        {{ $item->tahun_mulai }} - {{ $item->tahun_berakhir }}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                    <div class="text-center mt-4">
+                        <button id="load-more" class="btn btn-primary"
+                            style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
+                            data-page="{{ $pendidikans->currentPage() }}">Muat Lebih Banyak</button>
+                    </div>
                 </div>
             </section>
             <section class="centered-section">
@@ -1162,10 +1168,10 @@
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('.modal-edit-trigger-pendidikan').on('click', function() {
-                var itemId = $(this).data('id');
-                var editUrl = "{{ route('pendidikan.edit', ['pendidikan' => '_id']) }}".replace('_id',
-                    itemId);
+            var editModal = $('#modal-edit-pendidikan');
+
+            function openEditModal(itemId) {
+                var editUrl = "{{ route('pendidikan.edit', ['pendidikan' => '_id']) }}".replace('_id', itemId);
                 var updateUrl = "{{ route('pendidikan.update', ['pendidikan' => '_id']) }}".replace('_id',
                     itemId);
 
@@ -1176,52 +1182,24 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#modal-edit-pendidikan select[name="gelar"]').val(data.gelar)
-                            .change();
+                        $('#modal-edit-pendidikan select[name="gelar"]').val(data.gelar).change();
                         $('#modal-edit-pendidikan input[name="institusi"]').val(data.institusi);
                         $('#modal-edit-pendidikan input[name="jurusan"]').val(data.jurusan);
-                        $('#modal-edit-pendidikan textarea[name="prestasi"]').val(data
-                            .prestasi);
-                        $('#modal-edit-pendidikan select[name="tahun_mulai"]').val(data
-                            .tahun_mulai).change();
+                        $('#modal-edit-pendidikan textarea[name="prestasi"]').val(data.prestasi);
+                        $('#modal-edit-pendidikan select[name="tahun_mulai"]').val(data.tahun_mulai)
+                            .change();
                         $('#modal-edit-pendidikan select[name="tahun_berakhir"]').val(data
                             .tahun_berakhir).change();
                         $('#modal-edit-pendidikan input[name="ipk"]').val(data.ipk);
 
-                        $('#modal-edit-pendidikan').modal('show');
+                        editModal.modal('show');
                     }
                 });
-            });
+            }
 
-            $('.modal-edit-trigger-pengalaman').on('click', function() {
+            $('#pendidikan-container').on('click', '.modal-edit-trigger-pendidikan', function() {
                 var itemId = $(this).data('id');
-                var editUrl = "{{ route('pengalaman.edit', ['pengalaman' => '_id']) }}".replace('_id',
-                    itemId);
-                var updateUrl = "{{ route('pengalaman.update', ['pengalaman' => '_id']) }}".replace('_id',
-                    itemId);
-
-                $('#modal-edit-pengalaman-form').attr('action', updateUrl);
-
-                $.ajax({
-                    url: editUrl,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#modal-edit-pengalaman input[name="nama_pekerjaan"]').val(data
-                            .nama_pekerjaan);
-                        $('#modal-edit-pengalaman input[name="nama_perusahaan"]').val(data
-                            .nama_perusahaan);
-                        $('#modal-edit-pengalaman textarea[name="alamat"]').val(data.alamat);
-                        $('#modal-edit-pengalaman select[name="tipe"]').val(data.tipe).change();
-                        $('#modal-edit-pengalaman input[name="gaji"]').val(data.gaji);
-                        $('#modal-edit-pengalaman input[name="tanggal_mulai"]').val(data
-                            .tanggal_mulai);
-                        $('#modal-edit-pengalaman input[name="tanggal_berakhir"]').val(data
-                            .tanggal_berakhir);
-
-                        $('#modal-edit-pengalaman').modal('show');
-                    }
-                });
+                openEditModal(itemId);
             });
 
             $('#modal-save-button-pendidikan').on('click', function() {
@@ -1238,33 +1216,7 @@
                     success: function(response) {
                         if (response.success) {
                             alert(response.message);
-                            $('#modal-edit-pendidikan').modal('hide');
-                            location.reload();
-                        } else {
-                            alert('Error! ' + response.message);
-                        }
-                    },
-                    error: function() {
-                        alert('Error while updating data!');
-                    }
-                });
-            });
-
-            $('#modal-save-button-pengalaman').on('click', function() {
-                var form = $('#modal-edit-pengalaman-form');
-                var formData = new FormData(form[0]);
-                formData.append('_token', "{{ csrf_token() }}");
-
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response.success) {
-                            alert(response.message);
-                            $('#modal-edit-pengalaman').modal('hide');
+                            editModal.modal('hide');
                             location.reload();
                         } else {
                             alert('Error! ' + response.message);
@@ -1289,6 +1241,38 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        let isLoadingMore = false;
+        let hasMoreData = true;
+
+        $(document).ready(function() {
+            $('#load-more').on('click', function(e) {
+                e.preventDefault();
+
+                if (!isLoadingMore && hasMoreData) {
+                    isLoadingMore = true;
+                    let nextPage = parseInt($(this).data('page')) + 1;
+
+                    $.get('{{ route('profile.index') }}?page=' + nextPage, function(data) {
+                        let content = $(data).find('#pendidikan-container').html();
+                        if (content) {
+                            $('#pendidikan-container').append(content);
+                            isLoadingMore = false;
+                            $('#load-more').data('page', nextPage);
+
+                            if ($.trim(content).length === 0) {
+                                $('#load-more').css('display', 'none');
+                                hasMoreData = false;
+                            }
+                        } else {
+                            $('#load-more').css('display', 'none');
+                            hasMoreData = false;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endpush
 @push('customStyle')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />

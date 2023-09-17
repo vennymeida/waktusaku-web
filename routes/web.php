@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/welcome', [WelcomeController::class, 'index']);
     Route::GET('/profile', [ProfileUserController::class, 'profile']);
     Route::GET('/profile', [ProfileUserController::class, 'index']);
+    Route::get('/profile', [ProfileUserController::class, 'index'])->name('profile.index');
     // Route::get('/profile', function () {
     //     return view('profile.index');
     // });

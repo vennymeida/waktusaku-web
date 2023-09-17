@@ -23,7 +23,8 @@ class ProfileUserController extends Controller
         $userId = Auth::id();
         $pendidikans = Pendidikan::select('pendidikan.*')
             ->where('user_id', $userId)
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->paginate(2);
         $pengalamans = Pengalaman::select('pengalaman.*')
             ->where('user_id', $userId)
             ->get();
