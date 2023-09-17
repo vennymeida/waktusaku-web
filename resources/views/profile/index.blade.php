@@ -17,6 +17,82 @@
     </div>
 </div>
 
+<!-- Modal Tambah Postingan -->
+<div class="modal fade" id="modal-create-postingan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header m-4">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Tambah
+                    Postingan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('postingan.store') }}" class="needs-validation" novalidate=""
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-body">
+                                <!-- Informasi Nama User dan Profile -->
+                                <div class="media mb-4">
+                                    @if (Auth::user()->profile && Auth::user()->profile->foto != '')
+                                        <img class="mr-3 rounded-circle" style="width: 50px; height: 50px;"
+                                            src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                            alt="Profile Image">
+                                    @else
+                                        <img class="mr-3 rounded-circle" style="width: 50px; height: 50px;"
+                                            src="{{ asset('assets/img/avatar/avatar-1.png') }}">
+                                    @endif
+                                    <div class="media-body">
+                                        <h5 class="mt-0" style="font-weight: bold;">{{ auth()->user()->name }}</h5>
+                                        <!-- Informasi tambahan mengenai user, seperti bio atau status -->
+                                        <p>{{ auth()->user()->email }}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="konteks">Konten Postingan</label>
+                                    <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
+                                        type="text" required>{{ old('konteks') }}</textarea>
+                                    @error('konteks')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <!-- Gunakan label untuk mengaktifkan input file -->
+                                            <label for="mediaUploadButton" style="cursor: pointer;">
+                                                <img class="img-fluid" src="{{ asset('assets/img/Gallery Add.svg') }}">
+                                                &nbsp;&nbsp;&nbsp; Media
+                                            </label>
+                                            <!-- Input file tersembunyi -->
+                                            <input type="file" id="mediaUploadButton" class="d-none"
+                                                accept="image/*, video/*" onchange="displayFileName(this)">
+                                            <!-- Elemen untuk menampilkan nama file yang dipilih -->
+                                            <p id="selectedFileName"></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-whitesmoke m-4">
+                <button type="button" class="btn btn-primary" onclick="$('form', this.closest('.modal')).submit();"
+                    style="border-radius: 15px; font-size: 14px">Posting</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    style="border-radius: 15px; font-size: 14px">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal Tambah Pendidikan -->
 <div class="modal fade" id="modal-create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -30,8 +106,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('pendidikan.store') }}" class="needs-validation" novalidate=""
-                    enctype="multipart/form-data">
+                <form method="POST" action="{{ route('pendidikan.store') }}" class="needs-validation"
+                    novalidate="" enctype="multipart/form-data">
                     @csrf
                     <div class="row ml-4 mr-4">
                         <div class="form-group col-md-12 col-12">
@@ -95,7 +171,8 @@
                             <label for="tahun">Periode Waktu</label>
                         </div>
                         <div class="col-md-3 form-group">
-                            <select class="form-control select2 custom-input @error('tahun_mulai') is-invalid @enderror"
+                            <select
+                                class="form-control select2 custom-input @error('tahun_mulai') is-invalid @enderror"
                                 name="tahun_mulai" id="tahun_mulai">
                                 <option value="">Pilih Tahun</option>
                                 @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
@@ -152,8 +229,8 @@
 </div>
 
 <!-- Modal Tambah Pengalaman -->
-<div class="modal fade" id="modal-create-pengalaman" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal-create-pengalaman" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header m-4">
@@ -682,6 +759,51 @@
                     </div>
                 </div>
             </section>
+            <!-- Tampilan Postingan -->
+            <section class="centered-section">
+                <div class="bg-primary-section col-md-10 py-1">
+                    <div class="profile-widget-description m-3"
+                        style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                        <div class="flex-grow-1">
+                            <div class="profile-widget-name">Activity Saya</div>
+                        </div>
+                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                            <a href="#" data-toggle="modal" data-target="#modal-create-postingan">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="media mb-2">
+                            @if (Auth::user()->profile && Auth::user()->profile->foto != '')
+                                <img class="mr-3 rounded-circle" style="width: 50px; height: 50px;"
+                                    src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                    alt="Profile Image">
+                            @else
+                                <img class="mr-3 rounded-circle" style="width: 50px; height: 50px;"
+                                    src="{{ asset('assets/img/avatar/avatar-1.png') }}">
+                            @endif
+                            <div class="form-group col-md-11" data-toggle="modal" data-target="#modal-create-postingan">
+                                <input name="postingan" type="text" class="form-control custom-input"
+                                    placeholder="Mulai Buat Posting...">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <ul class="list-unstyled ml-5">
+                                <li class="mb-2">
+                                    <!-- Gunakan label untuk mengaktifkan input file -->
+                                    <label for="mediaUploadButton" style="cursor: pointer;">
+                                        <img class="img-fluid" src="{{ asset('assets/img/Gallery Add.svg') }}">
+                                        &nbsp;&nbsp;&nbsp; Media
+                                    </label>
+                                    <!-- Input file tersembunyi -->
+                                    <input type="file" id="mediaUploadButton" class="d-none"
+                                        accept="image/*, video/*">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section class="centered-section">
                 <div class="bg-primary-section col-md-10 py-1">
                     <div class="profile-widget-description m-3"
@@ -1160,6 +1282,8 @@
 
 @push('customScript')
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
+    <script src="{{ asset('assets/js/summernote-bs4.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.modal-edit-trigger-pendidikan').on('click', function() {
@@ -1289,7 +1413,69 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- JS untuk modal postingan --}}
+    <script>
+        $(document).ready(function() {
+            $('#mediaUploadButton').on('change', function() {
+                var selectedFile = this.files[0];
+                console.log('Nama file yang diunggah:', selectedFile.name);
+
+                // Validasi tipe file (contoh hanya gambar dan video)
+                var allowedTypes = ['image/jpeg', 'image/png', 'video/mp4'];
+                if (allowedTypes.indexOf(selectedFile.type) === -1) {
+                    alert(
+                        'Jenis file tidak didukung. Hanya gambar (jpg, png) atau video (mp4) yang diizinkan.'
+                    );
+                    return;
+                }
+
+                // Buat objek FormData untuk mengirim file
+                var formData = new FormData();
+                formData.append('media', selectedFile);
+
+                // Kirim file ke server menggunakan AJAX
+                $.ajax({
+                    url: '{{ route('postingan.store') }}', // Ganti dengan URL yang sesuai
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Handle respons dari server
+                        console.log('Berhasil mengunggah file ke server:', response);
+                        // Anda dapat menambahkan lebih banyak logika di sini, seperti menampilkan pratinjau
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Gagal mengunggah file:', error);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#konteks').summernote({
+                placeholder: 'Apa yang ingin anda katakan ?',
+                height: 195,
+            });
+        });
+    </script>
+    <script>
+        function displayFileName(input) {
+            if (input.files.length > 0) {
+                // Ambil nama file yang dipilih
+                var fileName = input.files[0].name;
+                // Tampilkan nama file di elemen p dengan ID 'selectedFileName'
+                document.getElementById('selectedFileName').textContent = 'File yang dipilih: ' + fileName;
+            } else {
+                // Jika tidak ada file yang dipilih, kosongkan elemen p
+                document.getElementById('selectedFileName').textContent = '';
+            }
+        }
+    </script>
 @endpush
 @push('customStyle')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 @endpush

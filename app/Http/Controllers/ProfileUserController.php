@@ -10,6 +10,7 @@ use App\Models\Pendidikan;
 use App\Models\Pengalaman;
 use App\Models\Perusahaan;
 use App\Models\ProfileUser;
+use App\Models\Postingan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -21,6 +22,9 @@ class ProfileUserController extends Controller
     public function index(Request $request)
     {
         $userId = Auth::id();
+        $postingans = Postingan::select('postingans.*')
+            ->where('user_id', $userId)
+            ->get();
         $pendidikans = Pendidikan::select('pendidikan.*')
             ->where('user_id', $userId)
             ->get();
@@ -28,6 +32,7 @@ class ProfileUserController extends Controller
             ->where('user_id', $userId)
             ->get();
         return view('profile.index')->with([
+            'postingans' => $postingans,
             'pendidikans' => $pendidikans,
             'pengalamans' => $pengalamans,
         ]);
@@ -39,6 +44,9 @@ class ProfileUserController extends Controller
         $kelurahans = Kelurahan::all();
         $keahlians = Keahlian::all();
         $perusahaans = Perusahaan::where('user_id', $userId)->first();
+        $postingans = Postingan::select('postingan.*')
+            ->where('user_id', $userId)
+            ->get();
         $pendidikans = Pendidikan::select('pendidikan.*')
             ->where('user_id', $userId)
             ->get();
@@ -55,6 +63,7 @@ class ProfileUserController extends Controller
             'kelurahans' => $kelurahans,
             'profileUser' => $profileUser,
             'perusahaans' => $perusahaans,
+            'postingans' => $postingans,
             'pendidikans' => $pendidikans,
             'pengalamans' => $pengalamans,
             'keahlians' => $keahlians,
