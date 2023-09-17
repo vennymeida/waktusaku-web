@@ -30,7 +30,8 @@ class ProfileUserController extends Controller
             ->get();
         $pengalamans = Pengalaman::select('pengalaman.*')
             ->where('user_id', $userId)
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->paginate(2);
         return view('profile.index')->with([
             'postingans' => $postingans,
             'pendidikans' => $pendidikans,

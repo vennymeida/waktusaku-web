@@ -38,9 +38,9 @@
                     @foreach ($postingan as $post)
                         <div class="media mb-2">
                             <img class="mr-3 rounded"width="100" height="100"
-                                src="{{ asset('storage/' . $post->gambar) }}">
+                                src="{{ asset('storage/' . $post->media) }}">
                             <div class="media-body">
-                                {{ $post->konteks }}
+                                {!! $post->konteks !!}
                             </div>
                         </div>
                     @endforeach

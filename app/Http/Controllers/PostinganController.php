@@ -29,25 +29,32 @@ class PostinganController extends Controller
         $postingan = new Postingan($request->validated());
         $postingan->user_id = $userId;
 
+        // if ($request->hasFile('media')) {
+        //     $media = $request->file('media');
+        //     $extension = $media->getClientOriginalExtension();
+
+        //     // Cek apakah jenis file adalah gambar
+        //     if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
+        //         $filename = time() . '_' . $media->getClientOriginalName();
+        //         $path = $media->storeAs('media', $filename, 'public');
+        //         $postingan->media = $path;
+        //     }
+        //     // Cek apakah jenis file adalah video
+        //     elseif (in_array($extension, ['mp4', 'mov', 'avi'])) {
+        //         $filename = time() . '_' . $media->getClientOriginalName();
+        //         $path = $media->storeAs('media', $filename, 'public');
+        //         $postingan->media = $path;
+        //     } else {
+        //         // Jenis file tidak didukung
+        //         return response()->json(['message' => 'Jenis file tidak didukung. Hanya gambar (jpg, jpeg, png) atau video (mp4, mov, avi) yang diizinkan.'], 400);
+        //     }
+        // }
+
         if ($request->hasFile('media')) {
             $media = $request->file('media');
-            $extension = $media->getClientOriginalExtension();
-
-            // Cek apakah jenis file adalah gambar
-            if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
-                $filename = time() . '_' . $media->getClientOriginalName();
-                $path = $media->storeAs('media', $filename, 'public');
-                $postingan->media = $path;
-            }
-            // Cek apakah jenis file adalah video
-            elseif (in_array($extension, ['mp4', 'mov', 'avi'])) {
-                $filename = time() . '_' . $media->getClientOriginalName();
-                $path = $media->storeAs('media', $filename, 'public');
-                $postingan->media = $path;
-            } else {
-                // Jenis file tidak didukung
-                return response()->json(['message' => 'Jenis file tidak didukung. Hanya gambar (jpg, jpeg, png) atau video (mp4, mov, avi) yang diizinkan.'], 400);
-            }
+            $filename = time() . '_' . $media->getClientOriginalName();
+            $path = $media->storeAs('media', $filename, 'public');
+            $postingan->media = $path;
         }
 
         $postingan->save();
@@ -60,14 +67,20 @@ class PostinganController extends Controller
         //
     }
 
-    public function edit(Postingan $postingan)
+    public function edit($id)
     {
-        //
+        $postingan = Postingan::findOrFail($id);
+        return response()->json($postingan);
     }
 
     public function update(UpdatePostinganRequest $request, Postingan $postingan)
     {
-        //
+        try {
+            $postingan->update($request->all());
+            return response()->json(['success' => true, 'message' => 'Postingan berhasil diperbarui.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'An error occurred: ' . $e->getMessage()], 500);
+        }
     }
 
     public function destroy(Postingan $postingan)

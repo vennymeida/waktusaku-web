@@ -25,7 +25,7 @@ class StorePostinganRequest extends FormRequest
     {
         return [
             'konteks' => 'required',
-            'media'  => 'nullable|file|mimes:jpeg,png,gif,mp4,avi,mov'
+            'media'  => 'nullable|file|mimes:jpg,jpeg,png'
         ];
     }
 }

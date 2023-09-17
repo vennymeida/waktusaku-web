@@ -71,8 +71,8 @@
                                                 &nbsp;&nbsp;&nbsp; Media
                                             </label>
                                             <!-- Input file tersembunyi -->
-                                            <input type="file" id="mediaUploadButton" class="d-none"
-                                                accept="image/*, video/*" onchange="displayFileName(this)">
+                                            <input type="file" id="mediaUploadButton" class="d-none" accept="image/*"
+                                                onchange="displayFileName(this)" name="media">
                                             <!-- Elemen untuk menampilkan nama file yang dipilih -->
                                             <p id="selectedFileName"></p>
                                         </li>
@@ -787,20 +787,41 @@
                                     placeholder="Mulai Buat Posting...">
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <ul class="list-unstyled ml-5">
-                                <li class="mb-2">
-                                    <!-- Gunakan label untuk mengaktifkan input file -->
-                                    <label for="mediaUploadButton" style="cursor: pointer;">
-                                        <img class="img-fluid" src="{{ asset('assets/img/Gallery Add.svg') }}">
-                                        &nbsp;&nbsp;&nbsp; Media
-                                    </label>
-                                    <!-- Input file tersembunyi -->
-                                    <input type="file" id="mediaUploadButton" class="d-none"
-                                        accept="image/*, video/*">
-                                </li>
-                            </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="centered-section">
+                <div class="bg-primary-section col-md-10 py-1">
+                    <div class="profile-widget-description m-3"
+                        style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
+                        <div class="flex-grow-1">
+                            <div class="profile-widget-name">Activity / Postingan</div>
                         </div>
+                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                            <a href="#" data-toggle="modal" data-target="#modal-edit-postingan">
+                                <img class="img-fluid" style="width: 35px; height: 35px;"
+                                    src="{{ asset('assets/img/landing-page/Plus.svg') }}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        @foreach ($postingans as $post)
+                            <div class="media mb-2">
+                                <img class="mr-3 rounded"width="100" height="100"
+                                    src="{{ asset('storage/' . $post->media) }}">
+                                <div class="media-body">
+                                    {!! $post->konteks !!}
+                                </div>
+                                <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                                    <a href="#" data-id="{{ $post->id }}"
+                                        data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
+                                        class="modal-edit-trigger-postingan">
+                                        <img class="img-fluid" style="width: 30px; height: 30px;"
+                                            src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </section>
@@ -1278,12 +1299,86 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Edit Postingan -->
+    <div class="modal fade" id="modal-edit-postingan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header m-4">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Edit Postingan
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="" class="needs-validation"
+                        novalidate="" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT') <!-- Untuk menentukan bahwa ini adalah permintaan PUT -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-body">
+                                    <!-- Informasi Nama User dan Profile -->
+                                    <div class="media mb-4">
+                                        <!-- Tampilkan informasi pengguna -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="konteks">Konten Postingan</label>
+                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
+                                            type="text" required></textarea>
+                                        @error('konteks')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">
+                                                <!-- Gunakan label untuk mengaktifkan input file -->
+                                                <label for="mediaUploadButton" style="cursor: pointer;">
+                                                    <img class="img-fluid" src="{{ asset('assets/img/Gallery Add.svg') }}">
+                                                    &nbsp;&nbsp;&nbsp; Media
+                                                </label>
+                                                <!-- Input file tersembunyi -->
+                                                <input type="file" id="mediaUploadButton" class="d-none"
+                                                    accept="image/*, video/*">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke m-4">
+                    <button type="button" class="btn btn-primary" onclick="$('form', this.closest('.modal')).submit();"
+                        style="border-radius: 15px; font-size: 14px">Simpan Perubahan</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        style="border-radius: 15px; font-size: 14px">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('customScript')
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
     <script src="{{ asset('assets/js/summernote-bs4.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+    {{-- <script>
+        $(".summernote-simple").summernote({
+       dialogsInBody: true,
+      minHeight: 150,
+      toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough']],
+        ['para', ['paragraph']]
+      ]
+    });
+  </script> --}}
     <script>
         $(document).ready(function() {
             $('.modal-edit-trigger-pendidikan').on('click', function() {
@@ -1413,7 +1508,7 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     {{-- JS untuk modal postingan --}}
     <script>
         $(document).ready(function() {
@@ -1453,14 +1548,14 @@
             });
         });
     </script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#konteks').summernote({
                 placeholder: 'Apa yang ingin anda katakan ?',
                 height: 195,
             });
         });
-    </script>
+    </script> --}}
     <script>
         function displayFileName(input) {
             if (input.files.length > 0) {
