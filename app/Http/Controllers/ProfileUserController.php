@@ -27,7 +27,8 @@ class ProfileUserController extends Controller
             ->paginate(2);
         $pengalamans = Pengalaman::select('pengalaman.*')
             ->where('user_id', $userId)
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->paginate(2);
         return view('profile.index')->with([
             'pendidikans' => $pendidikans,
             'pengalamans' => $pengalamans,

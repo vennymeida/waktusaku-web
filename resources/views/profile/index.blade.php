@@ -785,49 +785,56 @@
                             </a>
                         </div>
                     </div>
-                    @foreach ($pengalamans as $pl)
-                        {{-- <hr> --}}
-                        <div class="mr-5 ml-5">
-                            <div class="profile-widget-description m-3"
-                                style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
-                                <div class="flex-grow-1">
-                                    <div class="profile-widget-name"
-                                        style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
-                                        {{ $pl->nama_pekerjaan }}
+                    <div id="pengalaman-container">
+                        @foreach ($pengalamans as $pl)
+                            {{-- <hr> --}}
+                            <div class="mr-5 ml-5">
+                                <div class="profile-widget-description m-3"
+                                    style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
+                                    <div class="flex-grow-1">
+                                        <div class="profile-widget-name"
+                                            style="font-weight: bold; font-size: 17px; display: flex; align-items: center;">
+                                            {{ $pl->nama_pekerjaan }}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                                        <a href="#" data-id="{{ $pl->id }}"
+                                            data-edit-url="{{ route('pengalaman.edit', ['pengalaman' => $pl->id]) }}"
+                                            class="modal-edit-trigger-pengalaman">
+                                            <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                    <a href="#" data-id="{{ $pl->id }}"
-                                        data-edit-url="{{ route('pengalaman.edit', ['pengalaman' => $pl->id]) }}"
-                                        class="modal-edit-trigger-pengalaman">
-                                        <img class="img-fluid" style="width: 30px; height: 30px;"
-                                            src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="flex-grow-1 mb-2">
-                                    <div class="profile-widget-name"
-                                        style="font-size: 16px; display: flex; align-items: center;">
-                                        {{ $pl->nama_perusahaan }} | {{ $pl->alamat }}
+                                <div class="col-md-12">
+                                    <div class="flex-grow-1 mb-2">
+                                        <div class="profile-widget-name"
+                                            style="font-size: 16px; display: flex; align-items: center;">
+                                            {{ $pl->nama_perusahaan }} | {{ $pl->alamat }}
+                                        </div>
                                     </div>
+                                    <ul class="list-unstyled ml-2">
+                                        <li class="mb-2"><img class="img-fluid"
+                                                src="{{ asset('assets/img/landing-page/Hourglass.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tipe }}
+                                        </li>
+                                        <li class="mb-2"><img class="img-fluid"
+                                                src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR
+                                            {{ $pl->gaji }}
+                                        </li>
+                                        <li class="mb-2"><img class="img-fluid"
+                                                src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tanggal_mulai }}
+                                            - {{ $pl->tanggal_berakhir }}
+                                        </li>
+                                    </ul>
                                 </div>
-                                <ul class="list-unstyled ml-2">
-                                    <li class="mb-2"><img class="img-fluid"
-                                            src="{{ asset('assets/img/landing-page/Hourglass.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tipe }}
-                                    </li>
-                                    <li class="mb-2"><img class="img-fluid"
-                                            src="{{ asset('assets/img/landing-page/money-2.svg') }}">&nbsp&nbsp&nbspIDR
-                                        {{ $pl->gaji }}
-                                    </li>
-                                    <li class="mb-2"><img class="img-fluid"
-                                            src="{{ asset('assets/img/landing-page/Time.svg') }}">&nbsp&nbsp&nbsp{{ $pl->tanggal_mulai }}
-                                        - {{ $pl->tanggal_berakhir }}
-                                    </li>
-                                </ul>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                    <div class="text-center mt-4">
+                        <button id="load-more-pengalaman" class="btn btn-primary"
+                            style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
+                            data-page="{{ $pengalamans->currentPage() }}">Muat Lebih Banyak</button>
+                    </div>
                 </div>
             </section>
             <section class="centered-section" style="margin-bottom: 10%;">
@@ -1231,6 +1238,71 @@
     </script>
     <script>
         $(document).ready(function() {
+            var editModal = $('#modal-edit-pengalaman');
+
+            function openEditModal(plId) {
+                var editUrl = "{{ route('pengalaman.edit', ['pengalaman' => '_id']) }}".replace('_id', plId);
+                var updateUrl = "{{ route('pengalaman.update', ['pengalaman' => '_id']) }}".replace('_id',
+                    plId);
+
+                $('#modal-edit-pengalaman-form').attr('action', updateUrl);
+
+                $.ajax({
+                    url: editUrl,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#modal-edit-pengalaman input[name="nama_pekerjaan"]').val(data
+                            .nama_pekerjaan);
+                        $('#modal-edit-pengalaman input[name="nama_perusahaan"]').val(data
+                            .nama_perusahaan);
+                        $('#modal-edit-pengalaman textarea[name="alamat"]').val(data.alamat);
+                        $('#modal-edit-pengalaman select[name="tipe"]').val(data.tipe).change();
+                        $('#modal-edit-pengalaman input[name="gaji"]').val(data.gaji);
+                        $('#modal-edit-pengalaman input[name="tanggal_mulai"]').val(data
+                            .tanggal_mulai);
+                        $('#modal-edit-pengalaman input[name="tanggal_berakhir"]').val(data
+                            .tanggal_berakhir);
+
+                        editModal.modal('show');
+                    }
+                });
+            }
+
+            $('#pengalaman-container').on('click', '.modal-edit-trigger-pengalaman', function() {
+                var plId = $(this).data('id');
+                openEditModal(plId);
+            });
+
+            $('#modal-save-button-pengalaman').on('click', function() {
+                var form = $('#modal-edit-pengalaman-form');
+                var formData = new FormData(form[0]);
+                formData.append('_token', "{{ csrf_token() }}");
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            editModal.modal('hide');
+                            location.reload();
+                        } else {
+                            alert('Error! ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Error while updating data!');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
             $('#resumePreviewModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var pdfUrl = button.data('pdf');
@@ -1267,6 +1339,38 @@
                         } else {
                             $('#load-more').css('display', 'none');
                             hasMoreData = false;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        let isLoadingMorePengalaman = false;
+        let hasMoreDataPengalaman = true;
+
+        $(document).ready(function() {
+            $('#load-more-pengalaman').on('click', function(e) {
+                e.preventDefault();
+
+                if (!isLoadingMorePengalaman && hasMoreDataPengalaman) {
+                    isLoadingMorePengalaman = true;
+                    let nextPage = parseInt($(this).data('page')) + 1;
+
+                    $.get('{{ route('profile.index') }}?page=' + nextPage, function(data) {
+                        let content = $(data).find('#pengalaman-container').html();
+                        if (content) {
+                            $('#pengalaman-container').append(content);
+                            isLoadingMorePengalaman = false;
+                            $('#load-more-pengalaman').data('page', nextPage);
+
+                            if ($.trim(content).length === 0) {
+                                $('#load-more-pengalaman').css('display', 'none');
+                                hasMoreDataPengalaman = false;
+                            }
+                        } else {
+                            $('#load-more-pengalaman').css('display', 'none');
+                            hasMoreDataPengalaman = false;
                         }
                     });
                 }
