@@ -254,6 +254,13 @@ a.btn-regis:focus {
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.card-loker {
+    border: solid 5px #f8f9fa;
+    border-radius: 20px;
+    background-color: white;
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
+}
+
 .btn-outline-warning {
     background-color: #eb9481;
     border-color: #eb9481;
