@@ -58,7 +58,7 @@
                                 <button id="search-button" class="btn btn-primary mr-1 px-4 py-2" type="submit"
                                     style="border-radius: 15px;">Cari</button>
                             </div>
-                        </form>
+                            {{-- </form> --}}
                     </div>
                 </div>
             </div>
@@ -69,27 +69,27 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card-loker px-4 py-3">
-                            <form id="filterForm" method="GET" action="{{ route('all-jobs.index') }}">
-                                <p>Gaji</p>
-                                <label>
-                                    <input class="mr-2" type="checkbox" name="gaji[]" id="less-1jt" value="less-1jt">
-                                    Kurang dari 1 Juta
-                                </label>
-                                <br>
-                                <label>
-                                    <input class="mr-2" type="checkbox" name="gaji[]" id="1jt-5jt" value="1jt-5jt">
-                                    1 - 5 Juta
-                                </label>
-                                <br>
-                                <label>
-                                    <input class="mr-2" type="checkbox" name="gaji[]" id="5jt-10jt" value="5jt-10jt">
-                                    5 - 10 Juta
-                                </label>
-                                <br>
-                                <label>
-                                    <input class="mr-2" type="checkbox" name="gaji[]" id="more-10jt" value="more-10jt">
-                                    Lebih dari 10 Juta
-                                </label>
+                            {{-- <form id="filterForm" method="GET" action="{{ route('all-jobs.index') }}"> --}}
+                            <p>Gaji</p>
+                            <label>
+                                <input class="mr-2" type="checkbox" name="gaji[]" id="less-1jt" value="less-1jt">
+                                Kurang dari 1 Juta
+                            </label>
+                            <br>
+                            <label>
+                                <input class="mr-2" type="checkbox" name="gaji[]" id="1jt-5jt" value="1jt-5jt">
+                                1 - 5 Juta
+                            </label>
+                            <br>
+                            <label>
+                                <input class="mr-2" type="checkbox" name="gaji[]" id="5jt-10jt" value="5jt-10jt">
+                                5 - 10 Juta
+                            </label>
+                            <br>
+                            <label>
+                                <input class="mr-2" type="checkbox" name="gaji[]" id="more-10jt" value="more-10jt">
+                                Lebih dari 10 Juta
+                            </label>
                             </form>
                         </div>
                     </div>
@@ -295,202 +295,6 @@
                 </div>
             </div>
         </section>
-
-        {{-- @role('Pencari Kerja')
-            <section>
-                <div class="col-md-10 mt-0 mx-auto">
-                    <p class="mt-4 font-weight-bold ml-4" style="font-size: 19px;">Rekomendasi Lowongan Kerja Sesuai Keahlian
-                        Anda!
-                    </p>
-                    @if ($allRekomendasi->isEmpty())
-                        <div class="col-md-12 text-center my-4">
-                            <img src="{{ asset('assets/img/landing-page/sad-face.png') }}">
-                            <p class="mt-2 text-not">Belum ada rekomendasi untukmu</p>
-                        </div>
-                    @else
-                        <div class="row flex-nowrap overflow-auto mt-4 horizontal-scroll equal-height-cards">
-                            <div class="scroll-arrow left bg-transparent text-secondary">
-                                <i class="fas fa-angle-left"></i>
-                            </div>
-                            @foreach ($allRekomendasi as $key => $rekomendasi)
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body d-flex flex-column">
-                                            <div class="position-relative">
-                                                <div class="gradient-overlay"></div>
-                                                <img class="img-fluid mb-3 fixed-height-image position-absolute top-0 start-50 translate-middle-x"
-                                                    src="{{ asset('storage/' . $rekomendasi->logo) }}" alt="Company Logo">
-                                                <p class="text-white card-title font-weight-bold mb-0 ml-2 overlap-text"
-                                                    style="font-size: 20px;">
-                                                    {{ $rekomendasi->judul }}
-                                                </p>
-                                                <a class="text-white ml-2 overlap-text-2"
-                                                    href="{{ route('detail-perusahaan.show', $rekomendasi->id_perusahaan) }}"
-                                                    style="font-size: 14px;">
-                                                    {{ $rekomendasi->nama }}
-                                                </a>
-                                            </div>
-                                            <div class="card-text-recom mt-3">
-                                                <ul class="list-unstyled ml-2">
-                                                    <ul class="list-unstyled d-flex justify-content-between">
-                                                        <li class="d-flex justify-content-start">
-                                                            <img class="img-fluid img-icon mr-2"
-                                                                src="{{ asset('assets/img/landing-page/list.svg') }}">
-                                                            <p class="mb-2">{{ $rekomendasi->kategori }}</p>
-                                                        </li>
-                                                        <li class="mb-2">
-                                                            @if (auth()->check() &&
-    auth()->user()->hasRole('Pencari Kerja'))
-                                                                <a href="javascript:void(0);" class="bookmark-icon"
-                                                                    data-loker-id="{{ $rekomendasi->id }}">
-                                                                    <i class="far fa-bookmark" style="font-size: 20px;"></i>
-                                                                </a>
-                                                            @endif
-                                                        </li>
-                                                    </ul>
-                                                    <li class="d-flex justify-content-start">
-                                                        <img class="img-fluid img-icon mr-2"
-                                                            src="{{ asset('assets/img/landing-page/money.svg') }}">
-                                                        <p class="mb-2">{{ 'IDR ' . $rekomendasi->gaji_bawah }}
-                                                            <span>-</span>
-                                                            {{ $rekomendasi->gaji_atas }}
-                                                        </p>
-                                                    </li>
-                                                    <li class="d-flex justify-content-start">
-                                                        <img class="img-fluid img-icon mr-2"
-                                                            src="{{ asset('assets/img/landing-page/job.svg') }}">
-                                                        <p class="mb-2">{{ $rekomendasi->min_pengalaman }}</p>
-                                                    </li>
-                                                    <li class="d-flex justify-content-start">
-                                                        <img class="img-fluid img-icon mr-2"
-                                                            src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
-                                                        <p class="mb-2">Minimal {{ $rekomendasi->min_pendidikan }}</p>
-                                                    </li>
-                                                    <li class="d-flex justify-content-start">
-                                                        <img class="img-fluid img-icon mr-2"
-                                                            src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                                        <p class="mb-2">{{ $rekomendasi->lokasi }}</p>
-                                                    </li>
-                                                    <li class="d-flex justify-content-start">
-                                                        <img class="img-fluid img-icon mr-2"
-                                                            src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                                        <p class="mb-2">{{ $rekomendasi->alamat_perusahaan }},
-                                                            {{ $rekomendasi->kelurahan }},
-                                                            {{ $rekomendasi->kecamatan }}</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="text-center mb-2">
-                                                <a id="detail-button" class="btn btn-primary px-4 py-2"
-                                                    style="border-radius: 25px;"
-                                                    href="{{ route('all-jobs.show', $rekomendasi->id) }}">Lihat Detail</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                            <div class="scroll-arrow right bg-transparent text-secondary">
-                                <i class="fas fa-angle-right"></i>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-            </section>
-        @endrole --}}
-
-        {{-- <section>
-            @role('Pencari Kerja')
-                <div class="col-md-10 mx-auto">
-                    <p class="mt-3 font-weight-bolder ml-4" style="font-size: 19px;">Lowongan Kerja Seluruhnya</p>
-                </div>
-            @endrole
-            <div class="col-md-12 mt-4 mx-auto d-flex flex-wrap justify-content-center">
-                @if ($allResults->isEmpty())
-                    <div class="col-md-12 text-center my-4">
-                        <img src="{{ asset('assets/img/landing-page/folder.png') }}">
-                        <p class="mt-1 text-not">Data tidak tersedia</p>
-                    </div>
-                @else
-                    @foreach ($allResults as $key => $loker)
-                        <div class="card col-md-3 mb-4 mx-4">
-                            <div class="card-body d-flex flex-column">
-                                <div class="position-relative">
-                                    <div class="gradient-overlay"></div>
-                                    <img class="img-fluid mb-3 fixed-height-image position-absolute top-0 start-50 translate-middle-x"
-                                        src="{{ asset('storage/' . $loker->logo) }}" alt="Company Logo">
-                                    <p class="text-white card-title font-weight-bold mb-0 ml-2 overlap-text"
-                                        style="font-size: 20px;">
-                                        {{ $loker->judul }}
-                                    </p>
-                                    <a class="text-white ml-2 overlap-text-2"
-                                        href="{{ route('detail-perusahaan.show', $loker->id_perusahaan) }}"
-                                        style="font-size: 14px;">
-                                        {{ $loker->nama }}
-                                    </a>
-                                </div>
-                                <div class="card-text mt-4">
-                                    <ul class="list-unstyled ml-2">
-                                        <ul class="list-unstyled d-flex justify-content-between">
-                                            <li class="d-flex justify-content-start">
-                                                <img class="img-fluid img-icon mr-2"
-                                                    src="{{ asset('assets/img/landing-page/list.svg') }}">
-                                                <p class="mb-2">{{ $loker->kategori }}</p>
-                                            </li>
-                                            <li class="mb-2">
-                                                @if (auth()->check() &&
-    auth()->user()->hasRole('Pencari Kerja'))
-                                                    <a href="javascript:void(0);"
-                                                        class="bookmark-icon text-right"data-loker-id="{{ $loker->id }}">
-                                                        <i class="far fa-bookmark" style="font-size: 20px;"></i>
-                                                    </a>
-                                                @endif
-                                            </li>
-                                        </ul>
-                                        <li class="d-flex justify-content-start">
-                                            <img class="img-fluid img-icon mr-2"
-                                                src="{{ asset('assets/img/landing-page/money.svg') }}">
-                                            <p class="mb-2">{{ 'IDR ' . $loker->gaji_bawah }}
-                                                <span>-</span>
-                                                {{ $loker->gaji_atas }}
-                                            </p>
-                                        </li>
-                                        <li class="d-flex justify-content-start">
-                                            <img class="img-fluid img-icon mr-2"
-                                                src="{{ asset('assets/img/landing-page/job.svg') }}">
-                                            <p class="mb-2">{{ $loker->min_pengalaman }}</p>
-                                        </li>
-                                        <li class="d-flex justify-content-start">
-                                            <img class="img-fluid img-icon mr-2"
-                                                src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
-                                            <p class="mb-2">Minimal {{ $loker->min_pendidikan }}</p>
-                                        </li>
-                                        <li class="d-flex justify-content-start">
-                                            <img class="img-fluid img-icon mr-2"
-                                                src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                            <p class="mb-2">{{ $loker->lokasi }}</p>
-                                        </li>
-                                        <li class="d-flex justify-content-start">
-                                            <img class="img-fluid img-icon mr-2"
-                                                src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                            <p class="mb-2">{{ $loker->alamat_perusahaan }},
-                                                {{ $loker->kelurahan }},
-                                                {{ $loker->kecamatan }}</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="text-center">
-                                    <a id="detail-button" class="btn btn-primary px-4 py-2" style="border-radius: 25px;"
-                                        href="{{ route('all-jobs.show', $loker->id) }}">Lihat Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-            </div>
-        </section> --}}
-        {{-- <div class="d-flex justify-content-center">
-            {{ $allResults->withQueryString()->links() }}
-        </div> --}}
     </main>
 
     <script>
@@ -625,7 +429,8 @@
     </script>
 
     <script>
-        const form = document.getElementById('filterForm');
+        // const form = document.getElementById('filterForm');
+        const form = document.getElementById('search-form');
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
         function updateFormAction() {
