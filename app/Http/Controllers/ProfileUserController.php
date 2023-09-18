@@ -53,7 +53,7 @@ class ProfileUserController extends Controller
         $kelurahans = Kelurahan::all();
         $keahlians = Keahlian::all();
         $perusahaans = Perusahaan::where('user_id', $userId)->first();
-        $postingans = Postingan::select('postingan.*')
+        $postingans = Postingan::select('postingans.*')
             ->where('user_id', $userId)
             ->get();
         $pendidikans = Pendidikan::select('pendidikan.*')

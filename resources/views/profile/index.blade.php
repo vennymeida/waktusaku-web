@@ -36,7 +36,6 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card-body">
-                                <!-- Informasi Nama User dan Profile -->
                                 <div class="media mb-4">
                                     @if (Auth::user()->profile && Auth::user()->profile->foto != '')
                                         <img class="mr-3 rounded-circle" style="width: 50px; height: 50px;"
@@ -48,7 +47,6 @@
                                     @endif
                                     <div class="media-body">
                                         <h5 class="mt-0" style="font-weight: bold;">{{ auth()->user()->name }}</h5>
-                                        <!-- Informasi tambahan mengenai user, seperti bio atau status -->
                                         <p>{{ auth()->user()->email }}</p>
                                     </div>
                                 </div>
@@ -799,7 +797,7 @@
                             <div class="profile-widget-name">Activity / Postingan</div>
                         </div>
                     </div>
-                    <div class="postingan-container">
+                    <div id="postingan-container">
                         <div class="col-md-12">
                             @foreach ($postingans as $post)
                                 <div class="media mb-2">
@@ -809,7 +807,9 @@
                                         {!! $post->konteks !!}
                                     </div>
                                     <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                        <a href="#" data-id="{{ $post->id }}" class="modal-edit-trigger-postingan">
+                                        <a href="#" data-id="{{ $post->id }}"
+                                            data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
+                                            class="modal-edit-trigger-postingan">
                                             <img class="img-fluid" style="width: 30px; height: 30px;"
                                                 src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                         </a>
@@ -823,6 +823,7 @@
                                 data-page="{{ $postingans->currentPage() }}">Muat Lebih Banyak</button>
                         </div>
                     </div>
+                </div>
             </section>
             <section class="centered-section">
                 <div class="bg-primary-section card col-md-10 py-1">
@@ -1366,7 +1367,8 @@
         <div class="modal-dialog modal-lg mx-auto" role="document">
             <div class="modal-content">
                 <div class="modal-header m-4">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Edit Postingan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Edit
+                        Postingan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -1380,28 +1382,44 @@
                             <div class="form-group col-md-12 col-12">
                                 <div class="card-body">
                                     <div class="media mb-4">
-                                        <!-- Tampilkan media yang ingin diedit -->
-                                        <img id="media-preview" class="mr-3 rounded" width="100" height="100">
+                                        @if (Auth::user()->profile && Auth::user()->profile->foto != '')
+                                            <img class="mr-3 rounded-circle" style="width: 50px; height: 50px;"
+                                                src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
+                                                alt="Profile Image">
+                                        @else
+                                            <img class="mr-3 rounded-circle" style="width: 50px; height: 50px;"
+                                                src="{{ asset('assets/img/avatar/avatar-1.png') }}">
+                                        @endif
+                                        <div class="media-body">
+                                            <h5 class="mt-0" style="font-weight: bold;">{{ auth()->user()->name }}</h5>
+                                            <!-- Informasi tambahan mengenai user, seperti bio atau status -->
+                                            <p>{{ auth()->user()->email }}</p>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
-                                        <textarea name="konteks" id="konteks"
-                                            class="form-control summernote @error('konteks') is-invalid @enderror"
-                                            type="text" required></textarea>
+                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
+                                            required></textarea>
                                         @error('konteks')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
+                                    <div class="media mb-4">
+                                        <!-- Tampilkan media yang ingin diedit -->
+                                        <img id="media-preview" class="mr-3 rounded" width="700" height="300">
+                                    </div>
                                     <div class="col-md-12">
                                         <ul class="list-unstyled">
                                             <li class="mb-2">
                                                 <label for="mediaUploadButton" style="cursor: pointer;">
-                                                    <img class="img-fluid" src="{{ asset('assets/img/Gallery Add.svg') }}">
-                                                    &nbsp;&nbsp;&nbsp; Media
+                                                    <img class="img-fluid"
+                                                        src="{{ asset('assets/img/Gallery Add.svg') }}">
+                                                    &nbsp;&nbsp;&nbsp; Ganti
                                                 </label>
-                                                <input type="file" id="mediaUploadButton" class="d-none" accept="image/*, video/*">
+                                                <input type="file" id="mediaUploadButton" class="d-none"
+                                                    accept="image/*">
                                             </li>
                                         </ul>
                                     </div>
@@ -1525,47 +1543,36 @@
 
 @push('customScript')
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
+    <script src="{{ asset('assets/js/summernote-bs4.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
     <script>
         $(document).ready(function() {
-            var editModal = $('#modal-edit-pendidikan');
+            var editModal = $('#modal-edit-postingan');
 
-            function openEditModal(itemId) {
-                var editUrl = "{{ route('pendidikan.edit', ['pendidikan' => '_id']) }}".replace('_id', itemId);
-                var updateUrl = "{{ route('pendidikan.update', ['pendidikan' => '_id']) }}".replace('_id',
-                    itemId);
-
-                $('#modal-edit-pendidikan-form').attr('action', updateUrl);
-
+            function openEditModal(postId) {
+                var editUrl = "{{ route('postingan.edit', ['postingan' => '_id']) }}".replace('_id', postId);
+                var updateUrl = "{{ route('postingan.update', ['postingan' => '_id']) }}".replace('_id', postId);
+                $('#modal-edit-postingan-form').attr('action', updateUrl);
                 $.ajax({
                     url: editUrl,
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#modal-edit-pendidikan select[name="gelar"]').val(data.gelar).change();
-                        $('#modal-edit-pendidikan input[name="institusi"]').val(data.institusi);
-                        $('#modal-edit-pendidikan input[name="jurusan"]').val(data.jurusan);
-                        $('#modal-edit-pendidikan textarea[name="prestasi"]').val(data.prestasi);
-                        $('#modal-edit-pendidikan select[name="tahun_mulai"]').val(data.tahun_mulai)
-                            .change();
-                        $('#modal-edit-pendidikan select[name="tahun_berakhir"]').val(data
-                            .tahun_berakhir).change();
-                        $('#modal-edit-pendidikan input[name="ipk"]').val(data.ipk);
-
+                        $('#modal-edit-postingan textarea[name="konteks"]').val(data.konteks);
+                        $('#modal-edit-postingan input[name="media"]').val(data.media);
+                        $('#media-preview').attr('src', '{{ asset('storage/') }}/' + data.media);
                         editModal.modal('show');
                     }
                 });
             }
-
-            $('#pendidikan-container').on('click', '.modal-edit-trigger-pendidikan', function() {
-                var itemId = $(this).data('id');
-                openEditModal(itemId);
+            $('#postingan-container').on('click', '.modal-edit-trigger-postingan', function() {
+                var postId = $(this).data('id');
+                openEditModal(postId);
             });
-
-            $('#modal-save-button-pendidikan').on('click', function() {
-                var form = $('#modal-edit-pendidikan-form');
+            $('#modal-save-button-postingan').on('click', function() {
+                var form = $('#modal-edit-postingan-form');
                 var formData = new FormData(form[0]);
                 formData.append('_token', "{{ csrf_token() }}");
-
                 $.ajax({
                     url: form.attr('action'),
                     type: 'POST',
@@ -1913,4 +1920,5 @@
 @endpush
 @push('customStyle')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 @endpush
