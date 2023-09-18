@@ -3,6 +3,9 @@ $seenIcon = (!!$seen ? 'check-double' : 'check');
 $timeAndSeen = "<span data-time='$created_at' class='message-time'>
         ".($isSender ? "<span class='fas fa-$seenIcon' seen'></span>" : '' )." <span class='time'>$timeAgo</span>
     </span>";
+
+// Ubah ini sesuai dengan path yang benar di storage
+$attachmentUrl = asset("storage/attachments/{$attachment->file}");
 ?>
 
 <div class="message-card @if($isSender) mc-sender @endif" data-id="{{ $id }}">
@@ -27,7 +30,7 @@ $timeAndSeen = "<span data-time='$created_at' class='message-time'>
         @endif
         @if(@$attachment->type == 'image')
         <div class="image-wrapper" style="text-align: {{$isSender ? 'end' : 'start'}}">
-            <div class="image-file chat-image" style="background-image: url('{{ Chatify::getAttachmentUrl($attachment->file) }}')">
+            <div class="image-file chat-image" style="background-image: url('{{ $attachmentUrl }}')">
                 <div>{{ $attachment->title }}</div>
             </div>
             <div style="margin-bottom:5px">

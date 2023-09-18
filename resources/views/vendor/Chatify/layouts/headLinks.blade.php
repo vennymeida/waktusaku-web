@@ -28,3 +28,10 @@
         --primary-color: {{ $messengerColor }};
     }
 </style>
+
+<script>
+  $(document).ready(function() {
+      var defaultCompanyId = $('meta[name="id"]').attr('content');
+      loadConversation(defaultCompanyId);
+  });
+  </script>

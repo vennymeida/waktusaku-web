@@ -217,4 +217,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('loker-perusahaan', LokerPerusahaan::class);
     Route::get('/status-lamaran', [StatusLamarController::class, 'index'])->name('melamar.status');
     Route::resource('dashboard', DashboardController::class);
+
+    // chat
+    // Route::get('/jobs/{jobId}/chat', 'ChatController@startChatWithCompany')->name('job.chat');
+
+
 });

@@ -3,8 +3,8 @@
 @if (Auth::user()->profile && Auth::user()->profile->foto != '')
         style="background-image: url('{{ Storage::url(Auth::user()->profile->foto) }}');"
         @else
-        style="background-image: url('{{ asset('assets/img/avatar/avatar-1.png') }}');">
-        @endif
+        style="background-image: url('{{ asset('assets/img/avatar/avatar-1.png') }}');"
+        @endif>
 </div>
 <p class="info-name">{{ config('chatify.name') }}</p>
 <div class="messenger-infoView-btns">
