@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Postingan;
 use App\Http\Requests\StorePostinganRequest;
 use App\Http\Requests\UpdatePostinganRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostinganController extends Controller
 {
