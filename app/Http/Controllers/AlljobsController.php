@@ -20,6 +20,7 @@ class AlljobsController extends Controller
         $posisiKerja = $request->input('posisi');
         $lokasi = $request->input('lokasi');
         $kategori = $request->input('kategori', []);
+        $gaji = $request->input('gaji', []);
 
         $kecamatan = Kecamatan::all();
         $kategoris = KategoriPekerjaan::all();
@@ -65,11 +66,32 @@ class AlljobsController extends Controller
             ->when(count($kategori) > 0, function ($allResults) use ($kategori) {
                 return $allResults->whereIn('kp.kategori', $kategori);
             })
-
+            ->when(is_array($gaji) && count($gaji) > 0, function ($allResults) use ($gaji) {
+                return $allResults->where(function ($query) use ($gaji) {
+                    foreach ($gaji as $selectedGaji) {
+                        switch ($selectedGaji) {
+                            case 'less-1jt':
+                                $query->orWhereRaw('CAST(REPLACE(lp.gaji_bawah, ".", "") AS DECIMAL(10, 0)) < 1000000');
+                                break;
+                            case '1jt-5jt':
+                                $query->orWhereRaw('CAST(REPLACE(lp.gaji_bawah, ".", "") AS DECIMAL(10, 0)) BETWEEN 1000000 AND 5000000');
+                                break;
+                            case '5jt-10jt':
+                                $query->orWhereRaw('CAST(REPLACE(lp.gaji_bawah, ".", "") AS DECIMAL(10, 0)) BETWEEN 5000000 AND 10000000');
+                                break;
+                            case 'more-10jt':
+                                $query->orWhereRaw('CAST(REPLACE(lp.gaji_bawah, ".", "") AS DECIMAL(10, 0)) > 10000000');
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+            })
             ->where('lp.status', 'dibuka')
             ->orderBy('lp.created_at', 'desc')
             ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'lp.min_pengalaman', 'lp.min_pendidikan', 'p.pemilik', 'p.logo', 'p.alamat_perusahaan', 'k.kecamatan', 'kl.kelurahan')
-            ->paginate(9);
+            ->paginate(6);
 
         $user = auth()->id();
         $keahlianUser = DB::table('profile_keahlians')->where('user_id', $user)->pluck('keahlian_id')->toArray();
@@ -92,11 +114,8 @@ class AlljobsController extends Controller
                 'lp.requirement',
                 'lp.gaji_bawah',
                 'lp.gaji_atas',
-                // 'lp.tipe_pekerjaan',
-                // 'lp.jumlah_pelamar',
                 'lp.min_pengalaman',
                 'lp.min_pendidikan',
-                // 'lp.status',
                 'lp.lokasi',
                 'p.nama',
                 'p.alamat_perusahaan',
@@ -106,6 +125,7 @@ class AlljobsController extends Controller
                 DB::raw("GROUP_CONCAT(DISTINCT kp.kategori SEPARATOR ', ') as kategori"),
             )
             ->whereIn('lh.keahlian_id', $keahlianUser)
+            ->where('lp.status', 'dibuka')
             ->groupBy(
                 'lp.id',
                 'lp.id_perusahaan',
@@ -114,11 +134,8 @@ class AlljobsController extends Controller
                 'lp.requirement',
                 'lp.gaji_bawah',
                 'lp.gaji_atas',
-                // 'lp.tipe_pekerjaan',
-                // 'lp.jumlah_pelamar',
                 'lp.min_pengalaman',
                 'lp.min_pendidikan',
-                // 'lp.status',
                 'lp.lokasi',
                 'k.kecamatan',
                 'kl.kelurahan',
@@ -134,6 +151,7 @@ class AlljobsController extends Controller
 
         return view('all-jobs', ['allResults' => $allResults, 'allRekomendasi' => $allRekomendasi, 'kecamatan' => $kecamatan, 'lokasi' => $lokasi, 'kategoris' => $kategoris, 'kategori' => $kategori]);
     }
+
 
     public function show(LowonganPekerjaan $loker)
     {
