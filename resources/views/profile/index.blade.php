@@ -797,12 +797,6 @@
                         <div class="flex-grow-1">
                             <div class="profile-widget-name">Activity / Postingan</div>
                         </div>
-                        <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                            <a href="#" data-toggle="modal" data-target="#modal-edit-postingan">
-                                <img class="img-fluid" style="width: 35px; height: 35px;"
-                                    src="{{ asset('assets/img/landing-page/Plus.svg') }}">
-                            </a>
-                        </div>
                     </div>
                     <div class="postingan-container">
                         <div class="col-md-12">
@@ -1321,8 +1315,7 @@
     </div>
 
     <!-- Modal Edit Postingan -->
-    <div class="modal fade" id="modal-edit-postingan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modal-edit-postingan" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header m-4">
@@ -1334,7 +1327,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="" class="needs-validation" novalidate=""
+                    <form method="POST" id="modal-edit-postingan-form" class="needs-validation" novalidate=""
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT') <!-- Untuk menentukan bahwa ini adalah permintaan PUT -->
@@ -1390,6 +1383,62 @@
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
     <script src="{{ asset('assets/js/summernote-bs4.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var editModal = $('#modal-edit-postingan');
+
+            function openEditModal(postId) {
+                var editUrl = "{{ route('postingan.edit', ['postingan' => '_id']) }}".replace('_id', postId);
+                var updateUrl = "{{ route('postingan.update', ['postingan' => '_id']) }}".replace('_id',
+                    postId);
+
+                $('#modal-edit-postingan-form').attr('action', updateUrl);
+
+                $.ajax({
+                    url: editUrl,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#modal-edit-postingan textarea[name="konteks"]').val(data.konteks);
+                        $('#modal-edit-postingan input[name="media"]').val(data.media);
+
+                        editModal.modal('show');
+                    }
+                });
+            }
+
+            $('#postingan-container').on('click', '.modal-edit-trigger-postingan', function() {
+                var postId = $(this).data('id');
+                openEditModal(postId);
+            });
+
+            $('#modal-save-button-postingan').on('click', function() {
+                var form = $('#modal-edit-postingan-form');
+                var formData = new FormData(form[0]);
+                formData.append('_token', "{{ csrf_token() }}");
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            editModal.modal('hide');
+                            location.reload();
+                        } else {
+                            alert('Error! ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Error while updating data!');
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             var editModal = $('#modal-edit-pendidikan');
@@ -1532,15 +1581,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     {{-- JS untuk modal postingan --}}
-
-    {{-- <script>
-        $(document).ready(function() {
-            $('#konteks').summernote({
-                placeholder: 'Apa yang ingin anda katakan ?',
-                height: 195,
-            });
-        });
-    </script> --}}
     <script>
         function displayFileName(input) {
             if (input.files.length > 0) {

@@ -34,16 +34,26 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    @foreach ($postingan as $post)
-                        <div class="media mb-2">
-                            <img class="mr-3 rounded"width="100" height="100"
-                                src="{{ asset('storage/' . $post->media) }}">
-                            <div class="media-body">
-                                {!! $post->konteks !!}
+                <div class="postingan-container">
+                    <div class="col-md-12">
+                        @foreach ($postingan as $post)
+                            <div class="media mb-2">
+                                <img class="mr-3 rounded"width="100" height="100"
+                                    src="{{ asset('storage/' . $post->media) }}">
+                                <div class="media-body">
+                                    {!! $post->konteks !!}
+                                </div>
+                                <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                                    <a href="#" data-id="{{ $post->id }}"
+                                        data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
+                                        class="modal-edit-trigger-postingan">
+                                        <img class="img-fluid" style="width: 30px; height: 30px;"
+                                            src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </section>
@@ -52,18 +62,19 @@
     <!-- Modal Edit Postingan -->
     <div class="modal fade" id="modal-edit-postingan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header m-4">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Edit Postingan
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Edit
+                        Postingan
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="" class="needs-validation"
-                        novalidate="" enctype="multipart/form-data">
+                    <form method="POST" id="modal-edit-postingan-form" class="needs-validation" novalidate=""
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT') <!-- Untuk menentukan bahwa ini adalah permintaan PUT -->
                         <div class="row">
@@ -117,34 +128,35 @@
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('.modal-edit-trigger').on('click', function() {
-                var itemId = $(this).data('id');
-                var editUrl = "{{ route('pendidikan.edit', ['pendidikan' => '_id']) }}".replace('_id',
-                    itemId);
-                var updateUrl = "{{ route('pendidikan.update', ['pendidikan' => '_id']) }}".replace('_id',
-                    itemId);
-                $('#modal-edit-form').attr('action', updateUrl);
+            var editModal = $('#modal-edit-postingan');
+
+            function openEditModal(postId) {
+                var editUrl = "{{ route('postingan.edit', ['postingan' => '_id']) }}".replace('_id', postId);
+                var updateUrl = "{{ route('postingan.update', ['postingan' => '_id']) }}".replace('_id', postId);
+
+                $('#modal-edit-postingan-form').attr('action', updateUrl);
 
                 $.ajax({
                     url: editUrl,
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#modal-edit select[name="gelar"]').val(data.gelar);
-                        $('#modal-edit input[name="institusi"]').val(data.institusi);
-                        $('#modal-edit input[name="jurusan"]').val(data.jurusan);
-                        $('#modal-edit textarea[name="prestasi"]').val(data.prestasi);
-                        $('#modal-edit select[name="tahun_mulai"]').val(data.tahun_mulai);
-                        $('#modal-edit select[name="tahun_berakhir"]').val(data.tahun_berakhir);
-                        $('#modal-edit input[name="ipk"]').val(data.ipk);
+                        // Isi form dalam modal dengan data yang diambil dari server
+                        $('#modal-edit-postingan-form input[name="konteks"]').val(data.konteks);
+                        $('#modal-edit-postingan-form input[name="media"]').val(data.media);
 
-                        $('#modal-edit').modal('show');
+                        editModal.modal('show');
                     }
                 });
+            }
+
+            $('#postingan-container').on('click', '.modal-edit-trigger-postingan', function() {
+                var postId = $(this).data('id');
+                openEditModal(postId);
             });
 
-            $('#modal-save-button').on('click', function() {
-                var form = $('#modal-edit-form');
+            $('#modal-save-button-postingan').on('click', function() {
+                var form = $('#modal-edit-postingan-form');
                 var formData = new FormData(form[0]);
                 formData.append('_token', "{{ csrf_token() }}");
 
@@ -157,7 +169,7 @@
                     success: function(response) {
                         if (response.success) {
                             alert(response.message);
-                            $('#modal-edit').modal('hide');
+                            editModal.modal('hide');
                             location.reload();
                         } else {
                             alert('Error! ' + response.message);
