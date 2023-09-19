@@ -25,7 +25,7 @@
                                     </a>
                                 </ul>
                                 <h5 class="font-weight-bolder">Ringkasan </h5>
-                                <p class="mb-2 text-justify" style="font-size: 14px;">{{ $profileUser->ringkasan }}</p>
+                                <p class="mb-2 text-justify" style="font-size: 14px;">{!! $profileUser->ringkasan !!}</p>
                                 <h5 class="font-weight-bolder">Personal Info </h5>
                                 <dl class="row">
                                     <dt class="col-sm-4 mt-2">Email</dt>
@@ -59,7 +59,8 @@
                                     <dd class="col-sm-8 mt-2">
                                         @if ($lamar && $lamar->resume)
                                             <a href="{{ asset('storage/' . $lamar->resume) }}"
-                                                onclick="return openResume();" target="_blank" class="btn btn-primary btn-sm">
+                                                onclick="return openResume();" target="_blank"
+                                                class="btn btn-primary btn-sm">
                                                 Lihat Resume
                                             </a>
                                         @else
@@ -87,9 +88,9 @@
                                     <dd class="col-sm-8 mt-2">{{ optional($pendidikan)->ipk ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Periode</dt>
-                                    <dd class="col-sm-8 mt-2">{{ optional($pendidikan)->tahun_mulai ?: '-' }}<span> -
+                                    <dd class="col-sm-8 mt-2">{{ optional($pendidikan)->tahun_mulai ?: '' }}<span> -
                                         </span>
-                                        {{ optional($pendidikan)->tahun_berakhir ?: '-' }}</dd>
+                                        {{ optional($pendidikan)->tahun_berakhir ?: '' }}</dd>
                                 </dl>
 
                                 <hr class="my-4">
@@ -124,30 +125,13 @@
                                     <dd class="col-sm-8 mt-2">{{ optional($pengalaman)->tipe ?: '-' }}</dd>
 
                                     <dt class="col-sm-4 mt-2">Gaji</dt>
-                                    <dd class="col-sm-8 mt-2">{{ 'Rp ' . number_format(optional($pengalaman)->gaji, 0, ',', '.') ?: '-' }}
-                                    </dd>
-
-
-                                    <dt class="col-sm-4 mt-2">Periode</dt>
-                                    <?php
-                                    // Mengambil tanggal mulai dan tanggal berakhir dari kode HTML
-                                    $tanggal_mulai = $pengalaman->tanggal_mulai;
-                                    $tanggal_berakhir = $pengalaman->tanggal_berakhir;
-
-                                    // Mengubah format tanggal ke "d F Y" (contoh: "4 August 2023")
-                                    $tanggal_mulai = date('j F Y', strtotime($tanggal_mulai));
-                                    $tanggal_berakhir = date('j F Y', strtotime($tanggal_berakhir));
-                                    ?>
-
-                                    <!-- Menampilkan tanggal dalam format yang diubah -->
                                     <dd class="col-sm-8 mt-2">
-                                        @if ($tanggal_mulai && $tanggal_berakhir)
-                                            {{ $tanggal_mulai }} <span> - </span> {{ $tanggal_berakhir }}
-                                        @else
-                                            -
-                                        @endif
+                                        {{ 'Rp ' . number_format(optional($pengalaman)->gaji, 0, ',', '.') ?: '-' }}
                                     </dd>
-
+                                    <dt class="col-sm-4 mt-2">Periode</dt>
+                                    <dd class="col-sm-8 mt-2">
+                                        {{ $tanggal_mulai ?: '' }} - {{ $tanggal_berakhir ?: '' }}
+                                    </dd>
                                 </dl>
 
                                 <hr class="my-4">
@@ -169,7 +153,8 @@
                                     <dd class="col-sm-8 mt-2">
                                         @if ($pelatihan && $pelatihan->sertifikat)
                                             <a href="{{ asset('storage/' . $pelatihan->sertifikat) }}"
-                                                onclick="return openResume();" target="_blank" class="btn btn-primary btn-sm">
+                                                onclick="return openResume();" target="_blank"
+                                                class="btn btn-primary btn-sm">
                                                 Lihat Sertifikat
                                             </a>
                                         @else

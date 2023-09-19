@@ -36,29 +36,16 @@ class LamarPerusahaan extends Controller
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
             ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
             ->join('users as u', 'pu.user_id', '=', 'u.id')
-            ->select(
-                'l.id',
-                'l.id_pencari_kerja',
-                'u.name',
-                'pu.no_hp',
-                'pu.foto',
-                'pu.resume',
-                'pu.alamat',
-                'u.email',
-                'p.nama',
-                'lp.judul',
-                'l.status',
-                'l.created_at'
-            )
+            ->select('l.id', 'l.id_pencari_kerja', 'u.name', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'l.created_at')
             ->when($request->has('search'), function ($query) use ($request) {
                 $search = $request->input('search');
-                return $query->where('lp.judul', 'like', '%' . $search . '%')
+                return $query
+                    ->where('lp.judul', 'like', '%' . $search . '%')
                     ->orWhere('u.name', 'like', '%' . $search . '%')
                     ->orWhere('p.nama', 'like', '%' . $search . '%');
             })
             ->when($selectedStatus, function ($query, $selectedStatus) {
                 return $query->where('l.status', $selectedStatus);
-
             })
             ->orderBy('l.created_at', 'desc')
             ->paginate(10);
@@ -75,21 +62,7 @@ class LamarPerusahaan extends Controller
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
             ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
             ->join('users as u', 'pu.user_id', '=', 'u.id')
-            ->select(
-                'l.id',
-                'u.name',
-                'pu.no_hp',
-                'pu.foto',
-                'pu.resume',
-                'pu.alamat',
-                'pu.harapan_gaji',
-                'u.email',
-                'p.nama',
-                'lp.judul',
-                'l.status',
-                'p.user_id',
-                'l.created_at'
-            )
+            ->select('l.id', 'u.name', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'pu.harapan_gaji', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'p.user_id', 'l.created_at')
             ->where('p.user_id', $loggedInUserId)
             ->when($request->has('search'), function ($query) use ($request) {
                 $search = $request->input('search');
@@ -97,7 +70,6 @@ class LamarPerusahaan extends Controller
             })
             ->when($selectedStatus, function ($query, $selectedStatus) {
                 return $query->where('l.status', $selectedStatus);
-
             })
             ->orderBy('l.created_at', 'desc')
             ->paginate(4);
@@ -111,43 +83,36 @@ class LamarPerusahaan extends Controller
         } else {
             return view('lamar-perusahaan.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
         }
-
-    }
-
-    public function create()
-    {
-        //
-    }
-
-
-    public function store(StorelamarRequest $request)
-    {
-        //
     }
 
     public function show($id)
     {
-        $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
+        $lamar = Lamar::findOrFail($id);
         $profileUser = $lamar->pencarikerja;
+
+        $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
+
         $profileUser->ringkasan = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $profileUser->ringkasan);
-        // $profileUser->tgl_lahir;
         $tanggalLahir = Carbon::parse($profileUser->tgl_lahir)->format('j F Y');
 
-        // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
         $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
 
-        // Mendapatkan informasi yang diperlukan dari relasi
         $namaPengguna = $relasiLamar->pencarikerja->user->name;
         $email = $relasiLamar->pencarikerja->user->email;
         $resume = $relasiLamar->pencarikerja->user->resume;
         $pendidikan = $relasiLamar->pencarikerja->user->pendidikan;
         $pengalaman = $relasiLamar->pencarikerja->user->pengalaman;
+        $tanggal_mulai = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_mulai ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_mulai)->format('j F Y') : '';
+        $tanggal_berakhir = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_berakhir ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_berakhir)->format('j F Y') : '';
+
         $pelatihan = $relasiLamar->pencarikerja->user->pelatihan;
-        $keahlian = $relasiLamar->pencarikerja->user->profileKeahlians;
+        $keahlian = $profileUser->keahlian;
         $judulPekerjaan = $relasiLamar->loker->judul;
         $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 
         return view('lamar-perusahaan.detail', [
+            'tanggal_mulai' => $tanggal_mulai,
+            'tanggal_berakhir' => $tanggal_berakhir,
             'namaPengguna' => $namaPengguna,
             'email' => $email,
             'resume' => $resume,
@@ -163,11 +128,9 @@ class LamarPerusahaan extends Controller
         ]);
     }
 
-
-
     public function edit($id)
     {
-        $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
+        $lamar = Lamar::findOrFail($id);
         return view('lamar.detail', compact('lamar'));
     }
 
@@ -180,12 +143,8 @@ class LamarPerusahaan extends Controller
         $lamar->status = $status;
         $lamar->save();
 
-        return redirect()->route('lamarperusahaan.index')->with('success', 'success-status');
-    }
-
-
-    public function destroy($id)
-    {
-        //
+        return redirect()
+            ->route('lamarperusahaan.index')
+            ->with('success', 'success-status');
     }
 }
