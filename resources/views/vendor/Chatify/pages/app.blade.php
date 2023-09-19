@@ -92,6 +92,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
         {{-- Send Message Form --}}
         @include('Chatify::layouts.sendForm')

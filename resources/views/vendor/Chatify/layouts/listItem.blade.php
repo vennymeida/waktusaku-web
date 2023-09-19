@@ -75,7 +75,7 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
         style="background-image: url('{{ $user->avatar }}');">
         @endif
         </div>
-        </td>  
+        </td>
         {{-- center side --}}
         <td>
             <p data-id="{{ $user->id }}" data-type="user">
