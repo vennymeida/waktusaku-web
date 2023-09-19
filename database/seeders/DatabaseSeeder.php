@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             KelurahanSeeder::class,
             KategoriPekerjaanSeeder::class,
             KeahlianSeeder::class,
+            PendidikanSeeder::class,
+            PengalamanSeeder::class,
         ]);
     }
 }

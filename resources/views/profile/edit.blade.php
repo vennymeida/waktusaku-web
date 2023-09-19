@@ -400,6 +400,40 @@
                             </div>
                         </div>
                     @endif
+                    @if (Auth::user()->hasRole('Pencari Kerja'))
+                        <div class="col-md-6">
+                            <div class="card border-primary mb-2">
+                                <div class="card-body">
+                                    <div class="text-left mb-4 mt-2 ml-2">
+                                        <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">
+                                            Tambah Keahlian Yang Dimiliki</h5>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <form action="{{ route('profile.keahlian.update') }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="form-group col-md-12 col-12">
+                                                <select name="keahlian_ids[]" multiple class="form-control select2">
+                                                    <option value="" disabled selected>Pilih Keahlian</option>
+                                                    @foreach ($keahlians as $keahlian)
+                                                        <option value="{{ $keahlian->id }}"
+                                                            {{ in_array($keahlian->id, $selectedKeahlians) ? 'selected' : '' }}>
+                                                            {{ $keahlian->keahlian }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-12 text-right my-4">
+                                                <button class="btn btn-primary mr-1 px-3"
+                                                    style="border-radius: 15px; font-size: 14px; font-weight: lighter;"
+                                                    type="submit">Tambah</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     @if (Auth::user()->hasRole('Perusahaan'))
                         <div class="col-md-6">
                             <div class="card border-primary mb-2">
@@ -443,7 +477,7 @@
                                                 <label for="alamat_perusahaan">Alamat Perusahaan</label>
                                                 <textarea name="alamat_perusahaan" id="alamat_perusahaan"
                                                     class="text-loker form-control @error('alamat_perusahaan') is-invalid @enderror" rows="3" type="text"
-                                                    style="height: 100px;" placeholder="Masukkan alamat_perusahaan perusahaan">{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }}</textarea>
+                                                    style="height: 100px;" placeholder="Masukkan alamat perusahaan">{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }}</textarea>
                                                 @error('alamat_perusahaan')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -732,5 +766,60 @@
                 });
             });
         });
+        var selectKecamatanId = "{{ $perusahaans ? $perusahaans->kecamatan_id : '' }}";
+        var selectKelurahanId =
+            "{{ auth()->user()->perusahaans ? optional(auth()->user()->perusahaans->kelurahan)->id : '' }}";
+
+        // Mengisi dropdown Kelurahan sesuai dengan Kecamatan yang terpilih
+        if (selectKecamatanId != null) {
+            if ($("#kecamatan_id").val() != null) {
+                $('#kelurahan_id').removeAttr('disabled', true);
+            }
+            var selectkelProfile = "{{ $perusahaans ? $perusahaans->kelurahan_id : '' }}";
+            var idKecamatanSelected = $("#kecamatan_id").val();
+            console.log(idKecamatanSelected);
+            $.ajax({
+                url: '/load-filter',
+                method: 'POST',
+                data: {
+                    id: idKecamatanSelected,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                    $('#kelurahan_id').empty();
+                    $('#kelurahan_id').append('<option value="">Pilih Kelurahan</option>');
+                    $.each(response['kelurahans'], function(key, value) {
+                        $('#kelurahan_id').append('<option value="' + value.id + '">' +
+                            value.kelurahan + '</option>');
+                    });
+                    $("#kelurahan_id option[value='" + selectkelProfile + "']").attr("selected",
+                        "selected");
+                }
+            });
+        }
     </script>
+
+    <script>
+        $(document).ready(function() {
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: '{{ session('success') }}',
+                    confirmButtonText: 'OK'
+                });
+            @endif
+            @if (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: '{{ session('error') }}',
+                    confirmButtonText: 'OK'
+                });
+            @endif
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 @endpush

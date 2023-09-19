@@ -50,7 +50,7 @@ ol {
 }
 
 .bg-header {
-    background-color: #f7f7f7;
+    background-color: #e6e4e4;
 }
 .bg-primary-nav {
     background-color: #ffffff !important;
@@ -71,7 +71,6 @@ ol {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    max-height: 100vh;
     margin-top: 50px;
 }
 
@@ -1020,6 +1019,54 @@ select.custom-select option:disabled {
 .note-placeholder {
     font-weight: normal !important;
 }
+
+.container-garis {
+    padding: 100px;
+    text-align: center;
+}
+
+.lines {
+    width: 600px;
+    height: 10px;
+    position: relative;
+}
+
+.lines::after,
+.lines::before {
+    content: '';
+    position: absolute;
+    height: 2px;
+    background: #eb9481;
+    width: 50%;
+    top: 10%;
+}
+
+.lines::after {
+    left: 0;
+    transform: translateX(-40%);
+}
+
+.lines::before {
+    right: 0;
+    transform: translateX(40%);
+}
+
+.circle {
+    height: 20px;
+    width: 20px;
+    border: 2px solid #eb9481;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.diamond {
+    height: 20px;
+    width: 20px;
+    border: 2px solid #eb9481;
+    transform: rotate(45deg);
+    display: inline-block;
+    margin: 0 10px;
 
 /* Membuat scrollbar vertikal lebih ramping */
 ::-webkit-scrollbar {
