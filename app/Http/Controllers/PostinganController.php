@@ -58,32 +58,38 @@ class PostinganController extends Controller
     }
 
 
-    public function update(UpdatePostinganRequest $request, Postingan $postingan)
+    public function update(Request $request, Postingan $postingan)
     {
-        $userId = Auth::user()->id;
+        try {
+            $userId = Auth::user()->id;
 
-        // Verifikasi apakah pengguna yang ingin mengedit postingan adalah pemilik postingan
-        if ($postingan->user_id !== $userId) {
-            return redirect()->route('postingan.index')->with('error', 'Anda tidak memiliki izin untuk mengedit postingan ini.');
+            // Verification if the user attempting to edit the post is the owner of the post
+            if ($postingan->user_id !== $userId) {
+                return response()->json(['success' => false, 'message' => 'Unauthorized action.']);
+            }
+
+            // Validate the input from the form
+            $validatedData = $request->validate([
+                'konteks' => 'required|string',
+                // Add any other validation rules here
+            ]);
+
+            $postingan->konteks = $validatedData['konteks'];
+
+            // Update media if there is an uploaded file
+            if ($request->hasFile('media')) {
+                $media = $request->file('media');
+                $filename = time() . '_' . $media->getClientOriginalName();
+                $path = $media->storeAs('media', $filename, 'public');
+                $postingan->media = $path;
+            }
+
+            $postingan->save();
+
+            return response()->json(['success' => true, 'message' => 'Postingan berhasil diperbarui.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
         }
-
-        // Validasi input dari form
-        $validatedData = $request->validated();
-
-        // Update konteks postingan
-        $postingan->konteks = $validatedData['konteks'];
-
-        // Update media jika ada file yang diunggah
-        if ($request->hasFile('media')) {
-            $media = $request->file('media');
-            $filename = time() . '_' . $media->getClientOriginalName();
-            $path = $media->storeAs('media', $filename, 'public');
-            $postingan->media = $path;
-        }
-
-        $postingan->save();
-
-        return redirect()->route('postingan.index')->with('success', 'Postingan berhasil diperbarui.');
     }
 
 

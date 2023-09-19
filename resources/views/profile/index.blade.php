@@ -736,7 +736,7 @@
                                         @if (Auth::user()->profile && Auth::user()->profile->ringkasan != '')
                                             <div class="text-left mb-4 mt-2 ml-2"
                                                 style="color: #000000; line-height: 2; font-weight:500">
-                                                {{ Auth::user()->profile ? Auth::user()->profile->ringkasan : '' }}</div>
+                                                {!! Auth::user()->profile ? Auth::user()->profile->ringkasan : '' !!}</div>
                                         @else
                                             <div class="text-center mb-4 mt-2 ml-2"
                                                 style="color: #808080; font-weight:lighter"><br>Belum Ada Ringkasan Tentang
@@ -817,11 +817,14 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="text-center mt-4">
-                            <button id="load-more-postingan" class="btn btn-primary"
-                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                                data-page="{{ $postingans->currentPage() }}">Muat Lebih Banyak</button>
-                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button id="load-more-postingan" class="btn btn-primary"
+                            style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
+                            data-page="{{ $postingans->currentPage() }}">Muat Lebih Banyak</button>
+                    </div>
+                    <div id="reset-message" style="display:none;">
+                        <p>Lebih Sedikit</p>
                     </div>
                 </div>
             </section>
@@ -1391,7 +1394,8 @@
                                                 src="{{ asset('assets/img/avatar/avatar-1.png') }}">
                                         @endif
                                         <div class="media-body">
-                                            <h5 class="mt-0" style="font-weight: bold;">{{ auth()->user()->name }}</h5>
+                                            <h5 class="mt-0" style="font-weight: bold;">{{ auth()->user()->name }}
+                                            </h5>
                                             <!-- Informasi tambahan mengenai user, seperti bio atau status -->
                                             <p>{{ auth()->user()->email }}</p>
                                         </div>
@@ -1399,7 +1403,7 @@
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
                                         <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
-                                            required></textarea>
+                                            required>{{ $post->konteks }}</textarea>
                                         @error('konteks')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -1410,7 +1414,7 @@
                                         <!-- Tampilkan media yang ingin diedit -->
                                         <img id="media-preview" class="mr-3 rounded" width="700" height="300">
                                     </div>
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <ul class="list-unstyled">
                                             <li class="mb-2">
                                                 <label for="mediaUploadButton" style="cursor: pointer;">
@@ -1422,7 +1426,7 @@
                                                     accept="image/*">
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -1547,32 +1551,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
     <script>
         $(document).ready(function() {
-            var editModal = $('#modal-edit-postingan');
+            var editModal = $('#modal-edit-pendidikan');
 
-            function openEditModal(postId) {
-                var editUrl = "{{ route('postingan.edit', ['postingan' => '_id']) }}".replace('_id', postId);
-                var updateUrl = "{{ route('postingan.update', ['postingan' => '_id']) }}".replace('_id', postId);
-                $('#modal-edit-postingan-form').attr('action', updateUrl);
+            function openEditModal(itemId) {
+                var editUrl = "{{ route('pendidikan.edit', ['pendidikan' => '_id']) }}".replace('_id', itemId);
+                var updateUrl = "{{ route('pendidikan.update', ['pendidikan' => '_id']) }}".replace('_id',
+                    itemId);
+
+                $('#modal-edit-pendidikan-form').attr('action', updateUrl);
+
                 $.ajax({
                     url: editUrl,
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#modal-edit-postingan textarea[name="konteks"]').val(data.konteks);
-                        $('#modal-edit-postingan input[name="media"]').val(data.media);
-                        $('#media-preview').attr('src', '{{ asset('storage/') }}/' + data.media);
+                        $('#modal-edit-pendidikan select[name="gelar"]').val(data.gelar).change();
+                        $('#modal-edit-pendidikan input[name="institusi"]').val(data.institusi);
+                        $('#modal-edit-pendidikan input[name="jurusan"]').val(data.jurusan);
+                        $('#modal-edit-pendidikan textarea[name="prestasi"]').val(data.prestasi);
+                        $('#modal-edit-pendidikan select[name="tahun_mulai"]').val(data.tahun_mulai)
+                            .change();
+                        $('#modal-edit-pendidikan select[name="tahun_berakhir"]').val(data
+                            .tahun_berakhir).change();
+                        $('#modal-edit-pendidikan input[name="ipk"]').val(data.ipk);
+
                         editModal.modal('show');
                     }
                 });
             }
-            $('#postingan-container').on('click', '.modal-edit-trigger-postingan', function() {
-                var postId = $(this).data('id');
-                openEditModal(postId);
+
+            $('#pendidikan-container').on('click', '.modal-edit-trigger-pendidikan', function() {
+                var itemId = $(this).data('id');
+                openEditModal(itemId);
             });
-            $('#modal-save-button-postingan').on('click', function() {
-                var form = $('#modal-edit-postingan-form');
+
+            $('#modal-save-button-pendidikan').on('click', function() {
+                var form = $('#modal-edit-pendidikan-form');
                 var formData = new FormData(form[0]);
                 formData.append('_token', "{{ csrf_token() }}");
+
                 $.ajax({
                     url: form.attr('action'),
                     type: 'POST',
@@ -1730,7 +1747,6 @@
                 var updateUrl = "{{ route('postingan.update', ['postingan' => '_id']) }}".replace('_id', postId);
 
                 $('#modal-edit-postingan-form').attr('action', updateUrl);
-
                 $.ajax({
                     url: editUrl,
                     type: 'GET',
@@ -1739,7 +1755,6 @@
                         $('#modal-edit-postingan textarea[name="konteks"]').val(data.konteks);
                         $('#modal-edit-postingan input[name="media"]').val(data.media);
                         $('#media-preview').attr('src', '{{ asset('storage/') }}/' + data.media);
-
                         editModal.modal('show');
                     }
                 });
@@ -1754,7 +1769,6 @@
                 var form = $('#modal-edit-postingan-form');
                 var formData = new FormData(form[0]);
                 formData.append('_token', "{{ csrf_token() }}");
-
                 $.ajax({
                     url: form.attr('action'),
                     type: 'POST',
@@ -1762,16 +1776,19 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
+                        console.log(response); // For debugging
                         if (response.success) {
-                            alert(response.message);
+                            // alert(response.message);
                             editModal.modal('hide');
                             location.reload();
                         } else {
                             alert('Error! ' + response.message);
                         }
                     },
-                    error: function() {
-                        alert('Error while updating data!');
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText); // For debugging
+                        var err = JSON.parse(xhr.responseText);
+                        alert('Error! ' + err.message);
                     }
                 });
             });
@@ -1889,6 +1906,21 @@
         let isLoadingMorePostingan = false;
         let hasMoreDataPostingan = true;
 
+        function resetView() {
+            $('#reset-message').show();
+
+
+            $('#postingan-container').html('');
+
+
+            $('#load-more-postingan').css('display', '');
+
+
+            isLoadingMorePostingan = false;
+            hasMoreDataPostingan = true;
+            $('#load-more-postingan').data('page', 1);
+        }
+
         $(document).ready(function() {
             $('#load-more-postingan').on('click', function(e) {
                 e.preventDefault();
@@ -1907,15 +1939,30 @@
                             if ($.trim(content).length === 0) {
                                 $('#load-more-postingan').css('display', 'none');
                                 hasMoreDataPostingan = false;
+                                resetView();
                             }
                         } else {
                             $('#load-more-postingan').css('display', 'none');
                             hasMoreDataPostingan = false;
+                            resetView();
                         }
                     });
                 }
             });
         });
+    </script>
+    <script>
+        function displayFileName(input) {
+            if (input.files.length > 0) {
+                // Ambil nama file yang dipilih
+                var fileName = input.files[0].name;
+                // Tampilkan nama file di elemen p dengan ID 'selectedFileName'
+                document.getElementById('selectedFileName').textContent = 'File yang dipilih: ' + fileName;
+            } else {
+                // Jika tidak ada file yang dipilih, kosongkan elemen p
+                document.getElementById('selectedFileName').textContent = '';
+            }
+        }
     </script>
 @endpush
 @push('customStyle')
