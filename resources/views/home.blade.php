@@ -126,6 +126,7 @@
 
 <script src="{{ asset('assets/js/jquery.sparkline.min.js') }}"></script>
 <script src="{{ asset('assets/js/chart.min.js') }}"></script>
+<script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
 
 <script>
     var ctx = document.getElementById("myChart").getContext('2d');
@@ -133,7 +134,6 @@
     const monthNames = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
         "Oktober", "November", "Desember"
     ];
-
 
     const perusahaanData = {};
     grafikData.forEach(item => {
@@ -144,13 +144,12 @@
     });
 
     const colors = [
-        'rgba(75, 192, 192, 1)',
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-
+        'rgba(75, 192, 192, 0.8)',
+        'rgba(255, 99, 132, 0.8)',
+        'rgba(54, 162, 235, 0.8)',
+        'rgba(255, 206, 86, 0.8)',
+        'rgba(153, 102, 255, 0.8)',
+        'rgba(255, 159, 64, 0.8)',
     ];
 
     const datasets = [];
@@ -159,14 +158,13 @@
         datasets.push({
             label: perusahaan,
             data: data,
-            borderColor: colors[colorIndex++ % colors.length],
+            backgroundColor: colors[colorIndex++ % colors.length],
             borderWidth: 1,
-            fill: false,
         });
     }
 
-    const myLineChart = new Chart(ctx, {
-        type: 'line',
+    const myBarChart = new Chart(ctx, {
+        type: 'bar',
         data: {
             labels: monthNames.slice(1),
             datasets: datasets,
@@ -175,6 +173,11 @@
             scales: {
                 y: {
                     beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString("id-ID"); // Format angka dalam format Indonesia
+                        },
+                    },
                 },
             },
         },

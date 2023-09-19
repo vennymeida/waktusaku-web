@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="card-primary-left col-md-3 mr-5 mb-1 text-center">
                                     <i class="fas fa-phone my-3"></i>
-                                    <p class="mb-4">{{ $loker_perusahaan->perusahaan->no_hp }}</p>
+                                    <p class="mb-4">{{ $loker_perusahaan->perusahaan->no_hp_perusahaan }}</p>
                                 </div>
                                 <div class="card-primary-left col-md-3 mb-1 text-center">
                                     <i class="fas fa-envelope my-3"></i>

@@ -7,7 +7,8 @@
                     <div class="col-md-6">
                         <p class="mb-3 tag-title py-2 px-4 text-center">Tersedia 100+ di kota Malang Raya</p>
                         <h1 class="font-weight-bolder">Yuk Buat Waktumu Menjadi Berguna di <span
-                                class="text-primary">Waktu</span><span class="text-warning">Saku</span> sesuai kebutuhan!</h1>
+                                class="text-primary font-weight-bolder">Waktu</span><span
+                                class="text-warning font-weight-bolder">Saku</span> sesuai kebutuhan!</h1>
                         <p>Platform yang dirancang untuk memudahkan mencari peluang kerja paruh waktu yang sesuai dengan
                             kebutuhan Anda khusus di daerah Malang Raya.</p>
                         <form method="GET" action="{{ route('all-jobs.index') }}">
@@ -32,8 +33,8 @@
         </section>
 
         <section>
-            <div class="col-md-12 py-5 bg-secondary">
-                <div class="d-flex justify-content-around align-items-center">
+            <div class="col-md-12 py-5 bg-secondary py-5">
+                <div class="d-flex justify-content-around align-items-center my-4">
                     <div class="col-md-4">
                         <img class="img-fluid" src="{{ asset('assets/img/landing-page/image-2.svg') }}" alt="">
                     </div>
@@ -41,17 +42,21 @@
                         <div class="col-md-6">
                             <p class="mb-4 tag-prom py-2 px-4 text-center">Tersedia 100+ di kota Malang Raya</p>
                             <h1 class="font-weight-bold mb-4">Mau Rekrut Karyawan dengan Cepat Secara <span
-                                    class="text-primary">GRATIS? </span><span class="text-white">Bisa!</span></h1>
+                                    class="text-primary font-weight-bolder">GRATIS? </span><span
+                                    class="text-white font-weight-bolder">Bisa!</span>
+                            </h1>
                             <p class="d-flex align-items-center mb-4"><i class="fas fa-check-circle mr-3"
                                     style="font-size: 25px;"></i>Pasang
                                 Lowongan Pekerjaan tanpa
                                 batas sesuai kebutuhan
-                                perusahaan Anda.</p>
+                                perusahaan Anda.
+                            </p>
                             <p class="d-flex align-items-center mb-4"><i class="fas fa-check-circle mr-3"
                                     style="font-size: 25px;"></i>Promosikan Lowongan Pekerjaan
                                 untuk mendapatkan lebih
                                 banyak
-                                pelamar.</p>
+                                pelamar.
+                            </p>
                             <a id="register-button" class="btn btn-primary px-4 py-2 font-weight-bold"
                                 href="{{ route('register') }}" style="border-radius: 25px;">Buat Akun
                                 Sekarang!</a>
@@ -59,11 +64,17 @@
                     @endguest
                     @role('Perusahaan')
                         <div class="col-md-6">
-                            <h1>Temukan Bakat Terbaik untuk Tim Anda
-                                <span class="text-primary">di Sini!</span>
+                            <p class="mb-4 tag-prom py-2 px-4 text-center">Tersedia 100+ di kota Malang Raya</p>
+                            <h1 class="font-weight-bold mb-4">Temukan Bakat Terbaik untuk Tim Anda
+                                <span class="text-primary font-weight-bold">di Sini!</span>
                             </h1>
-                            <p>Temukan calon karyawan yang berpotensi untuk mengisi peran penting dalam perusahaan Anda.</p>
-                            <p>Bergabunglah dengan kami dan temukan bakat-bakat terbaik untuk mendorong kesuksesan bisnis Anda!
+                            <p class="d-flex align-items-center mb-4"><i class="fas fa-check-circle mr-3"
+                                    style="font-size: 25px;"></i>
+                                Temukan calon karyawan yang berpotensi untuk mengisi peran penting dalam perusahaan Anda.
+                            </p>
+                            <p class="d-flex align-items-center mb-4"><i class="fas fa-check-circle mr-3"
+                                    style="font-size: 25px;"></i>
+                                Bergabunglah dengan kami dan temukan bakat-bakat terbaik untuk mendorong kesuksesan bisnis Anda!
                             </p>
                             <a id="register-button" class="btn btn-primary px-4" href="{{ route('loker-perusahaan.index') }}"
                                 style="border-radius: 25px;">Mulai Merekrut</a>
@@ -71,9 +82,17 @@
                     @endrole
                     @role('Pencari Kerja')
                         <div class="col-md-6">
-                            <h1>Mau Tahu Status Lamaran Kamu Saat Ini Bagaimana ? <span class="text-primary">Bisa!</span></h1>
-                            <p>Lacak status terbaru lamaran kerjamu kapan saja.</p>
-                            <p>Yuk Buat Akun Sekarang juga!</p>
+                            <p class="mb-4 tag-prom py-2 px-4 text-center">Tersedia 100+ di kota Malang Raya</p>
+                            <h1 class="font-weight-bold mb-4">Mau Tahu Status Lamaran Kamu Saat Ini Bagaimana ? <span
+                                    class="text-primary font-weight-bold">Bisa!</span></h1>
+                            <p class="d-flex align-items-center mb-4"><i class="fas fa-check-circle mr-3"
+                                    style="font-size: 25px;"></i>
+                                Dapatkan pekerjaan impianmu dengan bantuan WaktuSaku!
+                            </p>
+                            <p class="d-flex align-items-center mb-4"><i class="fas fa-check-circle mr-3"
+                                    style="font-size: 25px;"></i>
+                                Lihat status terbaru lamaran kerjamu kapan saja.
+                            </p>
                             <a id="register-button" class="btn btn-primary px-4" href="{{ route('melamar.status') }}"
                                 style="border-radius: 25px;">Cek Lamaran</a>
                         </div>
@@ -87,8 +106,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-10 mx-auto">
-                            <h2 class="text-center mt-4 font-weight-bold">Mengapa harus di <span class="text-primary">Waktu
-                                </span><span class="text-warning">Saku </span><span>?</span>
+                            <h2 class="text-center mt-4 font-weight-bold">Mengapa harus di <span
+                                    class="text-primary font-weight-bolder">Waktu
+                                </span><span class="text-warning font-weight-bolder">Saku </span><span
+                                    class="font-weight-bolder">?</span>
                             </h2>
                         </div>
                     </div>
@@ -149,8 +170,10 @@
         </section>
 
         <section>
-            <div class="col-md-10 mt-5 mx-auto">
-                <h2 class="text-center">Lowongan Kerja Terbaru di <span class="text-primary">WaktuSaku</span></h2>
+            <div class="col-md-10 mt-0 mx-auto">
+                <h2 class="text-center font-weight-bold">Lowongan Kerja Terbaru di <span
+                        class="text-primary font-weight-bold">Waktu</span><span class="text-warning font-weight-bold">
+                        Saku</span></h2>
                 <div class="row flex-nowrap overflow-auto mt-5 horizontal-scroll equal-height-cards">
                     <div class="scroll-arrow left bg-transparent text-secondary">
                         <i class="fas fa-angle-left"></i>
@@ -217,7 +240,8 @@
                                             <li class="d-flex justify-content-start">
                                                 <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                                <p class="mb-2">{{ $loker->alamat_perusahaan }}, {{ $loker->kelurahan }},
+                                                <p class="mb-2">{{ $loker->alamat_perusahaan }},
+                                                    {{ $loker->kelurahan }},
                                                     {{ $loker->kecamatan }}</p>
                                             </li>
                                         </ul>

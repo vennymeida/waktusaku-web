@@ -63,8 +63,8 @@
                                                     <td>{{ $perusahaan->name }}</td>
                                                     <td>{{ optional($perusahaan->perusahaan)->nama?: '-' }}</td>
                                                     <td>{{ optional($perusahaan->perusahaan)->email?: '-' }}</td>
-                                                    <td>{{ optional($perusahaan->perusahaan)->alamat?: '-' }}</td>
-                                                    <td>{{ optional($perusahaan->perusahaan)->no_hp?: '-' }}</td>
+                                                    <td>{{ optional($perusahaan->perusahaan)->alamat_perusahaan?: '-' }}</td>
+                                                    <td>{{ optional($perusahaan->perusahaan)->no_hp_perusahaan?: '-' }}</td>
                                                     <td>
                                                         <a href="{{ route('perusahaan.show', $perusahaan) }}" class="btn btn-sm btn-primary btn-icon">
                                                             <i class="fas fa-eye"></i> Details

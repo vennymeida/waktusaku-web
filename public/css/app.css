@@ -144,6 +144,10 @@ ol {
     color: #8a8a8a;
 }
 
+.text-not {
+    color: #a1a1a1;
+}
+
 .text-warning {
     color: #eb9481;
 }
@@ -247,6 +251,13 @@ a.btn-regis:focus {
     border: none;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-loker {
+    border: solid 5px #f8f9fa;
+    border-radius: 20px;
+    background-color: white;
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
 .btn-outline-warning {
@@ -1056,4 +1067,24 @@ select.custom-select option:disabled {
     transform: rotate(45deg);
     display: inline-block;
     margin: 0 10px;
+
+/* Membuat scrollbar vertikal lebih ramping */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Mengubah warna background scrollbar */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+/* Mengubah warna scrollbar itu sendiri */
+::-webkit-scrollbar-thumb {
+    background-color: #b8b9c3;
+    border-radius: 15px;
+}
+
+/* Mengubah warna scrollbar thumb saat dihover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a8a9b1;
 }
