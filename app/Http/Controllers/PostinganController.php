@@ -36,7 +36,9 @@ class PostinganController extends Controller
     public function index(Postingan $postingan)
 {
     $userId = Auth::user()->id;
-    $postingan = Postingan::where('user_id', $userId)->get();
+    $postingan = Postingan::where('user_id', $userId)
+    ->orderBy('created_at', 'desc')
+    ->get();
 
     foreach ($postingan as $time) {
         $time->timeAgo = $this->getTimeAgo($time->updated_at);
@@ -66,7 +68,7 @@ class PostinganController extends Controller
 
         $postingan->save();
 
-        return redirect()->route('postingan.index')->with('success', 'Postingan berhasil ditambahkan.');
+        return redirect()->route('postingan.index')->with('success', 'success-create');
     }
 
     public function show(Postingan $postingan)

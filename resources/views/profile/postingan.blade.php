@@ -25,7 +25,7 @@
                 <div class="col-md-12">
                     @foreach ($postingan as $post)
                         <section class="centered-section">
-                            <div class="bg-primary-section col-md-10 py-1">
+                            {{-- <div class="bg-primary-section col-md-10 py-1">
                                 <div class="font-italic mt-2 time" style="font-size: 14px;">{{ auth()->user()->name }}
                                     - Diposting {{ $post->timeAgo }}
                                 </div>
@@ -43,6 +43,37 @@
                                                 src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                         </a>
                                     </div>
+                                </div>
+                            </div> --}}
+                            <div class="col-md-8">
+                                <div class="post">
+                                    <div class="post-author">
+                                        <img src="{{ asset('assets/img/avatar/avatar-1.png') }}">
+                                        <div class="d-flex flex-column col-md-11">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h1 class="mb-0 mr-2">{{ auth()->user()->name }}</h1>
+                                                <div class="d-flex align-items-center">
+                                                    <img class="img-fluid"
+                                                        src="{{ asset('assets/img/landing-page/Time.svg') }}"
+                                                        style="max-width: 16px; max-height: 16px; margin-right: 5px;">
+                                                    <h4 class="mb-0">{{ $post->timeAgo }} </h4>
+                                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;"
+                                                        id="fluid">
+                                                        <a href="#" data-id="{{ $post->id }}"
+                                                            data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
+                                                            class="modal-edit-trigger-postingan">
+                                                            <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <small>{{ auth()->user()->email }}</small>
+                                        </div>
+                                    </div>
+                                    <p>{!! $post->konteks !!}</p>
+                                    <img src="{{ asset('storage/' . $post->media) }}" width="100%"
+                                        style="margin-bottom:20px;">
                                 </div>
                             </div>
                         </section>
@@ -199,6 +230,27 @@
                 });
             });
         });
+    </script>
+    <script>
+        @if (session('success') === 'success-create')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Postingan berhasil ditambahkan.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+
+    <script>
+        @if (session('success') === 'success-edit')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Postingan berhasil diubah.',
+                confirmButtonText: 'OK'
+            });
+        @endif
     </script>
 @endpush
 @push('customStyle')

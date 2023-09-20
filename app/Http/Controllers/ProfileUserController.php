@@ -46,7 +46,7 @@ class ProfileUserController extends Controller
         $postingans = Postingan::select('postingans.*')
             ->where('user_id', $userId)
             ->orderBy('created_at', 'desc')
-            ->paginate(2);
+            ->paginate(3);
         $pendidikans = Pendidikan::select('pendidikan.*')
             ->where('user_id', $userId)
             ->orderBy('created_at', 'desc')
