@@ -14,7 +14,8 @@ return new class extends Migration {
     {
         Schema::create('kelurahans', function (Blueprint $table) {
             $table->id();
-            $table->string('kelurahan')->unique();
+            // $table->string('kelurahan')->unique();
+            $table->string('kelurahan');
             $table->unsignedBigInteger('id_kecamatan');
             $table->foreign('id_kecamatan')->references('id')->on('kecamatans')->restrictOnDelete();
             $table->timestamps();
