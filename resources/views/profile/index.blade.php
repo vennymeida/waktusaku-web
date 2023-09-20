@@ -804,35 +804,42 @@
                             <div class="profile-widget-name">Activity / Postingan</div>
                         </div>
                     </div>
-                    <div id="postingan-container">
-                        <div class="col-md-12">
-                            @foreach ($postingans as $post)
-                                <div class="media mb-2">
-                                    <img class="mr-3 rounded"width="100" height="100"
-                                        src="{{ asset('storage/' . $post->media) }}">
-                                    <div class="media-body">
-                                        {!! $post->konteks !!}
+                    @if (count($postingans) > 0)
+                        <div id="postingan-container">
+                            <div class="col-md-12">
+                                @foreach ($postingans as $post)
+                                    <div class="media mb-2">
+                                        <img class="mr-3 rounded"width="100" height="100"
+                                            src="{{ asset('storage/' . $post->media) }}">
+                                        <div class="media-body">
+                                            {!! $post->konteks !!}
+                                        </div>
+                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
+                                            id="fluid">
+                                            <a href="#" data-id="{{ $post->id }}"
+                                                data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
+                                                class="modal-edit-trigger-postingan">
+                                                <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                    src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                        <a href="#" data-id="{{ $post->id }}"
-                                            data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
-                                            class="modal-edit-trigger-postingan">
-                                            <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                        </a>
-                                    </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-center mt-4">
-                        <button id="load-more-postingan" class="btn btn-primary"
-                            style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                            data-page="{{ $postingans->currentPage() }}">Muat Lebih Banyak</button>
-                    </div>
-                    <div id="reset-message" style="display:none;">
-                        <p>Lebih Sedikit</p>
-                    </div>
+                        <div class="text-center mt-4">
+                            <button id="load-more-postingan" class="btn btn-primary"
+                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
+                                data-page="{{ $postingans->currentPage() }}">Muat Lebih Banyak</button>
+                        </div>
+                        <div id="reset-message" style="display:none;">
+                            <p>Lebih Sedikit</p>
+                        </div>
+                    @else
+                        <div class="text-center" style="color:#808080">
+                            <p>Anda Belum Memposting Apapun</p>
+                        </div>
+                    @endif
                 </div>
             </section>
             <section class="centered-section">
@@ -1512,13 +1519,16 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
-                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
-                                            required>{{ $post->konteks }}</textarea>
-                                        @error('konteks')
+                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror" required>
+                                            @isset($post)
+                                                {{ $post->konteks }}
+                                            @endisset
+                                        </textarea>
+                                        @if($errors->has('konteks') && isset($post))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                        @enderror
+                                        @endif
                                     </div>
                                     <div class="media mb-4">
                                         <!-- Tampilkan media yang ingin diedit -->
@@ -1784,8 +1794,9 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        console.log(response);
+                        console.log(response); // For debugging
                         if (response.success) {
+                            // alert(response.message);
                             editModal.modal('hide');
                             location.reload();
                         } else {
@@ -1793,7 +1804,7 @@
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
+                        console.log(xhr.responseText); // For debugging
                         var err = JSON.parse(xhr.responseText);
                         alert('Error! ' + err.message);
                     }
@@ -1968,8 +1979,18 @@
             }
         }
     </script>
+    <script>
+        $(document).ready(function() {
+            $('#konteks').summernote({
+                height: 300,
+                placeholder: 'Masukkan konten Anda di sini',
+                lang: 'id-ID'
+            });
+        });
+    </script>
 @endpush
 @push('customStyle')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.css" rel="stylesheet">
 @endpush
