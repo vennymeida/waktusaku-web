@@ -810,7 +810,7 @@
                                 @foreach ($postingans as $post)
                                 <hr>
                                 <div class="font-italic mt-2 time" style="font-size: 14px;">{{ auth()->user()->name }}
-                                    - Diposting 2 jam yang lalu
+                                    - Diposting {{ $post->timeAgo }}
                                 </div>
                                 <br>
                                     <div class="media mb-2">

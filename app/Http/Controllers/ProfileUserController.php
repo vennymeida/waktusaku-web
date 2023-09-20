@@ -12,6 +12,7 @@ use App\Models\Pelatihan;
 use App\Models\Perusahaan;
 use App\Models\ProfileUser;
 use App\Models\Postingan;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -20,6 +21,25 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileUserController extends Controller
 {
+    public function getTimeAgo($timestamp)
+    {
+        $currentTime = Carbon::now();
+        $timeDiff = $currentTime->diffInSeconds($timestamp);
+
+        if ($timeDiff < 60) {
+            return "Tayang {$timeDiff} detik yang lalu";
+        } elseif ($timeDiff < 3600) {
+            $minutes = floor($timeDiff / 60);
+            return "Tayang {$minutes} menit yang lalu";
+        } elseif ($timeDiff < 86400) {
+            $hours = floor($timeDiff / 3600);
+            return "Tayang {$hours} jam yang lalu";
+        } else {
+            $days = floor($timeDiff / 86400);
+            return "Tayang {$days} hari yang lalu";
+        }
+    }
+
     public function index(Request $request)
     {
         $userId = Auth::id();
@@ -39,6 +59,11 @@ class ProfileUserController extends Controller
             ->where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->paginate(2);
+
+        foreach ($postingans as $time) {
+            $time->timeAgo = $this->getTimeAgo($time->updated_at);
+        }
+
         return view('profile.index')->with([
             'postingans' => $postingans,
             'pendidikans' => $pendidikans,
@@ -46,6 +71,7 @@ class ProfileUserController extends Controller
             'pelatihans' => $pelatihans,
         ]);
     }
+
     public function profile(ProfileUser $profileUser)
     {
         $userId = Auth::id();

@@ -26,6 +26,9 @@
                     @foreach ($postingan as $post)
                         <section class="centered-section">
                             <div class="bg-primary-section col-md-10 py-1">
+                                <div class="font-italic mt-2 time" style="font-size: 14px;">{{ auth()->user()->name }}
+                                    - Diposting {{ $post->timeAgo }}
+                                </div>
                                 <div class="media mb-2">
                                     <img class="mr-3 rounded"width="100" height="100"
                                         src="{{ asset('storage/' . $post->media) }}">

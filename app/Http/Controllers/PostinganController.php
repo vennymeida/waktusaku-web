@@ -38,23 +38,11 @@ class PostinganController extends Controller
     $userId = Auth::user()->id;
     $postingan = Postingan::where('user_id', $userId)->get();
 
-    $updatedAgo = null; // Inisialisasi variabel $updatedAgo
-
-    if ($postingan->isNotEmpty()) {
-        $updatedDiff = $postingan->first()->updated_at->diffInSeconds(now());
-
-        if ($updatedDiff < 60) {
-            $updatedAgo = $updatedDiff . ' detik yang lalu';
-        } elseif ($updatedDiff < 3600) {
-            $updatedAgo = floor($updatedDiff / 60) . ' menit yang lalu';
-        } elseif ($updatedDiff < 86400) {
-            $updatedAgo = floor($updatedDiff / 3600) . ' jam yang lalu';
-        } else {
-            $updatedAgo = $postingan->first()->updated_at->diffInDays(now()) . ' hari yang lalu';
-        }
+    foreach ($postingan as $time) {
+        $time->timeAgo = $this->getTimeAgo($time->updated_at);
     }
 
-    return view('profile.postingan', compact('postingan', 'updatedAgo'));
+    return view('profile.postingan', compact('postingan'));
 }
 
     public function create()
