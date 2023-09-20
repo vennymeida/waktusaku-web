@@ -34,18 +34,18 @@ class PostinganController extends Controller
     }
 
     public function index(Postingan $postingan)
-{
-    $userId = Auth::user()->id;
-    $postingan = Postingan::where('user_id', $userId)
-    ->orderBy('created_at', 'desc')
-    ->get();
+    {
+        $userId = Auth::user()->id;
+        $postingan = Postingan::where('user_id', $userId)
+        ->orderBy('created_at', 'desc')
+        ->get();
 
-    foreach ($postingan as $time) {
-        $time->timeAgo = $this->getTimeAgo($time->updated_at);
+        foreach ($postingan as $time) {
+            $time->timeAgo = $this->getTimeAgo($time->updated_at);
+        }
+
+        return view('profile.postingan', compact('postingan'));
     }
-
-    return view('profile.postingan', compact('postingan'));
-}
 
     public function create()
     {

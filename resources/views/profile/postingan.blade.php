@@ -166,7 +166,22 @@
             </div>
         </div>
     </div>
+    <script>
+        @if (session('success') === 'success-create')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Postingan berhasil ditambahkan.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
 @endsection
+
+@push('customScript')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+@endpush
 
 @push('customScript')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -230,27 +245,6 @@
                 });
             });
         });
-    </script>
-    <script>
-        @if (session('success') === 'success-create')
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: 'Postingan berhasil ditambahkan.',
-                confirmButtonText: 'OK'
-            });
-        @endif
-    </script>
-
-    <script>
-        @if (session('success') === 'success-edit')
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: 'Postingan berhasil diubah.',
-                confirmButtonText: 'OK'
-            });
-        @endif
     </script>
 @endpush
 @push('customStyle')
