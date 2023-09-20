@@ -39,7 +39,8 @@
                                         <option value="" selected>Lokasi</option>
                                         @foreach ($kecamatan as $item)
                                             <option value="{{ $item->kecamatan }}"
-                                                @if ($item->kecamatan == $selectedLokasi) selected @endif>{{ $item->kecamatan }}</option>
+                                                @if ($item->kecamatan == $selectedLokasi) selected @endif>{{ $item->kecamatan }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     {{-- <div class="input-group-prepend">
@@ -58,7 +59,7 @@
                                         </div>
                                     </div> --}}
                                     <select name="kategori" id="kategori" class="form-control form-jobs select2 kategori"
-                                    multiple>
+                                        multiple>
                                         {{-- <option value="">Pilih Kategori</option> --}}
                                         @foreach ($kategoris as $item)
                                             <option value="{{ $item->kategori }}"
@@ -88,9 +89,13 @@
         <section>
             <div class="col-md-12 mt-5 mx-auto d-flex flex-wrap justify-content-center">
                 @if ($bookmarks->isEmpty())
-                <div class="alert">
+                    {{-- <div class="alert">
                     <p class="mt-4">Tidak ada pekerjaan yang di-bookmark ditemukan.</p>
-                </div>
+                </div> --}}
+                    <div class="col-md-12 text-center my-2">
+                        <img src="{{ asset('assets/img/landing-page/bookmark.png') }}">
+                        <p class="mt-1 text-not">Belum ada pekerjaan yang di-bookmark ditemukan.</p>
+                    </div>
                 @else
                     @foreach ($bookmarks as $key => $bookmark)
                         @if ($bookmark->lowonganPekerjaan)
@@ -115,8 +120,9 @@
                                                 <li class="mb-2">
                                                     <img class="img-fluid img-icon"
                                                         src="{{ asset('assets/img/landing-page/list.svg') }}">
-                                                        @foreach ($bookmark->lowonganPekerjaan->kategori as $index => $kategori)
-                                                        {{ $kategori->kategori }}@if ($index < count($bookmark->lowonganPekerjaan->kategori) - 1),
+                                                    @foreach ($bookmark->lowonganPekerjaan->kategori as $index => $kategori)
+                                                        {{ $kategori->kategori }}@if ($index < count($bookmark->lowonganPekerjaan->kategori) - 1)
+                                                            ,
                                                         @endif
                                                     @endforeach
                                                 </li>
@@ -146,15 +152,17 @@
                                                 {{ $bookmark->lowonganPekerjaan->lokasi }}
                                             </li>
                                             <li class="mb-2"><img class="img-fluid img-icon"
-                                                src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
-                                            {{ $bookmark->lowonganPekerjaan->perusahaan->alamat_perusahaan }}, {{$bookmark->lowonganPekerjaan->perusahaan->kelurahan->kelurahan}},
-                                            {{$bookmark->lowonganPekerjaan->perusahaan->kecamatan->kecamatan}}
-                                        </li>
+                                                    src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                                {{ $bookmark->lowonganPekerjaan->perusahaan->alamat_perusahaan }},
+                                                {{ $bookmark->lowonganPekerjaan->perusahaan->kelurahan->kelurahan }},
+                                                {{ $bookmark->lowonganPekerjaan->perusahaan->kecamatan->kecamatan }}
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="text-center mb-3">
                                         <a id="detail-button" class="btn btn-primary px-4 py-2" style="border-radius: 25px;"
-                                            href="{{ route('all-jobs.show', $bookmark->lowonganPekerjaan->id) }}">Lihat Detail</a>
+                                            href="{{ route('all-jobs.show', $bookmark->lowonganPekerjaan->id) }}">Lihat
+                                            Detail</a>
                                     </div>
                                 </div>
                             </div>
