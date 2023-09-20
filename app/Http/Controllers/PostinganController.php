@@ -9,16 +9,53 @@ use App\Http\Requests\StorePostinganRequest;
 use App\Http\Requests\UpdatePostinganRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PostinganController extends Controller
 {
 
-    public function index()
+    public function getTimeAgo($timestamp)
     {
-        $userId = Auth::user()->id;
-        $postingan = Postingan::where('user_id', $userId)->get();
-        return view('profile.postingan', compact('postingan'));
+        $currentTime = Carbon::now();
+        $timeDiff = $currentTime->diffInSeconds($timestamp);
+
+        if ($timeDiff < 60) {
+            return "Tayang {$timeDiff} detik yang lalu";
+        } elseif ($timeDiff < 3600) {
+            $minutes = floor($timeDiff / 60);
+            return "Tayang {$minutes} menit yang lalu";
+        } elseif ($timeDiff < 86400) {
+            $hours = floor($timeDiff / 3600);
+            return "Tayang {$hours} jam yang lalu";
+        } else {
+            $days = floor($timeDiff / 86400);
+            return "Tayang {$days} hari yang lalu";
+        }
     }
+
+    public function index(Postingan $postingan)
+{
+    $userId = Auth::user()->id;
+    $postingan = Postingan::where('user_id', $userId)->get();
+
+    $updatedAgo = null; // Inisialisasi variabel $updatedAgo
+
+    if ($postingan->isNotEmpty()) {
+        $updatedDiff = $postingan->first()->updated_at->diffInSeconds(now());
+
+        if ($updatedDiff < 60) {
+            $updatedAgo = $updatedDiff . ' detik yang lalu';
+        } elseif ($updatedDiff < 3600) {
+            $updatedAgo = floor($updatedDiff / 60) . ' menit yang lalu';
+        } elseif ($updatedDiff < 86400) {
+            $updatedAgo = floor($updatedDiff / 3600) . ' jam yang lalu';
+        } else {
+            $updatedAgo = $postingan->first()->updated_at->diffInDays(now()) . ' hari yang lalu';
+        }
+    }
+
+    return view('profile.postingan', compact('postingan', 'updatedAgo'));
+}
 
     public function create()
     {

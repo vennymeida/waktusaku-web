@@ -41,7 +41,7 @@
                         <div class="col-md-9">
                             <h4><strong>{{ $pelamar->name }}</strong></h4>
                             <h6 class="mt-4"><strong>Ringkasan</strong></h6>
-                            <p>{{ ($pelamar->profile)->ringkasan ?: '-' }}</p>
+                            <p>{{ optional($pelamar->profile)->ringkasan ?: '-' }}</p>
 
                             <h6 class="mt-5"><strong>Personal Info</strong></h6>
                             <dl class="row">
