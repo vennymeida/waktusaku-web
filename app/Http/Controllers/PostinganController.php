@@ -9,14 +9,41 @@ use App\Http\Requests\StorePostinganRequest;
 use App\Http\Requests\UpdatePostinganRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PostinganController extends Controller
 {
 
-    public function index()
+    public function getTimeAgo($timestamp)
+    {
+        $currentTime = Carbon::now();
+        $timeDiff = $currentTime->diffInSeconds($timestamp);
+
+        if ($timeDiff < 60) {
+            return "Tayang {$timeDiff} detik yang lalu";
+        } elseif ($timeDiff < 3600) {
+            $minutes = floor($timeDiff / 60);
+            return "Tayang {$minutes} menit yang lalu";
+        } elseif ($timeDiff < 86400) {
+            $hours = floor($timeDiff / 3600);
+            return "Tayang {$hours} jam yang lalu";
+        } else {
+            $days = floor($timeDiff / 86400);
+            return "Tayang {$days} hari yang lalu";
+        }
+    }
+
+    public function index(Postingan $postingan)
     {
         $userId = Auth::user()->id;
-        $postingan = Postingan::where('user_id', $userId)->get();
+        $postingan = Postingan::where('user_id', $userId)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        foreach ($postingan as $time) {
+            $time->timeAgo = $this->getTimeAgo($time->updated_at);
+        }
+
         return view('profile.postingan', compact('postingan'));
     }
 
@@ -41,7 +68,7 @@ class PostinganController extends Controller
 
         $postingan->save();
 
-        return redirect()->route('postingan.index')->with('success', 'Postingan berhasil ditambahkan.');
+        return redirect()->route('postingan.index')->with('success', 'success-create');
     }
 
     public function show(Postingan $postingan)
@@ -97,6 +124,6 @@ class PostinganController extends Controller
     {
         $postingan->delete();
 
-        return redirect()->route('profile.index')->with('success', 'Postingan berhasil dihapus.');
+        return redirect()->route('postingan.index')->with('success', 'success-delete');
     }
 }
