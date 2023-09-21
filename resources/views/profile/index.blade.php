@@ -1521,7 +1521,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
-                                        <textarea name="konteks" id="konteks" class="form-control @error('konteks') is-invalid @enderror" required>
+                                        <textarea name="konteks" id="konteks" class="form-control @error('konteks') is-invalid @enderror" required rows="5" cols="50">
                                             @isset($post)
                                                 {!! $post->konteks !!}
                                             @endisset

@@ -24,28 +24,8 @@
             <div id="postingan-container">
                 <div class="col-md-12">
                     @foreach ($postingan as $post)
-                        <section class="centered-section">
-                            {{-- <div class="bg-primary-section col-md-10 py-1">
-                                <div class="font-italic mt-2 time" style="font-size: 14px;">{{ auth()->user()->name }}
-                                    - Diposting {{ $post->timeAgo }}
-                                </div>
-                                <div class="media mb-2">
-                                    <img class="mr-3 rounded"width="100" height="100"
-                                        src="{{ asset('storage/' . $post->media) }}">
-                                    <div class="media-body">
-                                        {!! $post->konteks !!}
-                                    </div>
-                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                                        <a href="#" data-id="{{ $post->id }}"
-                                            data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
-                                            class="modal-edit-trigger-postingan">
-                                            <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <div class="col-md-8">
+                        <section class="centered-section mb-0">
+                            <div class="col-md-10">
                                 <div class="post">
                                     <div class="post-author">
                                         <img src="{{ asset('assets/img/avatar/avatar-1.png') }}">
@@ -57,7 +37,7 @@
                                                         src="{{ asset('assets/img/landing-page/Time.svg') }}"
                                                         style="max-width: 16px; max-height: 16px; margin-right: 5px;">
                                                     <h4 class="mb-0">{{ $post->timeAgo }} </h4>
-                                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;"
+                                                    <div class="d-flex justify-content-end ml-3" style="font-size: 2.00em;"
                                                         id="fluid">
                                                         <a href="#" data-id="{{ $post->id }}"
                                                             data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
