@@ -56,6 +56,10 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'message.index']);
         Permission::create(['name' => 'message.destroy']);
 
+        //PostinganAdmin
+        Permission::create(['name' => 'postinganadmin.index']);
+        Permission::create(['name' => 'postinganadmin.destroy']);
+
         //role
         Permission::create(['name' => 'role.index']);
         Permission::create(['name' => 'role.create']);

@@ -49,6 +49,12 @@ class MenuItemSeeder extends Seeder
                     'menu_group_id' => 2,
                 ],
                 [
+                    'name' => 'Postingan List',
+                    'route' => 'user-management/postinganadmin',
+                    'permission_name' => 'postinganadmin.index',
+                    'menu_group_id' => 2,
+                ],
+                [
                     'name' => 'Role List',
                     'route' => 'role-and-permission/role',
                     'permission_name' => 'role.index',

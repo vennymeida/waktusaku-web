@@ -19,6 +19,7 @@ use App\Http\Controllers\PendidikanController;
 use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\PostinganController;
+use App\Http\Controllers\PostinganAdminController;
 use App\Http\Controllers\LamarController;
 use App\Http\Controllers\LamarPerusahaan;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
@@ -157,6 +158,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::get('/message', [ContactUsController::class, 'index'])->name('message.index');
         Route::delete('/message/{contactUs}', [ContactUsController::class, 'destroy'])->name('message.destroy');
+
+        Route::resource('postinganadmin', PostinganAdminController::class);
     });
 
     Route::prefix('menu-management')->group(function () {
