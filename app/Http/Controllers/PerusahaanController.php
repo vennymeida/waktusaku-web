@@ -29,7 +29,7 @@ class PerusahaanController extends Controller
                     'website' => 'nullable|string|max:255',
                     'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                     'no_hp_perusahaan' => 'nullable|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/',
-                    'deskripsi' => 'nullable|string|max:255',
+                    'deskripsi' => 'nullable',
                     'siu' => 'nullable|file|mimes:pdf|max:2048',
                 ],
                 [
@@ -44,7 +44,7 @@ class PerusahaanController extends Controller
                     'logo.mimes' => 'Logo Hanya Mendukung Format jpeg, png, jpg',
                     'logo.max' => 'Ukuran Logo Terlalu Besar',
                     'no_hp_perusahaan.regex' => 'Nomor Hp Tidak Sesuai Format',
-                    'deskripsi.max' => 'Deskripsi Melebihi Batas Maksimal',
+                    // 'deskripsi.max' => 'Deskripsi Melebihi Batas Maksimal',
                     'siu.mimes' => 'Surat Izin Usaha Hanya Mendukung Format pdf',
                     'siu.max' => 'Ukuran Surat Izin Usaha Terlalu Besar',
                 ],
