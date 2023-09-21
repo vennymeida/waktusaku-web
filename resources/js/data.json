@@ -290,5 +290,43 @@
         { "name": "Korean Tutoring" },
         { "name": "German Tutoring" },
         { "name": "Accounting Tutoring" }
+    ],
+    "Pertanian":[
+        {"name": "Pengetahuan Tanaman"},
+        {"name": "Pertanian Organik"},
+        {"name": "Manajemen Lahan"},
+        {"name": "Penggunaan Alat Pertanian"},
+        {"name": "Pengendalian Hama dan Penyakit"},
+        {"name": "Irigasi dan Manajemen Air"},
+        {"name": "Perbengkelan Pertanian"},
+        {"name": "Pengetahuan tentang Tanah"},
+        {"name": "Penanaman dan Penyemaian"},
+        {"name": "Penyimpanan dan Pascapanen"},
+        {"name": "Kendali Kualitas"},
+        {"name": "Manajemen Keuangan Pertanian"},
+        {"name": "Teknologi Pertanian"},
+        {"name": "Keterampilan Penelitian"},
+        {"name": "Hukum Pertanian"},
+        {"name": "Pengujian Tanah"},
+        {"name": "Manajemen Proyek Pertanian"},
+        {"name": "Penggunaan Pupuk dan Pestisida"}
+    ],
+    "Peternakan":[
+        {"name": "Pengetahuan Ternak"},
+        {"name": "Kesehatan Hewan"},
+        {"name": "Nutrisi Ternak"},
+        {"name": "Reproduksi Ternak"},
+        {"name": "Pemeliharaan Kandang"},
+        {"name": "Manajemen Limbah"},
+        {"name": "Pengelolaan Ternak"},
+        {"name": "Penggunaan Teknologi Ternak"},
+        {"name": "Penyembelihan"},
+        {"name": "Manajemen Stok"},
+        {"name": "Penanganan Kedaruratan"},
+        {"name": "Pemeriksaan Veteriner"},
+        {"name": "Hukum Peternakan"},
+        {"name": "Manajemen Keuangan Peternakan"},
+        {"name": "Teknologi Reproduksi"},
+        {"name": "Pengendalian Penyakit"}
     ]
 }
