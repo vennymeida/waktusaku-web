@@ -12,11 +12,6 @@ use Spatie\Permission\Models\Permission;
 
 class MenuGroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         //
@@ -28,11 +23,6 @@ class MenuGroupController extends Controller
         return view('menu.menu-group.index', compact('menuGroups'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -40,12 +30,6 @@ class MenuGroupController extends Controller
         return view('menu.menu-group.create', compact('permissions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreMenuGroupRequest $request)
     {
         //
@@ -53,36 +37,17 @@ class MenuGroupController extends Controller
         return redirect()->route('menu-group.index')->with('success', 'Data berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MenuGroup  $menuGroup
-     * @return \Illuminate\Http\Response
-     */
     public function show(MenuGroup $menuGroup)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MenuGroup  $menuGroup
-     * @return \Illuminate\Http\Response
-     */
     public function edit(MenuGroup $menuGroup)
     {
         //
         return view('menu.menu-group.edit', compact('menuGroup'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MenuGroup  $menuGroup
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateMenuGroupRequest $request, MenuGroup $menuGroup)
     {
         //
@@ -90,12 +55,6 @@ class MenuGroupController extends Controller
         return redirect()->route('menu-group.index')->with('success', 'Data berhasil diubah');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\MenuGroup  $menuGroup
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(MenuGroup $menuGroup)
     {
         //

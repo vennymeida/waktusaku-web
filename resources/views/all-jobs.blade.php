@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <form id="search-form" class="form-row" method="GET" action="{{ route('all-jobs.index') }}"
                             onsubmit="handleFormSubmit()">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-5">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text icon-form">
@@ -54,7 +54,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <button id="search-button" class="btn btn-primary mr-1 px-4 py-2" type="submit"
                                     style="border-radius: 15px;">Cari</button>
                             </div>

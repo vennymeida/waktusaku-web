@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Table</h1>
         </div>
         <div class="section-body">
             <h2 class="section-title">Edit Keahlian</h2>
-            <div class="card">
+            <div class="card" style="border-radius: 15px;">
                 <form action="{{ route('keahlian.update', $keahlian) }}" method="POST">
                     <div class="card-header">
                         <h4>Validasi Edit Data Keahlian</h4>
@@ -17,7 +17,8 @@
                         <div class="form-group">
                             <label for="keahlian">keahlian</label>
                             <input type="text" class="form-control @error('keahlian') is-invalid @enderror"
-                                id="keahlian"name="keahlian" value="{{ $keahlian->keahlian }}">
+                                id="keahlian"name="keahlian" value="{{ $keahlian->keahlian }}"
+                                style="border-radius: 15px;">
                             @error('keahlian')
                                 <div class="invalid-feedback">
                                     {{ $message }}

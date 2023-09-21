@@ -3,7 +3,7 @@
 @section('content')
     <!-- Main Content -->
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Kelurahan List</h1>
         </div>
         <div class="section-body">
@@ -16,7 +16,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
+                    <div class="card card-primary" style="border-radius: 15px;">
                         <div class="card-header">
                             <h4>List Kelurahan</h4>
                             <div class="card-header-action">
@@ -91,42 +91,43 @@
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Kecamatan</th>
-                                            <th>Kelurahan</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kecamatan</th>
+                                                <th>Kelurahan</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
                                         </thead>
-                                        @if($kelurahans->isEmpty())
+                                        @if ($kelurahans->isEmpty())
                                             <tr>
                                                 <td colspan="3" class="text-center">Data tidak tersedia</td>
                                             </tr>
                                         @else
-                                        @foreach ($kelurahans as $key => $kelurahan)
-                                            <tr>
-                                                <td>{{ ($kelurahans->currentPage() - 1) * $kelurahans->perPage() + $key + 1 }}
-                                                </td>
-                                                <td>{{ $kelurahan->kecamatan }}</td>
-                                                <td>{{ $kelurahan->kelurahan }}</td>
-                                                <td class="text-center">
-                                                    <div class="d-flex justify-content-center">
-                                                        <a href="{{ route('kelurahan.edit', $kelurahan->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon "><i
-                                                                class="fas fa-edit"></i>
-                                                            Edit</a>
-                                                        <form action="{{ route('kelurahan.destroy', $kelurahan->id) }}"
-                                                            method="POST" class="ml-2">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}">
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                            @foreach ($kelurahans as $key => $kelurahan)
+                                                <tr>
+                                                    <td>{{ ($kelurahans->currentPage() - 1) * $kelurahans->perPage() + $key + 1 }}
+                                                    </td>
+                                                    <td>{{ $kelurahan->kecamatan }}</td>
+                                                    <td>{{ $kelurahan->kelurahan }}</td>
+                                                    <td class="text-center">
+                                                        <div class="d-flex justify-content-center">
+                                                            <a href="{{ route('kelurahan.edit', $kelurahan->id) }}"
+                                                                class="btn btn-sm btn-info btn-icon "><i
+                                                                    class="fas fa-edit"></i>
+                                                                Edit</a>
+                                                            <form action="{{ route('kelurahan.destroy', $kelurahan->id) }}"
+                                                                method="POST" class="ml-2">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token"
+                                                                    value="{{ csrf_token() }}">
+                                                                <button
+                                                                    class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                                    <i class="fas fa-times"></i> Delete </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @endif
                                     </tbody>
                                 </table>

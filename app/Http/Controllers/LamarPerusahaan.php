@@ -31,24 +31,24 @@ class LamarPerusahaan extends Controller
         $statuses = ['Pending', 'Diterima', 'Ditolak'];
         $selectedStatus = $request->input('status');
 
-        $allResults = DB::table('lamars as l')
-            ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
-            ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
-            ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
-            ->join('users as u', 'pu.user_id', '=', 'u.id')
-            ->select('l.id', 'l.id_pencari_kerja', 'u.name', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'l.created_at')
-            ->when($request->has('search'), function ($query) use ($request) {
-                $search = $request->input('search');
-                return $query
-                    ->where('lp.judul', 'like', '%' . $search . '%')
-                    ->orWhere('u.name', 'like', '%' . $search . '%')
-                    ->orWhere('p.nama', 'like', '%' . $search . '%');
-            })
-            ->when($selectedStatus, function ($query, $selectedStatus) {
-                return $query->where('l.status', $selectedStatus);
-            })
-            ->orderBy('l.created_at', 'desc')
-            ->paginate(10);
+        // $allResults = DB::table('lamars as l')
+        //     ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
+        //     ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
+        //     ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
+        //     ->join('users as u', 'pu.user_id', '=', 'u.id')
+        //     ->select('l.id', 'l.id_pencari_kerja', 'u.name', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'l.created_at')
+        //     ->when($request->has('search'), function ($query) use ($request) {
+        //         $search = $request->input('search');
+        //         return $query
+        //             ->where('lp.judul', 'like', '%' . $search . '%')
+        //             ->orWhere('u.name', 'like', '%' . $search . '%')
+        //             ->orWhere('p.nama', 'like', '%' . $search . '%');
+        //     })
+        //     ->when($selectedStatus, function ($query, $selectedStatus) {
+        //         return $query->where('l.status', $selectedStatus);
+        //     })
+        //     ->orderBy('l.created_at', 'desc')
+        //     ->paginate(10);
 
         $loggedInUserId = Auth::id();
         $user = auth()->user();
@@ -62,7 +62,7 @@ class LamarPerusahaan extends Controller
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
             ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
             ->join('users as u', 'pu.user_id', '=', 'u.id')
-            ->select('l.id', 'u.name', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'pu.harapan_gaji', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'p.user_id', 'l.created_at')
+            ->select('l.id', 'u.name', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'pu.harapan_gaji', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'p.user_id', 'l.created_at', 'pu.tgl_lahir')
             ->where('p.user_id', $loggedInUserId)
             ->when($request->has('search'), function ($query) use ($request) {
                 $search = $request->input('search');
@@ -76,12 +76,16 @@ class LamarPerusahaan extends Controller
 
         if (Auth::user()->hasRole('Perusahaan')) {
             if ($profileUser == null && $perusahaan == null) {
-                return redirect()->route('profile.edit');
+                return redirect()->route('profile.edit')->with('message-data', 'Lengkapi data profil dan data perusahaan terlebih dahulu sebelum menambahkan lowongan kerja dan mendapat pelamar kerja.');
+            } elseif ($profileUser == null) {
+                return redirect()->route('profile.edit')->with('message-data', 'Lengkapi data profil terlebih dahulu sebelum menambahkan lowongan kerja dan mendapat pelamar kerja.');
+            } elseif ($perusahaan == null) {
+                return redirect()->route('profile.edit')->with('message-data', 'Lengkapi data perusahaan terlebih dahulu sebelum menambahkan lowongan kerja dan mendapat pelamar kerja.');
             } else {
-                return view('lamar-perusahaan.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
+                return view('lamar-perusahaan.index', ['loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
             }
         } else {
-            return view('lamar-perusahaan.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
+            return view('lamar-perusahaan.index', ['loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
         }
     }
 

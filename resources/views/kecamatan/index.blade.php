@@ -3,7 +3,7 @@
 @section('content')
     <!-- Main Content -->
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>List Kecamatan</h1>
         </div>
         <div class="section-body">
@@ -16,7 +16,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
+                    <div class="card card-primary" style="border-radius: 15px;">
                         <div class="card-header">
                             <h4>Kecamatan List</h4>
                             <div class="card-header-action">
@@ -84,40 +84,41 @@
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Kecamatan</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kecamatan</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
                                         </thead>
-                                        @if($kecamatans->isEmpty())
+                                        @if ($kecamatans->isEmpty())
                                             <tr>
                                                 <td colspan="3" class="text-center">Data tidak tersedia</td>
                                             </tr>
                                         @else
-                                        @foreach ($kecamatans as $key => $kecamatan)
-                                            <tr>
-                                                <td>{{ ($kecamatans->currentPage() - 1) * $kecamatans->perPage() + $key + 1 }}
-                                                </td>
-                                                <td>{{ $kecamatan->kecamatan }}</td>
-                                                <td class="text-center">
-                                                    <div class="d-flex justify-content-center">
-                                                        <a href="{{ route('kecamatan.edit', $kecamatan->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon "><i
-                                                                class="fas fa-edit"></i>
-                                                            Edit</a>
-                                                        <form action="{{ route('kecamatan.destroy', $kecamatan->id) }}"
-                                                            method="POST" class="ml-2">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}">
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                            @foreach ($kecamatans as $key => $kecamatan)
+                                                <tr>
+                                                    <td>{{ ($kecamatans->currentPage() - 1) * $kecamatans->perPage() + $key + 1 }}
+                                                    </td>
+                                                    <td>{{ $kecamatan->kecamatan }}</td>
+                                                    <td class="text-center">
+                                                        <div class="d-flex justify-content-center">
+                                                            <a href="{{ route('kecamatan.edit', $kecamatan->id) }}"
+                                                                class="btn btn-sm btn-info btn-icon "><i
+                                                                    class="fas fa-edit"></i>
+                                                                Edit</a>
+                                                            <form action="{{ route('kecamatan.destroy', $kecamatan->id) }}"
+                                                                method="POST" class="ml-2">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="_token"
+                                                                    value="{{ csrf_token() }}">
+                                                                <button
+                                                                    class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                                    <i class="fas fa-times"></i> Delete </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @endif
                                     </tbody>
                                 </table>

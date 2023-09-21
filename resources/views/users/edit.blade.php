@@ -2,17 +2,12 @@
 
 @section('content')
     <section class="section">
-        <div class="section-header">
-            <h1>Table</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Components</a></div>
-                <div class="breadcrumb-item">Table</div>
-            </div>
+        <div class="section-header" style="border-radius: 15px;">
+            <h1>Table Users</h1>
         </div>
         <div class="section-body">
             <h2 class="section-title">Edit User</h2>
-            <div class="card">
+            <div class="card" style="border-radius: 15px;">
                 <form action="{{ route('user.update', $user) }}" method="POST">
                     <div class="card-header">
                         <h4>Validasi Edit Data User</h4>
@@ -23,7 +18,7 @@
                         <div class="form-group">
                             <label for="name">Your Name</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name" value="{{ $user->name }}">
+                                name="name" value="{{ $user->name }}" style="border-radius: 15px;">
                             @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -33,7 +28,7 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
-                                name="email" value="{{ $user->email }}">
+                                name="email" value="{{ $user->email }}" style="border-radius: 15px;">
                             @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -45,7 +40,7 @@
                         <div class="form-group">
                             <label for="roles">Assign Roles</label>
                             <select name="roles[]" class="form-control select2">
-                                @foreach($roles as $role)
+                                @foreach ($roles as $role)
                                     <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
                                         {{ $role->name }}
                                     </option>
@@ -60,7 +55,7 @@
                     </div>
                 </form>
             </div>
-            
+
         </div>
     </section>
 @endsection
@@ -72,11 +67,8 @@
 @push('customScript')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.select2').select2();
         });
     </script>
 @endpush
-
-
-

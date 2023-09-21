@@ -44,7 +44,7 @@ class KelurahanController extends Controller
     public function create()
     {
         $kecamatans = Kecamatan::all();
-        return view('   kelurahan.create')->with(['kecamatans' => $kecamatans]);
+        return view('kelurahan.create')->with(['kecamatans' => $kecamatans]);
     }
 
     public function store(StoreKelurahanRequest $request)

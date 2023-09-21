@@ -2,20 +2,15 @@
 
 @section('content')
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>View Perusahaan</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('pelamarkerja.index') }}">Data Pelamar Kerja</a></div>
-                <div class="breadcrumb-item active">View Pelamar Kerja</div>
-            </div>
         </div>
         <div class="section-body">
             <h2 class="section-title">Detail Pelamar Kerja</h2>
             <div class="section-body">
                 <div class="row justify-content-center">
                     <div class="col-12"> <!-- Use col-12 to take up the full width -->
-                        <div class="card">
+                        <div class="card" style="border-radius: 15px;">
                             <div class="card-body">
                                 <p class="card-title font-weight-bolder" style="font-size: 25px;">
                                     <a href="{{ route('pelamarkerja.index') }}">
@@ -83,7 +78,8 @@
                                                 <dd class="col-sm-8 mt-2">
                                                     @if ($lamar && $lamar->resume)
                                                         <a href="{{ asset('storage/' . $lamar->resume) }}"
-                                                            onclick="return openResume();" target="_blank" class="btn btn-primary btn-sm">
+                                                            onclick="return openResume();" target="_blank"
+                                                            class="btn btn-primary btn-sm">
                                                             Lihat Resume
                                                         </a>
                                                     @else
@@ -161,7 +157,7 @@
                                                 // Mengambil tanggal mulai dan tanggal berakhir dari kode HTML
                                                 $tanggal_mulai = $pengalaman->tanggal_mulai;
                                                 $tanggal_berakhir = $pengalaman->tanggal_berakhir;
-
+                                                
                                                 // Mengubah format tanggal ke "d F Y" (contoh: "4 August 2023")
                                                 $tanggal_mulai = date('j F Y', strtotime($tanggal_mulai));
                                                 $tanggal_berakhir = date('j F Y', strtotime($tanggal_berakhir));

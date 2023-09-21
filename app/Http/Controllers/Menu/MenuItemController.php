@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Route;
 
 class MenuItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         //
@@ -33,11 +28,6 @@ class MenuItemController extends Controller
         return view('menu.menu-item.index', compact('menuItems'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -46,60 +36,28 @@ class MenuItemController extends Controller
         return view('menu.menu-item.create', compact('routeCollection', 'menuGroups'));
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreMenuItemRequest $request)
     {
         MenuItem::create($request->validated());
         return redirect()->route('menu-item.index')->with('success', 'Data berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MenuItem  $menuItem
-     * @return \Illuminate\Http\Response
-     */
     public function show(MenuItem $menuItem)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MenuItem  $menuItem
-     * @return \Illuminate\Http\Response
-     */
     public function edit(MenuItem $menuItem)
     {
         return view('menu.menu-item.edit', compact('menuItem'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MenuItem  $menuItem
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateMenuItemRequest $request, MenuItem $menuItem)
     {
         $menuItem->update($request->validated());
         return redirect()->route('menu-item.index')->with('success', 'Data berhasil diubah');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\MenuItem  $menuItem
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(MenuItem $menuItem)
     {
         $menuItem->delete();

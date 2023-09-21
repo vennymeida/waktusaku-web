@@ -3,13 +3,8 @@
 @section('content')
     <!-- Main Content -->
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Roles and Permission</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Components</a></div>
-                <div class="breadcrumb-item">Table</div>
-            </div>
         </div>
         <div class="section-body">
             <h2 class="section-title">Assign User To Role</h2>
@@ -21,7 +16,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
+                    <div class="card card-primary" style="border-radius: 15px;">
                         <div class="card-header">
                             <h4>List User Assigned To Role</h4>
                             <div class="card-header-action">
@@ -50,13 +45,13 @@
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Roles</th>
-                                            <th class="text-right">Action</th>
-                                        </tr>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Roles</th>
+                                                <th class="text-right">Action</th>
+                                            </tr>
                                         </thead>
                                         @foreach ($users as $key => $user)
                                             <tr>

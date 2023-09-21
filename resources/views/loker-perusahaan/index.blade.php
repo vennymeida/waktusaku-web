@@ -69,62 +69,67 @@
         <section>
             <div class="col-md-12 mx-auto d-flex flex-wrap justify-content-center">
                 @if ($loggedInUserResults->isEmpty())
-                    <p class="mt-4">Data Tidak Tersedia</p>
+                    {{-- <p class="mt-4">Data Tidak Tersedia</p> --}}
+                    <div class="col-md-12 text-center my-2">
+                        <img src="{{ asset('assets/img/landing-page/folder.png') }}">
+                        <p class="mt-1 text-not">Data tidak tersedia</p>
+                    </div>
                 @else
-                @foreach ($loggedInUserResults as $key => $loker)
-                    <div class="card col-md-5 mb-3 mx-2">
-                        <div class="card-body d-flex flex-column">
-                            <ul class="list-unstyled">
-                                <ul class="list-unstyled d-flex justify-content-between align-items-center">
-                                    <li class="font-weight-bold p-loker">Posisi : {{ $loker->judul }}</li>
-                                    <a href="{{ route('loker-perusahaan.edit', $loker->id) }}"
-                                        class="btn btn-info btn-icon py-1 px-4" style="border-radius: 15px;">
-                                        Edit
+                    @foreach ($loggedInUserResults as $key => $loker)
+                        <div class="card col-md-5 mb-3 mx-2">
+                            <div class="card-body d-flex flex-column">
+                                <ul class="list-unstyled">
+                                    <ul class="list-unstyled d-flex justify-content-between align-items-center">
+                                        <li class="font-weight-bold p-loker">Posisi : {{ $loker->judul }}</li>
+                                        <a href="{{ route('loker-perusahaan.edit', $loker->id) }}"
+                                            class="btn btn-info btn-icon py-1 px-4" style="border-radius: 15px;">
+                                            Edit
+                                        </a>
+                                    </ul>
+                                    <li class="mb-2"><img class="img-fluid img-icon"
+                                            src="{{ asset('assets/img/landing-page/money.svg') }}">
+                                        {{ 'IDR ' . $loker->gaji_bawah }}
+                                        <span>-</span>
+                                        {{ $loker->gaji_atas }}
+                                    </li>
+                                    <li class="mb-2"><img class="img-fluid img-icon"
+                                            src="{{ asset('assets/img/landing-page/job.svg') }}">
+                                        {{ $loker->min_pengalaman }}
+                                    </li>
+                                    <li class="mb-2"><img class="img-fluid img-icon"
+                                            src="{{ asset('assets/img/landing-page/hourglass.svg') }}">
+                                        {{ $loker->tipe_pekerjaan }}
+                                    </li>
+                                    <li class="mb-2"><img class="img-fluid img-icon"
+                                            src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
+                                        Minimal {{ $loker->min_pendidikan }}
+                                    </li>
+                                    <li class="mb-2">
+                                        Keahlian : {{ $loker->keahlian }}
+                                    </li>
+                                    <a href="{{ route('loker-perusahaan.show', $loker->id) }}" class="mb-2 font-italic"
+                                        style="font-size: 14px">
+                                        Lihat Selengkapnya...
                                     </a>
-                                </ul>
-                                <li class="mb-2"><img class="img-fluid img-icon"
-                                        src="{{ asset('assets/img/landing-page/money.svg') }}">
-                                    {{ 'IDR ' . $loker->gaji_bawah }}
-                                    <span>-</span>
-                                    {{ $loker->gaji_atas }}
-                                </li>
-                                <li class="mb-2"><img class="img-fluid img-icon"
-                                        src="{{ asset('assets/img/landing-page/job.svg') }}">
-                                    {{ $loker->min_pengalaman }}
-                                </li>
-                                <li class="mb-2"><img class="img-fluid img-icon"
-                                        src="{{ asset('assets/img/landing-page/hourglass.svg') }}">
-                                    {{ $loker->tipe_pekerjaan }}
-                                </li>
-                                <li class="mb-2"><img class="img-fluid img-icon"
-                                        src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
-                                    Minimal {{ $loker->min_pendidikan }}
-                                </li>
-                                <li class="mb-2">
-                                    Keahlian : {{ $loker->keahlian }}
-                                </li>
-                                <a href="{{ route('loker-perusahaan.show', $loker->id) }}" class="mb-2 font-italic"
-                                    style="font-size: 14px">
-                                    Lihat Selengkapnya...
-                                </a>
-                                <ul class="list-unstyled d-flex justify-content-between align-items-center mt-2">
-                                    <button
-                                        class="px-4 mt-2 mr-1 btn btn-status
+                                    <ul class="list-unstyled d-flex justify-content-between align-items-center mt-2">
+                                        <button
+                                            class="px-4 mt-2 mr-1 btn btn-status
                                         @if ($loker->status === 'Pending') btn-warning
                                         @elseif ($loker->status === 'Dibuka') btn-success
                                         @elseif ($loker->status === 'Ditutup') btn-secondary @endif">
-                                        {{ $loker->status }}
-                                    </button>
+                                            {{ $loker->status }}
+                                        </button>
 
-                                    <li class="font-italic time" style="font-size: 14px;"><img class="img-fluid img-icon"
-                                            src="{{ asset('assets/img/landing-page/Time.svg') }}">
-                                        {{ $loker->timeAgo }}
-                                    </li>
+                                        <li class="font-italic time" style="font-size: 14px;"><img
+                                                class="img-fluid img-icon"
+                                                src="{{ asset('assets/img/landing-page/Time.svg') }}">
+                                            {{ $loker->timeAgo }}
+                                        </li>
+                                    </ul>
                                 </ul>
-                            </ul>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
                 @endif
             </div>
         </section>
@@ -184,16 +189,16 @@
         @endif
     </script>
 
-<script>
-    @if (session('success') === 'success-edit')
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil',
-            text: 'Lowongan Pekerjaan berhasil diubah.',
-            confirmButtonText: 'OK'
-        });
-    @endif
-</script>
+    <script>
+        @if (session('success') === 'success-edit')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Lowongan Pekerjaan berhasil diubah.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
 @endsection
 
 @push('customScript')

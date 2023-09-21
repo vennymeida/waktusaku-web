@@ -2,18 +2,13 @@
 
 @section('content')
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Table Kelurahan</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Components</a></div>
-                <div class="breadcrumb-item">Table</div>
-            </div>
         </div>
         <div class="section-body">
             <h2 class="section-title">Tambah Kelurahan</h2>
 
-            <div class="card">
+            <div class="card" style="border-radius: 15px;">
                 <div class="card-header">
                     <h4>Validasi Tambah Kelurahan</h4>
                 </div>
@@ -40,7 +35,7 @@
                             <label>Kelurahan</label>
                             <input type="text" id="kelurahan" name="kelurahan"
                                 class="form-control @error('kelurahan') is-invalid @enderror"
-                                placeholder="Masukan Kelurahan" autocomplete="off">
+                                placeholder="Masukan Kelurahan" autocomplete="off" style="border-radius: 15px;">
                             @error('kelurahan')
                                 <div class="invalid-feedback">
                                     {{ $message }}

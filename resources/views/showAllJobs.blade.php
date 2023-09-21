@@ -51,20 +51,28 @@
                                 </p>
                             </ul>
                             <ul class="list-unstyled d-flex justify-content-between">
-                                @if (Auth::check() && auth()->user()->hasRole('Pencari Kerja'))
+                                @if (Auth::check() &&
+                                        auth()->user()->hasRole('Pencari Kerja'))
                                     @if (!$hasApplied)
-                                        <a id="detail-button" class="btn btn-primary px-5 py-2" style="border-radius: 25px; color: #ffffff;" data-toggle="modal" data-target="#lamarModal">Lamar</a>
+                                        <a id="detail-button" class="btn btn-primary px-5 py-2"
+                                            style="border-radius: 25px; color: #ffffff;" data-toggle="modal"
+                                            data-target="#lamarModal">Lamar</a>
                                     @else
                                         @switch($lamaranStatus)
                                             @case('Pending')
-                                                <button class="btn btn-danger px-5 py-2" style="border-radius: 25px; color: #ffffff;" disabled>Proses</button>
-                                                @break
+                                                <button class="btn btn-danger px-5 py-2"
+                                                    style="border-radius: 25px; color: #ffffff;" disabled>Proses</button>
+                                            @break
+
                                             @case('Diterima')
-                                                <button class="btn btn-success px-5 py-2" style="border-radius: 25px; color: #ffffff;" disabled>Diterima</button>
-                                                @break
+                                                <button class="btn btn-success px-5 py-2"
+                                                    style="border-radius: 25px; color: #ffffff;" disabled>Diterima</button>
+                                            @break
+
                                             @case('Ditolak')
-                                                <button class="btn btn-danger px-5 py-2" style="border-radius: 25px; color: #ffffff;" disabled>Ditolak</button>
-                                                @break
+                                                <button class="btn btn-danger px-5 py-2"
+                                                    style="border-radius: 25px; color: #ffffff;" disabled>Ditolak</button>
+                                            @break
                                         @endswitch
                                     @endif
                                 @endif

@@ -1,17 +1,12 @@
 @extends('layouts.app')
 @section('content')
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Table</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Components</a></div>
-                <div class="breadcrumb-item">Table</div>
-            </div>
         </div>
         <div class="section-body">
             <h2 class="section-title">Edit Kategori</h2>
-            <div class="card">
+            <div class="card" style="border-radius: 15px;">
                 <form action="{{ route('kategori.update', $kategori) }}" method="POST">
                     <div class="card-header">
                         <h4>Validasi Edit Data Kategori</h4>
@@ -22,7 +17,8 @@
                         <div class="form-group">
                             <label for="kategori">Kategori</label>
                             <input type="text" class="form-control @error('kategori') is-invalid @enderror"
-                            id="kategori"name="kategori" value="{{ $kategori->kategori }}">
+                                id="kategori"name="kategori" value="{{ $kategori->kategori }}"
+                                style="border-radius: 15px;">
                             @error('kategori')
                                 <div class="invalid-feedback">
                                     {{ $message }}

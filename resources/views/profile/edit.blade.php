@@ -819,6 +819,22 @@
                     confirmButtonText: 'OK'
                 });
             @endif
+            @if (session('message'))
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Peringatan',
+                    text: '{{ session('message') }}',
+                    confirmButtonText: 'OK'
+                });
+            @endif
+            @if (session('message-data'))
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Peringatan',
+                    text: '{{ session('message-data') }}',
+                    confirmButtonText: 'OK'
+                });
+            @endif
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
