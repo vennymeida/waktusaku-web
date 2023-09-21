@@ -46,6 +46,16 @@
                                                                 src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                                         </a>
                                                     </div>
+                                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;"
+                                                        id="fluid">
+                                                        <form action="{{ route('postingan.destroy', ['postingan' => $post->id]) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-link">
+                                                                <img class="img-fluid" style="width: 30px; height: 30px;" src="{{ asset('assets/img/landing-page/delete.svg') }}" alt="Hapus">
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <small>{{ auth()->user()->email }}</small>
@@ -152,6 +162,16 @@
                 icon: 'success',
                 title: 'Berhasil',
                 text: 'Postingan berhasil ditambahkan.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+    <script>
+        @if (session('success') === 'success-delete')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Postingan berhasil dihapus.',
                 confirmButtonText: 'OK'
             });
         @endif

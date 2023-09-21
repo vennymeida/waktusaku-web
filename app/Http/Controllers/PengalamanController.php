@@ -32,7 +32,7 @@ class PengalamanController extends Controller
         $pengalaman->user_id = $userId;
         $pengalaman->save();
 
-        return redirect()->route('pengalaman.index')->with('success', 'Pengalaman berhasil ditambahkan.');
+        return redirect()->route('profile.index')->with('success', 'Pengalaman berhasil ditambahkan.');
     }
 
     public function edit($id)

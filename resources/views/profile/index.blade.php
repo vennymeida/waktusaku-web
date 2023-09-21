@@ -808,11 +808,12 @@
                         <div id="postingan-container">
                             <div class="col-md-12">
                                 @foreach ($postingans as $post)
-                                <hr>
-                                <div class="font-italic mt-2 time" style="font-size: 14px;">{{ auth()->user()->name }}
-                                    - Diposting {{ $post->timeAgo }}
-                                </div>
-                                <br>
+                                    <hr>
+                                    <div class="font-italic mt-2 time" style="font-size: 14px;">
+                                        {{ auth()->user()->name }}
+                                        - Diposting {{ $post->timeAgo }}
+                                    </div>
+                                    <br>
                                     <div class="media mb-2">
                                         <img class="mr-3 rounded"width="70" height="70"
                                             src="{{ asset('storage/' . $post->media) }}">
@@ -827,6 +828,19 @@
                                                 <img class="img-fluid" style="width: 30px; height: 30px;"
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
+                                        </div>
+                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
+                                            id="fluid">
+                                            <form action="{{ route('profile.destroy', ['profile' => $post->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-link">
+                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                        src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                        alt="Hapus">
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 @endforeach
@@ -1521,10 +1535,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
-                                        <textarea name="konteks" id="konteks" class="form-control @error('konteks') is-invalid @enderror" required rows="5" cols="50">
+                                        <textarea name="konteks" id="konteks" class="form-control @error('konteks') is-invalid @enderror" required
+                                            rows="5" cols="50">
                                             @isset($post)
-                                                {!! $post->konteks !!}
-                                            @endisset
+{!! $post->konteks !!}
+@endisset
                                         </textarea>
                                         @if ($errors->has('konteks') && isset($post))
                                             <span class="invalid-feedback" role="alert">
@@ -1563,7 +1578,22 @@
             </div>
         </div>
     </div>
+    <script>
+        @if (session('success') === 'success-delete')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Postingan berhasil dihapus.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
 @endsection
+
+@push('customScript')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+@endpush
 
 @push('customScript')
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>

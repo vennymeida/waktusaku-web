@@ -117,6 +117,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::GET('/profile', [ProfileUserController::class, 'profile']);
     Route::GET('/profile', [ProfileUserController::class, 'index']);
     Route::get('/profile', [ProfileUserController::class, 'index'])->name('profile.index');
+    Route::delete('/profile/{profile}', [ProfileUserController::class, 'destroy'])->name('profile.destroy');
     // Route::get('/profile', function () {
     //     return view('profile.index');
     // });

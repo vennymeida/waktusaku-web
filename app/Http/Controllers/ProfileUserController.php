@@ -247,4 +247,11 @@ class ProfileUserController extends Controller
                 ->with('error', 'Terjadi kesalahan. Profil tidak dapat disimpan.');
         }
     }
+
+    public function destroy(Postingan $profile)
+    {
+        $profile->delete();
+
+        return redirect()->route('profile.index')->with('success', 'success-delete');
+    }
 }

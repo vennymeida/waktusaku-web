@@ -124,6 +124,6 @@ class PostinganController extends Controller
     {
         $postingan->delete();
 
-        return redirect()->route('profile.index')->with('success', 'Postingan berhasil dihapus.');
+        return redirect()->route('postingan.index')->with('success', 'success-delete');
     }
 }
