@@ -2,13 +2,13 @@
 
 @section('content')
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Table</h1>
         </div>
         <div class="section-body">
             <h2 class="section-title">Tambah Keahlian</h2>
 
-            <div class="card">
+            <div class="card" style="border-radius: 15px;">
                 <div class="card-header">
                     <h4>Validasi Tambah Data</h4>
                 </div>
@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <label for="keahlian">Keahlian</label>
                             <input type="text" class="form-control @error('keahlian') is-invalid @enderror"
-                                id="keahlian" name="keahlian" placeholder="Masukkan keahlian">
+                                id="keahlian" name="keahlian" placeholder="Masukkan keahlian" style="border-radius: 15px;">
                             @error('keahlian')
                                 <div class="invalid-feedback">
                                     {{ $message }}

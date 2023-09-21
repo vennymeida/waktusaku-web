@@ -3,7 +3,7 @@
 @section('content')
     <!-- Main Content -->
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Menu Pesan Pengguna</h1>
         </div>
         <div class="section-body">
@@ -16,7 +16,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
+                    <div class="card card-primary" style="border-radius: 15px;">
                         <div class="card-header">
                             <h4>Tabel Pesan Pengguna</h4>
                         </div>
@@ -25,13 +25,13 @@
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <thead>
-                                        <tr>
-                                            <th style="width: 10px">No</th>
-                                            <th style="width: 250px">Nama</th>
-                                            <th style="width: 250px">Email</th>
-                                            <th>Pesan</th>
-                                            <th class="text-center" style="width: 200px">Action</th>
-                                        </tr>
+                                            <tr>
+                                                <th style="width: 10px">No</th>
+                                                <th style="width: 250px">Nama</th>
+                                                <th style="width: 250px">Email</th>
+                                                <th>Pesan</th>
+                                                <th class="text-center" style="width: 200px">Action</th>
+                                            </tr>
                                         </thead>
                                         @foreach ($messages as $key => $message)
                                             <tr>

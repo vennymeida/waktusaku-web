@@ -15,29 +15,29 @@
                                 <div class="form-group col-md-4">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text icon-form">
-                                            </div>
+                                            {{-- <div class="input-group-text icon-form">
+                                            </div> --}}
                                         </div>
-                                        <select name="status" class="form-control form-jobs clearable" id="statusSelect">
-                                            <option value="" selected>-- Pilih Status --</option>
+                                        <select name="status" class="form-control form-jobs select2" id="statusSelect">
+                                            <option value="" selected>Pilih Status</option>
                                             @foreach ($statuses as $status)
                                                 <option value="{{ $status }}"
                                                     @if ($status == $selectedStatus) selected @endif>
                                                     {{ $status }}</option>
                                             @endforeach
                                         </select>
-                                        <div class="input-group-prepend">
+                                        {{-- <div class="input-group-prepend">
                                             <div class="input-group-text"
                                                 style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                                 <i class="fas fa-times-circle" id="clear-status" style="display: none;"></i>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-7">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text">
+                                            <div class="input-group-text icon-form">
                                                 <i class="fas fa-search ml-2"></i>
                                             </div>
                                         </div>
@@ -45,14 +45,14 @@
                                             placeholder="Cari Posisi Pekerjaan"
                                             value="{{ app('request')->input('search') }}">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text"
+                                            <div class="input-group-text x-form"
                                                 style="border-left: none; border-radius: 0px 15px 15px 0px;">
                                                 <i class="fas fa-times-circle" id="clear-search" style="display: none;"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-1">
                                     <button id="search-button" class="btn btn-primary mr-1 px-4" type="submit"
                                         style="border-radius: 15px;">Cari</button>
                                 </div>
@@ -125,11 +125,11 @@
                                                 <br>
                                                 <br>
                                                 <span
-                                                    class="badge py-2 px-4
-                                                    @if ($lamar->status === 'Pending') badge-warning
-                                                    @elseif ($lamar->status === 'Diterima') badge-success
-                                                    @elseif ($lamar->status === 'Ditolak') badge-danger @endif
-                                                    badge-custom text-white"style="border-radius: 25px; font-size: 13px;">
+                                                    class="py-2 px-4
+                                                    @if ($lamar->status === 'Pending') lamar-warning
+                                                    @elseif ($lamar->status === 'Diterima') lamar-success
+                                                    @elseif ($lamar->status === 'Ditolak') lamar-danger @endif
+                                                    "style="border-radius: 25px; font-size: 16px;">
                                                     {{ $lamar->status }}
                                                 </span>
                                             </div>
@@ -210,6 +210,24 @@
         </script>
 
         <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const formIcon = document.querySelector(".icon-form");
+                const formX = document.querySelector(".x-form");
+                const posisiInput = document.querySelector("input[name='search']");
+
+                posisiInput.addEventListener("focus", function() {
+                    formIcon.style.borderColor = '#95a0f4';
+                    formX.style.borderColor = '#95a0f4';
+                });
+
+                posisiInput.addEventListener("blur", function() {
+                    formIcon.style.borderColor = '';
+                    formX.style.borderColor = '';
+                });
+            })
+        </script>
+
+        <script>
             function handleFormSubmit() {
                 document.querySelectorAll('.clear-icon').forEach(icon => {
                     const input = icon.parentElement.querySelector('input');
@@ -227,12 +245,12 @@
                 window.location.href = '{{ route('lamarperusahaan.index') }}?status=' + selectedStatus;
             });
         </script>
-        <style>
+        {{-- <style>
             .badge-custom {
                 font-size: 0.8rem;
                 padding: 0.5rem 1rem;
             }
-        </style>
+        </style> --}}
         <script>
             @if (session('success') === 'success-status')
                 Swal.fire({
@@ -254,8 +272,19 @@
             @endif
         </script>
     @endsection
+    @push('customStyle')
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    @endpush
 
     @push('customScript')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.status').select2({
+                    placeholder: 'Pilih Status',
+                });
+            });
+        </script>
     @endpush

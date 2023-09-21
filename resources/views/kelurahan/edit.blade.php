@@ -2,18 +2,13 @@
 
 @section('content')
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Table Kelurahan</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Components</a></div>
-                <div class="breadcrumb-item">Table</div>
-            </div>
         </div>
         <div class="section-body">
             <h2 class="section-title">Edit Kelurahan</h2>
 
-            <div class="card">
+            <div class="card" style="border-radius: 15px;">
                 <div class="card-body">
                     <form action="{{ route('kelurahan.update', $kelurahan) }}" method="post">
                         @csrf
@@ -38,7 +33,8 @@
                         <div class="form-group">
                             <label>Kelurahan</label>
                             <input type="text" class="form-control @error('kelurahan') is-invalid @enderror"
-                                id="kelurahan" name="kelurahan" value="{{ $kelurahan->kelurahan }}">
+                                id="kelurahan" name="kelurahan" value="{{ $kelurahan->kelurahan }}"
+                                style="border-radius: 15px;">
                             @error('kelurahan')
                                 <div class="invalid-feedback">
                                     {{ $message }}

@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-1">
-                                <button id="search-button" class="btn btn-primary px-4" style="border-radius: 30px"
+                                <button id="search-button" class="btn btn-primary px-4" style="border-radius: 15px"
                                     type="submit">Cari</button>
                             </div>
                         </form>
@@ -94,28 +94,29 @@
             <div class="col-md-10 mt-4 mx-auto justify-content-center">
                 @include('layouts.alert')
                 @forelse($lamaran as $lamar)
-                    <div class="card col-12 col-sm-12 mb-4 py-4 px-0">
+                    <div class="card col-12 col-sm-12 mb-4 py-4 px-3">
                         <div class="card-body d-flex flex-column">
                             <div class="media">
-                                <div class="mr-3 align-self-start">
+                                <div class="mr-5 align-self-start">
                                     @if ($lamar && $lamar->loker->perusahaan && $lamar->loker->perusahaan->logo)
                                         <img src="{{ asset('storage/' . $lamar->loker->perusahaan->logo) }}"
-                                            alt="Logo Perusahaan" class="rounded-circle" style="width: 80px; height: 80px;">
+                                            alt="Logo Perusahaan" class="rounded-circle"
+                                            style="width: 100px; height: 100px;">
                                     @else
                                         <img alt="image" src="{{ asset('assets/img/company/default-company-logo.png') }}"
-                                            class="rounded-circle" style="width: 80px; height: 80px;">
+                                            class="rounded-circle" style="width: 100px; height: 100px;">
                                     @endif
                                 </div>
                                 <div class="media-body">
                                     <h5 class="media-title">
                                         <strong>{{ $lamar->loker->judul }}</strong>
                                         <span
-                                            class="badge py-2 px-3
-                                                        @if ($lamar->status === 'Pending') badge-warning
-                                                        @elseif ($lamar->status === 'Diterima') badge-success
-                                                        @elseif ($lamar->status === 'Ditolak') badge-danger @endif
-                                                    ml-2 text-white"
-                                            style="border-radius: 25px">
+                                            class=" py-2 px-4
+                                                        @if ($lamar->status === 'Pending') lamar-warning 
+                                                        @elseif ($lamar->status === 'Diterima') lamar-success
+                                                        @elseif ($lamar->status === 'Ditolak') lamar-danger @endif
+                                                    ml-2"
+                                            style="border-radius: 25px; font-size: 16px;">
                                             {{ $lamar->status }}
                                         </span>
                                     </h5>
@@ -158,7 +159,7 @@
                                     </small>
                                 </div>
                                 <div class="text-center mb-3">
-                                    <a id="detail-button" class="btn btn-sm btn-primary btn-icon py-1 px-3"
+                                    <a id="detail-button" class="btn btn-sm btn-primary btn-icon py-2 px-3"
                                         style="border-radius: 25px;"
                                         href="{{ route('all-jobs.show', $lamar->loker->id) }}">
                                         <i class="far fa-eye"></i> Details

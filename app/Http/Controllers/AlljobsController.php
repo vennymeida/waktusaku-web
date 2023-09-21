@@ -161,6 +161,7 @@ class AlljobsController extends Controller
         $kategori = $loker->kategori()->pluck('kategori')->implode(', ');
         $keahlian = $loker->keahlian()->pluck('keahlian');
         $loker->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $loker->requirement);
+        // $loker->requirement = preg_replace('/<[^>]+>/', '', $loker->requirement);
 
         $updatedDiff = $loker->updated_at->diffInSeconds(now());
 

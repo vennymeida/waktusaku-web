@@ -2,18 +2,13 @@
 
 @section('content')
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Table Kecamatan</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Components</a></div>
-                <div class="breadcrumb-item">Table</div>
-            </div>
         </div>
         <div class="section-body">
             <h2 class="section-title">Tambah Kecamatan</h2>
 
-            <div class="card">
+            <div class="card" style="border-radius: 15px;">
                 <div class="card-header">
                     <h4>Validasi Tambah Kecamatan</h4>
                 </div>
@@ -23,7 +18,7 @@
                         <div class="form-group">
                             <label for="kecamatan">Kecamatan</label>
                             <input type="text" class="form-control @error('kecamatan') is-invalid @enderror"
-                                id="kecamatan" name="kecamatan" placeholder="Enter Kecamatan">
+                                id="kecamatan" name="kecamatan" placeholder="Enter Kecamatan" style="border-radius: 15px;">
                             @error('kecamatan')
                                 <div class="invalid-feedback">
                                     {{ $message }}

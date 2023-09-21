@@ -22,67 +22,67 @@ class UpdateLowonganPekerjaanRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
-    {
-        return [
-            'id_kategori' => 'required',
-            'id_keahlian' => 'required',
-            'judul' => 'required|regex:/^[A-Za-z\s]+$/',
-            'deskripsi' => 'required',
-            'requirement' => 'required',
-            'tipe_pekerjaan' => 'required',
-            'min_pendidikan' => 'required',
-            'min_pengalaman' => 'required',
-            'lokasi' => 'required|regex:/^[A-Za-z\s,]+$/',
-            'gaji_bawah' => 'required',
-            'gaji_atas' => 'required',
-            'jumlah_pelamar' => 'required',
-            'tutup' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    $today = Carbon::now();
-                    $dateInput = Carbon::parse($value);
+    // public function rules()
+    // {
+    //     return [
+    //         'id_kategori' => 'required',
+    //         'id_keahlian' => 'required',
+    //         'judul' => 'required|regex:/^[A-Za-z\s]+$/',
+    //         'deskripsi' => 'required',
+    //         'requirement' => 'required',
+    //         'tipe_pekerjaan' => 'required',
+    //         'min_pendidikan' => 'required',
+    //         'min_pengalaman' => 'required',
+    //         'lokasi' => 'required|regex:/^[A-Za-z\s,]+$/',
+    //         'gaji_bawah' => 'required',
+    //         'gaji_atas' => 'required',
+    //         'jumlah_pelamar' => 'required',
+    //         'tutup' => [
+    //             'required',
+    //             function ($attribute, $value, $fail) {
+    //                 $today = Carbon::now();
+    //                 $dateInput = Carbon::parse($value);
 
-                    if ($dateInput->isBefore($today)) {
-                        $fail(' tanggal tidak boleh kurang dari hari ini');
-                    }
-                },
-            ],
-        ];
-    }
+    //                 if ($dateInput->isBefore($today)) {
+    //                     $fail(' tanggal tidak boleh kurang dari hari ini');
+    //                 }
+    //             },
+    //         ],
+    //     ];
+    // }
 
-    public function messages()
-    {
-        return [
-            'id_kategori.required' => 'Kategori tidak boleh kosong',
-            'id_keahlian.required' => 'Keahlian tidak boleh kosong',
-            'judul.required' => 'Judul tidak boleh kosong',
-            'judul.regex' => 'Judul tidak boleh mengandung selain huruf',
-            'deskripsi.required' => 'Diskripsi tidak boleh kosong',
-            'requirement.required' => 'Persyaratan tidak boleh kosong',
-            'tipe_pekerjaan.required' => 'Tipe Pekerjaan tidak boleh kosong',
-            'min_pendidikan.required' => 'Minimal Pendidikan tidak boleh kosong',
-            'min_pengalaman.required' => 'Minimal Pengalaman tidak boleh kosong',
-            'lokasi.required' => 'Lokasi kerja tidak boleh kosong',
-            'lokasi.regex' => 'Lokasi kerja tidak boleh mengandung selain huruf',
-            'gaji_bawah.required' => 'Gaji tidak boleh kosong',
-            'gaji_atas.required' => 'Gaji tidak boleh kosong',
-            'gaji.required' => 'Gaji tidak boleh kosong',
-            'jumlah_pelamar.required' => 'Jumlah Pelamar tidak boleh kosong',
-            'tutup.required' => 'Lowongan di tutup tidak boleh kosong',
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         'id_kategori.required' => 'Kategori tidak boleh kosong',
+    //         'id_keahlian.required' => 'Keahlian tidak boleh kosong',
+    //         'judul.required' => 'Judul tidak boleh kosong',
+    //         'judul.regex' => 'Judul tidak boleh mengandung selain huruf',
+    //         'deskripsi.required' => 'Diskripsi tidak boleh kosong',
+    //         'requirement.required' => 'Persyaratan tidak boleh kosong',
+    //         'tipe_pekerjaan.required' => 'Tipe Pekerjaan tidak boleh kosong',
+    //         'min_pendidikan.required' => 'Minimal Pendidikan tidak boleh kosong',
+    //         'min_pengalaman.required' => 'Minimal Pengalaman tidak boleh kosong',
+    //         'lokasi.required' => 'Lokasi kerja tidak boleh kosong',
+    //         'lokasi.regex' => 'Lokasi kerja tidak boleh mengandung selain huruf',
+    //         'gaji_bawah.required' => 'Gaji tidak boleh kosong',
+    //         'gaji_atas.required' => 'Gaji tidak boleh kosong',
+    //         'gaji.required' => 'Gaji tidak boleh kosong',
+    //         'jumlah_pelamar.required' => 'Jumlah Pelamar tidak boleh kosong',
+    //         'tutup.required' => 'Lowongan di tutup tidak boleh kosong',
+    //     ];
+    // }
 
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            $gajiBawah = $this->input('gaji_bawah');
-            $gajiAtas = $this->input('gaji_atas');
+    // public function withValidator($validator)
+    // {
+    //     $validator->after(function ($validator) {
+    //         $gajiBawah = $this->input('gaji_bawah');
+    //         $gajiAtas = $this->input('gaji_atas');
 
-            if ($gajiBawah >= $gajiAtas) {
-                $validator->errors()->add('gaji_bawah', 'Gaji yang dimasukkan tidak masuk akal');
-                $validator->errors()->add('gaji_atas', 'Gaji yang dimasukkan tidak masuk akal');
-            }
-        });
-    }
+    //         if ($gajiBawah >= $gajiAtas) {
+    //             $validator->errors()->add('gaji_bawah', 'Gaji yang dimasukkan tidak masuk akal');
+    //             $validator->errors()->add('gaji_atas', 'Gaji yang dimasukkan tidak masuk akal');
+    //         }
+    //     });
+    // }
 }

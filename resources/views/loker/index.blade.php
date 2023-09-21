@@ -3,12 +3,12 @@
 @section('content')
     <!-- Main Content -->
     <section class="section">
-        @role('super-admin')
-            <div class="section-header ">
-                <h1>Menu Lowongan Pekerjaan</h1>
-            </div>
-        @endrole
-        @role('Perusahaan')
+        {{-- @role('super-admin') --}}
+        <div class="section-header" style="border-radius: 15px;">
+            <h1>Menu Lowongan Pekerjaan</h1>
+        </div>
+        {{-- @endrole --}}
+        {{-- @role('Perusahaan')
             <div class="section-header d-flex justify-content-between align-items-center">
                 <h1>Lowongan Pekerjaan</h1>
                 <a href="{{ route('loker.create') }}" class="btn btn-primary" style="border-radius: 25px;"><i
@@ -16,11 +16,11 @@
                     Tambah Lowongan Kerja
                 </a>
             </div>
-        @endrole
+        @endrole --}}
         <div class="section-body">
-            @role('super-admin')
-                <h2 class="section-title">Lowongan Pekerjaan</h2>
-            @endrole
+            {{-- @role('super-admin') --}}
+            <h2 class="section-title">Lowongan Pekerjaan</h2>
+            {{-- @endrole --}}
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -28,38 +28,38 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
-                        @role('super-admin')
-                            <div class="card-header">
-                                <h4>Tabel Lowongan Pekerjaan</h4>
-                            </div>
-                        @endrole
+                    <div class="card card-primary" style="border-radius: 15px;">
+                        {{-- @role('super-admin') --}}
+                        <div class="card-header">
+                            <h4>Tabel Lowongan Pekerjaan</h4>
+                        </div>
+                        {{-- @endrole --}}
                         <div class="card-body">
-                            @role('super-admin')
-                                <form action="{{ route('loker.index') }}" method="GET">
-                                    <div class="form-row text-center">
-                                        <div class="form-group col-md-4">
-                                            <select name="status" class="form-control" id="statusSelect">
-                                                <option value="" selected>-- Pilih Status --</option>
-                                                @foreach ($statuses as $status)
-                                                    <option value="{{ $status }}"
-                                                        @if ($status == $selectedStatus) selected @endif>
-                                                        {{ $status }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" name="search" placeholder="Cari..."
-                                                value="{{ app('request')->input('search') }}">
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                            <a href="{{ route('loker.index') }}" class="btn btn-secondary ml-2">Reset</a>
-                                        </div>
+                            {{-- @role('super-admin') --}}
+                            <form action="{{ route('loker.index') }}" method="GET">
+                                <div class="form-row text-center">
+                                    <div class="form-group col-md-4">
+                                        <select name="status" class="form-control" id="statusSelect">
+                                            <option value="" selected>-- Pilih Status --</option>
+                                            @foreach ($statuses as $status)
+                                                <option value="{{ $status }}"
+                                                    @if ($status == $selectedStatus) selected @endif>
+                                                    {{ $status }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                </form>
-                            @endrole
-                            @role('Perusahaan')
+                                    <div class="form-group col-md-6">
+                                        <input type="text" class="form-control" name="search" placeholder="Cari..."
+                                            value="{{ app('request')->input('search') }}">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <a href="{{ route('loker.index') }}" class="btn btn-secondary ml-2">Reset</a>
+                                    </div>
+                                </div>
+                            </form>
+                            {{-- @endrole --}}
+                            {{-- @role('Perusahaan')
                                 <form id="search" method="GET" action="{{ route('loker.index') }}">
                                     <div class="form-row text-center">
                                         <div class="form-group col-md-10">
@@ -74,36 +74,36 @@
                                         </div>
                                     </div>
                                 </form>
-                            @endrole
+                            @endrole --}}
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <thead>
-                                        <tr>
-                                            @role('super-admin')
+                                            <tr>
+                                                {{-- @role('super-admin') --}}
                                                 <th>No</th>
                                                 <th>Nama Perusahaan</th>
                                                 <th class="col-md-3">Kategori Pekerjaan</th>
                                                 <th>Tipe Pekerjaan</th>
                                                 <th>Gaji</th>
                                                 <th>Status</th>
-                                            @endrole
-                                            @role('Perusahaan')
-                                                <th>#</th>
-                                                <th class="col-md-2">Judul</th>
-                                                <th class="col-md-3">Deskripsi</th>
-                                                <th class="col-md-3">Persyaratan</th>
-                                                <th>Status</th>
-                                            @endrole
-                                            <th class="text-center">Action</th>
-                                        </tr>
-                                    </thead>
-                                        @if($allResults->isEmpty())
+                                                {{-- @endrole --}}
+                                                {{-- @role('Perusahaan')
+                                                    <th>#</th>
+                                                    <th class="col-md-2">Judul</th>
+                                                    <th class="col-md-3">Deskripsi</th>
+                                                    <th class="col-md-3">Persyaratan</th>
+                                                    <th>Status</th>
+                                                @endrole --}}
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        @if ($allResults->isEmpty())
                                             <tr>
                                                 <td colspan="6" class="text-center">Data tidak tersedia</td>
                                             </tr>
                                         @else
-                                        @role('super-admin')
+                                            {{-- @role('super-admin') --}}
                                             @foreach ($allResults as $key => $loker)
                                                 <tr>
                                                     <td>
@@ -128,16 +128,17 @@
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <input type="hidden" name="_token"
                                                                     value="{{ csrf_token() }}">
-                                                                <button class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                                <button
+                                                                    class="btn btn-sm btn-danger btn-icon confirm-delete">
                                                                     <i class="fas fa-times"></i> Hapus </button>
                                                             </form>
                                                         </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            @endif
-                                        @endrole
-                                        @role('Perusahaan')
+                                        @endif
+                                        {{-- @endrole --}}
+                                        {{-- @role('Perusahaan')
                                             @foreach ($loggedInUserResults as $key => $loker)
                                                 <tr>
                                                     <td>{{ ($loggedInUserResults->currentPage() - 1) * $loggedInUserResults->perPage() + $key + 1 }}
@@ -171,7 +172,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        @endrole
+                                        @endrole --}}
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-center">
@@ -186,7 +187,7 @@
     </section>
 
     <!-- Modal -->
-    @foreach ($loggedInUserResults as $key => $loker)
+    {{-- @foreach ($loggedInUserResults as $key => $loker)
         <div class="modal fade" id="detailModal{{ $loker->id }}" tabindex="-1" role="dialog"
             aria-labelledby="detailModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -264,7 +265,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
 @endsection
 @push('customScript')
     <script>

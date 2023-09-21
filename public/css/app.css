@@ -214,6 +214,24 @@ a.btn-regis:focus {
     box-shadow: none;
 }
 
+.lamar-warning {
+    color: white;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.lamar-success {
+    color: white;
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.lamar-danger {
+    color: white;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
 .tag-title {
     background-color: #939fff;
     border-color: #939fff;
@@ -705,6 +723,7 @@ a:hover {
 
 .form-show {
     border: none;
+    width: 65%;
     color: black;
     resize: none;
 }

@@ -3,13 +3,8 @@
 @section('content')
     <!-- Main Content -->
     <section class="section">
-        <div class="section-header">
+        <div class="section-header" style="border-radius: 15px;">
             <h1>Roles and Permission</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Components</a></div>
-                <div class="breadcrumb-item">Table</div>
-            </div>
         </div>
         <div class="section-body">
             <h2 class="section-title">Assign Role and Permission</h2>
@@ -21,7 +16,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
+                    <div class="card card-primary" style="border-radius: 15px;">
                         <div class="card-header">
                             <h4>List Role Assigned To Permission</h4>
                             <div class="card-header-action">
@@ -49,25 +44,24 @@
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Guard Name</th>
-                                            <th>Permission</th>
-                                            <th class="text-right">Action</th>
-                                        </tr>
+                                            <tr>
+                                                <th style="width: 50px;">#</th>
+                                                <th style="width: 50px;">Name</th>
+                                                <th style="width: 120px;">Guard Name</th>
+                                                <th style="width: 800px;">Permission</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
                                         </thead>
                                         @foreach ($roles as $key => $role)
                                             <tr>
                                                 <td>{{ $roles->firstItem() + $key }}</td>
                                                 <td>{{ $role->name }}</td>
-                                                <td>{{ $role->guard_name }}</td>
+                                                <td class="text-center">{{ $role->guard_name }}</td>
                                                 <td>{{ implode(', ', $role->getPermissionNames()->toArray()) }}</td>
-                                                <td class="text-right">
-                                                    <div class="d-flex justify-content-end">
+                                                <td class="">
+                                                    <div class="d-flex justify-content-center">
                                                         <a href="{{ route('assign.edit', $role->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon"><i
-                                                                class="fas fa-edit"></i>
+                                                            class="btn btn-sm btn-info btn-icon"><i class="fas fa-edit"></i>
                                                             Edit</a>
                                                     </div>
                                                 </td>
