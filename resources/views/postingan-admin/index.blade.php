@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'WaktuSaku - Daftar Postingan')
 
 @section('content')
     <!-- Main Content -->
@@ -25,39 +26,42 @@
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <thead>
-                                        <tr>
-                                            <th style="width: 10px">No</th>
-                                            <th class="text-center" style="width: 250px">Media</th>
-                                            <th class="text-center">Isi Postingan</th>
-                                            <th class="text-center" style="width: 200px">Action</th>
-                                        </tr>
+                                            <tr>
+                                                <th style="width: 10px">No</th>
+                                                <th class="text-center" style="width: 250px">Media</th>
+                                                <th class="text-center">Isi Postingan</th>
+                                                <th class="text-center" style="width: 200px">Action</th>
+                                            </tr>
                                         </thead>
-                                        @if($postingans->isEmpty())
+                                        @if ($postingans->isEmpty())
                                             <tr>
                                                 <td colspan="6" class="text-center">Data tidak tersedia</td>
                                             </tr>
                                         @else
-                                        @foreach ($postingans as $key => $postingan)
-                                            <tr>
-                                                <td>{{ ($postingans->currentPage() - 1) * $postingans->perPage() + $key + 1 }}
-                                                </td>
-                                                <td style="text-align: center;">
-                                                    <img src="{{ asset('storage/' . $postingan->media) }}" alt="{{ $postingan->media }}" width="100">
-                                                </td>
-                                                <td class="text-center">{!! $postingan->konteks !!}</td>
-                                                <td class="text-center">
-                                                    <div class="d-flex justify-content-center">
-                                                        <form action="{{ route('postinganadmin.destroy', ['postinganadmin' => $postingan->id]) }}"
-                                                            method="POST" class="ml-2">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Hapus </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                            @foreach ($postingans as $key => $postingan)
+                                                <tr>
+                                                    <td>{{ ($postingans->currentPage() - 1) * $postingans->perPage() + $key + 1 }}
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <img src="{{ asset('storage/' . $postingan->media) }}"
+                                                            alt="{{ $postingan->media }}" width="100">
+                                                    </td>
+                                                    <td class="text-center">{!! $postingan->konteks !!}</td>
+                                                    <td class="text-center">
+                                                        <div class="d-flex justify-content-center">
+                                                            <form
+                                                                action="{{ route('postinganadmin.destroy', ['postinganadmin' => $postingan->id]) }}"
+                                                                method="POST" class="ml-2">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button
+                                                                    class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                                    <i class="fas fa-times"></i> Hapus </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @endif
                                     </tbody>
                                 </table>
@@ -92,6 +96,7 @@
                 $(this).prev('label').text(file);
             });
         });
+
         function submitDel(id) {
             $('#del-' + id).submit()
         }

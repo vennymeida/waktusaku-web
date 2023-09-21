@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'WaktuSaku - Daftar Kecamatan')
 
 @section('content')
     <!-- Main Content -->

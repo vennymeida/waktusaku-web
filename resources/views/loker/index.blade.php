@@ -1,26 +1,14 @@
 @extends('layouts.app')
+@section('title', 'WaktuSaku - Daftar Lowongan Pekerjaan')
 
 @section('content')
     <!-- Main Content -->
     <section class="section">
-        {{-- @role('super-admin') --}}
         <div class="section-header" style="border-radius: 15px;">
             <h1>Menu Lowongan Pekerjaan</h1>
         </div>
-        {{-- @endrole --}}
-        {{-- @role('Perusahaan')
-            <div class="section-header d-flex justify-content-between align-items-center">
-                <h1>Lowongan Pekerjaan</h1>
-                <a href="{{ route('loker.create') }}" class="btn btn-primary" style="border-radius: 25px;"><i
-                        class="fas fa-plus-circle"></i>
-                    Tambah Lowongan Kerja
-                </a>
-            </div>
-        @endrole --}}
         <div class="section-body">
-            {{-- @role('super-admin') --}}
             <h2 class="section-title">Lowongan Pekerjaan</h2>
-            {{-- @endrole --}}
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -29,13 +17,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card card-primary" style="border-radius: 15px;">
-                        {{-- @role('super-admin') --}}
                         <div class="card-header">
                             <h4>Tabel Lowongan Pekerjaan</h4>
                         </div>
-                        {{-- @endrole --}}
                         <div class="card-body">
-                            {{-- @role('super-admin') --}}
                             <form action="{{ route('loker.index') }}" method="GET">
                                 <div class="form-row text-center">
                                     <div class="form-group col-md-4">
@@ -58,43 +43,17 @@
                                     </div>
                                 </div>
                             </form>
-                            {{-- @endrole --}}
-                            {{-- @role('Perusahaan')
-                                <form id="search" method="GET" action="{{ route('loker.index') }}">
-                                    <div class="form-row text-center">
-                                        <div class="form-group col-md-10">
-                                            <input type="text" name="search" class="form-control" id="search"
-                                                placeholder="Cari...." value="{{ app('request')->input('search') }}">
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <button id="submit-button" class="btn btn-primary mr-1"
-                                                type="submit">Submit</button>
-                                            <a id="reset-button" class="btn btn-secondary"
-                                                href="{{ route('loker.index') }}">Reset</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            @endrole --}}
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <thead>
                                             <tr>
-                                                {{-- @role('super-admin') --}}
                                                 <th>No</th>
                                                 <th>Nama Perusahaan</th>
                                                 <th class="col-md-3">Kategori Pekerjaan</th>
                                                 <th>Tipe Pekerjaan</th>
                                                 <th>Gaji</th>
                                                 <th>Status</th>
-                                                {{-- @endrole --}}
-                                                {{-- @role('Perusahaan')
-                                                    <th>#</th>
-                                                    <th class="col-md-2">Judul</th>
-                                                    <th class="col-md-3">Deskripsi</th>
-                                                    <th class="col-md-3">Persyaratan</th>
-                                                    <th>Status</th>
-                                                @endrole --}}
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -103,7 +62,6 @@
                                                 <td colspan="6" class="text-center">Data tidak tersedia</td>
                                             </tr>
                                         @else
-                                            {{-- @role('super-admin') --}}
                                             @foreach ($allResults as $key => $loker)
                                                 <tr>
                                                     <td>
@@ -137,42 +95,6 @@
                                                 </tr>
                                             @endforeach
                                         @endif
-                                        {{-- @endrole --}}
-                                        {{-- @role('Perusahaan')
-                                            @foreach ($loggedInUserResults as $key => $loker)
-                                                <tr>
-                                                    <td>{{ ($loggedInUserResults->currentPage() - 1) * $loggedInUserResults->perPage() + $key + 1 }}
-                                                    </td>
-                                                    <td>{{ $loker->judul }}</td>
-                                                    <td>{{ $loker->deskripsi }}</td>
-                                                    <td>{{ $loker->requirement }}</td>
-                                                    <td>{{ $loker->status }}</td>
-                                                    <td class="text-center">
-                                                        <div class="d-flex justify-content-center">
-                                                            <a href="#" class="btn btn-sm btn-primary btn-icon"
-                                                                data-toggle="modal"
-                                                                data-target="#detailModal{{ $loker->id }}">
-                                                                <i class="far fa-eye" id="modal-{{ $loker->id }}"></i>
-                                                                Detail
-                                                            </a>
-                                                            <a href="{{ route('loker.edit', $loker->id) }}"
-                                                                class="btn btn-sm btn-info btn-icon ml-2"><i
-                                                                    class="fas fa-edit"></i> Edit
-                                                            </a>
-                                                            <form action="{{ route('loker.destroy', $loker->id) }}"
-                                                                method="POST" class="ml-2">
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <input type="hidden" name="_token"
-                                                                    value="{{ csrf_token() }}">
-                                                                <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                    <i class="fas fa-times"></i> Delete
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endrole --}}
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-center">
@@ -185,87 +107,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Modal -->
-    {{-- @foreach ($loggedInUserResults as $key => $loker)
-        <div class="modal fade" id="detailModal{{ $loker->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="detailModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="detailModalLabel">Detail Lowongan Pekerjaan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-bordered">
-                            <tbody>
-                                <tr>
-                                    <th class="text-left">Nama Pemilik</th>
-                                    <td>{{ $loker->pemilik }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Nama Perusahaan</th>
-                                    <td>{{ $loker->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Kategori Pekerjaan</th>
-                                    <td>{{ $loker->kategori }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Keahlian Kerja</th>
-                                    <td>{{ $loker->keahlian }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Judul Lowongan</th>
-                                    <td>{{ $loker->judul }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Deskripsi</th>
-                                    <td>{{ $loker->deskripsi }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Requirement</th>
-                                    <td>{{ $loker->requirement }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Tipe Pekerjaan</th>
-                                    <td>{{ $loker->tipe_pekerjaan }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Lokasi Kerja</th>
-                                    <td>{{ $loker->lokasi }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Gaji</th>
-                                    <td>
-                                        {{ 'IDR ' . $loker->gaji_bawah }}<span> - </span>
-                                        {{ $loker->gaji_atas }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Kuota Pelamar</th>
-                                    <td>{{ $loker->jumlah_pelamar }} orang</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Lowongan di tutup</th>
-                                    <td>{{ \Carbon\Carbon::parse($loker->tutup)->format('d F Y') }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-left">Status</th>
-                                    <td>{{ $loker->status }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach --}}
 @endsection
 @push('customScript')
     <script>

@@ -1,5 +1,5 @@
 @extends('landing-page.app')
-
+@section('title', 'WaktuSaku - Halaman Status Lamaran')
 @section('main')
     <main class="bg-light"> <!-- Added some padding on top and bottom -->
         <!-- Begin: Search form -->

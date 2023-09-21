@@ -1,4 +1,5 @@
 @extends('landing-page.app')
+@section('title', 'WaktuSaku - Formulir Lowongan Pekerjaan')
 @section('main')
     <main class="bg-light">
         <section>

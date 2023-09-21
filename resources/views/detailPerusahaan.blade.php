@@ -1,5 +1,5 @@
 @extends('landing-page.app')
-
+@section('title', 'WaktuSaku - Detail Informasi Perusahaan')
 @section('main')
     <main class="bg-light">
         <div class="col-md-12">
@@ -40,7 +40,7 @@
                                 <p class="mb-3" style="font-size: 15px;">{{ $detail->website }} </p>
                             </li>
                         </ul>
-                        <li class="col-md-12 d-flex justify-content-end ml-5">
+                        <li class="col-md-7 d-flex justify-content-end text-justify" style="margin-left: 45%;">
                             <img class="img-fluid img-icon mr-1"
                                 src="{{ asset('assets/img/landing-page/location pin.svg') }}">
                             <p class="mb-5" style="font-size: 15px;">{{ $detail->alamat_perusahaan }},
@@ -56,7 +56,7 @@
             <div class="col-md-3">
                 <div class="logo-container">
                     <img class="img-fluid bg-white mt-4" src="{{ asset('storage/' . $detail->logo) }}"
-                        style="width: 75%; height: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
+                        style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                 </div>
             </div>
         </div>

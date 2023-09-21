@@ -1,5 +1,5 @@
 @extends('landing-page.app')
-
+@section('title', 'WaktuSaku - Bookmarks')
 @section('main')
     <main class="bg-light">
         <section>

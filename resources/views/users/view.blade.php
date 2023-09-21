@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'WaktuSaku - Daftar Seluruh Pengguna')
 
 @section('content')
     <!-- Main Content -->
@@ -23,7 +24,8 @@
                         <div class="card-header">
                             <h4>Detail Pengguna</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.index') }}">Back to User List</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.index') }}">Back to User
+                                    List</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -32,7 +34,8 @@
                                     <tr>
                                         <th>Name</th>
                                         <td>
-                                            <a href="#" data-toggle="modal" data-target="#detailsModal">View Details</a>
+                                            <a href="#" data-toggle="modal" data-target="#detailsModal">View
+                                                Details</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -45,7 +48,8 @@
     </section>
 
     <!-- Details Modal -->
-    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -87,5 +91,5 @@
             </div>
         </div>
     </div>
-</section>
+    </section>
 @endsection

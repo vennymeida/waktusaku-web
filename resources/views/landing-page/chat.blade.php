@@ -38,7 +38,7 @@
         @include('landing-page.navigation')
         <div class="d-flex vh-100 flex-column">
             @yield('main')
-            @include('landing-page.footer')
+            {{-- @include('landing-page.footer') --}}
         </div>
     </main>
 
