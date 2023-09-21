@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlljobsController;
+use App\Http\Controllers\AllPostinganController;
 use App\Http\Controllers\DetailPerusahaan;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemoController;
@@ -69,6 +70,7 @@ use App\Http\Controllers\StatusLamarController;
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/all-jobs', [AlljobsController::class, 'index'])->name('all-jobs.index');
 Route::get('/all-jobs/{loker}', [AlljobsController::class, 'show'])->name('all-jobs.show');
+Route::get('/all-postingan', [AllPostinganController::class, 'index'])->name('all-postingan.index');
 Route::get('/detail-perusahaan/{detail}', [DetailPerusahaan::class, 'show'])->name('detail-perusahaan.show');
 Route::get('/contact-us', function () {
     return view('contact');
@@ -115,6 +117,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::GET('/profile', [ProfileUserController::class, 'profile']);
     Route::GET('/profile', [ProfileUserController::class, 'index']);
     Route::get('/profile', [ProfileUserController::class, 'index'])->name('profile.index');
+    Route::delete('/profile/{profile}', [ProfileUserController::class, 'destroy'])->name('profile.destroy');
     // Route::get('/profile', function () {
     //     return view('profile.index');
     // });

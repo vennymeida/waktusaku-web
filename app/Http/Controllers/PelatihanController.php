@@ -40,7 +40,7 @@ class PelatihanController extends Controller
 
         $pelatihan->save();
 
-        return redirect()->route('pelatihan.index')->with('success', 'Pelatihan berhasil ditambahkan.');
+        return redirect()->route('profile.index')->with('success', 'Pelatihan berhasil ditambahkan.');
     }
 
     public function edit($id)

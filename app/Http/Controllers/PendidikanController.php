@@ -32,7 +32,7 @@ class PendidikanController extends Controller
         $pendidikan->user_id = $userId;
         $pendidikan->save();
 
-        return redirect()->route('pendidikan.index')->with('success', 'Pendidikan berhasil ditambahkan.');
+        return redirect()->route('profile.index')->with('success', 'Pendidikan berhasil ditambahkan.');
     }
 
     public function edit($id)

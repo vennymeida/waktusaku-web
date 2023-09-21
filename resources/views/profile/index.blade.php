@@ -808,8 +808,14 @@
                         <div id="postingan-container">
                             <div class="col-md-12">
                                 @foreach ($postingans as $post)
+                                    <hr>
+                                    <div class="font-italic mt-2 time" style="font-size: 14px;">
+                                        {{ auth()->user()->name }}
+                                        - Diposting {{ $post->timeAgo }}
+                                    </div>
+                                    <br>
                                     <div class="media mb-2">
-                                        <img class="mr-3 rounded"width="100" height="100"
+                                        <img class="mr-3 rounded"width="70" height="70"
                                             src="{{ asset('storage/' . $post->media) }}">
                                         <div class="media-body">
                                             {!! $post->konteks !!}
@@ -823,17 +829,28 @@
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
                                         </div>
+                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
+                                            id="fluid">
+                                            <form action="{{ route('profile.destroy', ['profile' => $post->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-link">
+                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                        src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                        alt="Hapus">
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                         <div class="text-center mt-4">
-                            <button id="load-more-postingan" class="btn btn-primary"
-                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                                data-page="{{ $postingans->currentPage() }}">Muat Lebih Banyak</button>
-                        </div>
-                        <div id="reset-message" style="display:none;">
-                            <p>Lebih Sedikit</p>
+                            <a href="{{ route('postingan.index') }}" class="btn btn-primary"
+                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;">
+                                Lihat Lainnya ...
+                            </a>
                         </div>
                     @else
                         <div class="text-center" style="color:#808080">
@@ -1072,8 +1089,7 @@
                                             </li>
                                         </ul>
                                         <div style="font-size: 16px;">
-                                            <a href="#" class="open-pdf"
-                                                data-sertifikat="{{ $lat->sertifikat }}">
+                                            <a href="{{ asset('storage/' . $lat->sertifikat) }}" target="_blank">
                                                 <p class="">Lihat Sertifikat</p>
                                             </a>
                                         </div>
@@ -1519,12 +1535,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
-                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror" required>
+                                        <textarea name="konteks" id="konteks" class="form-control @error('konteks') is-invalid @enderror" required
+                                            rows="5" cols="50">
                                             @isset($post)
-                                                {{ $post->konteks }}
-                                            @endisset
+{!! $post->konteks !!}
+@endisset
                                         </textarea>
-                                        @if($errors->has('konteks') && isset($post))
+                                        @if ($errors->has('konteks') && isset($post))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -1561,7 +1578,22 @@
             </div>
         </div>
     </div>
+    <script>
+        @if (session('success') === 'success-delete')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Postingan berhasil dihapus.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
 @endsection
+
+@push('customScript')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+@endpush
 
 @push('customScript')
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
@@ -1770,11 +1802,14 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#modal-edit-postingan textarea[name="konteks"]').val(data.konteks);
+                        console.log(data);
+                        var modifiedKonteks = data.konteks.replace(/<[^>]+>/g, '');
+                        $('#modal-edit-postingan textarea[name="konteks"]').val(modifiedKonteks);
                         $('#modal-edit-postingan input[name="media"]').val(data.media);
                         $('#media-preview').attr('src', '{{ asset('storage/') }}/' + data.media);
                         editModal.modal('show');
                     }
+
                 });
             }
 

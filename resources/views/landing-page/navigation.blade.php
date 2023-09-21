@@ -20,14 +20,17 @@
                     <li class="nav-item active mr-4">
                         <a class="nav-link text-primary" href="{{ url('/') }}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-primary mr-4" href="{{ url('/all-jobs') }}">Lowongan Pekerjaan</a>
+                    <li class="nav-item mr-4">
+                        <a class="nav-link text-primary" href="{{ url('/all-jobs') }}">Lowongan Pekerjaan</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-primary mr-4" href="{{ url('/contact-us') }}">Contact Us</a>
+                    <li class="nav-item mr-4">
+                        <a class="nav-link text-primary" href="{{ url('/contact-us') }}">Contact Us</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mr-4">
                         <a class="nav-link text-primary" href="{{ url('/about-us') }}">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="{{ url('/all-postingan') }}">Postingan</a>
                     </li>
                 </ul>
                 {{-- @else
