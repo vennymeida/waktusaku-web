@@ -82,6 +82,36 @@
                             </ul>
                         </div>
                     </div>
+                    
+                    <!-- Button to open Chatify modal -->
+                    <div class="chat-icon-container">
+                        <a href="{{ url('chatify/' . $loker->perusahaan->user_id) }}" class="btn fas fa-comment" style="font-size: 30px"><br>Chat</a>
+                    </div>
+
+                    <!-- Chatify Modal -->
+                    {{-- <div class="modal fade" id="chatifyModal" tabindex="-1" role="dialog" aria-labelledby="chatifyModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="chatifyModalLabel">Live Chat with {{ $loker->perusahaan->nama }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{-- @include('Chatify::layouts.headLinks') --}}
+                                    <!-- Here you can integrate Chatify's components for displaying messages -->
+                                    <!-- For simplicity, I'm just including the messenger layout -->
+                                    {{-- <div class="messenger"> --}}
+                                        <!-- Your Chatify integration code goes here -->
+                                    {{-- </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
 
                     <hr class="my-4">
                     <div class="col-md-11 mx-auto my-5">
@@ -157,4 +187,27 @@
 
         textarea.style.height = (textarea.scrollHeight) + 'px';
     </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    .chat-icon-container {
+        position: fixed; /* This will make it stay in the same position */
+        bottom: 20px;    /* Distance from the bottom */
+        right: 20px;     /* Distance from the right */
+        z-index: 9999;   /* This ensures the chat icon stays on top of other elements */
+    }
+</style>
+
+<script>
+    function openChatifyChat(user_id) {
+        // Check if Chatify is defined (the Chatify JavaScript library is loaded)
+        if (typeof Chatify === 'object') {
+            // Open a chat with the specified user ID
+            Chatify.openChat(user_id);
+        } else {
+            // Handle the case where Chatify is not defined (library not loaded)
+            console.error('Chatify is not loaded.');
+        }
+    }
+</script>
 @endsection

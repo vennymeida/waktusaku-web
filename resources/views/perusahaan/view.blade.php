@@ -80,7 +80,7 @@
                         </div>
                         <hr>
                         {{-- <div class="text-center mt-4">
-                            <a href="{{ route('perusahaan.index') }}" class="btn btn-info">Kembali</a>
+                            <a href="{{ route('perusahaan.index') }}" class="btn btn-info">Kembal</a>
                         </div> --}}
                     </div>
                 </div>
