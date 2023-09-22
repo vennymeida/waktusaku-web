@@ -39,9 +39,9 @@
                                             <h5 class="font-weight-bolder">Lowongan Pekerjaan yang Di lamar </h5>
                                             <dl class="row">
                                                 <dt class="col-sm-4 mt-2">Nama Perusahaan</dt>
-                                                <dt class="col-sm-8 mt-2">{{ $namaPerusahaan }}</dt>
+                                                <dt class="col-sm-8 mt-2 font-weight-normal">{{ $namaPerusahaan }}</dt>
                                                 <dt class="col-sm-4 mt-2">Posisi Pekerjaan</dt>
-                                                <dt class="col-sm-8 mt-2">{{ $judulPekerjaan }}</dt>
+                                                <dt class="col-sm-8 mt-2 font-weight-normal">{{ $judulPekerjaan }}</dt>
                                             </dl>
                                             <br>
                                             <h5 class="font-weight-bolder">Ringkasan </h5>
@@ -158,7 +158,7 @@
                                                 // Mengambil tanggal mulai dan tanggal berakhir dari kode HTML
                                                 $tanggal_mulai = $pengalaman->tanggal_mulai;
                                                 $tanggal_berakhir = $pengalaman->tanggal_berakhir;
-                                                
+
                                                 // Mengubah format tanggal ke "d F Y" (contoh: "4 August 2023")
                                                 $tanggal_mulai = date('j F Y', strtotime($tanggal_mulai));
                                                 $tanggal_berakhir = date('j F Y', strtotime($tanggal_berakhir));

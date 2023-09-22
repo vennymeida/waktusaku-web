@@ -194,7 +194,7 @@ class AlljobsController extends Controller
         $lamaranStatus = $lamaran ? $lamaran->status : null;
 
         if (Auth::check()) {
-            return view('showAlljobs', [
+            return view('showAllJobs', [
                 'loker' => $loker,
                 'perusahaan' => $perusahaan,
                 'kategori' => $kategori,

@@ -41,13 +41,13 @@
                                                 <i class="fas fa-search ml-2"></i>
                                             </div>
                                         </div>
-                                        <input type="text" name="search" class="form-control form-jobs" id="search"
-                                            placeholder="Cari Posisi Pekerjaan"
-                                            value="{{ app('request')->input('search') }}">
+                                        <input type="text" name="posisi" class="form-control form-jobs" id="posisi"
+                                            placeholder="Cari posisi pekerjaan"
+                                            value="{{ app('request')->input('posisi') }}">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text x-form"
                                                 style="border-left: none; border-radius: 0px 15px 15px 0px;">
-                                                <i class="fas fa-times-circle" id="clear-search" style="display: none;"></i>
+                                                <i class="fas fa-times-circle" id="clear-posisi" style="display: none;"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -166,23 +166,26 @@
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const inputsAndIcons = [{
-                        inputId: "statusSelect",
-                        clearIconId: "clear-status"
+                        inputId: "posisi",
+                        clearIconId: "clear-posisi"
                     },
                     {
-                        inputId: "search",
-                        clearIconId: "clear-search"
-                    }
+                        inputId: "lokasi",
+                        clearIconId: "clear-lokasi"
+                    },
                 ];
 
                 const inputValues = {
-                    status: "",
-                    search: ""
+                    posisi: "",
+                    lokasi: "",
                 };
 
                 inputsAndIcons.forEach(item => {
                     const input = document.getElementById(item.inputId);
                     const clearIcon = document.getElementById(item.clearIconId);
+
+                    inputValues[item.inputId] = input.value;
+                    clearIcon.style.display = inputValues[item.inputId] ? "block" : "none";
 
                     input.addEventListener("input", function() {
                         inputValues[item.inputId] = this.value;
@@ -192,8 +195,9 @@
                     clearIcon.addEventListener("click", function() {
                         input.value = "";
                         currentInputValue = "";
+                        inputValues[item.inputId] = "";
                         clearIcon.style.display = "none";
-                        submitForm(currentInputValue);
+                        submitForm(inputValues[item.inputId]);
                     });
 
                     if (input.value) {
@@ -203,7 +207,6 @@
 
                 function submitForm(inputValue) {
                     const form = document.getElementById("search-form");
-
                     form.submit();
                 }
             });
@@ -213,7 +216,7 @@
             document.addEventListener("DOMContentLoaded", function() {
                 const formIcon = document.querySelector(".icon-form");
                 const formX = document.querySelector(".x-form");
-                const posisiInput = document.querySelector("input[name='search']");
+                const posisiInput = document.querySelector("input[name='posisi']");
 
                 posisiInput.addEventListener("focus", function() {
                     formIcon.style.borderColor = '#95a0f4';
@@ -231,6 +234,11 @@
             function handleFormSubmit() {
                 document.querySelectorAll('.clear-icon').forEach(icon => {
                     const input = icon.parentElement.querySelector('input');
+                    icon.style.display = input.value ? "block" : "none";
+                });
+
+                document.querySelectorAll('.input-group input').forEach(input => {
+                    const icon = input.parentElement.querySelector('.clear-icon');
                     icon.style.display = input.value ? "block" : "none";
                 });
             }

@@ -216,20 +216,20 @@ a.btn-regis:focus {
 
 .lamar-warning {
     color: white;
-    background-color: #ffc107;
-    border-color: #ffc107;
+    background-color: #ffd455;
+    border-color: #ffd455;
 }
 
 .lamar-success {
     color: white;
-    background-color: #198754;
-    border-color: #198754;
+    background-color: #4ed373;
+    border-color: #4ed373;
 }
 
 .lamar-danger {
     color: white;
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color: #eb9481;
+    border-color: #eb9481;
 }
 
 .tag-title {
@@ -1092,7 +1092,7 @@ padding-bottom: 5px; */
 
 .select2-container--default
     .select2-selection--multiple
-    .select2-selection__choice__remove {
+    .select2-selection_choice_remove {
     margin-right: 5px;
     color: #fff;
 }

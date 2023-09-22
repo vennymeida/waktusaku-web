@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 use Auth;
-use App\Models\Lamar;
+use App\Models\lamar;
 use Illuminate\Database\Eloquent\Builder;
 
 class StatusLamarController extends Controller

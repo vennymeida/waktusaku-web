@@ -64,8 +64,8 @@ class LamarPerusahaan extends Controller
             ->join('users as u', 'pu.user_id', '=', 'u.id')
             ->select('l.id', 'u.name', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'pu.harapan_gaji', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'p.user_id', 'l.created_at', 'pu.tgl_lahir')
             ->where('p.user_id', $loggedInUserId)
-            ->when($request->has('search'), function ($query) use ($request) {
-                $search = $request->input('search');
+            ->when($request->has('posisi'), function ($query) use ($request) {
+                $search = $request->input('posisi');
                 return $query->where('lp.judul', 'like', '%' . $search . '%');
             })
             ->when($selectedStatus, function ($query, $selectedStatus) {

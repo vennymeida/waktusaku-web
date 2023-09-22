@@ -24,51 +24,12 @@
                                         Kerja</strong></a>
                             </div>
                         </div>
-                        <!-- Nama and Ringkasan -->
-                        <div class="col-md-9">
-                            <h4><strong>{{ $pelamar->name }}</strong></h4>
-                            <h6 class="mt-4"><strong>Ringkasan</strong></h6>
-                            <p>{{ optional($pelamar->profile)->ringkasan ?: '-' }}</p>
-
-                            <h6 class="mt-5"><strong>Personal Info</strong></h6>
-                            <dl class="row">
-                                <dt class="col-sm-3 mt-3">Email</dt>
-                                <dd class="col-sm-7 mt-3">{{ $pelamar->email }}</dd>
-
-                                <dt class="col-sm-3 mt-3">No. Telepon</dt>
-                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->profile)->no_hp ?: '-' }}</dd>
-
-                                <dt class="col-sm-3 mt-3">Alamat</dt>
-                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->profile)->alamat ?: '-' }}</dd>
-
-                                <dt class="col-sm-3 mt-3">Tanggal Lahir</dt>
-                                <dd class="col-sm-7 mt-3">
-                                    {{ optional($pelamar->profile)->tgl_lahir? \Carbon\Carbon::parse($pelamar->profile->tgl_lahir)->locale('id')->isoFormat('D MMMM Y'): '-' }}
-                                </dd>
-
-                                <dt class="col-sm-3 mt-3">Jenis Kelamin</dt>
-                                <dd class="col-sm-7 mt-3">
-                                    {{ $pelamar->profile ? ($pelamar->profile->jenis_kelamin === 'L' ? 'Laki-Laki' : 'Perempuan') : '-' }}
-                                </dd>
-
-                                <dt class="col-sm-3 mt-3">Harapan Gaji</dt>
-                                <dd class="col-sm-7 mt-3">{{ optional($pelamar->profile)->harapan_gaji ?: '-' }}</dd>
-
-                                <dt class="col-sm-3 mt-3">Resume</dt>
-                                <dd class="col-sm-7 mt-3">
-                                    @if ($pelamar->profile && $pelamar->profile->resume)
-                                        <a href="{{ asset('storage/' . $pelamar->profile->resume) }}" target="_blank"
-                                            class="btn btn-primary btn-sm">Lihat Resume</a>
-                                    @else
-                                        <span>No Photo Available</span>
-                                    @endif
-                        </div>
                     </div>
                     <!-- Nama and Ringkasan -->
-                    <div class="col-md-9">
+                    <div class="col-md-9 ml-4">
                         <h4><strong>{{ $pelamar->name }}</strong></h4>
                         <h6 class="mt-4"><strong>Ringkasan</strong></h6>
-                        <p>{{ $pelamar->profile->ringkasan ?: '-' }}</p>
+                        <p>{{ optional($pelamar->profile)->ringkasan ?: '-' }}</p>
 
                         <h6 class="mt-5"><strong>Personal Info</strong></h6>
                         <dl class="row">
@@ -204,7 +165,7 @@
                     </div> --}}
             </div>
         </div>
-        </div>
-        </div>
+        {{-- </div>
+        </div> --}}
     </section>
 @endsection
