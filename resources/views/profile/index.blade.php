@@ -1600,7 +1600,7 @@
                                         <!-- Tampilkan media yang ingin diedit -->
                                         <img id="media-preview" class="mr-3 rounded" width="700" height="300">
                                     </div>
-                                    {{-- <div class="col-md-12">
+                                    <div class="col-md-12">
                                         <ul class="list-unstyled">
                                             <li class="mb-2">
                                                 <label for="mediaUploadButton" style="cursor: pointer;">
@@ -1612,7 +1612,7 @@
                                                     accept="image/*">
                                             </li>
                                         </ul>
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1868,11 +1868,28 @@
         $(document).ready(function() {
             var editModal = $('#modal-edit-postingan');
 
+            // Menangani perubahan pada input file untuk pengunggahan gambar
+            $('#mediaUploadButton').on('change', function(event) {
+                var file = event.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#media-preview').attr('src', e.target.result);
+                        $('#media-preview').show();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    $('#media-preview').removeAttr('src');
+                    $('#media-preview').hide();
+                }
+            });
+
             function openEditModal(postId) {
                 var editUrl = "{{ route('postingan.edit', ['postingan' => '_id']) }}".replace('_id', postId);
                 var updateUrl = "{{ route('postingan.update', ['postingan' => '_id']) }}".replace('_id', postId);
 
                 $('#modal-edit-postingan-form').attr('action', updateUrl);
+
                 $.ajax({
                     url: editUrl,
                     type: 'GET',
@@ -1898,6 +1915,12 @@
                 var form = $('#modal-edit-postingan-form');
                 var formData = new FormData(form[0]);
                 formData.append('_token', "{{ csrf_token() }}");
+
+                var mediaFile = $('#mediaUploadButton')[0].files[0];
+                if (mediaFile) {
+                    formData.append('media', mediaFile);
+                }
+
                 $.ajax({
                     url: form.attr('action'),
                     type: 'POST',
@@ -1907,7 +1930,6 @@
                     success: function(response) {
                         console.log(response); // For debugging
                         if (response.success) {
-                            // alert(response.message);
                             editModal.modal('hide');
                             location.reload();
                         } else {

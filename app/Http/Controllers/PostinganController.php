@@ -98,7 +98,7 @@ class PostinganController extends Controller
             // Validate the input from the form
             $validatedData = $request->validate([
                 'konteks' => 'required|string',
-                // Add any other validation rules here
+                'media' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             $postingan->konteks = $validatedData['konteks'];
