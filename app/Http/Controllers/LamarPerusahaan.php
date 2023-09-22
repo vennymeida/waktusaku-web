@@ -110,7 +110,7 @@ class LamarPerusahaan extends Controller
         $tanggal_berakhir = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_berakhir ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_berakhir)->format('j F Y') : '';
 
         $pelatihan = $relasiLamar->pencarikerja->user->pelatihan;
-        $keahlian = $profileUser->keahlian;
+        $keahlian = $profileUser->user->keahlians;
         $judulPekerjaan = $relasiLamar->loker->judul;
         $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 

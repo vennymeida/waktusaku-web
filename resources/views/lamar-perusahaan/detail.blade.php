@@ -100,7 +100,7 @@
                                         @if ($keahlian && $keahlian->count() > 0)
                                             <ul>
                                                 @foreach ($keahlian as $keahlian)
-                                                    <li>{{ $keahlian->keahlian->keahlian }}</li>
+                                                    <li>{{ $keahlian->keahlian }}</li>
                                                 @endforeach
                                             </ul>
                                         @else
