@@ -472,6 +472,7 @@
 </div>
 
 @extends('landing-page.app')
+@section('title', 'WaktuSaku - Profile')
 @section('main')
     @if (Auth::user()->hasRole('Perusahaan'))
         <main class="bg-light">

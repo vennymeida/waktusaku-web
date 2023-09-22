@@ -126,7 +126,6 @@
 @push('customScript')
     <script src="{{ asset('assets/js/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('assets/js/chart.min.js') }}"></script>
-    <script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
 
     <script>
         var ctx = document.getElementById("myChart").getContext('2d');
