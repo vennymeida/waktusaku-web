@@ -40,7 +40,9 @@ class PelatihanController extends Controller
 
         $pelatihan->save();
 
-        return redirect()->route('profile.index')->with('success', 'Pelatihan berhasil ditambahkan.');
+        return redirect()
+            ->route('profile.index')
+            ->with('success', 'success-create');
     }
 
     public function edit($id)
@@ -71,6 +73,8 @@ class PelatihanController extends Controller
     public function destroy(Pelatihan $pelatihan)
     {
         $pelatihan->delete();
-        return redirect()->route('pelatihan.delete')->with('success', 'Pelatihan berhasil dihapus.');
+        return redirect()
+            ->route('pelatihan.delete')
+            ->with('success', 'success-delete');
     }
 }

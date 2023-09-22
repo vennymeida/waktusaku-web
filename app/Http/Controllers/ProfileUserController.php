@@ -254,4 +254,11 @@ class ProfileUserController extends Controller
 
         return redirect()->route('profile.index')->with('success', 'success-delete');
     }
+
+    // public function destroyPendidikan(Pendidikan $profile)
+    // {
+    //     $profile->delete();
+
+    //     return redirect()->route('profile.index')->with('success', 'success-delete');
+    // }
 }

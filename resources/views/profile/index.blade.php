@@ -926,14 +926,25 @@
                                                 {{ $item->institusi }}
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
-                                            id="fluid">
+                                        <div class="d-flex justify-content-end align-items-center"
+                                            style="font-size: 2.00em;" id="fluid">
                                             <a href="#" data-id="{{ $item->id }}"
                                                 data-edit-url="{{ route('pendidikan.edit', ['pendidikan' => $item->id]) }}"
                                                 class="modal-edit-trigger-pendidikan">
                                                 <img class="img-fluid" style="width: 30px; height: 30px;"
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
+                                            <form class="m-0"
+                                                action="{{ route('profile.destroy', ['profile' => $item->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn">
+                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                        src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                        alt="Hapus">
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -999,14 +1010,25 @@
                                                 {{ $pl->nama_pekerjaan }}
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
-                                            id="fluid">
+                                        <div class="d-flex justify-content-end align-items-center"
+                                            style="font-size: 2.00em;" id="fluid">
                                             <a href="#" data-id="{{ $pl->id }}"
                                                 data-edit-url="{{ route('pengalaman.edit', ['pengalaman' => $pl->id]) }}"
                                                 class="modal-edit-trigger-pengalaman">
                                                 <img class="img-fluid" style="width: 30px; height: 30px;"
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
+                                            <form class="m-0"
+                                                action="{{ route('profile.destroy', ['profile' => $pl->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn">
+                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                        src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                        alt="Hapus">
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -1073,14 +1095,25 @@
                                                 {{ $lat->nama_sertifikat }}
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
-                                            id="fluid">
+                                        <div class="d-flex justify-content-end align-items-center"
+                                            style="font-size: 2.00em;" id="fluid">
                                             <a href="#" data-id="{{ $lat->id }}"
                                                 data-edit-url="{{ route('pelatihan.edit', ['pelatihan' => $lat->id]) }}"
                                                 class="modal-edit-trigger-pelatihan">
                                                 <img class="img-fluid" style="width: 30px; height: 30px;"
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
+                                            <form class="m-0"
+                                                action="{{ route('profile.destroy', ['profile' => $lat->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn">
+                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                        src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                        alt="Hapus">
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -1100,11 +1133,13 @@
                                                 {{ $lat->tanggal_dikeluarkan }}
                                             </li>
                                         </ul>
-                                        <div style="font-size: 16px;">
-                                            <a href="{{ asset('storage/' . $lat->sertifikat) }}" target="_blank">
-                                                <p class="">Lihat Sertifikat</p>
-                                            </a>
-                                        </div>
+                                        @if (!empty($lat->sertifikat))
+                                            <div style="font-size: 16px;">
+                                                <a href="{{ asset('storage/' . $lat->sertifikat) }}" target="_blank">
+                                                    <p class="">Lihat Sertifikat</p>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
@@ -1596,7 +1631,35 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil',
-                text: 'Postingan berhasil dihapus.',
+                text: 'Data berhasil dihapus.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+    <script>
+        @if (session('success') === 'success-create')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Data berhasil ditambahkan.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+    <script>
+        @if (session('success-update') === 'success-update')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Data berhasil diperbarui.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+        @if (session('error-update') === 'error-update')
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Terjadi kesalahan saat memperbarui data.',
                 confirmButtonText: 'OK'
             });
         @endif

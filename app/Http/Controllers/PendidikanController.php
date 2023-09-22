@@ -32,7 +32,9 @@ class PendidikanController extends Controller
         $pendidikan->user_id = $userId;
         $pendidikan->save();
 
-        return redirect()->route('profile.index')->with('success', 'Pendidikan berhasil ditambahkan.');
+        return redirect()
+            ->route('profile.index')
+            ->with('success', 'success-create');
     }
 
     public function edit($id)
@@ -54,6 +56,8 @@ class PendidikanController extends Controller
     public function destroy(Pendidikan $pendidikan)
     {
         $pendidikan->delete();
-        return redirect()->route('pendidikan.delete')->with('success', 'Pendidikan berhasil dihapus.');
+        return redirect()
+            ->route('pendidikan.delete')
+            ->with('success', 'success-delete');
     }
 }
