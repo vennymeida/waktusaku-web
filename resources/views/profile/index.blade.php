@@ -796,7 +796,7 @@
                                     <hr>
                                     <div class="font-italic mt-2 time" style="font-size: 14px;">
                                         {{ auth()->user()->name }}
-                                        - Diposting {{ $post->timeAgo }}
+                                        - {{ $post->timeAgo }}
                                     </div>
                                     <br>
                                     <div class="media mb-2">
@@ -935,7 +935,7 @@
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
                                             <form class="m-0"
-                                                action="{{ route('profile.destroy', ['profile' => $item->id]) }}"
+                                                action="{{ route('pendidikan.destroy', ['pendidikan' => $item->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -1019,7 +1019,7 @@
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
                                             <form class="m-0"
-                                                action="{{ route('profile.destroy', ['profile' => $pl->id]) }}"
+                                                action="{{ route('pengalaman.destroy', ['pengalaman' => $pl->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -1104,7 +1104,7 @@
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
                                             <form class="m-0"
-                                                action="{{ route('profile.destroy', ['profile' => $lat->id]) }}"
+                                                action="{{ route('pelatihan.destroy', ['pelatihan' => $lat->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')

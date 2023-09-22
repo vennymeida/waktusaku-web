@@ -57,7 +57,7 @@ class PengalamanController extends Controller
     {
         $pengalaman->delete();
         return redirect()
-            ->route('pengalaman.delete')
+            ->route('profile.index')
             ->with('success', 'success-delete');
     }
 }

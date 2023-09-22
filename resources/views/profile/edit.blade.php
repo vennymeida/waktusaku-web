@@ -413,8 +413,8 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group col-md-12 col-12">
-                                                <select name="keahlian_ids[]" multiple class="form-control select2">
-                                                    <option value="" disabled selected>Pilih Keahlian</option>
+                                                <select name="keahlian_ids[]" multiple class="form-control select2 keahlian">
+                                                    {{-- <option value="" disabled selected></option> --}}
                                                     @foreach ($keahlians as $keahlian)
                                                         <option value="{{ $keahlian->id }}"
                                                             {{ in_array($keahlian->id, $selectedKeahlians) ? 'selected' : '' }}>
@@ -819,6 +819,13 @@
                     confirmButtonText: 'OK'
                 });
             @endif
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.keahlian').select2({
+                placeholder: 'Pilih Keahlian',
+            });
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>

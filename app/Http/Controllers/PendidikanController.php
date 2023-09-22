@@ -57,7 +57,7 @@ class PendidikanController extends Controller
     {
         $pendidikan->delete();
         return redirect()
-            ->route('pendidikan.delete')
+            ->route('profile.index')
             ->with('success', 'success-delete');
     }
 }

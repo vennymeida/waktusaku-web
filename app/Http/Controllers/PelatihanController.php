@@ -90,7 +90,7 @@ class PelatihanController extends Controller
         $pelatihan->delete();
 
         return redirect()
-            ->route('pelatihan.delete')
+            ->route('profile.index')
             ->with('success', 'success-delete');
     }
 }
