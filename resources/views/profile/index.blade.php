@@ -1809,8 +1809,7 @@
 
             function openEditModal(latId) {
                 var editUrl = "{{ route('pelatihan.edit', ['pelatihan' => '_id']) }}".replace('_id', latId);
-                var updateUrl = "{{ route('pelatihan.update', ['pelatihan' => '_id']) }}".replace('_id',
-                    latId);
+                var updateUrl = "{{ route('pelatihan.update', ['pelatihan' => '_id']) }}".replace('_id', latId);
 
                 $('#modal-edit-pelatihan-form').attr('action', updateUrl);
 
@@ -1825,7 +1824,7 @@
                         $('#modal-edit-pelatihan input[name="penerbit"]').val(data.penerbit);
                         $('#modal-edit-pelatihan input[name="tanggal_dikeluarkan"]').val(data
                             .tanggal_dikeluarkan);
-                        $('#modal-edit-pelatihan input[name="sertifikat"]').val(data.sertifikat);
+                        // $('#modal-edit-pelatihan input[name="sertifikat"]').val(data.sertifikat);
 
                         editModal.modal('show');
                     }
