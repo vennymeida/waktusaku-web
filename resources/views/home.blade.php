@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'WaktuSaku - Dashboard')
 @section('content')
     <section class="section">
         <div class="section-header" style="border-radius: 15px;">
@@ -123,64 +124,63 @@
 @endsection
 
 @push('customScript')
+    <script src="{{ asset('assets/js/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('assets/js/chart.min.js') }}"></script>
+    <script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
 
-<script src="{{ asset('assets/js/jquery.sparkline.min.js') }}"></script>
-<script src="{{ asset('assets/js/chart.min.js') }}"></script>
-<script src="{{ asset('assets/js/page/components-statistic.js') }}"></script>
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        const grafikData = @json($grafik);
+        const monthNames = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
+            "Oktober", "November", "Desember"
+        ];
 
-<script>
-    var ctx = document.getElementById("myChart").getContext('2d');
-    const grafikData = @json($grafik);
-    const monthNames = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
-        "Oktober", "November", "Desember"
-    ];
-
-    const perusahaanData = {};
-    grafikData.forEach(item => {
-        if (!perusahaanData[item.nama]) {
-            perusahaanData[item.nama] = Array(12).fill(0);
-        }
-        perusahaanData[item.nama][parseInt(item.month) - 1] = item.jumlah_lamars;
-    });
-
-    const colors = [
-        'rgba(75, 192, 192, 0.8)',
-        'rgba(255, 99, 132, 0.8)',
-        'rgba(54, 162, 235, 0.8)',
-        'rgba(255, 206, 86, 0.8)',
-        'rgba(153, 102, 255, 0.8)',
-        'rgba(255, 159, 64, 0.8)',
-    ];
-
-    const datasets = [];
-    let colorIndex = 0;
-    for (const [perusahaan, data] of Object.entries(perusahaanData)) {
-        datasets.push({
-            label: perusahaan,
-            data: data,
-            backgroundColor: colors[colorIndex++ % colors.length],
-            borderWidth: 1,
+        const perusahaanData = {};
+        grafikData.forEach(item => {
+            if (!perusahaanData[item.nama]) {
+                perusahaanData[item.nama] = Array(12).fill(0);
+            }
+            perusahaanData[item.nama][parseInt(item.month) - 1] = item.jumlah_lamars;
         });
-    }
 
-    const myBarChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: monthNames.slice(1),
-            datasets: datasets,
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function(value) {
-                            return value.toLocaleString("id-ID"); // Format angka dalam format Indonesia
+        const colors = [
+            'rgba(75, 192, 192, 0.8)',
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(255, 206, 86, 0.8)',
+            'rgba(153, 102, 255, 0.8)',
+            'rgba(255, 159, 64, 0.8)',
+        ];
+
+        const datasets = [];
+        let colorIndex = 0;
+        for (const [perusahaan, data] of Object.entries(perusahaanData)) {
+            datasets.push({
+                label: perusahaan,
+                data: data,
+                backgroundColor: colors[colorIndex++ % colors.length],
+                borderWidth: 1,
+            });
+        }
+
+        const myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: monthNames.slice(1),
+                datasets: datasets,
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString("id-ID"); // Format angka dalam format Indonesia
+                            },
                         },
                     },
                 },
             },
-        },
-    });
-</script>
+        });
+    </script>
 @endpush

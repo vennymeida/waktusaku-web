@@ -1,5 +1,5 @@
 @extends('landing-page.app')
-
+@section('title', 'WaktuSaku - Detail Lowongan Pekerjaan')
 @section('main')
     <main class="bg-light">
         <section>
@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-center justify-content-center">
                             <img class="img-fluid rounded-circle" src="{{ asset('storage/' . $loker->perusahaan->logo) }}"
-                                style="width: 245px; height: 245px; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7));">
+                                style="width: 75%; height: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7));">
                         </div>
                         <div class="col-md-7">
                             <ul class="list-unstyled">
@@ -83,6 +83,37 @@
                         </div>
                     </div>
 
+                    <!-- Button to open Chatify modal -->
+                    <div class="chat-icon-container">
+                        <a href="{{ url('chatify/') }}" class="fas fa-comment-dots"
+                            style="font-size: 37px; color:#6777ef;"></a>
+                    </div>
+
+                    <!-- Chatify Modal -->
+                    {{-- <div class="modal fade" id="chatifyModal" tabindex="-1" role="dialog" aria-labelledby="chatifyModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="chatifyModalLabel">Live Chat with {{ $loker->perusahaan->nama }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{-- @include('Chatify::layouts.headLinks') --}}
+                    <!-- Here you can integrate Chatify's components for displaying messages -->
+                    <!-- For simplicity, I'm just including the messenger layout -->
+                    {{-- <div class="messenger"> --}}
+                    <!-- Your Chatify integration code goes here -->
+                    {{-- </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
+
                     <hr class="my-4">
                     <div class="col-md-11 mx-auto my-5">
                         <h5 class="font-weight-bolder">Keahlian : </h5>
@@ -103,7 +134,7 @@
                         <div class="row">
                             <div class="col-md-3 d-flex align-items-center justify-content-center">
                                 <img class="img-fluid" src="{{ asset('storage/' . $loker->perusahaan->logo) }}"
-                                    style="width: 155px; height: 155px; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 10px;">
+                                    style="width: 100%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 10px;">
                             </div>
                             <div class="col-md-4 d-flex align-items-center">
                                 <p class="mb-2" style="font-size: 19px;">{{ $loker->perusahaan->nama }}</p>
@@ -156,5 +187,20 @@
         });
 
         textarea.style.height = (textarea.scrollHeight) + 'px';
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function openChatifyChat(user_id) {
+            // Check if Chatify is defined (the Chatify JavaScript library is loaded)
+            if (typeof Chatify === 'object') {
+                // Open a chat with the specified user ID
+                Chatify.openChat(user_id);
+            } else {
+                // Handle the case where Chatify is not defined (library not loaded)
+                console.error('Chatify is not loaded.');
+            }
+        }
     </script>
 @endsection

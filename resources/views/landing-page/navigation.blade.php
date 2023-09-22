@@ -114,6 +114,9 @@
                                             src="{{ asset('assets/img/lamar/status.svg') }}"
                                             style="width: 8%; height: 8%;">Status Lamaran
                                     </a>
+                                    <a href="{{ route('chatify') }}" class="dropdown-item has-icon">
+                                        <i class="far fa-comment mx-1 mr-2"></i> Pesan Obrolan
+                                    </a>
                                 @endif
                                 @if (auth()->user()->hasRole('Perusahaan'))
                                     <a href="{{ route('loker-perusahaan.index') }}" class="dropdown-item has-icon">
@@ -121,6 +124,9 @@
                                     </a>
                                     <a href="{{ route('lamarperusahaan.index') }}" class="dropdown-item has-icon">
                                         <i class="fas fa-file-alt mx-1 mr-2"></i> Data Pelamar Kerja
+                                    </a>
+                                    <a href="{{ route('chatify') }}" class="dropdown-item has-icon">
+                                        <i class="fas fa-comment mx-1 mr-2"></i> Pesan Obrolan
                                     </a>
                                 @endif
                                 <hr class="my-0" style="background-color: rgba(249, 249, 249, 0.2);">
@@ -162,12 +168,13 @@
     <script src="/assets/js/scripts.js"></script>
     <script src="/assets/js/custom.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-    // Inisialisasi dropdown
-    $(document).ready(function() {
-        $('.dropdown-toggle').dropdown();
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Inisialisasi dropdown
+        $(document).ready(function() {
+                    $('.dropdown-toggle').dropdown(); <
+                    script src = "https://code.jquery.com/jquery-3.5.1.min.js" >
+    </script>
     <script>
         // Inisialisasi dropdown
         $(document).ready(function() {

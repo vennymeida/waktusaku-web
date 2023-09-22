@@ -1,4 +1,5 @@
 @extends('landing-page.app')
+@section('title', 'WaktuSaku - Contact Us')
 @section('main')
     <main class="bg-light">
         <section>

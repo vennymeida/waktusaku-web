@@ -32,7 +32,9 @@ class PengalamanController extends Controller
         $pengalaman->user_id = $userId;
         $pengalaman->save();
 
-        return redirect()->route('profile.index')->with('success', 'Pengalaman berhasil ditambahkan.');
+        return redirect()
+            ->route('profile.index')
+            ->with('success', 'success-create');
     }
 
     public function edit($id)
@@ -54,6 +56,8 @@ class PengalamanController extends Controller
     public function destroy(Pengalaman $pengalaman)
     {
         $pengalaman->delete();
-        return redirect()->route('pengalaman.delete')->with('success', 'Pengalaman berhasil dihapus.');
+        return redirect()
+            ->route('profile.index')
+            ->with('success', 'success-delete');
     }
 }

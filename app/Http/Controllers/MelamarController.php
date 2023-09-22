@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lamar;
+use App\Models\lamar;
 use Illuminate\Http\Request;
 
 class MelamarController extends Controller
@@ -18,7 +18,7 @@ class MelamarController extends Controller
         $request->validate([
             'resume' => 'mimes:pdf|max:2048' // mimes untuk format dan max untuk ukuran (dalam KB)
         ]);
-        
+
         $data = $request->all();
 
         // Proses file resume jika ada yang di-upload
@@ -27,7 +27,7 @@ class MelamarController extends Controller
             $resumePath = $resumeFile->store('resumes', 'public');
             $data['resume'] = $resumePath;
         } else {
-            // Jika tidak ada file yang di-upload, kita tetap menyertakan resume saat ini 
+            // Jika tidak ada file yang di-upload, kita tetap menyertakan resume saat ini
             // dari profile_user ke tabel lamars tanpa mengubahnya di profile_user
             $data['resume'] = auth()->user()->profile->resume;
         }
