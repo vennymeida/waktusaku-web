@@ -28,8 +28,8 @@ class UpdatePendidikanRequest extends FormRequest
             'institusi' => 'nullable|string|max:255',
             'jurusan' => 'nullable|string|max:255',
             'prestasi' => 'nullable|string|max:2000',
-            'tahun_mulai' => 'nullable|in:2017,2018,2019,2020,2021,2022,2023',
-            'tahun_berakhir' => 'nullable|in:2017,2018,2019,2020,2021,2022,2023,Saat Ini',
+            'tahun_mulai' => 'nullable|in:2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029',
+            'tahun_berakhir' => 'nullable|in:2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,Saat Ini',
             'ipk' => 'nullable|numeric|between:0,4'
         ];
     }

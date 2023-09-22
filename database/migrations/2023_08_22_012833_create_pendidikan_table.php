@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('institusi')->nullable();
             $table->string('jurusan')->nullable();
             $table->text('prestasi')->nullable();
-            $table->enum('tahun_mulai', ['2017', '2018', '2019', '2020', '2021', '2022', '2023'])->nullable();
-            $table->enum('tahun_berakhir', ['2017', '2018', '2019', '2020', '2021', '2022', '2023', 'Saat Ini'])->nullable();
+            $table->enum('tahun_mulai', ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029'])->nullable();
+            $table->enum('tahun_berakhir', ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', 'Saat Ini'])->nullable();
             $table->string('ipk')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();

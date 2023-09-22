@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->string('resume')->nullable();
             $table->string('tgl_lahir')->nullable();
-            $table->string('ringkasan')->nullable();
+            $table->text('ringkasan')->nullable();
             $table->string('harapan_gaji')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();

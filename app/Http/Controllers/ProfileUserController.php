@@ -135,7 +135,7 @@ class ProfileUserController extends Controller
                     'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                     'resume' => 'nullable|file|mimes:pdf|max:2048',
                     'tgl_lahir' => 'nullable|date:d/m/Y',
-                    'ringkasan' => 'nullable|string|max:500',
+                    'ringkasan' => 'nullable',
                     'harapan_gaji' => 'nullable|string',
                 ],
                 [
@@ -149,7 +149,7 @@ class ProfileUserController extends Controller
                     'resume.mimes' => 'Resume Hanya Mendukung Format pdf',
                     'resume.max' => 'Ukuran Resume Terlalu Besar',
                     'tgl_lahir.date' => 'Tanggal Lahir Harus Sesuai Format',
-                    'ringkasan.max' => 'Ringkasan Melebihi Batas Maksimal',
+                    // 'ringkasan.max' => 'Ringkasan Melebihi Batas Maksimal',
                     'harapan_gaji.string' => 'Harapan Gaji Harus Angka',
                 ],
             );
@@ -254,4 +254,11 @@ class ProfileUserController extends Controller
 
         return redirect()->route('profile.index')->with('success', 'success-delete');
     }
+
+    // public function destroyPendidikan(Pendidikan $profile)
+    // {
+    //     $profile->delete();
+
+    //     return redirect()->route('profile.index')->with('success', 'success-delete');
+    // }
 }

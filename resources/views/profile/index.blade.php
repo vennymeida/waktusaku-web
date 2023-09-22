@@ -173,7 +173,7 @@
                                 class="form-control select2 custom-input @error('tahun_mulai') is-invalid @enderror"
                                 name="tahun_mulai" id="tahun_mulai">
                                 <option value="">Pilih Tahun</option>
-                                @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
+                                @for ($tahun = 2017; $tahun <= 2029; $tahun++)
                                     <option value="{{ $tahun }}">{{ $tahun }}</option>
                                 @endfor
                             </select>
@@ -189,7 +189,7 @@
                                 class="form-control select2 custom-input @error('tahun_berakhir') is-invalid @enderror"
                                 name="tahun_berakhir" id="tahun_berakhir">
                                 <option value="">Pilih Tahun</option>
-                                @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
+                                @for ($tahun = 2017; $tahun <= 2030; $tahun++)
                                     <option value="{{ $tahun }}">{{ $tahun }}</option>
                                 @endfor
                                 <option value="Saat Ini">Saat Ini</option>
@@ -475,21 +475,9 @@
 @section('main')
     @if (Auth::user()->hasRole('Perusahaan'))
         <main class="bg-light">
-            <section>
-                <section>
-                    <div class="bg-header col-md-12 py-3">
-                        <h4 class="text-center" style="text-align: center; font-weight: bold;">Data Perusahaan</h4>
-                    </div>
-                </section>
-            </section>
+            <h4 class="text-center my-4" style="text-align: center; font-weight: bold;">Data Perusahaan</h4>
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-11 mx-auto">
-                        <a href="{{ route('all-jobs.index') }}">
-                            <img class="img-fluid img-icon mt-3" src="{{ asset('assets/img/landing-page/back.svg') }}"
-                                style="width: 30px; height: auto;">
-                        </a>
-                    </div>
                     <div class="col-md-11 d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                         <a href="{{ url('/profile-edit') }}">
                             <img class="img-fluid" style="width: 35px; height: 35px;"
@@ -541,7 +529,8 @@
                                 @endif
                                 <li class="col-md-10">
                                     <p style="font-size: 15px;">
-                                        {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' }}</p>
+                                        {!! Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' !!}
+                                    </p>
                                 </li>
                             </ul>
                             <ul class="list-unstyled d-flex justify-content-start">
@@ -587,10 +576,10 @@
                         @if (Auth::user()->perusahaan && Auth::user()->perusahaan->logo != '')
                             <img class="img-fluid bg-white mt-4"
                                 src="{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->logo) : '' }}"
-                                style="width: 75%; height: 40%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
+                                style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                         @else
                             <img class="img-fluid bg-white mt-4" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                style="width: 75%; height: 40%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
+                                style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                         @endif
                     </div>
                 </div>
@@ -600,12 +589,8 @@
 
     @if (Auth::user()->hasRole('Pencari Kerja'))
         <main class="bg-light">
-            <section>
-                <div class="bg-header col-md-12 py-3">
-                    <h4 class="text-center" style="text-align: center; font-weight: bold;">Data Diri</h4>
-                </div>
-            </section>
-            <section class="centered-section mt-5">
+            <h4 class="text-center my-4" style="text-align: center; font-weight: bold;">Data Diri</h4>
+            <section class="centered-section-1">
                 <div class="bg-primary-section card col-md-10 py-1">
                     <div class="row">
                         <div class="col-md-3">
@@ -623,7 +608,8 @@
                             </div>
                         </div>
                         <div class="col-md-9">
-                            <div class="profile-widget-description m-4" style="display: flex; align-items: center;">
+                            <div class="profile-widget-description ml-4 mr-4 mt-4"
+                                style="display: flex; align-items: center;">
                                 <div class="flex-grow-1">
                                     <div class="profile-widget-name"
                                         style="font-weight: bold; font-size: 22px; color: #000000">
@@ -640,11 +626,12 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="row mt-2 ml-4">
+                            <div class="col-md-11 ml-2">
                                 @if (Auth::user()->profile && Auth::user()->profile->alamat != '')
-                                    <div class="profile-widget-description" style="display: flex; align-items: center;">
-                                        <a href="#" class="btn btn-primary" id="skill-button"
-                                            style="background-color:#eb9481; font-size:13px; border-radius:15px; margin-right:25px;">{{ Auth::user()->profile ? Auth::user()->profile->alamat : '' }}</a>
+                                    <div class="profile-widget-description mb-3"
+                                        style="display: flex; align-items: center;">
+                                        <img class="img-fluid" style="width: 25px; height: 25px;"
+                                            src="{{ asset('assets/img/landing-page/location pin.svg') }}">&nbsp&nbsp<a>{{ Auth::user()->profile ? Auth::user()->profile->alamat : '' }}</a>
                                     </div>
                                 @endif
                                 @if (Auth::user()->profile && Auth::user()->profile->resume != '')
@@ -653,7 +640,7 @@
                                             data-target="#resumePreviewModal"
                                             data-pdf="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
                                             style="background-color:#eb9481; font-size:13px; border-radius:15px;">
-                                            <i class="fas fa-eye mt-6"></i> Lihat Resume
+                                            <i class="fas fa-eye"></i> Lihat Resume
                                         </a>
                                     </div>
                                 @endif
@@ -662,7 +649,7 @@
                     </div>
                 </div>
             </section>
-            <section class="col-md-10 mx-auto mt-4">
+            <section class="col-md-10 mx-auto mt-4 mb-0">
                 <div>
                     <div class="row">
                         <div class="col-md-5">
@@ -677,9 +664,10 @@
                                         <div class="text-left mb-4 mt-2 ml-2">
                                             @if (Auth::user()->profile && Auth::user()->profile->tgl_lahir != '')
                                                 <span style="color: #808080; font-size: 15px; font-weight:bold">Tanggal
-                                                    Lahir :</span><br>
-                                                <span
-                                                    style="color: #000000; line-height: 2; font-weight:500">{{ Auth::user()->profile ? Auth::user()->profile->tgl_lahir : '' }}</span><br>
+                                                    Lahir&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:
+                                                    <span
+                                                        style="color: #000000; line-height: 2; font-weight:500">&nbsp&nbsp&nbsp&nbsp&nbsp{{ Auth::user()->profile ? Auth::user()->profile->tgl_lahir : '' }}</span>
+                                                </span><br><br>
                                             @else
                                                 <span style="color: #808080; font-size: 15px; font-weight:bold">Tanggal
                                                     Lahir :</span>
@@ -688,16 +676,17 @@
                                             @endif
                                             @if (Auth::user()->profile && Auth::user()->profile->jenis_kelamin != '')
                                                 <span style="color: #808080; font-size: 15px; font-weight:bold">Jenis
-                                                    Kelamin :</span><br>
-                                                <span style="color: #000000; line-height: 2; font-weight:500">
-                                                    @if (Auth::user()->profile->jenis_kelamin == 'P')
-                                                        Perempuan
-                                                    @elseif (Auth::user()->profile->jenis_kelamin == 'L')
-                                                        Laki-laki
-                                                    @else
-                                                        {{ Auth::user()->profile->jenis_kelamin }}
-                                                    @endif
-                                                </span><br>
+                                                    Kelamin&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                    <span style="color: #000000; line-height: 2; font-weight:500">
+                                                        @if (Auth::user()->profile->jenis_kelamin == 'P')
+                                                            Perempuan
+                                                        @elseif (Auth::user()->profile->jenis_kelamin == 'L')
+                                                            Laki-laki
+                                                        @else
+                                                            {{ Auth::user()->profile->jenis_kelamin }}
+                                                        @endif
+                                                    </span>
+                                                </span><br><br>
                                             @else
                                                 <span style="color: #808080; font-size: 15px; font-weight:bold">Jenis
                                                     Kelamin :</span>
@@ -705,10 +694,9 @@
                                                     style="color: #000000; line-height: 2; font-weight:500"><br></span><br>
                                             @endif
                                             @if (Auth::user()->profile && Auth::user()->profile->no_hp != '')
-                                                <span style="color: #808080; font-size: 15px; font-weight:bold">No Telepon
-                                                    :</span><br>
-                                                <span
-                                                    style="color: #000000; line-height: 2; font-weight:500">{{ Auth::user()->profile ? Auth::user()->profile->no_hp : '' }}</span><br>
+                                                <span style="color: #808080; font-size: 15px; font-weight:bold">No
+                                                    Telepon&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:<span
+                                                        style="color: #000000; line-height: 2; font-weight:500">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ Auth::user()->profile ? Auth::user()->profile->no_hp : '' }}</span></span><br><br>
                                             @else
                                                 <span style="color: #808080; font-size: 15px; font-weight:bold">No Telepon
                                                     :</span>
@@ -717,9 +705,9 @@
                                             @endif
                                             @if (Auth::user()->profile && Auth::user()->profile->harapan_gaji != '')
                                                 <span style="color: #808080; font-size: 15px; font-weight:bold">Harapan
-                                                    Gaji :</span><br>
-                                                <span
-                                                    style="color: #000000; line-height: 2; font-weight:500">{{ Auth::user()->profile ? Auth::user()->profile->harapan_gaji : '' }}</span><br>
+                                                    Gaji&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp
+                                                    <span
+                                                        style="color: #000000; line-height: 2; font-weight:500">{{ Auth::user()->profile ? Auth::user()->profile->harapan_gaji : '' }}</span></span><br><br>
                                             @else
                                                 <span style="color: #808080; font-size: 15px; font-weight:bold">Harapan
                                                     Gaji :</span>
@@ -756,22 +744,19 @@
                     </div>
                 </div>
             </section>
-            <section class="centered-section" style="margin-top: -50px;">
-                <div class="container-garis">
-                    <div class="lines">
-                        <div class="diamond"></div>
-                        <div class="circle"></div>
-                        <div class="diamond"></div>
-                    </div>
+            <section class="centered-section container-garis my-0">
+                <div class="lines my-0">
+                    <div class="diamond"></div>
+                    <div class="circle"></div>
+                    <div class="diamond"></div>
                 </div>
             </section>
-            <!-- Tampilan Postingan -->
-            <section class="centered-section">
-                <div class="bg-primary-section col-md-10 py-1">
+            <section class="centered-section my-0">
+                <div class="bg-primary-section card col-md-10 py-3">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
-                            <div class="profile-widget-name">Activity Saya</div>
+                            <div class="profile-widget-name" style="color:#6777ef;">Cerita Saya</div>
                         </div>
                         <div class="d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
                             <a href="#" data-toggle="modal" data-target="#modal-create-postingan">
@@ -790,18 +775,18 @@
                             @endif
                             <div class="form-group col-md-11" data-toggle="modal" data-target="#modal-create-postingan">
                                 <input name="postingan" type="text" class="form-control custom-input"
-                                    placeholder="Mulai Buat Posting...">
+                                    placeholder="Tambahkan Cerita Anda . . .">
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section class="centered-section">
-                <div class="bg-primary-section col-md-10 py-1">
+            <section class="centered-section my-4">
+                <div class="bg-primary-section card col-md-10 py-2">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
-                            <div class="profile-widget-name">Activity / Postingan</div>
+                            <div class="profile-widget-name" style="color:#6777ef;">Cerita / Postingan</div>
                         </div>
                     </div>
                     @if (count($postingans) > 0)
@@ -811,55 +796,77 @@
                                     <hr>
                                     <div class="font-italic mt-2 time" style="font-size: 14px;">
                                         {{ auth()->user()->name }}
-                                        - Diposting {{ $post->timeAgo }}
+                                        - {{ $post->timeAgo }}
                                     </div>
                                     <br>
                                     <div class="media mb-2">
-                                        <img class="mr-3 rounded"width="70" height="70"
-                                            src="{{ asset('storage/' . $post->media) }}">
-                                        <div class="media-body">
-                                            {!! $post->konteks !!}
-                                        </div>
-                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
-                                            id="fluid">
-                                            <a href="#" data-id="{{ $post->id }}"
-                                                data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
-                                                class="modal-edit-trigger-postingan">
-                                                <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                    src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                            </a>
-                                        </div>
-                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
-                                            id="fluid">
-                                            <form action="{{ route('profile.destroy', ['profile' => $post->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-link">
+                                        @if (!empty($post->media))
+                                            <img class="mr-3 rounded"width="150px" height="150px"
+                                                src="{{ asset('storage/' . $post->media) }}">
+                                            <div class="media-body col-md-9">
+                                                {!! $post->konteks !!}
+                                            </div>
+                                            <div class="d-flex justify-content-end" style="" id="fluid">
+                                                <a href="#" data-id="{{ $post->id }}"
+                                                    data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
+                                                    class="modal-edit-trigger-postingan mt-2">
                                                     <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                        src="{{ asset('assets/img/landing-page/delete.svg') }}"
-                                                        alt="Hapus">
-                                                </button>
-                                            </form>
-                                        </div>
+                                                        src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                                </a>
+                                                <form class="m-0"
+                                                    action="{{ route('profile.destroy', ['profile' => $post->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn">
+                                                        <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                            src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                            alt="Hapus">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @else
+                                            <div class="media-body col-md-10 mr-5">
+                                                {!! $post->konteks !!}
+                                            </div>
+                                            <div class="d-flex justify-content-end ml-4" style="" id="fluid">
+                                                <a href="#" data-id="{{ $post->id }}"
+                                                    data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
+                                                    class="modal-edit-trigger-postingan mt-2">
+                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                        src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                                </a>
+                                                <form class="m-0"
+                                                    action="{{ route('profile.destroy', ['profile' => $post->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn">
+                                                        <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                            src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                            alt="Hapus">
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>
                         </div>
-                        <div class="text-center mt-4">
-                            <a href="{{ route('postingan.index') }}" class="btn btn-primary"
-                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;">
-                                Lihat Lainnya ...
+                        <div class="text-right my-4 mr-5">
+                            <a href="{{ route('postingan.index') }}" class="" style="font-size: 16px;">
+                                Lihat Lainnya . . .
                             </a>
                         </div>
                     @else
-                        <div class="text-center" style="color:#808080">
-                            <p>Anda Belum Memposting Apapun</p>
+                        <div class="col-md-12 text-center my-4"><br><br>
+                            <img src="{{ asset('assets/img/landing-page/folder.png') }}">
+                            <p class="mt-1 text-not">Belum Ada Postingan Anda</p>
                         </div>
                     @endif
                 </div>
             </section>
-            <section class="centered-section">
+            <section class="centered-section my-4">
                 <div class="bg-primary-section card col-md-10 py-1">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
@@ -885,13 +892,14 @@
                             </div>
                         </div>
                     @else
-                        <div class="text-center" style="color:#808080">
-                            <p>Data Keahlian Masih Kosong</p>
+                        <div class="col-md-12 text-center my-4"><br><br>
+                            <img src="{{ asset('assets/img/landing-page/folder.png') }}">
+                            <p class="mt-1 text-not">Data Keahlian Masih Kosong</p>
                         </div>
                     @endif
                 </div>
             </section>
-            <section class="centered-section">
+            <section class="centered-section my-4">
                 <div class="bg-primary-section card col-md-10 py-1">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
@@ -908,6 +916,7 @@
                     @if (count($pendidikans) > 0)
                         <div id="pendidikan-container">
                             @foreach ($pendidikans as $item)
+                                <hr>
                                 <div class="mr-5 ml-5">
                                     <div class="profile-widget-description m-3"
                                         style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
@@ -917,14 +926,25 @@
                                                 {{ $item->institusi }}
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
-                                            id="fluid">
+                                        <div class="d-flex justify-content-end align-items-center"
+                                            style="font-size: 2.00em;" id="fluid">
                                             <a href="#" data-id="{{ $item->id }}"
                                                 data-edit-url="{{ route('pendidikan.edit', ['pendidikan' => $item->id]) }}"
                                                 class="modal-edit-trigger-pendidikan">
                                                 <img class="img-fluid" style="width: 30px; height: 30px;"
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
+                                            <form class="m-0"
+                                                action="{{ route('pendidikan.destroy', ['pendidikan' => $item->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn">
+                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                        src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                        alt="Hapus">
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -956,13 +976,14 @@
                                 data-page="{{ $pendidikans->currentPage() }}">Muat Lebih Banyak</button>
                         </div>
                     @else
-                        <div class="text-center" style="color:#808080">
-                            <p>Data Pendidikan Masih Kosong</p>
+                        <div class="col-md-12 text-center my-4"><br><br>
+                            <img src="{{ asset('assets/img/landing-page/folder.png') }}">
+                            <p class="mt-1 text-not">Data Pendidikan Masih Kosong</p>
                         </div>
                     @endif
                 </div>
             </section>
-            <section class="centered-section">
+            <section class="centered-section my-4">
                 <div class="bg-primary-section card col-md-10 py-1">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
@@ -989,14 +1010,25 @@
                                                 {{ $pl->nama_pekerjaan }}
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
-                                            id="fluid">
+                                        <div class="d-flex justify-content-end align-items-center"
+                                            style="font-size: 2.00em;" id="fluid">
                                             <a href="#" data-id="{{ $pl->id }}"
                                                 data-edit-url="{{ route('pengalaman.edit', ['pengalaman' => $pl->id]) }}"
                                                 class="modal-edit-trigger-pengalaman">
                                                 <img class="img-fluid" style="width: 30px; height: 30px;"
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
+                                            <form class="m-0"
+                                                action="{{ route('pengalaman.destroy', ['pengalaman' => $pl->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn">
+                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                        src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                        alt="Hapus">
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -1029,13 +1061,14 @@
                                 data-page="{{ $pengalamans->currentPage() }}">Muat Lebih Banyak</button>
                         </div>
                     @else
-                        <div class="text-center" style="color:#808080">
-                            <p>Data Pengalaman Kerja Masih Kosong</p>
+                        <div class="col-md-12 text-center my-4"><br><br>
+                            <img src="{{ asset('assets/img/landing-page/folder.png') }}">
+                            <p class="mt-1 text-not">Data Pengalaman Kerja Masih Kosong</p>
                         </div>
                     @endif
                 </div>
             </section>
-            <section class="centered-section" style="margin-bottom: 10%;">
+            <section class="centered-section my-4">
                 <div class="bg-primary-section card col-md-10 py-1">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
@@ -1052,6 +1085,7 @@
                     @if (count($pelatihans) > 0)
                         <div id="pelatihan-container">
                             @foreach ($pelatihans as $lat)
+                                <hr>
                                 <div class="mr-5 ml-5">
                                     <div class="profile-widget-description m-3"
                                         style="font-weight: bold; font-size: 16px; display: flex; align-items: center;">
@@ -1061,14 +1095,25 @@
                                                 {{ $lat->nama_sertifikat }}
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end" style="font-size: 2.00em;"
-                                            id="fluid">
+                                        <div class="d-flex justify-content-end align-items-center"
+                                            style="font-size: 2.00em;" id="fluid">
                                             <a href="#" data-id="{{ $lat->id }}"
                                                 data-edit-url="{{ route('pelatihan.edit', ['pelatihan' => $lat->id]) }}"
                                                 class="modal-edit-trigger-pelatihan">
                                                 <img class="img-fluid" style="width: 30px; height: 30px;"
                                                     src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
                                             </a>
+                                            <form class="m-0"
+                                                action="{{ route('pelatihan.destroy', ['pelatihan' => $lat->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn">
+                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                        src="{{ asset('assets/img/landing-page/delete.svg') }}"
+                                                        alt="Hapus">
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -1088,11 +1133,13 @@
                                                 {{ $lat->tanggal_dikeluarkan }}
                                             </li>
                                         </ul>
-                                        <div style="font-size: 16px;">
-                                            <a href="{{ asset('storage/' . $lat->sertifikat) }}" target="_blank">
-                                                <p class="">Lihat Sertifikat</p>
-                                            </a>
-                                        </div>
+                                        @if (!empty($lat->sertifikat))
+                                            <div style="font-size: 16px;">
+                                                <a href="{{ asset('storage/' . $lat->sertifikat) }}" target="_blank">
+                                                    <p class="">Lihat Sertifikat</p>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
@@ -1103,8 +1150,9 @@
                                 data-page="{{ $pelatihans->currentPage() }}">Muat Lebih Banyak</button>
                         </div>
                     @else
-                        <div class="text-center" style="color:#808080">
-                            <p>Data Pelatihan/Sertifikat Masih Kosong</p>
+                        <div class="col-md-12 text-center my-4"><br><br>
+                            <img src="{{ asset('assets/img/landing-page/folder.png') }}">
+                            <p class="mt-1 text-not">Data Pelatihan/Sertifikat Masih Kosong</p>
                         </div>
                     @endif
                 </div>
@@ -1195,7 +1243,7 @@
                                         class="form-control select2 custom-input @error('tahun_mulai') is-invalid @enderror"
                                         name="tahun_mulai" id="tahun_mulai">
                                         <option value="">Pilih Tahun</option>
-                                        @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
+                                        @for ($tahun = 2017; $tahun <= 2029; $tahun++)
                                             <option value="{{ $tahun }}">{{ $tahun }}</option>
                                         @endfor
                                     </select>
@@ -1211,7 +1259,7 @@
                                         class="form-control select2 custom-input @error('tahun_berakhir') is-invalid @enderror"
                                         name="tahun_berakhir" id="tahun_berakhir">
                                         <option value="">Pilih Tahun</option>
-                                        @for ($tahun = 2017; $tahun <= date('Y'); $tahun++)
+                                        @for ($tahun = 2017; $tahun <= 2030; $tahun++)
                                             <option value="{{ $tahun }}">{{ $tahun }}</option>
                                         @endfor
                                         <option value="Saat Ini">Saat Ini</option>
@@ -1583,7 +1631,35 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil',
-                text: 'Postingan berhasil dihapus.',
+                text: 'Data berhasil dihapus.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+    <script>
+        @if (session('success') === 'success-create')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Data berhasil ditambahkan.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+    <script>
+        @if (session('success-update') === 'success-update')
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Data berhasil diperbarui.',
+                confirmButtonText: 'OK'
+            });
+        @endif
+        @if (session('error-update') === 'error-update')
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Terjadi kesalahan saat memperbarui data.',
                 confirmButtonText: 'OK'
             });
         @endif
@@ -1733,8 +1809,7 @@
 
             function openEditModal(latId) {
                 var editUrl = "{{ route('pelatihan.edit', ['pelatihan' => '_id']) }}".replace('_id', latId);
-                var updateUrl = "{{ route('pelatihan.update', ['pelatihan' => '_id']) }}".replace('_id',
-                    latId);
+                var updateUrl = "{{ route('pelatihan.update', ['pelatihan' => '_id']) }}".replace('_id', latId);
 
                 $('#modal-edit-pelatihan-form').attr('action', updateUrl);
 
@@ -1749,7 +1824,7 @@
                         $('#modal-edit-pelatihan input[name="penerbit"]').val(data.penerbit);
                         $('#modal-edit-pelatihan input[name="tanggal_dikeluarkan"]').val(data
                             .tanggal_dikeluarkan);
-                        $('#modal-edit-pelatihan input[name="sertifikat"]').val(data.sertifikat);
+                        // $('#modal-edit-pelatihan input[name="sertifikat"]').val(data.sertifikat);
 
                         editModal.modal('show');
                     }
@@ -1939,7 +2014,7 @@
                         let content = $(data).find('#pelatihan-container').html();
                         if (content) {
                             $('#pelatihan-container').append(content);
-                            isLoadingMorepelatihan = false;
+                            isLoadingMorePelatihan = false;
                             $('#load-more-pelatihan').data('page', nextPage);
 
                             if ($.trim(content).length === 0) {

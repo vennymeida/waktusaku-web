@@ -74,6 +74,12 @@ ol {
     margin-top: 50px;
 }
 
+.centered-section-1 {
+display: flex;
+justify-content: center;
+align-items: flex-start;
+}
+
 .bg-primary-section {
     width: 80%; /* Atur lebar div */
     margin: 0 auto; /* Menggunakan margin otomatis */
