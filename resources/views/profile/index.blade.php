@@ -2015,7 +2015,7 @@
                         let content = $(data).find('#pelatihan-container').html();
                         if (content) {
                             $('#pelatihan-container').append(content);
-                            isLoadingMorepelatihan = false;
+                            isLoadingMorePelatihan = false;
                             $('#load-more-pelatihan').data('page', nextPage);
 
                             if ($.trim(content).length === 0) {
