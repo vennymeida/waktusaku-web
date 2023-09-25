@@ -31,10 +31,10 @@
                                     <div class="post-author">
                                         @if (Auth::user()->profile && Auth::user()->profile->foto)
                                             <img src="{{ Storage::url(Auth::user()->profile->foto) }}" alt=""
-                                                class="profile-img"  style="width: 50px; height: 50px;">
+                                                class="profile-img" style="width: 50px; height: 50px;">
                                         @else
                                             <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
-                                                class="profile-img"  style="width: 50px; height: 50px;">
+                                                class="profile-img" style="width: 50px; height: 50px;">
                                         @endif
                                         <div class="d-flex flex-column col-md-11">
                                             <div class="d-flex align-items-center justify-content-between">
@@ -151,8 +151,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
-                                        <textarea name="konteks" id="konteks" class="form-control @error('konteks') is-invalid @enderror" required
-                                            rows="5" cols="50">
+                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
+                                            required rows="5" cols="50">
                                             @isset($post)
 {!! $post->konteks !!}
 @endisset
@@ -225,9 +225,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
+    <script src="{{ asset('assets/js/summernote-bs4.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
     <script>
         $(document).ready(function() {
             var editModal = $('#modal-edit-postingan');
+            var originalKonteks = ''; // Menyimpan konteks asli
 
             // Menangani perubahan pada input file untuk pengunggahan gambar
             $('#mediaUploadButton').on('change', function(event) {
@@ -257,13 +260,13 @@
                     dataType: 'json',
                     success: function(data) {
                         console.log(data);
-                        var modifiedKonteks = data.konteks.replace(/<[^>]+>/g, '');
-                        $('#modal-edit-postingan textarea[name="konteks"]').val(modifiedKonteks);
+                        originalKonteks = data.konteks; // Simpan konteks asli
+                        $('#modal-edit-postingan textarea[name="konteks"]').summernote('code', data
+                            .konteks); // Set konteks menggunakan Summernote
                         $('#modal-edit-postingan input[name="media"]').val(data.media);
                         $('#media-preview').attr('src', '{{ asset('storage/') }}/' + data.media);
                         editModal.modal('show');
                     }
-
                 });
             }
 
@@ -281,6 +284,9 @@
                 if (mediaFile) {
                     formData.append('media', mediaFile);
                 }
+
+                // Gunakan konteks asli saat mengirim data
+                formData.set('konteks', originalKonteks);
 
                 $.ajax({
                     url: form.attr('action'),
@@ -304,8 +310,13 @@
                     }
                 });
             });
+            $('#konteks').summernote({
+                disableLinkTarget: true
+            });
         });
     </script>
 @endpush
 @push('customStyle')
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.css" rel="stylesheet">
 @endpush
