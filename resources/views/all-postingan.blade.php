@@ -8,16 +8,16 @@
                     <div class="row mt-5">
                         <div class="col-md-4">
                             <div class="profile-card">
-                                <div class="image">
-                                    @if (Auth::user()->profile && Auth::user()->profile->foto)
-                                        <img src="{{ Storage::url(Auth::user()->profile->foto) }}" alt=""
-                                            class="profile-img">
-                                    @else
-                                        <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
-                                            class="profile-img">
-                                    @endif
-                                </div>
                                 @if (auth()->check())
+                                    <div class="image">
+                                        @if (!empty($profile) && !empty($profile->foto))
+                                            <img src="{{ Storage::url(Auth::user()->profile->foto) }}" alt=""
+                                                class="profile-img">
+                                        @else
+                                            <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
+                                                class="profile-img">
+                                        @endif
+                                    </div>
                                     <div class="text-data">
                                         <span class="profile-name" style="font-weight: bold; text-align:center;">Hi!
                                             {{ auth()->user()->name }}</span>
@@ -33,14 +33,14 @@
                                         </a>
                                     </div>
                                 @else
+                                    <div class="image">
+                                        <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
+                                            class="profile-img">
+                                    </div>
                                     <div class="text-data">
                                         <span class="profile-name" style="font-weight: bold; text-align:center;">Hi!
                                             User</span>
-                                        @if (!empty($profile) && !empty($profile->ringkasan))
-                                            <span class="profile-deskripsi">{!! $profile->ringkasan ?? '' !!}</span>
-                                        @else
-                                            <span class="profile-deskripsi"><br><br></span>
-                                        @endif
+                                        <span class="profile-deskripsi"><br><br></span>
                                     </div>
                                     <div>
                                         <a class="btn btn-primary font-weight-light mt-3" href="{{ route('login') }}"
@@ -62,10 +62,10 @@
                                         <div class="post-author">
                                             @if ($result->foto)
                                                 <img src="{{ asset('storage/' . $result->foto) }}" alt=""
-                                                    class="profile-img">
+                                                    style="width: 50px; height: 50px;">
                                             @else
                                                 <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
-                                                    class="profile-img">
+                                                    class="profile-img" style="width: 50px; height: 50px;">
                                             @endif
                                             <div class="d-flex flex-column col-md-11">
                                                 <div class="d-flex align-items-center justify-content-between">

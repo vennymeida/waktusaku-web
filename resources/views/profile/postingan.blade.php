@@ -31,10 +31,10 @@
                                     <div class="post-author">
                                         @if (Auth::user()->profile && Auth::user()->profile->foto)
                                             <img src="{{ Storage::url(Auth::user()->profile->foto) }}" alt=""
-                                                class="profile-img">
+                                                class="profile-img"  style="width: 50px; height: 50px;">
                                         @else
                                             <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
-                                                class="profile-img">
+                                                class="profile-img"  style="width: 50px; height: 50px;">
                                         @endif
                                         <div class="d-flex flex-column col-md-11">
                                             <div class="d-flex align-items-center justify-content-between">
