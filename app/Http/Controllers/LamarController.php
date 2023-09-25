@@ -121,44 +121,53 @@ class LamarController extends Controller
     }
 
     public function show($id)
-{
-    $lamar = Lamar::findOrFail($id); // Mencari data Lamar berdasarkan ID
-    $profileUser = $lamar->pencarikerja;
-    $profileUser->ringkasan = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $profileUser->ringkasan);
-    $tanggalLahir = Carbon::parse($profileUser->tgl_lahir)->format('j F Y');
+    {
+        $lamar = Lamar::findOrFail($id); // Finding Lamar data by ID
 
-    // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
-    $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
-    $tanggal_mulai = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_mulai ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_mulai)->format('j F Y') : '';
-    $tanggal_berakhir = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_berakhir ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_berakhir)->format('j F Y') : '';
-    // Mendapatkan informasi yang diperlukan dari relasi
-    $namaPengguna = $relasiLamar->pencarikerja->user->name;
-    $email = $relasiLamar->pencarikerja->user->email;
-    $resume = $relasiLamar->pencarikerja->user->resume;
-    $pendidikan = $relasiLamar->pencarikerja->user->pendidikan;
-    $pengalaman = $relasiLamar->pencarikerja->user->pengalaman;
-    $pelatihan = $relasiLamar->pencarikerja->user->pelatihan;
-    $keahlian = $relasiLamar->pencarikerja->user->profileKeahlians;
-    $judulPekerjaan = $relasiLamar->loker->judul;
-    $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
+        $profileUser = $lamar->pencarikerja;
+        $profileUser->ringkasan = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $profileUser->ringkasan);
+        $tanggalLahir = Carbon::parse($profileUser->tgl_lahir)->format('j F Y');
 
-    return view('lamar.detail', [
-        'tanggal_mulai' => $tanggal_mulai,
-        'tanggal_berakhir' => $tanggal_berakhir,
-        'namaPengguna' => $namaPengguna,
-        'email' => $email,
-        'resume' => $resume,
-        'judulPekerjaan' => $judulPekerjaan,
-        'namaPerusahaan' => $namaPerusahaan,
-        'lamar' => $lamar,
-        'profileUser' => $profileUser,
-        'pendidikan' => $pendidikan,
-        'pengalaman' => $pengalaman,
-        'pelatihan' => $pelatihan,
-        'keahlian' => $keahlian,
-        'tglLahir' => $tanggalLahir,
-    ]);
-}
+        // Loading the necessary relationships for display on the details page
+        $relasiLamar = $lamar->load([
+            'pencarikerja.user', // Existing relation
+            'pencarikerja.user.profileKeahlians.keahlian', // Newly added relation to resolve N+1 problem
+            'loker.perusahaan' // Existing relation
+        ]);
+
+        // If these relations do not exist or are named differently in your models, you'll need to adjust them accordingly
+
+        $tanggal_mulai = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_mulai ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_mulai)->format('j F Y') : '';
+        $tanggal_berakhir = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_berakhir ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_berakhir)->format('j F Y') : '';
+
+        // Extracting the necessary information from the relations
+        $namaPengguna = $relasiLamar->pencarikerja->user->name;
+        $email = $relasiLamar->pencarikerja->user->email;
+        $resume = $relasiLamar->pencarikerja->user->resume;
+        $pendidikan = $relasiLamar->pencarikerja->user->pendidikan;
+        $pengalaman = $relasiLamar->pencarikerja->user->pengalaman;
+        $pelatihan = $relasiLamar->pencarikerja->user->pelatihan;
+        $keahlian = $relasiLamar->pencarikerja->user->profileKeahlians;
+        $judulPekerjaan = $relasiLamar->loker->judul;
+        $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
+
+        return view('lamar.detail', [
+            'tanggal_mulai' => $tanggal_mulai,
+            'tanggal_berakhir' => $tanggal_berakhir,
+            'namaPengguna' => $namaPengguna,
+            'email' => $email,
+            'resume' => $resume,
+            'judulPekerjaan' => $judulPekerjaan,
+            'namaPerusahaan' => $namaPerusahaan,
+            'lamar' => $lamar,
+            'profileUser' => $profileUser,
+            'pendidikan' => $pendidikan,
+            'pengalaman' => $pengalaman,
+            'pelatihan' => $pelatihan,
+            'keahlian' => $keahlian,
+            'tglLahir' => $tanggalLahir,
+        ]);
+    }
 
 
 
