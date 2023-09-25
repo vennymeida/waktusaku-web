@@ -1584,7 +1584,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
-                                        <textarea name="konteks" id="konteks" class="form-control @error('konteks') is-invalid @enderror" required
+                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror" required
                                             rows="5" cols="50">
                                             @isset($post)
 {!! $post->konteks !!}
@@ -1867,6 +1867,7 @@
     <script>
         $(document).ready(function() {
             var editModal = $('#modal-edit-postingan');
+            var originalKonteks = ''; // Menyimpan konteks asli
 
             // Menangani perubahan pada input file untuk pengunggahan gambar
             $('#mediaUploadButton').on('change', function(event) {
@@ -1896,13 +1897,13 @@
                     dataType: 'json',
                     success: function(data) {
                         console.log(data);
-                        var modifiedKonteks = data.konteks.replace(/<[^>]+>/g, '');
-                        $('#modal-edit-postingan textarea[name="konteks"]').val(modifiedKonteks);
+                        originalKonteks = data.konteks; // Simpan konteks asli
+                        $('#modal-edit-postingan textarea[name="konteks"]').summernote('code', data
+                            .konteks); // Set konteks menggunakan Summernote
                         $('#modal-edit-postingan input[name="media"]').val(data.media);
                         $('#media-preview').attr('src', '{{ asset('storage/') }}/' + data.media);
                         editModal.modal('show');
                     }
-
                 });
             }
 
@@ -1920,6 +1921,10 @@
                 if (mediaFile) {
                     formData.append('media', mediaFile);
                 }
+
+                // Get the edited content from Summernote
+                var editedKonteks = $('#modal-edit-postingan textarea[name="konteks"]').summernote('code');
+                formData.set('konteks', editedKonteks); // Set edited content
 
                 $.ajax({
                     url: form.attr('action'),
@@ -1942,6 +1947,9 @@
                         alert('Error! ' + err.message);
                     }
                 });
+            });
+            $('#konteks').summernote({
+                disableLinkTarget: true
             });
         });
     </script>

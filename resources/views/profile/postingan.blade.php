@@ -285,8 +285,9 @@
                     formData.append('media', mediaFile);
                 }
 
-                // Gunakan konteks asli saat mengirim data
-                formData.set('konteks', originalKonteks);
+                // Get the edited content from Summernote
+                var editedKonteks = $('#modal-edit-postingan textarea[name="konteks"]').summernote('code');
+                formData.set('konteks', editedKonteks); // Set edited content
 
                 $.ajax({
                     url: form.attr('action'),
