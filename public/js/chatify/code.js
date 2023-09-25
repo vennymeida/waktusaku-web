@@ -618,7 +618,7 @@ function cancelUpdatingAvatar() {
  */
 
 // subscribe to the channel
-const channelName = "private-chatify";
+const channelName = "public-chatify";
 var channel = pusher.subscribe(`${channelName}.${auth_id}`);
 var clientSendChannel;
 var clientListenChannel;
