@@ -34,34 +34,33 @@ class LamarController extends Controller
         $selectedStatus = $request->input('status');
 
         $allResults = DB::table('lamars as l')
-        ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
-        ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
-        ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
-        ->join('users as u', 'pu.user_id', '=', 'u.id')
-        ->select(
-            'l.id',
-            'l.id_pencari_kerja',
-            'u.name',
-            'pu.no_hp',
-            'pu.foto',
-            'pu.resume',
-            'u.email',
-            'p.nama',
-            'lp.judul',
-            'l.status',
-            'l.created_at'
-        )
-        ->when($request->has('search'), function ($query) use ($request) {
-            $search = $request->input('search');
-            return $query->where('lp.judul', 'like', '%' . $search . '%')
-                ->orWhere('u.name', 'like', '%' . $search . '%')
-                ->orWhere('p.nama', 'like', '%' . $search . '%');
-        })
-        ->when($selectedStatus, function ($query, $selectedStatus) {
-            return $query->where('l.status', $selectedStatus);
-
-        })
-        ->paginate(10);
+            ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
+            ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
+            ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
+            ->join('users as u', 'pu.user_id', '=', 'u.id')
+            ->select(
+                'l.id',
+                'l.id_pencari_kerja',
+                'u.name',
+                'pu.no_hp',
+                'pu.foto',
+                'pu.resume',
+                'u.email',
+                'p.nama',
+                'lp.judul',
+                'l.status',
+                'l.created_at'
+            )
+            ->when($request->has('search'), function ($query) use ($request) {
+                $search = $request->input('search');
+                return $query->where('lp.judul', 'like', '%' . $search . '%')
+                    ->orWhere('u.name', 'like', '%' . $search . '%')
+                    ->orWhere('p.nama', 'like', '%' . $search . '%');
+            })
+            ->when($selectedStatus, function ($query, $selectedStatus) {
+                return $query->where('l.status', $selectedStatus);
+            })
+            ->paginate(10);
 
         $loggedInUserId = Auth::id();
         $user = auth()->user();
@@ -95,9 +94,9 @@ class LamarController extends Controller
                     ->orWhere('u.name', 'like', '%' . $search . '%')
                     ->orWhere('p.nama', 'like', '%' . $search . '%');
             })
-           ->paginate(10);
+            ->paginate(10);
 
-           if (Auth::user()->hasRole('Perusahaan')) {
+        if (Auth::user()->hasRole('Perusahaan')) {
             if ($profileUser == null && $perusahaan == null) {
                 return redirect()->route('profile.edit');
             } else {
@@ -106,7 +105,6 @@ class LamarController extends Controller
         } else {
             return view('lamar.index', ['allResults' => $allResults, 'loggedInUserResults' => $loggedInUserResults, 'statuses' => $statuses, 'selectedStatus' => $selectedStatus, 'profilUser' => $profileUser, 'perusahaan' => $perusahaan, 'loker' => $loker]);
         }
-
     }
 
     public function create()
