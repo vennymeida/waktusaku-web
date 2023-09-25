@@ -85,7 +85,7 @@
 
                     <!-- Button to open Chatify modal -->
                     <div class="chat-icon-container">
-                        <a href="{{ url('chatify/') }}" class="fas fa-comment-dots"
+                        <a href="{{ url('chatify/' . $loker->perusahaan->user_id) }}" class="fas fa-comment-dots"
                             style="font-size: 37px; color:#6777ef;"></a>
                     </div>
 
