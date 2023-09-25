@@ -85,35 +85,9 @@
 
                     <!-- Button to open Chatify modal -->
                     <div class="chat-icon-container">
-                        <a href="{{ url('chatify/') }}" class="fas fa-comment-dots"
+                        <a href="{{ url('chatify/' . $loker->perusahaan->user_id) }}" class="fas fa-comment-dots"
                             style="font-size: 37px; color:#6777ef;"></a>
                     </div>
-
-                    <!-- Chatify Modal -->
-                    {{-- <div class="modal fade" id="chatifyModal" tabindex="-1" role="dialog" aria-labelledby="chatifyModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="chatifyModalLabel">Live Chat with {{ $loker->perusahaan->nama }}</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    {{-- @include('Chatify::layouts.headLinks') --}}
-                    <!-- Here you can integrate Chatify's components for displaying messages -->
-                    <!-- For simplicity, I'm just including the messenger layout -->
-                    {{-- <div class="messenger"> --}}
-                    <!-- Your Chatify integration code goes here -->
-                    {{-- </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-
                     <hr class="my-4">
                     <div class="col-md-11 mx-auto my-5">
                         <h5 class="font-weight-bolder">Keahlian : </h5>
