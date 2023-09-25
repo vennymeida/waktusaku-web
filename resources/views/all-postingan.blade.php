@@ -9,8 +9,13 @@
                         <div class="col-md-4">
                             <div class="profile-card">
                                 <div class="image">
-                                    <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
-                                        class="profile-img">
+                                    @if (Auth::user()->profile && Auth::user()->profile->foto)
+                                        <img src="{{ Storage::url(Auth::user()->profile->foto) }}" alt=""
+                                            class="profile-img">
+                                    @else
+                                        <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
+                                            class="profile-img">
+                                    @endif
                                 </div>
                                 @if (auth()->check())
                                     <div class="text-data">
@@ -55,7 +60,13 @@
                                 @foreach ($allResults as $result)
                                     <div class="post">
                                         <div class="post-author">
-                                            <img src="{{ asset('assets/img/avatar/avatar-1.png') }}">
+                                            @if ($result->foto)
+                                                <img src="{{ asset('storage/' . $result->foto) }}" alt=""
+                                                    class="profile-img">
+                                            @else
+                                                <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
+                                                    class="profile-img">
+                                            @endif
                                             <div class="d-flex flex-column col-md-11">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <h1 class="mb-0 mr-2">{{ $result->name }}</h1>

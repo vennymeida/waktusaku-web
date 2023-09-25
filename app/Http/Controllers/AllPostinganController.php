@@ -18,7 +18,7 @@ class AllPostinganController extends Controller
         $allResults = DB::table('postingans as lp')
             ->join('users as u', 'lp.user_id', '=', 'u.id')
             ->leftJoin('profile_users as pu', 'u.id', '=', 'pu.user_id')
-            ->select('lp.id', 'lp.user_id', 'lp.konteks', 'lp.media', 'pu.ringkasan', 'u.name', 'u.email', 'lp.created_at') // Sertakan created_at
+            ->select('lp.id', 'lp.user_id', 'lp.konteks', 'lp.media', 'pu.ringkasan', 'pu.foto', 'u.name', 'u.email', 'lp.created_at') // Sertakan created_at
             ->orderBy('lp.created_at', 'desc')
             ->get();
 

@@ -29,7 +29,13 @@
                             <div class="col-md-10">
                                 <div class="post" style="padding:3%">
                                     <div class="post-author">
-                                        <img src="{{ asset('assets/img/avatar/avatar-1.png') }}">
+                                        @if (Auth::user()->profile && Auth::user()->profile->foto)
+                                            <img src="{{ Storage::url(Auth::user()->profile->foto) }}" alt=""
+                                                class="profile-img">
+                                        @else
+                                            <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
+                                                class="profile-img">
+                                        @endif
                                         <div class="d-flex flex-column col-md-11">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h1 class="mb-0 mr-2">{{ auth()->user()->name }}</h1>
