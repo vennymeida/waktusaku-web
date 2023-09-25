@@ -129,7 +129,8 @@ class LamarController extends Controller
 
     // Menghubungkan relasi yang diperlukan untuk ditampilkan di halaman detail
     $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
-
+    $tanggal_mulai = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_mulai ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_mulai)->format('j F Y') : '';
+    $tanggal_berakhir = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_berakhir ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_berakhir)->format('j F Y') : '';
     // Mendapatkan informasi yang diperlukan dari relasi
     $namaPengguna = $relasiLamar->pencarikerja->user->name;
     $email = $relasiLamar->pencarikerja->user->email;
@@ -142,6 +143,8 @@ class LamarController extends Controller
     $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 
     return view('lamar.detail', [
+        'tanggal_mulai' => $tanggal_mulai,
+        'tanggal_berakhir' => $tanggal_berakhir,
         'namaPengguna' => $namaPengguna,
         'email' => $email,
         'resume' => $resume,

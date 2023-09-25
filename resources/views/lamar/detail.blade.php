@@ -154,19 +154,10 @@
                                                 </dd>
 
                                                 <dt class="col-sm-4 mt-2">Periode</dt>
-                                                <?php
-                                                // Mengambil tanggal mulai dan tanggal berakhir dari kode HTML
-                                                $tanggal_mulai = $pengalaman->tanggal_mulai;
-                                                $tanggal_berakhir = $pengalaman->tanggal_berakhir;
-
-                                                // Mengubah format tanggal ke "d F Y" (contoh: "4 August 2023")
-                                                $tanggal_mulai = date('j F Y', strtotime($tanggal_mulai));
-                                                $tanggal_berakhir = date('j F Y', strtotime($tanggal_berakhir));
-                                                ?>
 
                                                 <!-- Menampilkan tanggal dalam format yang diubah -->
-                                                <dd class="col-sm-8 mt-2"><?= $tanggal_mulai ?><span> -
-                                                    </span><?= $tanggal_berakhir ?>
+                                                <dd class="col-sm-8 mt-2">
+                                                    {{ $tanggal_mulai ?: '' }} - {{ $tanggal_berakhir ?: '' }}
                                                 </dd>
                                             </dl>
 

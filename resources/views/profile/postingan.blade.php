@@ -1,4 +1,5 @@
 @extends('landing-page.app')
+@section('title', 'WaktuSaku - Aktivitas Saya')
 @section('main')
     <main class="bg-light">
         <section class="centered-section">
