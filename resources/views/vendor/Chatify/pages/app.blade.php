@@ -1,3 +1,6 @@
+@extends('landing-page.chat')
+@section('title', 'WaktuSaku - Obrolan')
+@section('main')
 @include('Chatify::layouts.headLinks')
 <div class="messenger">
     {{-- ----------------------Users/Groups lists side---------------------- --}}
@@ -14,7 +17,7 @@
                 </nav>
             </nav>
             {{-- Search input --}}
-            <input type="text" class="messenger-search" id="searchField" name="searchField" placeholder="Search" />
+            <input type="text" class="messenger-search" id="searchField" name="searchField" placeholder="Cari" />
             {{-- Tabs --}}
             {{-- <div class="messenger-listView-tabs">
                 <a href="#" class="active-tab" data-view="users">
@@ -35,15 +38,15 @@
                <p class="messenger-title"><span>Your Space</span></p>
                {!! view('Chatify::layouts.listItem', ['get' => 'saved']) !!}
                {{-- Contact --}}
-               <p class="messenger-title"><span>All Messages</span></p>
+               <p class="messenger-title"><span>Semua Pesan</span></p>
                <div class="listOfContacts" style="width: 100%;height: calc(100% - 272px);position: relative;"></div>
            </div>
              {{-- ---------------- [ Search Tab ] ---------------- --}}
            <div class="messenger-tab search-tab app-scroll" data-view="search">
                 {{-- items --}}
-                <p class="messenger-title"><span>Search</span></p>
+                <p class="messenger-title"><span>Cari</span></p>
                 <div class="search-records">
-                    <p class="message-hint center-el"><span>Type to search..</span></p>
+                    <p class="message-hint center-el"><span>Ketik untuk mencari..</span></p>
                 </div>
              </div>
         </div>
@@ -70,16 +73,16 @@
             </nav>
             {{-- Internet connection --}}
             <div class="internet-connection">
-                <span class="ic-connected">Connected</span>
-                <span class="ic-connecting">Connecting...</span>
-                <span class="ic-noInternet">No internet access</span>
+                <span class="ic-connected">Terhubung</span>
+                <span class="ic-connecting">Menghubungkan...</span>
+                <span class="ic-noInternet">Tidak ada akses Internet</span>
             </div>
         </div>
 
         {{-- Messaging area --}}
         <div class="m-body messages-container app-scroll">
             <div class="messages">
-                <p class="message-hint center-el"><span>Please select a chat to start messaging</span></p>
+                <p class="message-hint center-el"><span>Pilih obrolan atau mulai mencari percakapan baru</span></p>
             </div>
             {{-- Typing indicator --}}
             <div class="typing-indicator">
@@ -111,3 +114,4 @@
 
 @include('Chatify::layouts.modals')
 @include('Chatify::layouts.footerLinks')
+@endsection
