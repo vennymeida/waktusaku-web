@@ -14,6 +14,7 @@
 
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="../node_modules/bootstrap-social/bootstrap-social.css">
+    <link rel="shortcut icon" href="assets/img/landing-page/logo.svg">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">

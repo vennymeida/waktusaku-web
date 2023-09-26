@@ -2,8 +2,8 @@
 @section('title', 'WaktuSaku - Aktivitas Saya')
 @section('main')
     <main class="bg-light">
-        <section class="centered-section">
-            <div class="bg-primary-section card col-md-10 py-1">
+        <section>
+            <div class="bg-white mt-4 mb-0 card col-md-10 py-1 mx-auto">
                 <div class="profile-widget-description m-3"
                     style="font-weight: bold; font-size: 18px; display: flex; align-items: center; color:#6777ef">
                     <div class="flex-grow-1">
@@ -23,88 +23,83 @@
 
         @if (count($postingan) > 0)
             <div id="postingan-container">
-                <div class="col-md-12">
-                    @foreach ($postingan as $post)
-                        <section class="centered-section mb-0">
-                            <div class="col-md-10">
-                                <div class="post" style="padding:3%">
-                                    <div class="post-author">
-                                        @if (Auth::user()->profile && Auth::user()->profile->foto)
-                                            <img src="{{ Storage::url(Auth::user()->profile->foto) }}" alt=""
-                                                class="profile-img" style="width: 50px; height: 50px;">
-                                        @else
-                                            <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
-                                                class="profile-img" style="width: 50px; height: 50px;">
-                                        @endif
-                                        <div class="d-flex flex-column col-md-11">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <h1 class="mb-0 mr-2">{{ auth()->user()->name }}</h1>
-                                                <div class="d-flex align-items-center">
-                                                    <img class="img-fluid"
-                                                        src="{{ asset('assets/img/landing-page/Time.svg') }}"
-                                                        style="max-width: 16px; max-height: 16px; margin-right: 5px;">
-                                                    <h4 class="mb-0">{{ $post->timeAgo }} </h4>
-                                                </div>
-                                            </div>
-                                            <small>{{ auth()->user()->email }}</small>
+                @foreach ($postingan as $post)
+                    <div class="col-md-10 mx-auto my-4">
+                        <div class="post" style="padding:3%">
+                            <div class="post-author">
+                                @if (Auth::user()->profile && Auth::user()->profile->foto)
+                                    <img src="{{ Storage::url(Auth::user()->profile->foto) }}" alt=""
+                                        class="profile-img" style="width: 50px; height: 50px;">
+                                @else
+                                    <img src="{{ asset('assets/img/avatar/avatar-1.png') }}" alt=""
+                                        class="profile-img" style="width: 50px; height: 50px;">
+                                @endif
+                                <div class="d-flex flex-column col-md-11">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h1 class="mb-0 mr-2">{{ auth()->user()->name }}</h1>
+                                        <div class="d-flex align-items-center">
+                                            <img class="img-fluid" src="{{ asset('assets/img/landing-page/Time.svg') }}"
+                                                style="max-width: 16px; max-height: 16px; margin-right: 5px;">
+                                            <h4 class="mb-0">{{ $post->timeAgo }} </h4>
                                         </div>
                                     </div>
-                                    @if (!empty($post->media))
-                                        <p>{!! $post->konteks !!}</p>
-                                        <img src="{{ asset('storage/' . $post->media) }}" width="50%" height="50%"
-                                            style="display: block; margin: 0 auto; margin-bottom: 20px; text-align: center;">
-                                        <div class="row">
-                                            <div class="d-flex justify-content-end ml-auto" style="font-size: 2.00em;">
-                                                <a href="#" data-id="{{ $post->id }}"
-                                                    data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
-                                                    class="modal-edit-trigger-postingan">
-                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                        src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                                </a>
-                                            </div>
-                                            <div class="d-flex justify-content-end" style="font-size: 2.00em;">
-                                                <form action="{{ route('postingan.destroy', ['postingan' => $post->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-link">
-                                                        <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                            src="{{ asset('assets/img/landing-page/delete.svg') }}"
-                                                            alt="Hapus">
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <p>{!! $post->konteks !!}</p>
-                                        <div class="row">
-                                            <div class="d-flex justify-content-end ml-auto" style="font-size: 2.00em;">
-                                                <a href="#" data-id="{{ $post->id }}"
-                                                    data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
-                                                    class="modal-edit-trigger-postingan">
-                                                    <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                        src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                                                </a>
-                                            </div>
-                                            <div class="d-flex justify-content-end" style="font-size: 2.00em;">
-                                                <form action="{{ route('postingan.destroy', ['postingan' => $post->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-link">
-                                                        <img class="img-fluid" style="width: 30px; height: 30px;"
-                                                            src="{{ asset('assets/img/landing-page/delete.svg') }}"
-                                                            alt="Hapus">
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    @endif
+                                    <small>{{ auth()->user()->email }}</small>
                                 </div>
                             </div>
-                        </section>
-                    @endforeach
-                </div>
+                            @if (!empty($post->media))
+                                <p>{!! $post->konteks !!}</p>
+                                <img src="{{ asset('storage/' . $post->media) }}" width="50%" height="50%"
+                                    style="display: block; margin: 0 auto; margin-bottom: 20px; text-align: center;">
+                                <div class="row">
+                                    <div class="d-flex justify-content-end ml-auto" style="font-size: 2.00em;">
+                                        <a href="#" data-id="{{ $post->id }}"
+                                            data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
+                                            class="modal-edit-trigger-postingan">
+                                            <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                        </a>
+                                    </div>
+                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;">
+                                        <form action="{{ route('postingan.destroy', ['postingan' => $post->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-link">
+                                                <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                    src="{{ asset('assets/img/landing-page/delete.svg') }}" alt="Hapus">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @else
+                                <p>{!! $post->konteks !!}</p>
+                                <div class="row">
+                                    <div class="d-flex justify-content-end ml-auto" style="font-size: 2.00em;">
+                                        <a href="#" data-id="{{ $post->id }}"
+                                            data-edit-url="{{ route('postingan.edit', ['postingan' => $post->id]) }}"
+                                            class="modal-edit-trigger-postingan">
+                                            <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                                        </a>
+                                    </div>
+                                    <div class="d-flex justify-content-end" style="font-size: 2.00em;">
+                                        <form action="{{ route('postingan.destroy', ['postingan' => $post->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-link">
+                                                <img class="img-fluid" style="width: 30px; height: 30px;"
+                                                    src="{{ asset('assets/img/landing-page/delete.svg') }}" alt="Hapus">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    {{-- </section> --}}
+                @endforeach
+                {{-- </div> --}}
             </div>
         @else
             <div class="col-md-12 text-center my-4"><br><br>

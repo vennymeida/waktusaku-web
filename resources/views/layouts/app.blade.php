@@ -16,6 +16,7 @@
 
     <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/img/landing-page/logo.svg">
 
     @stack('customStyle')
     <!-- Template CSS -->
