@@ -33,8 +33,113 @@
             </div>
         </section>
 
+        @role('Pencari Kerja')
+            <section>
+                <div class="col-md-12 bg-white">
+                    <div class="col-md-10 mt-0 mx-auto pt-4 pb-4 bg-white">
+                        <h2 class="text-center font-weight-bold mt-4">Rekomendasi dari <span
+                                class="text-primary font-weight-bold">Waktu</span><span class="text-warning font-weight-bold">
+                                Saku</span>
+                        </h2>
+                        @if ($allRekomendasi->isEmpty())
+                            <div class="col-md-12 text-center mt-5 py-5">
+                                <img src="{{ asset('assets/img/landing-page/sad-face.png') }}">
+                                <p class="mt-1 text-not mb-5">Belum ada rekomendasi untukmu</p>
+                            </div>
+                        @else
+                            <div class="row flex-nowrap overflow-auto mt-4 horizontal-scroll equal-height-cards">
+                                <div class="scroll-arrow left bg-transparent text-secondary">
+                                    <i class="fas fa-angle-left"></i>
+                                </div>
+                                @foreach ($allRekomendasi as $key => $loker)
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card">
+                                            <div class="card-body d-flex flex-column">
+                                                <div class="position-relative">
+                                                    <div class="gradient-overlay"></div>
+                                                    <img class="img-fluid mb-3 fixed-height-image position-absolute top-0 start-50 translate-middle-x"
+                                                        src="{{ asset('storage/' . $loker->logo) }}" alt="Company Logo">
+                                                    <p class="text-white card-title font-weight-bold mb-0 ml-2 overlap-text"
+                                                        style="font-size: 20px;">
+                                                        {{ $loker->judul }}
+                                                    </p>
+                                                    <a class="text-white ml-2 overlap-text-2"
+                                                        href="{{ route('detail-perusahaan.show', $loker->id_perusahaan) }}"
+                                                        style="font-size: 14px;">
+                                                        {{ $loker->nama }}
+                                                    </a>
+                                                </div>
+                                                <div class="card-text mt-3">
+                                                    <ul class="list-unstyled ml-2">
+                                                        <ul class="list-unstyled d-flex justify-content-between">
+                                                            <li class="d-flex justify-content-start">
+                                                                <img class="img-fluid img-icon mr-2"
+                                                                    src="{{ asset('assets/img/landing-page/list.svg') }}">
+                                                                <p class="mb-2">{{ $loker->kategori }}</p>
+                                                            </li>
+                                                            <li class="mb-2">
+                                                                @if (auth()->check() &&
+                                                                        auth()->user()->hasRole('Pencari Kerja'))
+                                                                    <a href="javascript:void(0);" class="bookmark-icon"
+                                                                        data-loker-id="{{ $loker->id }}">
+                                                                        <i class="far fa-bookmark" style="font-size: 20px;"></i>
+                                                                    </a>
+                                                                @endif
+                                                            </li>
+                                                        </ul>
+                                                        <li class="d-flex justify-content-start">
+                                                            <img class="img-fluid img-icon mr-2"
+                                                                src="{{ asset('assets/img/landing-page/money.svg') }}">
+                                                            <p class="mb-2">{{ 'IDR ' . $loker->gaji_bawah }}
+                                                                <span>-</span>
+                                                                {{ $loker->gaji_atas }}
+                                                            </p>
+                                                        </li>
+                                                        <li class="d-flex justify-content-start">
+                                                            <img class="img-fluid img-icon mr-2"
+                                                                src="{{ asset('assets/img/landing-page/job.svg') }}">
+                                                            <p class="mb-2">{{ $loker->min_pengalaman }}</p>
+                                                        </li>
+                                                        <li class="d-flex justify-content-start">
+                                                            <img class="img-fluid img-icon mr-2"
+                                                                src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
+                                                            <p class="mb-2">Minimal {{ $loker->min_pendidikan }}</p>
+                                                        </li>
+                                                        <li class="d-flex justify-content-start">
+                                                            <img class="img-fluid img-icon mr-2"
+                                                                src="{{ asset('assets/img/landing-page/location pin.svg') }}">
+                                                            <p class="mb-2">{{ $loker->lokasi }}</p>
+                                                        </li>
+                                                        <li class="d-flex justify-content-start">
+                                                            <img class="img-fluid img-icon mr-2"
+                                                                src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
+                                                            <p class="mb-2">{{ $loker->alamat_perusahaan }},
+                                                                {{ $loker->kelurahan }},
+                                                                {{ $loker->kecamatan }}</p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="text-center mb-3">
+                                                    <a id="detail-button" class="btn btn-primary px-4 py-2"
+                                                        style="border-radius: 25px;"
+                                                        href="{{ route('all-jobs.show', $loker->id) }}">Lihat Detail</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <div class="scroll-arrow right bg-transparent text-secondary">
+                                    <i class="fas fa-angle-right"></i>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </section>
+        @endrole
+
         <section>
-            <div class="col-md-12 py-5 bg-secondary py-5">
+            <div class="col-md-12 bg-secondary py-5">
                 <div class="d-flex justify-content-around align-items-center my-4">
                     <div class="col-md-4">
                         <img class="img-fluid" src="{{ asset('assets/img/landing-page/image-2.svg') }}" alt="">
@@ -77,8 +182,8 @@
                                     style="font-size: 25px;"></i>
                                 Bergabunglah dengan kami dan temukan bakat-bakat terbaik untuk mendorong kesuksesan bisnis Anda!
                             </p>
-                            <a id="register-button" class="btn btn-primary px-4" href="{{ route('loker-perusahaan.index') }}"
-                                style="border-radius: 25px;">Mulai Merekrut</a>
+                            <a id="register-button" class="btn btn-primary px-4"
+                                href="{{ route('loker-perusahaan.index') }}" style="border-radius: 25px;">Mulai Merekrut</a>
                         </div>
                     @endrole
                     @role('Pencari Kerja')
