@@ -9,15 +9,6 @@ use App\Models\lamar;
 
 class DashboardController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('permission:dashboard.index')->only('index');
-        $this->middleware('permission:dashboard.create')->only('create', 'store');
-        $this->middleware('permission:dashboard.edit')->only('edit', 'update');
-        $this->middleware('permission:dashboard.destroy')->only('destroy');
-    }
-
     public function index(Request $request)
     {
         $dashboard = DB::table('lamars as l')
