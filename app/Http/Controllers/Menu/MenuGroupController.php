@@ -15,10 +15,10 @@ class MenuGroupController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:dashboard.index')->only('index');
-        $this->middleware('permission:dashboard.create')->only('create', 'store');
-        $this->middleware('permission:dashboard.edit')->only('edit', 'update');
-        $this->middleware('permission:dashboard.destroy')->only('destroy');
+        $this->middleware('permission:menu-group.index')->only('index');
+        $this->middleware('permission:menu-group.create')->only('create', 'store');
+        $this->middleware('permission:menu-group.edit')->only('edit', 'update');
+        $this->middleware('permission:menu-group.destroy')->only('destroy');
     }
     public function index(Request $request)
     {
