@@ -155,8 +155,6 @@ class RoleAndPermissionSeeder extends Seeder
         // create roles
         $roleUser = Role::create(['name' => 'Pencari Kerja']);
         $roleUser->givePermissionTo([
-            'dashboard',
-            'user.index',
             'bookmarks.index',
             'status-lamaran.index',
         ]);
@@ -164,7 +162,6 @@ class RoleAndPermissionSeeder extends Seeder
         // create roles
         $roleUser = Role::create(['name' => 'Perusahaan']);
         $roleUser->givePermissionTo([
-            'dashboard',
             'menu.pekerjaan',
             'loker.index',
             'loker.create',
