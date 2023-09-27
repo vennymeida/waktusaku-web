@@ -10,11 +10,13 @@ use App\Models\ProfileUser;
 use App\Models\User;
 use App\Http\Requests\StorelamarRequest;
 use App\Http\Requests\UpdatelamarRequest;
+use App\Mail\SendEmailPelamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class LamarPerusahaan extends Controller
 {
@@ -146,6 +148,29 @@ class LamarPerusahaan extends Controller
 
         $lamar->status = $status;
         $lamar->save();
+
+        // $authId = auth()->user()->profile->id;
+        // $lamarId = $lamar->id;
+
+        $getPerusahaanId = LowonganPekerjaan::select(
+            'lowongan_pekerjaans.user_id',
+            'lowongan_pekerjaans.id_perusahaan'
+        )
+            ->where('id', $lamar->id_loker)
+            ->first();
+        $userIdFromProfile = ProfileUser::select('profile_users.user_id')->where('id', $lamar->id_pencari_kerja)->first();
+        $getUserId = User::select('users.name', 'users.email')->where('id', $userIdFromProfile->user_id)->first();
+        $getPerusahaan = Perusahaan::select('perusahaan.nama')
+            ->where('id', $getPerusahaanId->id_perusahaan)
+            ->first();
+        // dd($getUserId);
+        $view = view('email-pelamar', ['getPerusahaan' => $getPerusahaan, 'getUserId' => $getUserId, 'lamar' => $lamar])->render();
+        $dataOkeOke = [
+            'name' => 'PPP KONTOL',
+            'body' => $view
+        ];
+
+        Mail::to($getUserId->email)->send(new SendEmailPelamar($dataOkeOke));
 
         return redirect()
             ->route('lamarperusahaan.index')

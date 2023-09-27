@@ -10,7 +10,7 @@ use App\Models\lamar;
 class LowonganPekerjaan extends Model
 {
     use HasFactory;
-
+    protected $table = 'lowongan_pekerjaans';
     protected $fillable = [
         'user_id',
         'id_perusahaan',
