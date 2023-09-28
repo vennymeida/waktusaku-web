@@ -55,8 +55,8 @@
             }
 
             .custom-radio-image label img {
-                width: 197px;
-                height: 197px;
+                width: 187px;
+                height: 187px;
             }
 
             p {
@@ -108,8 +108,8 @@
             }
 
             .custom-radio-image label img {
-                width: 200px;
-                height: 200px;
+                width: 300px;
+                height: 300px;
             }
 
             p {
