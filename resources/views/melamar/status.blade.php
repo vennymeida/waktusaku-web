@@ -150,7 +150,7 @@
                                             <!-- use col-6 to take half the width -->
                                             <img class="img-fluid img-icon mr-2"
                                                 src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                            <span>{{ $lamar->loker->lokasi }}</span>
+                                            <span>{{ $lamar->loker->perusahaan->alamat_perusahaan }}</span>
                                         </div>
                                     </div>
                                     <small class="text-muted">
@@ -164,6 +164,16 @@
                                         href="{{ route('all-jobs.show', $lamar->loker->id) }}">
                                         <i class="far fa-eye"></i> Details
                                     </a>
+                                    <!-- Button to open Chatify modal -->
+                                    @if ($lamar->status === 'Diterima')
+                                        <div class="text-center mb-3 mt-2">
+                                            <a id="chat-perusahaan" class="btn btn-icon btn-primary btn-icon py-2 px-3"
+                                            style="border-radius: 25px;"
+                                                href="{{ url('chatify/' . $lamar->loker->perusahaan->user_id) }}">
+                                                <i class="fas fa-comment-dots"></i> Chat
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -179,6 +189,19 @@
                     <!-- withQueryString agar filter tetap berjalan saat pindah paginate #ilmubaru -->
                 </div>
             </div>
+            <!-- Button to open Chatify modal -->
+            {{-- @if ($lamar->status === 'Diterima')
+                <div class="text-center mb-3">
+                    <div class="chat-icon-container">
+                        <a href="{{ url('chatify/' . $lamar->loker->perusahaan->user_id) }}" class="fas fa-comment-dots"
+                            style="font-size: 37px; color:#6777ef;"></a>
+                    </div>
+                </div>
+            @endif --}}
+            {{-- <div class="chat-icon-container">
+                <a href="{{ url('chatify/' . $loker->perusahaan->user_id) }}" class="fas fa-comment-dots"
+                    style="font-size: 37px; color:#6777ef;"></a>
+            </div> --}}
         </section>
     </main>
 
@@ -226,6 +249,20 @@
                 form.submit();
             }
         });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function openChatifyChat(user_id) {
+            // Check if Chatify is defined (the Chatify JavaScript library is loaded)
+            if (typeof Chatify === 'object') {
+                // Open a chat with the specified user ID
+                Chatify.openChat(user_id);
+            } else {
+                // Handle the case where Chatify is not defined (library not loaded)
+                console.error('Chatify is not loaded.');
+            }
+        }
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
