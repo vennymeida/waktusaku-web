@@ -154,19 +154,20 @@ class LamarPerusahaan extends Controller
 
         $getPerusahaanId = LowonganPekerjaan::select(
             'lowongan_pekerjaans.user_id',
-            'lowongan_pekerjaans.id_perusahaan'
+            'lowongan_pekerjaans.id_perusahaan',
+            'lowongan_pekerjaans.judul'
         )
             ->where('id', $lamar->id_loker)
             ->first();
+        // dd($getPerusahaanId);
         $userIdFromProfile = ProfileUser::select('profile_users.user_id')->where('id', $lamar->id_pencari_kerja)->first();
         $getUserId = User::select('users.name', 'users.email')->where('id', $userIdFromProfile->user_id)->first();
         $getPerusahaan = Perusahaan::select('perusahaan.nama')
             ->where('id', $getPerusahaanId->id_perusahaan)
             ->first();
-        // dd($getUserId);
-        $view = view('email-pelamar', ['getPerusahaan' => $getPerusahaan, 'getUserId' => $getUserId, 'lamar' => $lamar])->render();
+        $view = view('email-pelamar', ['getPerusahaan' => $getPerusahaan, 'getPerusahaanId' => $getPerusahaanId, 'getUserId' => $getUserId, 'lamar' => $lamar])->render();
         $dataOkeOke = [
-            'name' => 'PPP KONTOL',
+            'name' => 'Jawaban Lamaran',
             'body' => $view
         ];
 

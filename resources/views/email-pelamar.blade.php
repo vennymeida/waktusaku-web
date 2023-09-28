@@ -12,18 +12,29 @@
             <td align="center">
                 <table width="600" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
                     <tr>
-                        <td style="background-color: #f0f0f0; padding: 20px; text-align: center;">
-                            <h1 style="color: #333;">Perusahaan {{ $getPerusahaan->nama }}</h1>
-                            <p style="font-size: 16px; color: #555;">Terimakasih Lamaran Anda {{ $getUserId->name }}
+                        <td style="background-color: #f8f9fa; padding: 20px; text-align: center;">
+                            <h1 style="color: #333;">
+                                Terimakasih Kepada {{ $getUserId->name }}
+                            </h1>
+                            <p style="font-size: 16px; color: #555;">
+                                Telah mengirimkan lamaran ke {{ $getPerusahaan->nama }}
                             </p>
 
                             <!-- Formulir dengan metode GET -->
                             @if ($lamar->status == 'Diterima')
-                                <a
-                                    style="background-color: #00ff08; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px; margin-top: 20px; display: inline-block; cursor: pointer;">DITERIMA</a>
+                                <h1 style="color: #555;">Selamat kamu telah</h1>
+                                <h2 style="font-size: 24px; color: #00ff08; font-weight: bold;">DITERIMA</h2>
+                                <p style="font-size: 16px; color: #555;"> Di {{ $getPerusahaan->nama }}</p>
+                                <p style="font-size: 16px; color: #555;"> Untuk Posisi {{ $getPerusahaanId->judul }}</p>
                             @elseif ($lamar->status == 'Ditolak')
-                                <a
-                                    style="background-color: #ff0000; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px; margin-top: 20px; display: inline-block; cursor: pointer;">DITOLAK</a>
+                                <h1 style="color: #555;">Maaf, lamaran kamu telah</h1>
+                                <h2 style="font-size: 24px; color: #ff0000; font-weight: bold;">DITOLAK</h2>
+                                <p style="font-size: 16px; color: #555;"> Oleh {{ $getPerusahaan->nama }}</p>
+                                <p style="font-size: 16px; color: #555;"> Untuk Posisi {{ $getPerusahaanId->judul }}</p>
+                                <p style="font-size: 16px; color: #555;">
+                                    Jangan berkecil hati. Teruslah berusaha dan perbaiki diri. Peluang selalu ada di
+                                    masa depan!
+                                </p>
                             @endif
 
 

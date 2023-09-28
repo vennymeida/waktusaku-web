@@ -1,5 +1,5 @@
 @extends('landing-page.app')
-
+@section('title', 'WaktuSaku - Verifikasi Akun Anda')
 @section('main')
     <section>
         <div class="col-md-10 mx-auto my-5 bg-white px-5 py-5 card-contact" style="border-radius: 15px;">

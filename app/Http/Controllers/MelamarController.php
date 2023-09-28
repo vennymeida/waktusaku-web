@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\lamar;
 use App\Models\LowonganPekerjaan;
 use App\Models\Perusahaan;
+use App\Models\ProfileUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
@@ -44,17 +45,22 @@ class MelamarController extends Controller
         $lamar = Lamar::create($data);
         $authId = auth()->user()->profile->id;
         $lamarId = $lamar->id;
-        $getUserId = User::select('users.name')->where('id', $authId)->first();
-        $getPerusahaan = LowonganPekerjaan::select(
-            'lowongan_pekerjaans.id_perusahaan'
+        $getProfileUserId = ProfileUser::select('profile_users.user_id')
+            ->where('id', $authId)
+            ->first();
+        $getUserId = User::select('users.name')
+            ->where('id', $getProfileUserId->user_id)
+            ->first();
+        $getLowonganPekerjaan = LowonganPekerjaan::select(
+            'lowongan_pekerjaans.id_perusahaan',
+            'lowongan_pekerjaans.judul'
         )
             ->where('id', $data['id_loker'])
             ->first();
-
         $getPerusahaan = Perusahaan::select('perusahaan.email', 'perusahaan.nama')
-            ->where('id', $getPerusahaan->id_perusahaan)
+            ->where('id', $getLowonganPekerjaan->id_perusahaan)
             ->first();
-        $view = view('email', ['getPerusahaan' => $getPerusahaan, 'getUserId' => $getUserId, 'lamarId' => $lamarId])->render();
+        $view = view('email', ['getPerusahaan' => $getPerusahaan, 'getLowonganPekerjaan' => $getLowonganPekerjaan, 'getUserId' => $getUserId, 'lamarId' => $lamarId])->render();
         $dataOke = [
             'name' => 'Lamaran',
             'body' => $view
