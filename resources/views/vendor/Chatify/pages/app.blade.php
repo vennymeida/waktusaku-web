@@ -17,11 +17,11 @@
                 </nav>
             </nav>
             {{-- Search input --}}
-            <input type="text" class="messenger-search" id="searchField" name="searchField" placeholder="Cari" />
+            {{-- <input type="text" class="messenger-search" id="searchField" name="searchField" placeholder="Cari" /> --}}
             {{-- Tabs --}}
             {{-- <div class="messenger-listView-tabs">
                 <a href="#" class="active-tab" data-view="users">
-                    <span class="far fa-user"></span> Contacts</a>
+                    <span class="far fa-user"></span>Kontak</a>
             </div> --}}
         </div>
         {{-- tabs and lists --}}

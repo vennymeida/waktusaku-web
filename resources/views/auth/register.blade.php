@@ -19,6 +19,105 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
+
+    <style>
+        /* ... Other Styles ... */
+        /* General Responsive Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container-fluid {
+            padding-right: 0;
+            padding-left: 0;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .custom-radio-image label img {
+            width: 100%;
+            /* 100% of the container */
+            max-width: 250px;
+            /* Maximum width it can go */
+            height: auto;
+            /* Maintain aspect ratio */
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Mobile View Styling */
+        @media only screen and (max-width: 767px) {
+            h1.font-weight-bold {
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .custom-radio-image label img {
+                width: 187px;
+                height: 187px;
+            }
+
+            p {
+                font-size: 14px;
+                text-align: center;
+            }
+
+            .col-12 {
+                padding: 0 15px;
+            }
+        }
+
+        /* Tablet View Styling */
+        @media only screen and (min-width: 768px) and (max-width: 1024px) {
+            h1.font-weight-bold {
+                font-size: 22px;
+            }
+
+            .custom-radio-image label img {
+                width: 150px;
+                height: 150px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+
+        /* Small Desktop and Large Tablet */
+        @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+            h1.font-weight-bold {
+                font-size: 24px;
+            }
+
+            .custom-radio-image label img {
+                width: 180px;
+                height: 180px;
+            }
+
+            p {
+                font-size: 18px;
+            }
+        }
+
+        /* Large Desktop */
+        @media only screen and (min-width: 1281px) {
+            h1.font-weight-bold {
+                font-size: 26px;
+            }
+
+            .custom-radio-image label img {
+                width: 300px;
+                height: 300px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -26,7 +125,8 @@
         <section class="section">
             <div class="container-fluid">
                 <div class="row" style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
-                    <div class="col-md-6 d-flex flex-column justify-content-center my-5">
+                    <div
+                        class="col-12 col-md-6 col-lg-6 d-flex flex-column align-items-center justify-content-start my-5">
                         <div class="col-md-9 mx-auto">
                             <div>
                                 <h1 class="font-weight-bold" style="color: black">Selamat Datang!</h1>
@@ -103,18 +203,26 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="user_type" class="font-weight-bold">Daftar sebagai:</label><br>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="user_type"
-                                                id="pencari_kerja" value="pencari_kerja"
-                                                @if (old('user_type') === 'pencari_kerja') checked @endif>
-                                            <label class="form-check-label" for="pencari_kerja">Pencari Kerja</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="user_type"
-                                                id="perusahaan" value="perusahaan"
-                                                @if (old('user_type') === 'perusahaan') checked @endif>
-                                            <label class="form-check-label" for="perusahaan">Perusahaan</label>
+                                        <label class="font-weight-bold mb-2">Daftar sebagai:</label>
+                                        <div class="d-flex align-items-left">
+                                            <div class="custom-radio-image mr-2">
+                                                <input type="radio" id="pencari_kerja" name="user_type"
+                                                    value="pencari_kerja"
+                                                    @if (old('user_type') === 'pencari_kerja') checked @endif>
+                                                <label for="pencari_kerja">
+                                                    <img src="{{ asset('assets/img/registerrole/pencarikerjanobg.png') }}"
+                                                        alt="Pencari Kerja">
+                                                </label>
+                                            </div>
+                                            <div class="custom-radio-image">
+                                                <input type="radio" id="perusahaan" name="user_type"
+                                                    value="perusahaan"
+                                                    @if (old('user_type') === 'perusahaan') checked @endif>
+                                                <label for="perusahaan">
+                                                    <img src="{{ asset('assets/img/registerrole/perusahaannobg.png') }}"
+                                                        alt="Perusahaan">
+                                                </label>
+                                            </div>
                                         </div>
                                         @error('user_type')
                                             <div class="invalid-feedback d-block">
@@ -137,8 +245,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-start my-5">
-                        <a href="/" class="img-fluid text-center" style="width: 50%; height: auto;">
+                    <div class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-start my-5">
+                        <a href="/" class="img-fluid text-center">
                             <img class="img-fluid" src="{{ asset('assets/img/landing-page/logo.svg') }}"
                                 alt="" style="width: 75%; height: auto;">
                         </a>
@@ -203,6 +311,59 @@
 
     <!-- Page Specific JS File -->
     <script src="../assets/js/page/auth-register.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.custom-radio-image input[type="radio"]').forEach(function(radio) {
+                // Menetapkan nilai awal dari attribute data-checked berdasarkan nilai checked
+                radio.setAttribute('data-checked', radio.checked.toString());
+
+                // Menambahkan event listener untuk setiap radio button
+                radio.addEventListener('click', function() {
+                    if (radio.getAttribute('data-checked') === 'true') {
+                        // Jika radio button sebelumnya telah dipilih, maka batalkan pilihannya
+                        radio.checked = false;
+                        radio.nextElementSibling.style.borderColor = 'transparent';
+                        radio.setAttribute('data-checked', 'false');
+                    } else {
+                        // Jika radio button lainnya telah dipilih, set nilai data-checked menjadi false
+                        document.querySelectorAll('.custom-radio-image input[type="radio"]')
+                            .forEach(function(otherRadio) {
+                                otherRadio.setAttribute('data-checked', 'false');
+                                otherRadio.nextElementSibling.style.borderColor = 'transparent';
+                            });
+
+                        // Pilih radio button yang diklik dan set nilai data-checked menjadi true
+                        radio.checked = true;
+                        radio.nextElementSibling.style.borderColor = '#007bff';
+                        radio.setAttribute('data-checked', 'true');
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        .custom-radio-image input[type='radio'] {
+            display: none;
+        }
+
+        .custom-radio-image label {
+            display: inline-block;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .custom-radio-image input[type='radio']:checked+label {
+            border-color: #007bff;
+            /* Warna Border ketika Gambar Dipilih */
+        }
+
+        .custom-radio-image label {
+            border-radius: 10px;
+            /* Menambahkan border-radius yang sama dengan gambar agar border ketika :checked terlihat baik */
+        }
+    </style>
+
 </body>
 
 </html>
