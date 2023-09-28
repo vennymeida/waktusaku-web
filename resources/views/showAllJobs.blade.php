@@ -84,10 +84,16 @@
                     </div>
 
                     <!-- Button to open Chatify modal -->
-                    <div class="chat-icon-container">
+                    @if ($lamaranStatus === 'Diterima')
+                        <div class="chat-icon-container">
+                            <a href="{{ url('chatify/' . $loker->perusahaan->user_id) }}" class="fas fa-comment-dots"
+                                style="font-size: 37px; color:#6777ef;"></a>
+                        </div>
+                    @endif
+                    {{-- <div class="chat-icon-container">
                         <a href="{{ url('chatify/' . $loker->perusahaan->user_id) }}" class="fas fa-comment-dots"
                             style="font-size: 37px; color:#6777ef;"></a>
-                    </div>
+                    </div> --}}
                     <hr class="my-4">
                     <div class="col-md-11 mx-auto my-5">
                         <h5 class="font-weight-bolder">Keahlian : </h5>
