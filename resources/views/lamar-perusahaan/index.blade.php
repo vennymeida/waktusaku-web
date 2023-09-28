@@ -132,6 +132,17 @@
                                                     "style="border-radius: 25px; font-size: 16px;">
                                                     {{ $lamar->status }}
                                                 </span>
+                                                <!-- Button to open Chatify modal -->
+                                                @if ($lamar->status === 'Diterima')
+                                                    <div class="media-right">
+                                                        <a id="chat-pelamar"
+                                                            class="btn btn-icon btn-primary btn-icon mt-4"
+                                                            style="border-radius: 25px;"
+                                                            href="{{ url('chatify/' . $lamar->user_id) }}">
+                                                            <i class="fas fa-comment-dots"></i> Chat
+                                                        </a>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
