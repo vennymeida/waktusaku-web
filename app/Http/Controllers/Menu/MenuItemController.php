@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Route;
 
 class MenuItemController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:menu-item.index')->only('index');
+        $this->middleware('permission:menu-item.create')->only('create', 'store');
+        $this->middleware('permission:menu-item.edit')->only('edit', 'update');
+        $this->middleware('permission:menu-item.destroy')->only('destroy');
+    }
     public function index(Request $request)
     {
         //

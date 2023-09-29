@@ -106,10 +106,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // Route::get('/dashboard', function () {
     //     return view('welcome');
     // });
-    Route::get('/dashboard', function () {
-        return view('home');
+    // Route::resource('dashboard', DashboardController::class);
+    // Route::get('/dashboard', function () {
+    //     return view('home');
+    // });
+    Route::group(['middleware' => ['auth', 'verified', 'role:super-admin']], function () {
+        Route::get('/dashboard', [DashboardController::class, 'index']);
     });
-    // Route::get('/welcome', [WelcomeController::class, 'index']);
     // Route::GET('/profile', [ProfileUserController::class, 'profile']);
     // Route::get('/profile', function () {
     //     return view('profile.index');
@@ -219,7 +222,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //loker-perusahaan
     Route::resource('loker-perusahaan', LokerPerusahaan::class);
     Route::get('/status-lamaran', [StatusLamarController::class, 'index'])->name('melamar.status');
-    Route::resource('dashboard', DashboardController::class);
 
     // chat
     // Route::get('/jobs/{jobId}/chat', 'ChatController@startChatWithCompany')->name('job.chat');

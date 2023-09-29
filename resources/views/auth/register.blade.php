@@ -19,118 +19,22 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-
-    <style>
-        /* ... Other Styles ... */
-        /* General Responsive Styling */
-        body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .container-fluid {
-            padding-right: 0;
-            padding-left: 0;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        .custom-radio-image label img {
-            width: 100%;
-            /* 100% of the container */
-            max-width: 250px;
-            /* Maximum width it can go */
-            height: auto;
-            /* Maintain aspect ratio */
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        /* Mobile View Styling */
-        @media only screen and (max-width: 767px) {
-            h1.font-weight-bold {
-                font-size: 18px;
-                text-align: center;
-            }
-
-            .custom-radio-image label img {
-                width: 187px;
-                height: 187px;
-            }
-
-            p {
-                font-size: 14px;
-                text-align: center;
-            }
-
-            .col-12 {
-                padding: 0 15px;
-            }
-        }
-
-        /* Tablet View Styling */
-        @media only screen and (min-width: 768px) and (max-width: 1024px) {
-            h1.font-weight-bold {
-                font-size: 22px;
-            }
-
-            .custom-radio-image label img {
-                width: 150px;
-                height: 150px;
-            }
-
-            p {
-                font-size: 16px;
-            }
-        }
-
-        /* Small Desktop and Large Tablet */
-        @media only screen and (min-width: 1025px) and (max-width: 1280px) {
-            h1.font-weight-bold {
-                font-size: 24px;
-            }
-
-            .custom-radio-image label img {
-                width: 180px;
-                height: 180px;
-            }
-
-            p {
-                font-size: 18px;
-            }
-        }
-
-        /* Large Desktop */
-        @media only screen and (min-width: 1281px) {
-            h1.font-weight-bold {
-                font-size: 26px;
-            }
-
-            .custom-radio-image label img {
-                width: 300px;
-                height: 300px;
-            }
-
-            p {
-                font-size: 16px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/register.css">
 
 </head>
 
-<body>
+<body style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
     <div id="app">
         <section class="section">
             <div class="container-fluid">
-                <div class="row" style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
+                <div class="row bg-regis" style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
                     <div
-                        class="col-12 col-md-6 col-lg-6 d-flex flex-column align-items-center justify-content-start my-5">
+                        class="col-12 col-md-6 col-lg-6 d-flex flex-column align-items-center justify-content-start my-5 p-regis">
                         <div class="col-md-9 mx-auto">
                             <div>
-                                <h1 class="font-weight-bold" style="color: black">Selamat Datang!</h1>
-                                <p style="width: 80%;">Yuk, daftarkan diri Anda segera untuk mendapatkan banyak
+                                <h1 class="font-weight-bold h-regis" style="color: black">Selamat Datang!</h1>
+                                <p class="p-regis" style="width: 80%;">Yuk, daftarkan diri Anda segera untuk mendapatkan
+                                    banyak
                                     rekomendasi sesuai dengan minat bakat Anda</p>
                                 @if (session('status'))
                                     <div class="alert alert-success" role="alert">
@@ -204,7 +108,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold mb-2">Daftar sebagai:</label>
-                                        <div class="d-flex align-items-left">
+                                        <div class="role-regis d-flex align-items-left">
                                             <div class="custom-radio-image mr-2">
                                                 <input type="radio" id="pencari_kerja" name="user_type"
                                                     value="pencari_kerja"
@@ -245,12 +149,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-start my-5">
-                        <a href="/" class="img-fluid text-center">
-                            <img class="img-fluid" src="{{ asset('assets/img/landing-page/logo.svg') }}"
+                    <div
+                        class="col-12 col-md-6 d-flex flex-column align-items-center justify-content-start my-5 img-regis">
+                        <a href="/" class="img-fluid">
+                            <img class="img-fluid logo-regis" src="{{ asset('assets/img/landing-page/logo.svg') }}"
                                 alt="" style="width: 75%; height: auto;">
                         </a>
-                        <img class="img-fluid mt-5" src="{{ asset('assets/img/landing-page/regis.svg') }}"
+                        <img class="img-fluid mt-5 icon-regis" src="{{ asset('assets/img/landing-page/regis.svg') }}"
                             alt="">
                     </div>
                 </div>

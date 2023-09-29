@@ -12,6 +12,14 @@ use Spatie\Permission\Models\Permission;
 
 class MenuGroupController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:menu-group.index')->only('index');
+        $this->middleware('permission:menu-group.create')->only('create', 'store');
+        $this->middleware('permission:menu-group.edit')->only('edit', 'update');
+        $this->middleware('permission:menu-group.destroy')->only('destroy');
+    }
     public function index(Request $request)
     {
         //

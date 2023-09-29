@@ -87,7 +87,7 @@
                                             <h4 class="media-title"><strong>{{ $lamar->name }}</strong></h4>
                                             <h5 class="mb-4">{{ $lamar->judul }}</h5>
                                             <div class="d-flex align-items-center justify-content-start mb-2">
-                                                <div class="d-flex align-items-center col-3">
+                                                <div class="d-flex align-items-center col-6">
                                                     <img class="img-fluid img-icon mr-2"
                                                         src="{{ asset('assets/img/lamar/calendar.svg') }}">
                                                     <span>{{ date('j F Y', strtotime($lamar->tgl_lahir)) }}</span>
@@ -100,7 +100,7 @@
                                             </div>
 
                                             <div class="d-flex align-items-center justify-content-start mb-2">
-                                                <div class="d-flex align-items-left col-3">
+                                                <div class="d-flex align-items-left col-6">
                                                     <img class="img-fluid img-icon mr-2"
                                                         src="{{ asset('assets/img/lamar/email.svg') }}">
                                                     <span>{{ $lamar->email }}</span>
