@@ -62,7 +62,7 @@ class LamarPerusahaan extends Controller
             ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
             ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
             ->join('users as u', 'pu.user_id', '=', 'u.id')
-            ->select('l.id', 'u.name', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'pu.harapan_gaji', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'p.user_id', 'l.created_at', 'pu.tgl_lahir')
+            ->select('l.id', 'u.name', 'u.id as user_id', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'pu.harapan_gaji', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'l.created_at', 'pu.tgl_lahir')
             ->where('p.user_id', $loggedInUserId)
             ->when($request->has('posisi'), function ($query) use ($request) {
                 $search = $request->input('posisi');
