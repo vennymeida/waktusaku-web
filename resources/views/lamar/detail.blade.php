@@ -253,12 +253,12 @@
 
                                                 <!-- Modal untuk menampilkan lebih banyak pengalaman -->
                                                 <div class="modal fade" id="pengalamanModal" tabindex="-1"
-                                                    role="dialog" aria-labelledby="penngalamanModalLabel"
+                                                    role="dialog" aria-labelledby="pengalamanModalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="penngalamanModalLabel"
+                                                                <h5 class="modal-title" id="pengalamanModalLabel"
                                                                     style="color: #6777ef; font-weight: bold;">Pengalaman
                                                                 </h5>
                                                                 <button type="button" class="close"
@@ -327,11 +327,13 @@
 
                                                     <dt class="col-sm-4 mt-2">Deskripsi</dt>
                                                     <dd class="col-sm-8 mt-2">
-                                                        {{ optional($pelatihan->first())->deskripsi ?: '-' }}</dd>
+                                                        {{ optional($pelatihan->first())->deskripsi ?: '-' }}
+                                                    </dd>
 
                                                     <dt class="col-sm-4 mt-2">Dikeluarkan oleh</dt>
                                                     <dd class="col-sm-8 mt-2">
-                                                        {{ optional($pelatihan->first())->penerbit ?: '-' }}</dd>
+                                                        {{ optional($pelatihan->first())->penerbit ?: '-' }}
+                                                    </dd>
 
                                                     <dt class="col-sm-4 mt-2">Tanggal Dikeluarkan</dt>
                                                     <dd class="col-sm-8 mt-2">
@@ -340,8 +342,8 @@
 
                                                     <dt class="col-sm-4 mt-2">Sertifikat</dt>
                                                     <dd class="col-sm-8 mt-2">
-                                                        @if ($pelatihan && $pelatihan->sertifikat)
-                                                            <a href="{{ asset('storage/' . $pelatihan->sertifikat) }}"
+                                                        @if ($pelatihan && $pelatihan->first()->sertifikat)
+                                                            <a href="{{ asset('storage/' . $pelatihan->first()->sertifikat) }}"
                                                                 onclick="return openResume();" target="_blank"
                                                                 class="btn btn-primary btn-sm">
                                                                 Lihat Sertifikat
@@ -358,15 +360,15 @@
                                                         Muat Lebih Banyak
                                                     </button>
                                                 @endif
-                                                <!-- Modal untuk menampilkan lebih banyak pengalaman -->
-                                                <div class="modal fade" id="pengalamanModal" tabindex="-1"
-                                                    role="dialog" aria-labelledby="penngalamanModalLabel"
+                                                <!-- Modal untuk menampilkan lebih banyak pelatihan -->
+                                                <div class="modal fade" id="pelatihanModal" tabindex="-1"
+                                                    role="dialog" aria-labelledby="pelatihanModalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="penngalamanModalLabel"
-                                                                    style="color: #6777ef; font-weight: bold;">Pengalaman
+                                                                <h5 class="modal-title" id="pelatihanModalLabel"
+                                                                    style="color: #6777ef; font-weight: bold;">Pelatihan
                                                                 </h5>
                                                                 <button type="button" class="close"
                                                                     data-dismiss="modal" aria-label="Close">
@@ -374,8 +376,8 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                {{-- Tampilkan semua pengalaman dalam modal --}}
-                                                                @foreach ($pengalaman as $pengalamanItem)
+                                                                {{-- Tampilkan semua pelatihan dalam modal --}}
+                                                                @foreach ($pelatihan as $pelatihanItem)
                                                                     <dl class="row">
                                                                         <dt class="col-sm-4 mt-2">Nama Pelatihan</dt>
                                                                         <dd class="col-sm-8 mt-2">
@@ -399,8 +401,8 @@
 
                                                                         <dt class="col-sm-4 mt-2">Sertifikat</dt>
                                                                         <dd class="col-sm-8 mt-2">
-                                                                            @if ($pelatihan && $pelatihan->sertifikat)
-                                                                                <a href="{{ asset('storage/' . $pelatihan->sertifikat) }}"
+                                                                            @if ($pelatihanItem && $pelatihanItem->sertifikat)
+                                                                                <a href="{{ asset('storage/' . $pelatihanItem->sertifikat) }}"
                                                                                     onclick="return openResume();"
                                                                                     target="_blank"
                                                                                     class="btn btn-primary btn-sm">

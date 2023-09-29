@@ -82,7 +82,7 @@ class LamarPerusahaan extends Controller
         $profileUser->ringkasan = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $profileUser->ringkasan);
         $tanggalLahir = Carbon::parse($profileUser->tgl_lahir)->format('j F Y');
 
-        $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
+        $relasiLamar = $lamar->load(['pencarikerja.user', 'pencarikerja.user.profileKeahlians.keahlian','loker.perusahaan']);
 
         $namaPengguna = $relasiLamar->pencarikerja->user->name;
         $email = $relasiLamar->pencarikerja->user->email;
@@ -92,7 +92,7 @@ class LamarPerusahaan extends Controller
         $tanggal_mulai = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_mulai ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_mulai)->format('j F Y') : '';
         $tanggal_berakhir = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_berakhir ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_berakhir)->format('j F Y') : '';
 
-        $pelatihan = $relasiLamar->pencarikerja->user->pelatihan()->orderBy('created_at', 'desc')->get();;
+        $pelatihan = $relasiLamar->pencarikerja->user->pelatihan()->orderBy('created_at', 'desc')->get();
         $keahlian = $profileUser->user->keahlians;
         $judulPekerjaan = $relasiLamar->loker->judul;
         $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
