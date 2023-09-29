@@ -142,10 +142,10 @@ class LamarController extends Controller
         $namaPengguna = $relasiLamar->pencarikerja->user->name;
         $email = $relasiLamar->pencarikerja->user->email;
         $resume = $relasiLamar->pencarikerja->user->resume;
-        $pendidikan = $relasiLamar->pencarikerja->user->pendidikan;
-        $pengalaman = $relasiLamar->pencarikerja->user->pengalaman;
-        $pelatihan = $relasiLamar->pencarikerja->user->pelatihan;
-        $keahlian = $relasiLamar->pencarikerja->user->profileKeahlians;
+        $pendidikan = $relasiLamar->pencarikerja->user->pendidikan()->orderBy('created_at', 'desc')->get();
+        $pengalaman = $relasiLamar->pencarikerja->user->pengalaman()->orderBy('created_at', 'desc')->get();
+        $pelatihan = $relasiLamar->pencarikerja->user->pelatihan()->orderBy('created_at', 'desc')->get();
+        $keahlian = $profileUser->user->keahlians;$keahlian = $relasiLamar->pencarikerja->user->profileKeahlians;
         $judulPekerjaan = $relasiLamar->loker->judul;
         $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;
 
