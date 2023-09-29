@@ -3,30 +3,30 @@
 @section('main')
     <main class="bg-light">
         <section>
-            <div class="col-md-12 py-5">
+            <div class="col-md-12 col-lg-12 col-sm-6 py-5 bagan1">
                 <div class="d-flex justify-content-around align-items-center">
                     <div class="col-md-6">
-                        <p class="mb-3 tag-title py-2 px-4 text-center">Tersedia 100+ di kota Malang Raya</p>
-                        <h1 class="font-weight-bolder">Yuk Buat Waktumu Menjadi Berguna di <span
+                        <p class="mb-3 tag-title py-2 px-4 text-center ">Tersedia 100+ di kota Malang Raya</p>
+                        <h1 class="font-weight-bolder title-tengah">Yuk Buat Waktumu Menjadi Berguna di <span
                                 class="text-primary font-weight-bolder">Waktu</span><span
                                 class="text-warning font-weight-bolder">Saku</span> sesuai kebutuhan!</h1>
                         <p>Platform yang dirancang untuk memudahkan mencari peluang kerja paruh waktu yang sesuai dengan
                             kebutuhan Anda khusus di daerah Malang Raya.</p>
                         <form method="GET" action="{{ route('all-jobs.index') }}">
                             <div class="form-row">
-                                <div class="form-group col-md-10">
-                                    <input type="text" name="posisi" class="form-control" id="posisi"
+                                <div class="form-group col-lg-10 col-md-5 col-sm-5">
+                                    <input type="text" name="posisi" class="form-control pencarian" id="posisi"
                                         placeholder="Ketik posisi pekerjaan..."
                                         value="{{ app('request')->input('posisi') }}" style="border-radius: 25px;">
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-lg-2 col-md-2 col-md-2">
                                     <button id="search-button" class="btn btn-primary mr-1 px-4" type="submit"
                                         style="border-radius: 25px;">Cari</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4 col-sm-4 col-md-4 bagan2">
                         <img class="img-fluid" src="{{ asset('assets/img/landing-page/image-1.svg') }}" alt="">
                     </div>
                 </div>
@@ -35,7 +35,7 @@
 
         @role('Pencari Kerja')
             <section>
-                <div class="col-md-12 bg-white">
+                <div class="col-md-12 bg-white pb-5">
                     <div class="col-md-10 mt-0 mx-auto pt-4 pb-4 bg-white">
                         <h2 class="text-center font-weight-bold mt-4">Rekomendasi dari <span
                                 class="text-primary font-weight-bold">Waktu</span><span class="text-warning font-weight-bold">
@@ -47,14 +47,15 @@
                                 <p class="mt-1 text-not mb-5">Belum ada rekomendasi untukmu</p>
                             </div>
                         @else
-                            <div class="row flex-nowrap overflow-auto mt-4 horizontal-scroll equal-height-cards">
-                                <div class="scroll-arrow left bg-transparent text-secondary">
+                            <div
+                                class="row flex-nowrap overflow-auto mt-4 horizontal-scroll equal-height-cards group-card-view-mobile">
+                                {{-- <div class="scroll-arrow left bg-transparent text-secondary">
                                     <i class="fas fa-angle-left"></i>
-                                </div>
+                                </div> --}}
                                 @foreach ($allRekomendasi as $key => $loker)
-                                    <div class="col-md-4 mb-4">
+                                    <div class="col-md-4 mb-1 jarak-column-view-mobile">
                                         <div class="card">
-                                            <div class="card-body d-flex flex-column">
+                                            <div class="card-body d-flex flex-column card-view-mobile">
                                                 <div class="position-relative">
                                                     <div class="gradient-overlay"></div>
                                                     <img class="img-fluid mb-3 fixed-height-image position-absolute top-0 start-50 translate-middle-x"
@@ -128,9 +129,9 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                <div class="scroll-arrow right bg-transparent text-secondary">
+                                {{-- <div class="scroll-arrow right bg-transparent text-secondary">
                                     <i class="fas fa-angle-right"></i>
-                                </div>
+                                </div> --}}
                             </div>
                         @endif
                     </div>
@@ -139,15 +140,15 @@
         @endrole
 
         <section>
-            <div class="col-md-12 bg-secondary py-5">
+            <div class="col-md-12 py-5 bg-secondary py-5">
                 <div class="d-flex justify-content-around align-items-center my-4">
-                    <div class="col-md-4">
+                    <div class="col-md-4 bagan3">
                         <img class="img-fluid" src="{{ asset('assets/img/landing-page/image-2.svg') }}" alt="">
                     </div>
                     @guest
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-lg-6 col-sm-4">
                             <p class="mb-4 tag-prom py-2 px-4 text-center">Tersedia 100+ di kota Malang Raya</p>
-                            <h1 class="font-weight-bold mb-4">Mau Rekrut Karyawan dengan Cepat Secara <span
+                            <h1 class="font-weight-bold mb-4 title-tengah2">Mau Rekrut Karyawan dengan Cepat Secara <span
                                     class="text-primary font-weight-bolder">GRATIS? </span><span
                                     class="text-white font-weight-bolder">Bisa!</span>
                             </h1>
@@ -163,9 +164,11 @@
                                 banyak
                                 pelamar.
                             </p>
-                            <a id="register-button" class="btn btn-primary px-4 py-2 font-weight-bold"
-                                href="{{ route('register') }}" style="border-radius: 25px;">Buat Akun
-                                Sekarang!</a>
+                            <a id="register-button" class="btn btn-primary px-4 py-2 tombol-register"
+                                href="{{ route('register') }}" style="border-radius: 25px;">
+                                <p class="font-weight-bold text-register">Buat Akun
+                                    Sekarang!</p>
+                            </a>
                         </div>
                     @endguest
                     @role('Perusahaan')
@@ -189,8 +192,9 @@
                     @role('Pencari Kerja')
                         <div class="col-md-6">
                             <p class="mb-4 tag-prom py-2 px-4 text-center">Tersedia 100+ di kota Malang Raya</p>
-                            <h1 class="font-weight-bold mb-4">Mau Tahu Status Lamaran Kamu Saat Ini Bagaimana ? <span
-                                    class="text-primary font-weight-bold">Bisa!</span></h1>
+                            <h1 class="font-weight-bold mb-4 title-tengah2">Mau Tahu Status Lamaran Kamu Saat Ini Bagaimana ?
+                                <span class="text-primary font-weight-bold">Bisa!</span>
+                            </h1>
                             <p class="d-flex align-items-center mb-4"><i class="fas fa-check-circle mr-3"
                                     style="font-size: 25px;"></i>
                                 Dapatkan pekerjaan impianmu dengan bantuan WaktuSaku!
@@ -234,7 +238,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="card border-primary mb-2">
+                            <div class="card border-primary mb-2 card-waktusaku-view-mobile">
                                 <div class="card-body text-center">
                                     <i class="fas fa-file-alt text-primary fa-3x mb-4"></i>
                                     <h5 class="card-title font-weight-bold d-block mx-2">Pengalaman Berharga</h5>
@@ -247,7 +251,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="card border-primary mb-2">
+                            <div class="card border-primary mb-2 card-waktusaku-view-mobile">
                                 <div class="card-body text-center">
                                     <i class="fas fa-history text-primary fa-3x mb-4"></i>
                                     <h5 class="card-title font-weight-bold d-block mx-2">Waktu yang Fleksibel</h5>
@@ -259,7 +263,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="card border-primary mb-2">
+                            <div class="card border-primary mb-2 card-waktusaku-view-mobile">
                                 <div class="card-body text-center">
                                     <i class="fas fa-percent text-primary fa-3x mb-4"></i>
                                     <h5 class="card-title font-weight-bold d-block mx-2">Mendapatkan Gaji Bonus</h5>
@@ -276,21 +280,22 @@
         </section>
 
         <section>
-            <div class="col-md-10 mt-0 mx-auto">
+            <div class="col-md-10 col-lg-10 col-sm-5 mt-0 mx-auto">
                 <h2 class="text-center font-weight-bold">Lowongan Kerja Terbaru di <span
                         class="text-primary font-weight-bold">Waktu</span><span class="text-warning font-weight-bold">
                         Saku</span></h2>
-                <div class="row flex-nowrap overflow-auto mt-5 horizontal-scroll equal-height-cards">
+                <div
+                    class="row flex-nowrap overflow-auto mt-5 horizontal-scroll equal-height-cards group-card-view-mobile">
                     <div class="scroll-arrow left bg-transparent text-secondary">
                         <i class="fas fa-angle-left"></i>
                     </div>
                     @foreach ($allResults as $key => $loker)
-                        <div class="col-md-4">
+                        <div class="col-md-4 jarak-column-view-mobile">
                             <div class="card">
-                                <div class="card-body d-flex flex-column">
+                                <div class="card-body d-flex flex-column card-view-mobile">
                                     <div class="position-relative">
                                         <div class="gradient-overlay"></div>
-                                        <img class="img-fluid mb-3 fixed-height-image position-absolute top-0 start-50 translate-middle-x"
+                                        <img class="img-fluid mb-3 fixed-height-image position-absolute top-0 start-50 translate-middle-x "
                                             src="{{ asset('storage/' . $loker->logo) }}" alt="Company Logo">
                                         <p class="text-white card-title font-weight-bold mb-0 ml-2 overlap-text"
                                             style="font-size: 20px;">
@@ -468,9 +473,13 @@
 @endsection
 
 @push('customScript')
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+@endpush
+
+@push('customStyle')
     <!-- SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
 
-    <!-- SweetAlert JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 @endpush

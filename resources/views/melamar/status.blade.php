@@ -124,7 +124,7 @@
                                     <!-- Increased spacing after the title to mb-4 for consistency -->
 
                                     <div class="d-flex align-items-center justify-content-start mb-2">
-                                        <div class="d-flex align-items-center col-3">
+                                        <div class="d-flex align-items-center col-4">
                                             <!-- use col-6 to take half the width -->
                                             <img class="img-fluid img-icon mr-2"
                                                 src="{{ asset('assets/img/landing-page/job.svg') }}">
@@ -140,7 +140,7 @@
                                     </div>
 
                                     <div class="d-flex align-items-center justify-content-start mb-2">
-                                        <div class="d-flex align-items-left col-3">
+                                        <div class="d-flex align-items-left col-4">
                                             <!-- use col-6 to take half the width -->
                                             <img class="img-fluid img-icon mr-2"
                                                 src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
@@ -168,7 +168,7 @@
                                     @if ($lamar->status === 'Diterima')
                                         <div class="text-center mb-3 mt-2">
                                             <a id="chat-perusahaan" class="btn btn-icon btn-primary btn-icon py-2 px-3"
-                                            style="border-radius: 25px;"
+                                                style="border-radius: 25px;"
                                                 href="{{ url('chatify/' . $lamar->loker->perusahaan->user_id) }}">
                                                 <i class="fas fa-comment-dots"></i> Chat
                                             </a>

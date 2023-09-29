@@ -19,14 +19,16 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="shortcut icon" href="assets/img/landing-page/logo.svg">
+    <link rel="stylesheet" href="../assets/css/forgot-pass.css">
+
 </head>
 
-<body>
+<body style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
     <div id="app">
         <section class="section">
             <div class="container-fluid">
-                <div class="row" style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
-                    <div class="col-md-6 d-flex flex-column justify-content-center my-5">
+                <div class="row bg-forgot" style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
+                    <div class="col-md-6 d-flex flex-column justify-content-center my-5 p-forgot">
                         <div class="col-md-9 mx-auto">
                             <div>
                                 <h1 class="font-weight-bold" style="color: black">Jangan Cemas!</h1>
@@ -64,12 +66,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center my-5">
+                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center my-5 img-forgot">
                         <a href="/" class="img-fluid text-center" style="width: 50%; height: auto;">
                             <img class="img-fluid" src="{{ asset('assets/img/landing-page/logo.svg') }}" alt=""
                                 style="width: 65%; height: auto;">
                         </a>
-                        <img class="img-fluid mt-5" src="{{ asset('assets/img/landing-page/regis.svg') }}">
+                        <img class="img-fluid mt-5 icon-forgot" src="{{ asset('assets/img/landing-page/regis.svg') }}">
                     </div>
                 </div>
             </div>

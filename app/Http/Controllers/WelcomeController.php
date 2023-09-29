@@ -48,7 +48,7 @@ class WelcomeController extends Controller
             ->where('lp.status', 'dibuka')
             ->orderBy('lp.created_at', 'desc')
             ->groupBy('lp.id', 'lp.user_id', 'lp.id_perusahaan', 'p.nama', 'lp.judul', 'lp.deskripsi', 'lp.requirement', 'lp.gaji_bawah', 'gaji_atas', 'lp.tipe_pekerjaan', 'lp.jumlah_pelamar', 'lp.status', 'lp.tutup', 'lp.lokasi', 'lp.min_pengalaman', 'lp.min_pendidikan', 'p.pemilik', 'p.logo', 'p.alamat_perusahaan', 'k.kecamatan', 'kl.kelurahan')
-            ->paginate(10);
+            ->paginate(5);
 
         $user = auth()->id();
         $keahlianUser = DB::table('profile_keahlians')->where('user_id', $user)->pluck('keahlian_id')->toArray();
@@ -103,7 +103,8 @@ class WelcomeController extends Controller
                 'kl.kelurahan',
             )
             ->orderByRaw('COUNT(lh.keahlian_id) DESC')
-            ->get();
+            // ->get();
+            ->paginate(3);
 
         return view('welcome', ['allResults' => $allResults, 'allRekomendasi' => $allRekomendasi]);
     }
