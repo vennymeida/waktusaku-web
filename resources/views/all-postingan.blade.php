@@ -69,15 +69,15 @@
                                             @endif
                                             <div class="d-flex flex-column col-md-11">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <h1 class="mb-0 mr-2">{{ $result->name }}</h1>
+                                                    <h1 class="h-name mb-0 mr-2">{{ $result->name }}</h1>
                                                     <div class="d-flex align-items-center">
-                                                        <img class="img-fluid"
+                                                        <img class="img-fluid img-post"
                                                             src="{{ asset('assets/img/landing-page/Time.svg') }}"
                                                             style="max-width: 16px; max-height: 16px; margin-right: 5px;">
-                                                        <h4 class="mb-0">{{ $result->created_ago }}</h4>
+                                                        <h4 class="h-time mb-0">{{ $result->created_ago }}</h4>
                                                     </div>
                                                 </div>
-                                                <small>{{ $result->email }}</small>
+                                                <small class="s-email">{{ $result->email }}</small>
                                             </div>
                                         </div>
                                         <p>{!! $result->konteks ?? '' !!}</p>

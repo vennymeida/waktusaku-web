@@ -46,7 +46,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-5 mx-auto">
+                            <div class="col-md-5 mx-auto img-contact">
                                 <img class="img-fluid my-3" src="{{ asset('assets/img/landing-page/contact.svg') }}">
                             </div>
                         </div>
