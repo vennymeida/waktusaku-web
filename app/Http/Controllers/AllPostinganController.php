@@ -20,7 +20,7 @@ class AllPostinganController extends Controller
             ->leftJoin('profile_users as pu', 'u.id', '=', 'pu.user_id')
             ->select('lp.id', 'lp.user_id', 'lp.konteks', 'lp.media', 'pu.ringkasan', 'pu.foto', 'u.name', 'u.email', 'lp.created_at') // Sertakan created_at
             ->orderBy('lp.created_at', 'desc')
-            ->get();
+            ->paginate(5);
 
         $user = null;
         $profile = null;

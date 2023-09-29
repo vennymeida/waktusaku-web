@@ -1,5 +1,5 @@
 <!-- Modal for Resume Preview -->
-<div class="modal fade" id="resumePreviewModal" tabindex="-1" role="dialog" aria-labelledby="resumePreviewModalLabel"
+<div class="modal fade fullscreen-modal" id="resumePreviewModal" tabindex="-1" role="dialog" aria-labelledby="resumePreviewModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -21,7 +21,7 @@
 <div class="modal fade" id="modal-create-postingan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content modalTambah1">
             <div class="modal-header m-4">
                 <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Tambah
                     Postingan</h5>
@@ -50,7 +50,7 @@
                                         <p>{{ auth()->user()->email }}</p>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group summernoteField">
                                     <label for="konteks">Konten Postingan</label>
                                     <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
                                         type="text" required>{{ old('konteks') }}</textarea>
@@ -64,7 +64,7 @@
                                     <ul class="list-unstyled">
                                         <li class="mb-2">
                                             <!-- Gunakan label untuk mengaktifkan input file -->
-                                            <label for="mediaUploadButton" style="cursor: pointer;">
+                                            <label for="mediaUploadButton" class="imgUploadButton" style="cursor: pointer;">
                                                 <img class="img-fluid" src="{{ asset('assets/img/Gallery Add.svg') }}">
                                                 &nbsp;&nbsp;&nbsp; Media
                                             </label>
@@ -592,18 +592,18 @@
         <main class="bg-light">
             <h4 class="text-center my-4" style="text-align: center; font-weight: bold;">Data Diri</h4>
             <section class="centered-section-1">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-lg-10 col-md-10 col-sm-6 py-1 card-profile1">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="profile-widget-description m-4">
                                 @if (Auth::user()->profile && Auth::user()->profile->foto != '')
                                     <img alt="image"
                                         src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
-                                        class="rounded-square profile-widget-picture img-fluid"
+                                        class="rounded-square profile-widget-picture img-fluid card-profile-img"
                                         style="width: 180px; height: 180px; border-radius:15px;">
                                 @else
                                     <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                        class="rounded-square profile-widget-picture img-fluid"
+                                    class="rounded-square profile-widget-picture img-fluid card-profile-img"
                                         style="width: 180px; height: 180px; border-radius:15px;">
                                 @endif
                             </div>
@@ -627,7 +627,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-md-11 ml-2">
+                            <div class="col-md-11 ml-2 card-profile2">
                                 @if (Auth::user()->profile && Auth::user()->profile->alamat != '')
                                     <div class="profile-widget-description mb-3"
                                         style="display: flex; align-items: center;">
@@ -636,7 +636,7 @@
                                     </div>
                                 @endif
                                 @if (Auth::user()->profile && Auth::user()->profile->resume != '')
-                                    <div class="profile-widget-description" style="display: flex; align-items: center;">
+                                <div class="profile-widget-description lihat-resume" style=" ">
                                         <a href="#" class="btn btn-primary" id="skill-button" data-toggle="modal"
                                             data-target="#resumePreviewModal"
                                             data-pdf="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
@@ -745,7 +745,7 @@
                     </div>
                 </div>
             </section>
-            <section class="centered-section container-garis my-0">
+            <section class="centered-section container-garis my-0 garisPembatasProfile">
                 <div class="lines my-0">
                     <div class="diamond"></div>
                     <div class="circle"></div>
@@ -753,7 +753,7 @@
                 </div>
             </section>
             <section class="centered-section my-0">
-                <div class="bg-primary-section card col-md-10 py-3">
+                <div class="bg-primary-section card col-md-10 py-3 card-profile3">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -783,7 +783,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-2">
+                <div class="bg-primary-section card col-md-10 py-2 card-profile4 ">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -868,7 +868,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1 card-profile5">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -884,9 +884,9 @@
                     @if (count(auth()->user()->keahlians) > 0)
                         <div class="col-md-12 mb-4">
                             <div class="flex-grow-1 mb-2">
-                                <div class="card-header-action">
+                                <div class="card-header-action keahlianPelamar">
                                     @foreach (auth()->user()->keahlians as $keahlian)
-                                        <button class="btn btn-primary"
+                                    <button class="btn btn-primary keahlianPelamar1"
                                             id="skill-button">{{ $keahlian->keahlian }}</button>
                                     @endforeach
                                 </div>
@@ -901,7 +901,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1 card-profile6">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -915,7 +915,7 @@
                         </div>
                     </div>
                     @if (count($pendidikans) > 0)
-                        <div id="pendidikan-container">
+                    <div id="pendidikan-container" class="pendidikancardprofile">
                             @foreach ($pendidikans as $item)
                                 <hr>
                                 <div class="mr-5 ml-5">
@@ -985,7 +985,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1 card-profile7">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -999,7 +999,7 @@
                         </div>
                     </div>
                     @if (count($pengalamans) > 0)
-                        <div id="pengalaman-container">
+                    <div id="pengalaman-container" class="pendidikancardprofile">
                             @foreach ($pengalamans as $pl)
                                 <hr>
                                 <div class="mr-5 ml-5">
@@ -1070,7 +1070,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1 card-profile8">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -1084,7 +1084,7 @@
                         </div>
                     </div>
                     @if (count($pelatihans) > 0)
-                        <div id="pelatihan-container">
+                    <div id="pelatihan-container" class="pendidikancardprofile">
                             @foreach ($pelatihans as $lat)
                                 <hr>
                                 <div class="mr-5 ml-5">
@@ -1584,8 +1584,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
-                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror" required
-                                            rows="5" cols="50">
+                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
+                                            required rows="5" cols="50">
                                             @isset($post)
 {!! $post->konteks !!}
 @endisset

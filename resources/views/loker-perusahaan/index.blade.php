@@ -13,7 +13,7 @@
                             <h4 class="font-weight-bold">Data Lowongan Pekerjaan</h4>
                         </div>
                         <div class="card-body ml-4">
-                            <form id="search-form" class="form-row" method="GET"
+                            <form id="search-form" class="form-row cardDatalowongan" method="GET"
                                 action="{{ route('loker-perusahaan.index') }}" onsubmit="handleFormSubmit()">
                                 <div class="form-group col-md-9">
                                     <div class="input-group">
@@ -22,7 +22,7 @@
                                                 <i class="fas fa-search ml-2"></i>
                                             </div>
                                         </div>
-                                        <input type="text" name="judul" class="form-control form-jobs clearable"
+                                        <input type="text" name="judul" class="form-control form-jobs clearable inputSearch"
                                             id="judul" placeholder="Cari posisi pekerjaan"
                                             value="{{ app('request')->input('judul') }}">
                                         <div class="input-group-prepend">

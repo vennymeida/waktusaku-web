@@ -15,12 +15,8 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavButton"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto navbar-atas">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item active mr-4">
                         <a class="nav-link text-primary" href="{{ url('/') }}">Home</a>
                     </li>
@@ -33,7 +29,7 @@
                     <li class="nav-item mr-4">
                         <a class="nav-link text-primary" href="{{ url('/about-us') }}">About Us</a>
                     </li>
-                    <li class="nav-item mr-4">
+                    <li class="nav-item">
                         <a class="nav-link text-primary" href="{{ url('/all-postingan') }}">Postingan</a>
                     </li>
                 </ul>
@@ -75,12 +71,10 @@
                         <a class="nav-link text-primary" href="{{ url('/about-us') }}">About Us</a>
                     </li>
                 </ul> --}}
-            </div>
-            <div class="d-md-none collapse navbar-collapse" id="navbarNavButton">
-                <ul class="navbar-nav ml-auto navbar-button">
+                <ul class="navbar-nav ml-auto">
                     @if (!auth()->user())
                         <li class="nav-item">
-                            <a class="px-4 py-1 btn text-primary mr-4 btn-login" href="{{ route('login') }}">Login</a>
+                            <a class="px-4 py-1 btn text-primary mr-2 btn-login" href="{{ route('login') }}">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="px-4 py-1 btn btn-regis" href="{{ route('register') }}">Daftar</a>
@@ -88,8 +82,7 @@
                     @else
                         <li class="nav-item dropdown">
                             <a href="#" data-toggle="dropdown"
-                                class="nav-link dropdown-toggle nav-link-lg nav-link-user text-primary authVerifikasi">
-                                {{-- <div class="authVerifikasi"> --}}
+                                class="nav-link dropdown-toggle nav-link-lg nav-link-user text-primary">
                                 @if (Auth::user()->profile && Auth::user()->profile->foto != '')
                                     <img alt="image" src="{{ Storage::url(Auth::user()->profile->foto) }}"
                                         class="rounded-circle mr-1" style="width: 35px; height: 35px;">
@@ -100,10 +93,7 @@
                                 <div class="d-sm-none d-lg-inline-block">
                                     Hai, {{ auth()->user()->name }}
                                 </div>
-                                {{-- </div> --}}
-
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right">
                                 @if (Auth::user()->hasRole('Pencari Kerja') || Auth::user()->hasRole('Perusahaan'))
                                     <a href="{{ url('/profile') }}" class="dropdown-item has-icon">
@@ -154,7 +144,7 @@
                     @endif
                 </ul>
             </div>
-
+        </div>
     </nav>
 
 
@@ -179,6 +169,13 @@
     <script src="/assets/js/custom.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Inisialisasi dropdown
+        $(document).ready(function() {
+            $('.dropdown-toggle').dropdown();
+        });
+    </script>
 
     <script>
         // Inisialisasi dropdown

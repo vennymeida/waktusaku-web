@@ -36,7 +36,7 @@
         @role('Pencari Kerja')
             <section>
                 <div class="col-md-12 bg-white pb-5">
-                    <div class="col-md-10 mt-0 mx-auto pt-4 pb-4 bg-white">
+                    <div class="col-md-12 mt-0 mx-auto pt-4 pb-4 bg-white">
                         <h2 class="text-center font-weight-bold mt-4">Rekomendasi dari <span
                                 class="text-primary font-weight-bold">Waktu</span><span class="text-warning font-weight-bold">
                                 Saku</span>
@@ -47,13 +47,9 @@
                                 <p class="mt-1 text-not mb-5">Belum ada rekomendasi untukmu</p>
                             </div>
                         @else
-                            <div
-                                class="row flex-nowrap overflow-auto mt-4 horizontal-scroll equal-height-cards group-card-view-mobile">
-                                {{-- <div class="scroll-arrow left bg-transparent text-secondary">
-                                    <i class="fas fa-angle-left"></i>
-                                </div> --}}
+                            <div class="row flex-nowrap overflow-auto mt-4 equal-height-cards group-card-view-mobile">
                                 @foreach ($allRekomendasi as $key => $loker)
-                                    <div class="col-md-4 mb-1 jarak-column-view-mobile">
+                                    <div class="col-md-3 mb-1 jarak-column-view-mobile">
                                         <div class="card">
                                             <div class="card-body d-flex flex-column card-view-mobile">
                                                 <div class="position-relative">
@@ -129,9 +125,6 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                {{-- <div class="scroll-arrow right bg-transparent text-secondary">
-                                    <i class="fas fa-angle-right"></i>
-                                </div> --}}
                             </div>
                         @endif
                     </div>
@@ -225,7 +218,7 @@
                     </div>
                     <div class="row my-5">
                         <div class="col-md-3">
-                            <div class="card border-primary mb-2">
+                            <div class="card border-primary mb-2 card-waktusaku-view-mobile">
                                 <div class="card-body text-center">
                                     <i class="fas fa-user-check text-primary fa-3x mb-4"></i>
                                     <h5 class="card-title font-weight-bold d-block mx-2">Peluang Pekerjaan Sesuai</h5>

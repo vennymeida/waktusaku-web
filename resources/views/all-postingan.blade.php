@@ -92,6 +92,9 @@
                     </div>
                 </div>
             </div>
+            <div class="d-flex justify-content-center">
+                {{ $allResults->withQueryString()->links() }}
+            </div>
         </div>
     </main>
 @endsection

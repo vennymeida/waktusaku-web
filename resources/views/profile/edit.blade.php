@@ -18,7 +18,7 @@
 </div>
 
 <!-- Modal for Resume Preview -->
-<div class="modal fade" id="resumePreviewModal" tabindex="-1" role="dialog" aria-labelledby="resumePreviewModalLabel"
+<div class="modal fade fullscreen-modal" id="resumePreviewModal" tabindex="-1" role="dialog" aria-labelledby="resumePreviewModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -56,7 +56,7 @@
 </div>
 
 <!-- Modal for SIU Preview -->
-<div class="modal fade" id="siuPreviewModal" tabindex="-1" role="dialog" aria-labelledby="siuPreviewModalLabel"
+<div class="modal fade fullscreen-modal" id="siuPreviewModal" tabindex="-1" role="dialog" aria-labelledby="siuPreviewModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

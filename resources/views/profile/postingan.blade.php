@@ -100,6 +100,10 @@
                     {{-- </section> --}}
                 @endforeach
                 {{-- </div> --}}
+                <div class="d-flex justify-content-center">
+                    {{ $postingan->withQueryString()->links() }}
+
+                </div>
             </div>
         @else
             <div class="col-md-12 text-center my-4"><br><br>
