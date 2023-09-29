@@ -15,35 +15,37 @@
             <div class="col-md-12 detail-header">
                 <div class="col-md-10 mx-auto">
                     <ul class="list-unstyled">
-                        <ul class="list-unstyled d-flex justify-content-start">
-                            <li class="col-md-2 d-flex justify-content-satrt mr-5 mt-3">
+                        <ul class="list-unstyled d-flex justify-content-start title-detail">
+                            <li class="col-md-2 d-flex justify-content-start mr-5 mt-3">
                                 <img class="img-fluid img-icon mr-2" src="{{ asset('assets/img/landing-page/phone.svg') }}">
-                                <p class="mb-3" style="font-size: 15px;">{{ $detail->no_hp_perusahaan }} </p>
+                                <p class="mb-3 detail-left" style="font-size: 15px;">{{ $detail->no_hp_perusahaan }} </p>
                             </li>
-                            <li class="col-md-10 mt-3">
+                            <li class="col-md-10 mt-3 detail-right">
                                 <h5 class="font-weight-bolder">{{ $detail->nama }} </h5>
                             </li>
                         </ul>
-                        <ul class="list-unstyled d-flex justify-content-start text-justify">
-                            <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                        <ul class="list-unstyled d-flex justify-content-start text-justify title-detail">
+                            <li class="col-md-2 d-flex justify-content-start mr-5">
                                 <img class="img-fluid img-icon mr-2" src="{{ asset('assets/img/landing-page/Email.svg') }}">
-                                <p class="mb-3" style="font-size: 15px;">{{ $detail->email }} </p>
+                                <p class="mb-3 detail-left" style="font-size: 15px;">{{ $detail->email }} </p>
                             </li>
                             <li class="col-md-10">
-                                <p style="font-size: 15px;">{{ $detail->deskripsi }} </p>
+                                <p class="detail-right" style="font-size: 15px;">
+                                    {{ $detail->deskripsi }} </p>
                             </li>
                         </ul>
-                        <ul class="list-unstyled d-flex justify-content-start">
-                            <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                        <ul class="list-unstyled d-flex justify-content-start title-detail">
+                            <li class="col-md-2 d-flex justify-content-start mr-5 detail-web">
                                 <img class="img-fluid img-icon mr-2"
                                     src="{{ asset('assets/img/landing-page/global.svg') }}">
-                                <p class="mb-3" style="font-size: 15px;">{{ $detail->website }} </p>
+                                <p class="mb-3 detail-left" style="font-size: 15px;">{{ $detail->website }} </p>
                             </li>
                         </ul>
-                        <li class="col-md-7 d-flex justify-content-end text-justify" style="margin-left: 45%;">
+                        <li class="col-md-7 d-flex justify-content-end text-justify detail-alamat"
+                            style="margin-left: 45%;">
                             <img class="img-fluid img-icon mr-1"
                                 src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                            <p class="mb-5" style="font-size: 15px;">{{ $detail->alamat_perusahaan }},
+                            <p class="mb-5 detail-alamat-bottom" style="font-size: 15px;">{{ $detail->alamat_perusahaan }},
                                 {{ $detail->kelurahan->kelurahan }},
                                 {{ $detail->kecamatan->kecamatan }} </p>
                         </li>
@@ -55,14 +57,14 @@
         <div class="col-md-10 mx-auto">
             <div class="col-md-3">
                 <div class="logo-container">
-                    <img class="img-fluid bg-white mt-4" src="{{ asset('storage/' . $detail->logo) }}"
+                    <img class="img-fluid bg-white mt-4 img-detail" src="{{ asset('storage/' . $detail->logo) }}"
                         style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                 </div>
             </div>
         </div>
 
         <section>
-            <div class="col-md-12 mt-5">
+            <div class="col-md-12 mt-5 detail-all">
                 <div class="col-md-10 mx-auto">
                     <ul class="list-unstyled">
                         <ul class="list-unstyled d-flex justify-content-between">

@@ -1,6 +1,6 @@
 <!-- Modal for Resume Preview -->
-<div class="modal fade fullscreen-modal" id="resumePreviewModal" tabindex="-1" role="dialog" aria-labelledby="resumePreviewModalLabel"
-    aria-hidden="true">
+<div class="modal fade fullscreen-modal" id="resumePreviewModal" tabindex="-1" role="dialog"
+    aria-labelledby="resumePreviewModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header m-4">
@@ -64,7 +64,8 @@
                                     <ul class="list-unstyled">
                                         <li class="mb-2">
                                             <!-- Gunakan label untuk mengaktifkan input file -->
-                                            <label for="mediaUploadButton" class="imgUploadButton" style="cursor: pointer;">
+                                            <label for="mediaUploadButton" class="imgUploadButton"
+                                                style="cursor: pointer;">
                                                 <img class="img-fluid" src="{{ asset('assets/img/Gallery Add.svg') }}">
                                                 &nbsp;&nbsp;&nbsp; Media
                                             </label>
@@ -491,80 +492,80 @@
                 <div class="col-md-12 detail-header">
                     <div class="col-md-10 mx-auto">
                         <ul class="list-unstyled">
-                            <ul class="list-unstyled d-flex justify-content-start">
+                            <ul class="list-unstyled d-flex justify-content-start title-detail">
                                 @if (Auth::user()->perusahaan && Auth::user()->perusahaan->no_hp_perusahaan != '')
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5 mt-3">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5 mt-3">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/phone.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">
                                             {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp_perusahaan : '' }}
                                         </p>
                                     </li>
                                 @else
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5 mt-3">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5 mt-3">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/phone.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;"></p>
+                                        <p class="mb-3 detail-left" style="font-size: 15px;"></p>
                                     </li>
                                 @endif
-                                <li class="col-md-10 mt-3">
+                                <li class="col-md-10 mt-3 detail-right">
                                     <h5 class="font-weight-bolder">
                                         {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->nama : '' }} -
                                         {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->pemilik : '' }}</h5>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-start text-justify">
+                            <ul class="list-unstyled d-flex justify-content-start text-justify title-detail">
                                 @if (Auth::user()->perusahaan && Auth::user()->perusahaan->email != '')
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/Email.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">
                                             {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->email : '' }}</p>
                                     </li>
                                 @else
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/Email.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">&nbsp</p>
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">&nbsp</p>
                                     </li>
                                 @endif
                                 <li class="col-md-10">
-                                    <p style="font-size: 15px;">
+                                    <p class="detail-right" style="font-size: 15px;">
                                         {!! Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' !!}
                                     </p>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-start">
+                            <ul class="list-unstyled d-flex justify-content-start title-detail">
                                 @if (Auth::user()->perusahaan && Auth::user()->perusahaan->website != '')
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5 detail-web">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/global.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">
                                             {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->website : '' }}</p>
                                     </li>
                                 @else
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5 detail-web">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/global.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">&nbsp</p>
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">&nbsp</p>
                                     </li>
                                 @endif
                             </ul>
                             @if (Auth::user()->perusahaan && Auth::user()->perusahaan->alamat_perusahaan != '')
-                                <li class="col-md-12 d-flex justify-content-end ml-5">
+                                <li class="col-md-12 d-flex justify-content-end ml-5 detail-alamat">
                                     <img class="img-fluid img-icon mr-1"
                                         src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                    <p class="mb-5" style="font-size: 15px;">
+                                    <p class="mb-5 detail-alamat-bottom" style="font-size: 15px;">
                                         {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }}
                                         {{-- ,{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->kecamatan_id : '' }},
                                 {{ $kecamatan->id }} --}}
                                     </p>
                                 </li>
                             @else
-                                <li class="col-md-12 d-flex justify-content-end ml-5">
+                                <li class="col-md-12 d-flex justify-content-end ml-5 detail-alamat">
                                     <img class="img-fluid img-icon mr-1"
                                         src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                    <p class="mb-5" style="font-size: 15px;">&nbsp&nbsp&nbsp</p>
+                                    <p class="mb-5 detail-alamat-bottom" style="font-size: 15px;">&nbsp&nbsp&nbsp</p>
                                 </li>
                             @endif
                         </ul>
@@ -575,11 +576,12 @@
                 <div class="col-md-3">
                     <div class="logo-container">
                         @if (Auth::user()->perusahaan && Auth::user()->perusahaan->logo != '')
-                            <img class="img-fluid bg-white mt-4"
+                            <img class="img-fluid bg-white mt-4 img-detail-profile"
                                 src="{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->logo) : '' }}"
                                 style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                         @else
-                            <img class="img-fluid bg-white mt-4" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                            <img class="img-fluid bg-white mt-4 img-detail-profile"
+                                src="{{ asset('assets/img/avatar/avatar-1.png') }}"
                                 style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                         @endif
                     </div>
@@ -603,7 +605,7 @@
                                         style="width: 180px; height: 180px; border-radius:15px;">
                                 @else
                                     <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                    class="rounded-square profile-widget-picture img-fluid card-profile-img"
+                                        class="rounded-square profile-widget-picture img-fluid card-profile-img"
                                         style="width: 180px; height: 180px; border-radius:15px;">
                                 @endif
                             </div>
@@ -636,7 +638,7 @@
                                     </div>
                                 @endif
                                 @if (Auth::user()->profile && Auth::user()->profile->resume != '')
-                                <div class="profile-widget-description lihat-resume" style=" ">
+                                    <div class="profile-widget-description lihat-resume" style=" ">
                                         <a href="#" class="btn btn-primary" id="skill-button" data-toggle="modal"
                                             data-target="#resumePreviewModal"
                                             data-pdf="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
@@ -886,7 +888,7 @@
                             <div class="flex-grow-1 mb-2">
                                 <div class="card-header-action keahlianPelamar">
                                     @foreach (auth()->user()->keahlians as $keahlian)
-                                    <button class="btn btn-primary keahlianPelamar1"
+                                        <button class="btn btn-primary keahlianPelamar1"
                                             id="skill-button">{{ $keahlian->keahlian }}</button>
                                     @endforeach
                                 </div>
@@ -915,7 +917,7 @@
                         </div>
                     </div>
                     @if (count($pendidikans) > 0)
-                    <div id="pendidikan-container" class="pendidikancardprofile">
+                        <div id="pendidikan-container" class="pendidikancardprofile">
                             @foreach ($pendidikans as $item)
                                 <hr>
                                 <div class="mr-5 ml-5">
@@ -999,7 +1001,7 @@
                         </div>
                     </div>
                     @if (count($pengalamans) > 0)
-                    <div id="pengalaman-container" class="pendidikancardprofile">
+                        <div id="pengalaman-container" class="pendidikancardprofile">
                             @foreach ($pengalamans as $pl)
                                 <hr>
                                 <div class="mr-5 ml-5">
@@ -1084,7 +1086,7 @@
                         </div>
                     </div>
                     @if (count($pelatihans) > 0)
-                    <div id="pelatihan-container" class="pendidikancardprofile">
+                        <div id="pelatihan-container" class="pendidikancardprofile">
                             @foreach ($pelatihans as $lat)
                                 <hr>
                                 <div class="mr-5 ml-5">
