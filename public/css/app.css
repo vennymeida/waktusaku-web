@@ -1708,3 +1708,24 @@ select.custom-select option:disabled {
         order: -1;
     }
 }
+
+/* footer */
+@media screen and (max-width: 767px) {
+    .div-footer {
+        text-align: center !important;
+    }
+
+    .img-footer {
+        display: none;
+    }
+
+    .span-footer {
+        font-size: 12px !important;
+    }
+
+    .text-footer {
+        order: -1;
+        text-align: center !important;
+        margin-bottom: 5px;
+    }
+}
