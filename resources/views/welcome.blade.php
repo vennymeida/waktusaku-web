@@ -47,7 +47,8 @@
                                 <p class="mt-1 text-not mb-5">Belum ada rekomendasi untukmu</p>
                             </div>
                         @else
-                            <div class="row flex-nowrap overflow-auto mt-4 equal-height-cards group-card-view-mobile">
+                            <div class="row flex-nowrap overflow-auto mt-4 equal-height-cards group-card-view-mobile
+                            justify-content-center align-items-center">
                                 @foreach ($allRekomendasi as $key => $loker)
                                     <div class="col-md-3 mb-1 jarak-column-view-mobile">
                                         <div class="card">

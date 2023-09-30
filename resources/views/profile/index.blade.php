@@ -639,11 +639,16 @@
                                 @endif
                                 @if (Auth::user()->profile && Auth::user()->profile->resume != '')
                                     <div class="profile-widget-description lihat-resume" style=" ">
-                                        <a href="#" class="btn btn-primary" id="skill-button" data-toggle="modal"
+                                        {{-- <a href="#" class="btn btn-primary" id="skill-button" data-toggle="modal"
                                             data-target="#resumePreviewModal"
                                             data-pdf="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
                                             style="background-color:#eb9481; font-size:13px; border-radius:15px;">
                                             <i class="fas fa-eye"></i> Lihat Resume
+                                        </a> --}}
+                                        <a href = "{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
+                                            onclick="return openResume();" target="_blank"
+                                            class="btn btn-primary" style="background-color:#eb9481; font-size:13px; border-radius:15px; border-color:#eb9481;">
+                                            Lihat Resume
                                         </a>
                                     </div>
                                 @endif

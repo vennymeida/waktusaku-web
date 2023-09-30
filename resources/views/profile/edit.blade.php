@@ -18,7 +18,7 @@
 </div>
 
 <!-- Modal for Resume Preview -->
-<div class="modal fade fullscreen-modal" id="resumePreviewModal" tabindex="-1" role="dialog" aria-labelledby="resumePreviewModalLabel"
+<div class="modal fade" id="resumePreviewModal" tabindex="-1" role="dialog" aria-labelledby="resumePreviewModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -379,11 +379,16 @@
                                                 <div class="form-group col-md-6">
                                                     @if (Auth::user()->profile && Auth::user()->profile->resume != '')
                                                         <div>
-                                                            <a href="#" class="btn btn-sm btn-warning btn-icon"
+                                                            {{-- <a href="#" class="btn btn-sm btn-warning btn-icon"
                                                                 data-toggle="modal" data-target="#resumePreviewModal"
                                                                 data-pdf="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
                                                                 style="border-radius: 15px;">
                                                                 <i class="fas fa-eye mt-6"></i> Lihat Resume
+                                                            </a> --}}
+                                                            <a href = "{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
+                                                                onclick="return openResume();" target="_blank"
+                                                                class="btn btn-sm btn-warning btn-icon" style="border-radius:15px;"><i class="fas fa-eye mt-6"></i>
+                                                                Lihat Resume
                                                             </a>
                                                         </div>
                                                     @endif
@@ -635,11 +640,16 @@
                                                 <div class="form-group col-md-6">
                                                     @if (Auth::user()->perusahaan && Auth::user()->perusahaan->siu != '')
                                                         <div>
-                                                            <a href="#" class="btn btn-sm btn-warning btn-icon"
+                                                            {{-- <a href="#" class="btn btn-sm btn-warning btn-icon"
                                                                 data-toggle="modal" data-target="#siuPreviewModal"
                                                                 data-pdf="{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->siu) : '' }}"
                                                                 style="border-radius: 15px;">
                                                                 <i class="fas fa-eye mt-6"></i> Lihat SIU
+                                                            </a> --}}
+                                                            <a href = "{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->siu) : '' }}"
+                                                                onclick="return openResume();" target="_blank"
+                                                                class="btn btn-sm btn-warning btn-icon" style="border-radius:15px;"><i class="fas fa-eye mt-6"></i>
+                                                                Lihat SIU
                                                             </a>
                                                         </div>
                                                     @endif
