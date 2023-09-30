@@ -36,11 +36,11 @@
                                 @endif
                                 <div class="d-flex flex-column col-md-11">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <h1 class="mb-0 mr-2">{{ auth()->user()->name }}</h1>
+                                        <h1 class="mb-0 mr-2 p-m-name">{{ auth()->user()->name }}</h1>
                                         <div class="d-flex align-items-center">
                                             <img class="img-fluid" src="{{ asset('assets/img/landing-page/Time.svg') }}"
                                                 style="max-width: 16px; max-height: 16px; margin-right: 5px;">
-                                            <h4 class="mb-0">{{ $post->timeAgo }} </h4>
+                                            <h4 class="mb-0 p-time">{{ $post->timeAgo }} </h4>
                                         </div>
                                     </div>
                                     <small>{{ auth()->user()->email }}</small>
@@ -164,7 +164,8 @@
                                     </div>
                                     <div class="media mb-4">
                                         <!-- Tampilkan media yang ingin diedit -->
-                                        <img id="media-preview" class="mr-3 rounded" width="700" height="300">
+                                        <img id="media-preview" class="mr-3 rounded p-m-media" width="700"
+                                            height="300">
                                     </div>
                                     <div class="col-md-12">
                                         <ul class="list-unstyled">
