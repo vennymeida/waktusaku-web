@@ -655,7 +655,7 @@
             <section class="col-md-10 mx-auto mt-4 mb-0">
                 <div>
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-5 mb-2">
                             <div class="card border-primary">
                                 <div class="card-body">
                                     <div class="text-left mb-4 mt-2 ml-2">
@@ -802,11 +802,11 @@
                                         - {{ $post->timeAgo }}
                                     </div>
                                     <br>
-                                    <div class="media mb-2">
+                                    <div class="media mb-2 p-postingan">
                                         @if (!empty($post->media))
-                                            <img class="mr-3 rounded"width="150px" height="150px"
+                                            <img class="mr-3 rounded p-img-media"width="150px" height="150px"
                                                 src="{{ asset('storage/' . $post->media) }}">
-                                            <div class="media-body col-md-9">
+                                            <div class="media-body col-md-9 p-postingan-konteks">
                                                 {!! $post->konteks !!}
                                             </div>
                                             <div class="d-flex justify-content-end" style="" id="fluid">
@@ -1600,7 +1600,8 @@
                                     </div>
                                     <div class="media mb-4">
                                         <!-- Tampilkan media yang ingin diedit -->
-                                        <img id="media-preview" class="mr-3 rounded" width="700" height="300">
+                                        <img id="media-preview" class="mr-3 rounded p-m-media" width="700"
+                                            height="300">
                                     </div>
                                     <div class="col-md-12">
                                         <ul class="list-unstyled">

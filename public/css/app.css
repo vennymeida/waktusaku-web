@@ -1495,6 +1495,34 @@ select.custom-select option:disabled {
     .imgUploadButton {
         margin-top: 100px;
     }
+
+    .p-postingan {
+        display: block;
+    }
+
+    .p-postingan-konteks {
+        margin-top: 20px;
+        padding: 0px !important;
+    }
+
+    .p-img-media {
+        width: 100px;
+        height: 100px;
+    }
+
+    .p-m-media {
+        width: 100%;
+        height: 100%;
+    }
+
+    .p-m-name {
+        font-size: 15px !important;
+        font-weight: 900 !important;
+    }
+
+    .p-time {
+        font-size: 10px !important;
+    }
 }
 
 /* daftar lowongan pekerjaan */
