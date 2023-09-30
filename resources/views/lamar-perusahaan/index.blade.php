@@ -110,9 +110,9 @@
                                                     <span>{{ $lamar->alamat }}</span>
                                                 </div>
                                             </div>
-                                            <p class="text-muted mt-2 info-time" style="font-size: 14px;">
+                                            <small class="text-muted">
                                                 Melamar pada {{ date('j F Y', strtotime($lamar->created_at)) }}
-                                            </p>
+                                            </small>
                                         </div>
                                         <div class="col-md-2 text-right btn-pelamar">
                                             <!-- Button to open Chatify modal -->

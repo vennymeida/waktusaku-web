@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLokerPerusahaanRequest;
 use App\Http\Requests\UpdateLokerPerusahaanRequest;
+use App\Models\Kecamatan;
 use App\Models\LowonganPekerjaan;
 use App\Models\Perusahaan;
 use App\Models\KategoriPekerjaan;
@@ -160,6 +161,8 @@ class LokerPerusahaan extends Controller
     public function show(LowonganPekerjaan $loker_perusahaan)
     {
         $perusahaan = Perusahaan::all();
+        $kecamatan = Kecamatan::all();
+        $kelurahan = Keahlian::all();
         $kategori = $loker_perusahaan->kategori()->pluck('kategori')->implode(', ');
         $keahlian = $loker_perusahaan->keahlian()->pluck('keahlian');
         $loker_perusahaan->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $loker_perusahaan->requirement);
