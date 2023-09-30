@@ -131,7 +131,7 @@ class ProfileUserController extends Controller
                 [
                     'alamat' => 'nullable|string|max:255',
                     'jenis_kelamin' => 'nullable|in:L,P',
-                    'no_hp' => ['nullable', 'regex:/^08[0-9]{8,13}$/'],
+                    'no_hp' => ['nullable', 'regex:/^08[0-9]{8,13}$/', 'min:11', 'max:13'],
                     'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                     'resume' => 'nullable|file|mimes:pdf|max:2048',
                     'tgl_lahir' => 'nullable|date:d/m/Y',
@@ -143,6 +143,8 @@ class ProfileUserController extends Controller
                     'jenis_kelamin.in' => 'Jenis Kelamin Hanya Pada Pilihan L/P',
                     'no_hp' => ['regex: Nomor Hp Tidak Sesuai Format'],
                     'no_hp.regex' => 'Nomor Hp Tidak Sesuai Format',
+                    'no_hp.min' => 'Digit Nomor Hp Kurang Dari Batas Minimal',
+                    'no_hp.max' => 'Digit Nomor Hp Melebihi Batas Maksimal',
                     'foto.image' => 'Foto Tidak Sesuai Format',
                     'foto.mimes' => 'Foto Hanya Mendukung Format jpeg, png, jpg',
                     'foto.max' => 'Ukuran Foto Terlalu Besar',
