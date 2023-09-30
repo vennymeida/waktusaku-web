@@ -448,7 +448,7 @@
                     </div>
                     <div class="row ml-4 mr-4">
                         <div class="form-group col-md-12 col-12">
-                            <label>Unggah Sertifikat (Opsional)</label>
+                            <label>Unggah Sertifikat</label>
                             <input id="sertifikat" name="sertifikat" type="file"
                                 class="form-control custom-input @error('sertifikat') is-invalid @enderror">
                             @error('sertifikat')
@@ -645,9 +645,9 @@
                                             style="background-color:#eb9481; font-size:13px; border-radius:15px;">
                                             <i class="fas fa-eye"></i> Lihat Resume
                                         </a> --}}
-                                        <a href = "{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
-                                            onclick="return openResume();" target="_blank"
-                                            class="btn btn-primary" style="background-color:#eb9481; font-size:13px; border-radius:15px; border-color:#eb9481;">
+                                        <a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
+                                            onclick="return openResume();" target="_blank" class="btn btn-primary"
+                                            style="background-color:#eb9481; font-size:13px; border-radius:15px; border-color:#eb9481;">
                                             Lihat Resume
                                         </a>
                                     </div>
@@ -1529,7 +1529,7 @@
                             </div>
                             <div class="row ml-4 mr-4">
                                 <div class="form-group col-md-12 col-12">
-                                    <label>Unggah Sertifikat (Opsional)</label>
+                                    <label>Unggah Sertifikat</label>
                                     <input id="sertifikat" name="sertifikat" type="file"
                                         class="form-control custom-input @error('sertifikat') is-invalid @enderror">
                                     @error('sertifikat')
@@ -1684,9 +1684,110 @@
     <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
     <script src="{{ asset('assets/js/summernote-bs4.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script>
         $(document).ready(function() {
             var editModal = $('#modal-edit-pendidikan');
+
+            function showError(field, message) {
+                var inputField = editModal.find('[name="' + field + '"]');
+                inputField.addClass('is-invalid');
+                inputField.closest('.form-group').find('.invalid-feedback').text(message);
+            }
+
+            // Menambahkan aturan kustom untuk memvalidasi tahun mulai dan tahun berakhir
+            $.validator.addMethod("tahunBerakhirLebihBesar", function(value, element) {
+                var tahunMulai = parseInt($('#modal-edit-pendidikan select[name="tahun_mulai"]').val(), 10);
+                var tahunBerakhir = parseInt($('#modal-edit-pendidikan select[name="tahun_berakhir"]')
+                    .val(), 10);
+                return tahunMulai <= tahunBerakhir;
+            }, "Tahun mulai tidak boleh melebihi tahun berakhir.");
+
+            // Validasi form
+            $("#modal-edit-pendidikan-form").validate({
+                rules: {
+                    gelar: {
+                        required: true
+                    },
+                    institusi: {
+                        required: true,
+                        maxlength: 255
+                    },
+                    jurusan: {
+                        required: true,
+                        maxlength: 255
+                    },
+                    prestasi: {
+                        maxlength: 225
+                    },
+                    tahun_mulai: {
+                        required: true,
+                        tahunBerakhirLebihBesar: true // Menggunakan aturan kustom
+                    },
+                    tahun_berakhir: {
+                        required: true
+                    },
+                    ipk: {
+                        range: [0, 4],
+                    }
+                },
+                messages: {
+                    gelar: {
+                        required: "Gelar Tidak Boleh Kosong"
+                    },
+                    institusi: {
+                        required: "Institusi Tidak Boleh Kosong",
+                        maxlength: "Nama Institusi Melebihi Batas Maksimal"
+                    },
+                    jurusan: {
+                        required: "Jurusan Tidak Boleh Kosong",
+                        maxlength: "Nama Jurusan Melebihi Batas Maksimal"
+                    },
+                    prestasi: {
+                        maxlength: "Inputan Prestasi Akademik Melebihi Batas Maksimal"
+                    },
+                    tahun_mulai: {
+                        required: "Tahun Mulai Tidak Boleh Kosong"
+                    },
+                    tahun_berakhir: {
+                        required: "Tahun Berakhir Tidak Boleh Kosong"
+                    },
+                    ipk: {
+                        range: "Inputan IPK harus berada dalam rentang 0 hingga 4"
+
+                    }
+                },
+                highlight: function(element, errorClass) {
+                    $(element).addClass('is-invalid').next('.invalid-feedback').show();
+                },
+                unhighlight: function(element, errorClass) {
+                    $(element).removeClass('is-invalid').next('.invalid-feedback').hide();
+                },
+                submitHandler: function(form) {
+                    var formData = new FormData(form);
+                    formData.append('_token', "{{ csrf_token() }}");
+
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.message);
+                                editModal.modal('hide');
+                                location.reload();
+                            } else {
+                                alert('Error! ' + response.message);
+                            }
+                        },
+                        error: function() {
+                            alert('Terjadi error ketika update data!');
+                        }
+                    });
+                }
+            });
 
             function openEditModal(itemId) {
                 var editUrl = "{{ route('pendidikan.edit', ['pendidikan' => '_id']) }}".replace('_id', itemId);
@@ -1722,34 +1823,141 @@
 
             $('#modal-save-button-pendidikan').on('click', function() {
                 var form = $('#modal-edit-pendidikan-form');
-                var formData = new FormData(form[0]);
-                formData.append('_token', "{{ csrf_token() }}");
 
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response.success) {
-                            alert(response.message);
-                            editModal.modal('hide');
-                            location.reload();
-                        } else {
-                            alert('Error! ' + response.message);
+                // Hanya melakukan submit jika formulir valid
+                if (form.valid()) {
+                    var formData = new FormData(form[0]);
+                    formData.append('_token', "{{ csrf_token() }}");
+
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.message);
+                                editModal.modal('hide');
+                                location.reload();
+                            } else {
+                                alert('Error! ' + response.message);
+                            }
+                        },
+                        error: function() {
+                            alert('Terjadi error ketika update data!');
                         }
-                    },
-                    error: function() {
-                        alert('Error while updating data!');
-                    }
-                });
+                    });
+                }
             });
         });
     </script>
     <script>
         $(document).ready(function() {
             var editModal = $('#modal-edit-pengalaman');
+
+            function showError(field, message) {
+                var inputField = editModal.find('[name="' + field + '"]');
+                inputField.addClass('is-invalid');
+                inputField.closest('.form-group').find('.invalid-feedback').text(message);
+            }
+
+            // Validasi custom
+            $.validator.addMethod("dateGreaterThan", function(value, element, params) {
+                var startDate = new Date(value);
+                var endDate = new Date($(params).val());
+                return startDate <= endDate;
+            }, "Tanggal Mulai harus kurang dari atau sama dengan Tanggal Berakhir");
+
+            // Validasi form
+            $("#modal-edit-pengalaman-form").validate({
+                rules: {
+                    nama_pekerjaan: {
+                        required: true,
+                        maxlength: 255
+                    },
+                    nama_perusahaan: {
+                        required: true,
+                        maxlength: 255
+                    },
+                    alamat: {
+                        maxlength: 2000
+                    },
+                    tipe: {
+                        required: true,
+                    },
+                    gaji: {
+                        maxlength: 8
+                    },
+                    tanggal_mulai: {
+                        required: true,
+                        date: true,
+                    },
+                    tanggal_berakhir: {
+                        required: true,
+                        date: true,
+                        dateGreaterThan: "#modal-edit-pengalaman input[name='tanggal_mulai']"
+                    }
+                },
+                messages: {
+                    nama_pekerjaan: {
+                        required: "Nama Pekerjaan Tidak Boleh Kosong",
+                        maxlength: "Inputan Nama Pekerjaan Melebihi Batas Maksimal"
+                    },
+                    nama_perusahaan: {
+                        required: "Nama Perusahaan Tidak Boleh Kosong",
+                        maxlength: "Inputan Nama Perusahaan Melebihi Batas Maksimal"
+                    },
+                    alamat: {
+                        maxlength: "Inputan Alamat Melebihi Batas Maksimal"
+                    },
+                    tipe: {
+                        required: "Tipe Tidak Boleh Kosong"
+                    },
+                    gaji: {
+                        maxlength: "Inputan Gaji Maximal Puluhan Juta. Contoh Masukkan 50000000 tanpa titik/koma"
+                    },
+                    tanggal_mulai: {
+                        required: "Tanggal Mulai Tidak Boleh Kosong",
+                        date: "Pilih Tanggal Mulai yang valid",
+                    },
+                    tanggal_berakhir: {
+                        required: "Tanggal Berakhir Tidak Boleh Kosong",
+                        date: "Pilih Tanggal Berakhir yang valid",
+                        dateGreaterThan: "Tanggal Mulai harus kurang dari atau sama dengan Tanggal Berakhir"
+                    }
+                },
+                highlight: function(element, errorClass) {
+                    $(element).addClass('is-invalid').next('.invalid-feedback').show();
+                },
+                unhighlight: function(element, errorClass) {
+                    $(element).removeClass('is-invalid').next('.invalid-feedback').hide();
+                },
+                submitHandler: function(form) {
+                    var formData = new FormData(form);
+                    formData.append('_token', "{{ csrf_token() }}");
+
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.message);
+                                editModal.modal('hide');
+                                location.reload();
+                            } else {
+                                alert('Error! ' + response.message);
+                            }
+                        },
+                        error: function() {
+                            alert('Terjadi error ketika update data!');
+                        }
+                    });
+                }
+            });
 
             function openEditModal(plId) {
                 var editUrl = "{{ route('pengalaman.edit', ['pengalaman' => '_id']) }}".replace('_id', plId);
@@ -1787,34 +1995,116 @@
 
             $('#modal-save-button-pengalaman').on('click', function() {
                 var form = $('#modal-edit-pengalaman-form');
-                var formData = new FormData(form[0]);
-                formData.append('_token', "{{ csrf_token() }}");
 
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response.success) {
-                            alert(response.message);
-                            editModal.modal('hide');
-                            location.reload();
-                        } else {
-                            alert('Error! ' + response.message);
+                // Hanya melakukan submit jika formulir valid
+                if (form.valid()) {
+                    var formData = new FormData(form[0]);
+                    formData.append('_token', "{{ csrf_token() }}");
+
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.message);
+                                editModal.modal('hide');
+                                location.reload();
+                            } else {
+                                alert('Error! ' + response.message);
+                            }
+                        },
+                        error: function() {
+                            alert('Error while updating data!');
                         }
-                    },
-                    error: function() {
-                        alert('Error while updating data!');
-                    }
-                });
+                    });
+                }
             });
         });
     </script>
     <script>
         $(document).ready(function() {
             var editModal = $('#modal-edit-pelatihan');
+
+            function showError(field, message) {
+                var inputField = editModal.find('[name="' + field + '"]');
+                inputField.addClass('is-invalid');
+                inputField.closest('.form-group').find('.invalid-feedback').text(message);
+            }
+
+            // Validasi form
+            $("#modal-edit-pelatihan-form").validate({
+                rules: {
+                    nama_sertifikat: {
+                        required: true,
+                        maxlength: 255
+                    },
+                    deskripsi: {
+                        maxlength: 2000
+                    },
+                    penerbit: {
+                        required: true,
+                        maxlength: 255
+                    },
+                    tanggal_dikeluarkan: {
+                        required: true
+                    },
+                    sertifikat: {
+                        required: true
+                    },
+                },
+                messages: {
+                    nama_sertifikat: {
+                        required: "Nama Sertifikat Tidak Boleh Kosong",
+                        maxlength: "Nama Sertifikat Melebihi Batas Maksimal"
+                    },
+                    deskripsi: {
+                        maxlength: "Inputan Deskripsi Melebihi Batas Maksimal"
+                    },
+                    penerbit: {
+                        required: "Nama Penerbit Tidak Boleh Kosong",
+                        maxlength: "Nama Penerbit Melebihi Batas Maksimal"
+                    },
+                    tanggal_dikeluarkan: {
+                        required: "Tanggal Dikeluarkan Tidak Boleh Kosong"
+                    },
+                    sertifikat: {
+                        required: "Sertifikat Tidak Boleh Kosong, Dokumen Hanya Mendukung Format pdf"
+                    }
+                },
+                highlight: function(element, errorClass) {
+                    $(element).addClass('is-invalid').next('.invalid-feedback').show();
+                },
+                unhighlight: function(element, errorClass) {
+                    $(element).removeClass('is-invalid').next('.invalid-feedback').hide();
+                },
+                submitHandler: function(form) {
+                    var formData = new FormData(form);
+                    formData.append('_token', "{{ csrf_token() }}");
+
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.message);
+                                editModal.modal('hide');
+                                location.reload();
+                            } else {
+                                alert('Error! ' + response.message);
+                            }
+                        },
+                        error: function() {
+                            alert('Terjadi error ketika update data!');
+                        }
+                    });
+                }
+            });
 
             function openEditModal(latId) {
                 var editUrl = "{{ route('pelatihan.edit', ['pelatihan' => '_id']) }}".replace('_id', latId);
@@ -1847,28 +2137,32 @@
 
             $('#modal-save-button-pelatihan').on('click', function() {
                 var form = $('#modal-edit-pelatihan-form');
-                var formData = new FormData(form[0]);
-                formData.append('_token', "{{ csrf_token() }}");
 
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response.success) {
-                            alert(response.message);
-                            editModal.modal('hide');
-                            location.reload();
-                        } else {
-                            alert('Error! ' + response.message);
+                // Hanya melakukan submit jika formulir valid
+                if (form.valid()) {
+                    var formData = new FormData(form[0]);
+                    formData.append('_token', "{{ csrf_token() }}");
+
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.message);
+                                editModal.modal('hide');
+                                location.reload();
+                            } else {
+                                alert('Error! ' + response.message);
+                            }
+                        },
+                        error: function() {
+                            alert('Error while updating data!');
                         }
-                    },
-                    error: function() {
-                        alert('Error while updating data!');
-                    }
-                });
+                    });
+                }
             });
         });
     </script>
