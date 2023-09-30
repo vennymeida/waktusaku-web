@@ -43,11 +43,11 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th class="col-md-2">Nama User</th>
-                                                <th class="col-md-2">Nama Perusahaan</th>
-                                                <th class="col-md-2">Email</th>
-                                                <th class="col-md-2">Alamat</th>
-                                                <th class="col-md-2">No Telp</th>
+                                                <th>Nama User</th>
+                                                <th>Nama Perusahaan</th>
+                                                <th>Email</th>
+                                                <th>Alamat</th>
+                                                <th>No Telp</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>

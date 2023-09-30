@@ -33,25 +33,6 @@ class LamarPerusahaan extends Controller
         $statuses = ['Pending', 'Diterima', 'Ditolak'];
         $selectedStatus = $request->input('status');
 
-        // $allResults = DB::table('lamars as l')
-        //     ->join('lowongan_pekerjaans as lp', 'l.id_loker', '=', 'lp.id')
-        //     ->join('perusahaan as p', 'lp.id_perusahaan', '=', 'p.id')
-        //     ->join('profile_users as pu', 'l.id_pencari_kerja', '=', 'pu.id')
-        //     ->join('users as u', 'pu.user_id', '=', 'u.id')
-        //     ->select('l.id', 'l.id_pencari_kerja', 'u.name', 'pu.no_hp', 'pu.foto', 'pu.resume', 'pu.alamat', 'u.email', 'p.nama', 'lp.judul', 'l.status', 'l.created_at')
-        //     ->when($request->has('search'), function ($query) use ($request) {
-        //         $search = $request->input('search');
-        //         return $query
-        //             ->where('lp.judul', 'like', '%' . $search . '%')
-        //             ->orWhere('u.name', 'like', '%' . $search . '%')
-        //             ->orWhere('p.nama', 'like', '%' . $search . '%');
-        //     })
-        //     ->when($selectedStatus, function ($query, $selectedStatus) {
-        //         return $query->where('l.status', $selectedStatus);
-        //     })
-        //     ->orderBy('l.created_at', 'desc')
-        //     ->paginate(10);
-
         $loggedInUserId = Auth::id();
         $user = auth()->user();
 
@@ -101,17 +82,17 @@ class LamarPerusahaan extends Controller
         $profileUser->ringkasan = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $profileUser->ringkasan);
         $tanggalLahir = Carbon::parse($profileUser->tgl_lahir)->format('j F Y');
 
-        $relasiLamar = $lamar->load(['pencarikerja.user', 'loker.perusahaan']);
+        $relasiLamar = $lamar->load(['pencarikerja.user', 'pencarikerja.user.profileKeahlians.keahlian','loker.perusahaan']);
 
         $namaPengguna = $relasiLamar->pencarikerja->user->name;
         $email = $relasiLamar->pencarikerja->user->email;
         $resume = $relasiLamar->pencarikerja->user->resume;
-        $pendidikan = $relasiLamar->pencarikerja->user->pendidikan;
-        $pengalaman = $relasiLamar->pencarikerja->user->pengalaman;
+        $pendidikan = $relasiLamar->pencarikerja->user->pendidikan()->orderBy('created_at', 'desc')->get();
+        $pengalaman = $relasiLamar->pencarikerja->user->pengalaman()->orderBy('created_at', 'desc')->get();
         $tanggal_mulai = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_mulai ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_mulai)->format('j F Y') : '';
         $tanggal_berakhir = optional($relasiLamar->pencarikerja->user->pengalaman)->tanggal_berakhir ? Carbon::parse($relasiLamar->pencarikerja->user->pengalaman->tanggal_berakhir)->format('j F Y') : '';
 
-        $pelatihan = $relasiLamar->pencarikerja->user->pelatihan;
+        $pelatihan = $relasiLamar->pencarikerja->user->pelatihan()->orderBy('created_at', 'desc')->get();
         $keahlian = $profileUser->user->keahlians;
         $judulPekerjaan = $relasiLamar->loker->judul;
         $namaPerusahaan = $relasiLamar->loker->perusahaan->nama;

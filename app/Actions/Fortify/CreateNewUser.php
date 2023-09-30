@@ -22,9 +22,9 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
-        
+
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => [
                 'required',
                 'string',
@@ -38,6 +38,7 @@ class CreateNewUser implements CreatesNewUsers
             'name.required' => 'Kolom nama lengkap harus diisi.',
             'name.string' => 'Kolom nama lengkap harus berupa teks.',
             'name.max' => 'Kolom nama lengkap tidak boleh lebih dari :max karakter.',
+            'name.regex' => 'Kolom nama lengkap tidak boleh mengandung angka',
 
             'email.required' => 'Kolom email harus diisi.',
             'email.email' => 'Format email tidak valid.',
@@ -49,8 +50,8 @@ class CreateNewUser implements CreatesNewUsers
 
             'user_type.required' => 'Pilih jenis pengguna (Pencari Kerja atau Perusahaan).',
             'user_type.in' => 'Jenis pengguna yang dipilih tidak valid.',
-        ],$messages)->validate(); 
-        
+        ],$messages)->validate();
+
         // Create the user
         $user = User::create([
             'name' => $input['name'],

@@ -103,8 +103,7 @@ class WelcomeController extends Controller
                 'kl.kelurahan',
             )
             ->orderByRaw('COUNT(lh.keahlian_id) DESC')
-            // ->get();
-            ->paginate(3);
+            ->paginate(4);
 
         return view('welcome', ['allResults' => $allResults, 'allRekomendasi' => $allRekomendasi]);
     }

@@ -12,11 +12,12 @@
 
         <section>
             <div class="col-md-12 mx-auto mt-4">
-                <div class="col-md-10 bg-white mx-auto py-5" style="border-radius: 15px;">
+                <div class="col-md-10 bg-white mx-auto py-5 div-perusahaan" style="border-radius: 15px;">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <img class="img-fluid rounded-circle" src="{{ asset('storage/' . $loker->perusahaan->logo) }}"
-                                style="width: 75%; height: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7));">
+                            <img class="img-fluid rounded-circle img-perusahaan"
+                                src="{{ asset('storage/' . $loker->perusahaan->logo) }}"
+                                style="width: 255px; height: 255px; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7));">
                         </div>
                         <div class="col-md-7">
                             <ul class="list-unstyled">
@@ -44,6 +45,10 @@
                                 <p class="mb-2" style="font-size: 14px;"><img class="img-fluid img-icon"
                                         src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
                                     {{ $loker->min_pendidikan }}
+                                </p>
+                                <p class="mb-2" style="font-size: 14px;"><img class="img-fluid img-icon"
+                                        src="{{ asset('assets/img/landing-page/list.svg') }}"> Dibutuhkan
+                                    {{ $loker->jumlah_pelamar }} Pekerja
                                 </p>
                                 <p class="mb-2" style="font-size: 14px;"><img class="img-fluid img-icon"
                                         src="{{ asset('assets/img/landing-page/location pin.svg') }}">
@@ -90,15 +95,11 @@
                                 style="font-size: 37px; color:#6777ef;"></a>
                         </div>
                     @endif
-                    {{-- <div class="chat-icon-container">
-                        <a href="{{ url('chatify/' . $loker->perusahaan->user_id) }}" class="fas fa-comment-dots"
-                            style="font-size: 37px; color:#6777ef;"></a>
-                    </div> --}}
                     <hr class="my-4">
-                    <div class="col-md-11 mx-auto my-5">
-                        <h5 class="font-weight-bolder">Keahlian : </h5>
+                    <div class="col-md-11 mx-auto my-5 cardKeahlian">
+                        <h5 class="font-weight-bolder cardKeahlian2">Keahlian : </h5>
                         @foreach ($loker->keahlian as $key => $keahlian)
-                            <button class="px-4 mt-2 mr-1 btn btn-skill">{{ $keahlian->keahlian }}</button>
+                            <button class="px-4 mt-2 mr-1 btn btn-skill ">{{ $keahlian->keahlian }}</button>
                         @endforeach
                     </div>
 
@@ -106,8 +107,10 @@
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="font-weight-bolder">Persyaratan : </h5>
                     </div>
-                    <textarea id="autoSizeTextarea" class="form-control form-show ml-5" type="text" disabled>{{ $loker->requirement }}</textarea>
-
+                    {{-- <textarea id="autoSizeTextarea" class="form-control form-show ml-5" type="text" disabled>{{ $loker->requirement }}</textarea> --}}
+                    <h5 class="form-control form-show ml-4">
+                        {!! $loker->requirement !!}
+                    </h5>
                     <hr class="mt-3">
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="mb-5 font-weight-bold">Tentang Perusahaan</h5>
@@ -116,7 +119,7 @@
                                 <img class="img-fluid" src="{{ asset('storage/' . $loker->perusahaan->logo) }}"
                                     style="width: 100%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 10px;">
                             </div>
-                            <div class="col-md-4 d-flex align-items-center">
+                            <div class="col-md-4 d-flex align-items-center nama-perusahaan">
                                 <p class="mb-2" style="font-size: 19px;">{{ $loker->perusahaan->nama }}</p>
                             </div>
                         </div>
@@ -137,7 +140,7 @@
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="font-weight-bold mb-4">Kontak Perusahaan</h5>
                         <div class="col-md-12 justify-content-center">
-                            <div class="row">
+                            <div class="row kontakPerusahaan">
                                 <div class="card-primary-left col-md-3 mr-5 mb-1 text-center">
                                     <i class="fas fa-globe-asia my-3"></i>
                                     <p class="mb-4">{{ $loker->perusahaan->website }}</p>
@@ -146,7 +149,7 @@
                                     <i class="fas fa-phone my-3"></i>
                                     <p class="mb-4">{{ $loker->perusahaan->no_hp_perusahaan }}</p>
                                 </div>
-                                <div class="card-primary-left col-md-3 mb-1 text-center">
+                                <div class="card-primary-left col-md-3 mr-5 mb-1 text-center">
                                     <i class="fas fa-envelope my-3"></i>
                                     <p class="mb-4">{{ $loker->perusahaan->website }}</p>
                                 </div>

@@ -10,12 +10,12 @@
 
         <section>
             <div class="col-md-12 mx-auto mt-4">
-                <div class="col-md-10 bg-white mx-auto py-5" style="border-radius: 15px;">
+                <div class="col-md-10 bg-white mx-auto py-5 div-perusahaan" style="border-radius: 15px;">
                     <div class="row">
                         <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <img class="img-fluid rounded-circle"
+                            <img class="img-fluid rounded-circle img-perusahaan"
                                 src="{{ asset('storage/' . $loker_perusahaan->perusahaan->logo) }}"
-                                style="width: 245px; height: 245px; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7));">
+                                style="width: 255px; height: 255px; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7));">
                         </div>
                         <div class="col-md-7">
                             <ul class="list-unstyled">
@@ -80,7 +80,7 @@
                     </div>
 
                     <hr class="my-4">
-                    <div class="col-md-11 mx-auto my-5">
+                    <div class="col-md-11 mx-auto my-5 cardKeahlian">
                         <h5 class="font-weight-bolder">Keahlian : </h5>
                         @foreach ($loker_perusahaan->keahlian as $key => $keahlian)
                             <button class="px-4 mt-2 mr-1 btn btn-skill">{{ $keahlian->keahlian }}</button>
@@ -99,9 +99,9 @@
                         <div class="row">
                             <div class="col-md-3 d-flex align-items-center justify-content-center">
                                 <img class="img-fluid" src="{{ asset('storage/' . $loker_perusahaan->perusahaan->logo) }}"
-                                    style="width: 155px; height: 155px; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 10px;">
+                                    style="width: 100%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 10px;">
                             </div>
-                            <div class="col-md-4 d-flex align-items-center">
+                            <div class="col-md-4 d-flex align-items-center nama-perusahaan">
                                 <p class="mb-2" style="font-size: 19px;">{{ $loker_perusahaan->perusahaan->nama }}</p>
                             </div>
                         </div>
@@ -114,13 +114,16 @@
 
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="font-weight-bold">Alamat Perusahaan</h5>
-                        <p class="text-justify">{{ $loker_perusahaan->perusahaan->alamat }}</p>
+                        <p class="text-justify">{{ $loker_perusahaan->perusahaan->alamat_perusahaan }},
+                            {{ $loker_perusahaan->perusahaan->kelurahan->kelurahan }},
+                            {{ $loker_perusahaan->perusahaan->kecamatan->kecamatan }}
+                        </p>
                     </div>
 
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="font-weight-bold mb-4">Kontak Perusahaan</h5>
                         <div class="col-md-12 justify-content-center">
-                            <div class="row">
+                            <div class="row kontakPerusahaan">
                                 <div class="card-primary-left col-md-3 mr-5 mb-1 text-center">
                                     <i class="fas fa-globe-asia my-3"></i>
                                     <p class="mb-4">{{ $loker_perusahaan->perusahaan->website }}</p>
@@ -129,7 +132,7 @@
                                     <i class="fas fa-phone my-3"></i>
                                     <p class="mb-4">{{ $loker_perusahaan->perusahaan->no_hp_perusahaan }}</p>
                                 </div>
-                                <div class="card-primary-left col-md-3 mb-1 text-center">
+                                <div class="card-primary-left col-md-3 mr-5 mb-1 text-center">
                                     <i class="fas fa-envelope my-3"></i>
                                     <p class="mb-4">{{ $loker_perusahaan->perusahaan->website }}</p>
                                 </div>

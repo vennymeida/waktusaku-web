@@ -10,8 +10,8 @@
                         <h4 class="font-weight-bold">Cari Status Lamaran</h4>
                     </div>
                     <div class="card-body">
-                        <form id="search-form" class="form-row" method="GET" action="{{ route('melamar.status') }}"
-                            onsubmit="handleFormSubmit()">
+                        <form id="search-form" class="form-row cardDatalowongan2" method="GET"
+                            action="{{ route('melamar.status') }}" onsubmit="handleFormSubmit()">
                             <div class="form-group col-md-3">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -96,8 +96,8 @@
                 @forelse($lamaran as $lamar)
                     <div class="card col-12 col-sm-12 mb-4 py-4 px-3">
                         <div class="card-body d-flex flex-column">
-                            <div class="media">
-                                <div class="mr-5 align-self-start">
+                            <div class="row">
+                                <div class="col-md-1 mx-auto mr-5 align-self-start img-pelamar">
                                     @if ($lamar && $lamar->loker->perusahaan && $lamar->loker->perusahaan->logo)
                                         <img src="{{ asset('storage/' . $lamar->loker->perusahaan->logo) }}"
                                             alt="Logo Perusahaan" class="rounded-circle"
@@ -107,47 +107,33 @@
                                             class="rounded-circle" style="width: 100px; height: 100px;">
                                     @endif
                                 </div>
-                                <div class="media-body">
+                                <div class="col-md-7">
                                     <h5 class="media-title">
                                         <strong>{{ $lamar->loker->judul }}</strong>
-                                        <span
-                                            class=" py-2 px-4
-                                                        @if ($lamar->status === 'Pending') lamar-warning 
-                                                        @elseif ($lamar->status === 'Diterima') lamar-success
-                                                        @elseif ($lamar->status === 'Ditolak') lamar-danger @endif
-                                                    ml-2"
-                                            style="border-radius: 25px; font-size: 16px;">
-                                            {{ $lamar->status }}
-                                        </span>
                                     </h5>
                                     <h5 class="mb-4">{{ $lamar->loker->perusahaan->nama }}</h5>
                                     <!-- Increased spacing after the title to mb-4 for consistency -->
 
-                                    <div class="d-flex align-items-center justify-content-start mb-2">
-                                        <div class="d-flex align-items-center col-4">
-                                            <!-- use col-6 to take half the width -->
+                                    <div class="d-flex align-items-center justify-content-start mb-2 data-pelamar">
+                                        <div class="d-flex align-items-center col-6 mb-2">
                                             <img class="img-fluid img-icon mr-2"
                                                 src="{{ asset('assets/img/landing-page/job.svg') }}">
                                             <span>{{ $lamar->loker->min_pengalaman }}</span>
                                         </div>
                                         <div class="d-flex align-items-center col-6">
-                                            <!-- use col-6 to take half the width -->
                                             <img class="img-fluid img-icon mr-2"
                                                 src="{{ asset('assets/img/landing-page/money.svg') }}">
                                             <span>IDR {{ $lamar->loker->gaji_bawah }} -
                                                 {{ $lamar->loker->gaji_atas }}</span>
                                         </div>
                                     </div>
-
-                                    <div class="d-flex align-items-center justify-content-start mb-2">
-                                        <div class="d-flex align-items-left col-4">
-                                            <!-- use col-6 to take half the width -->
+                                    <div class="d-flex align-items-center justify-content-start mb-2 data-pelamar">
+                                        <div class="d-flex align-items-left col-6 mb-2">
                                             <img class="img-fluid img-icon mr-2"
                                                 src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
                                             <span>{{ $lamar->loker->min_pendidikan }}</span>
                                         </div>
                                         <div class="d-flex align-items-center col-6">
-                                            <!-- use col-6 to take half the width -->
                                             <img class="img-fluid img-icon mr-2"
                                                 src="{{ asset('assets/img/landing-page/location pin.svg') }}">
                                             <span>{{ $lamar->loker->perusahaan->alamat_perusahaan }}</span>
@@ -158,22 +144,30 @@
                                         {{ \Carbon\Carbon::parse($lamar->created_at)->format('j F Y') }}
                                     </small>
                                 </div>
-                                <div class="text-center mb-3">
-                                    <a id="detail-button" class="btn btn-sm btn-primary btn-icon py-2 px-3"
-                                        style="border-radius: 25px;"
-                                        href="{{ route('all-jobs.show', $lamar->loker->id) }}">
-                                        <i class="far fa-eye"></i> Details
-                                    </a>
+                                <div class="col-md-2 text-right btn-pelamar">
                                     <!-- Button to open Chatify modal -->
                                     @if ($lamar->status === 'Diterima')
-                                        <div class="text-center mb-3 mt-2">
-                                            <a id="chat-perusahaan" class="btn btn-icon btn-primary btn-icon py-2 px-3"
-                                                style="border-radius: 25px;"
-                                                href="{{ url('chatify/' . $lamar->loker->perusahaan->user_id) }}">
-                                                <i class="fas fa-comment-dots"></i> Chat
-                                            </a>
-                                        </div>
+                                        <a id="chat-perusahaan" class="btn btn-icon btn-primary btn-icon py-2 px-3 mb-2"
+                                            style="border-radius: 25px;"
+                                            href="{{ url('chatify/' . $lamar->loker->perusahaan->user_id) }}">
+                                            <i class="fas fa-comment-dots"></i> Chat
+                                        </a>
+                                        <br>
                                     @endif
+                                    <a id="detail-button" class="btn btn-sm btn-primary btn-icon py-2 px-3 mb-3"
+                                        style="border-radius: 25px;"
+                                        href="{{ route('all-jobs.show', $lamar->loker->id) }}">
+                                        <i class="far fa-eye"></i> Detail
+                                    </a>
+                                    <br>
+                                    <span
+                                        class=" py-2 px-4
+                                            @if ($lamar->status === 'Pending') lamar-warning 
+                                            @elseif ($lamar->status === 'Diterima') lamar-success
+                                            @elseif ($lamar->status === 'Ditolak') lamar-danger @endif
+                                            "style="border-radius: 25px; font-size: 16px;">
+                                        {{ $lamar->status }}
+                                    </span>
                                 </div>
                             </div>
                         </div>

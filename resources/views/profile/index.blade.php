@@ -1,6 +1,6 @@
 <!-- Modal for Resume Preview -->
-<div class="modal fade" id="resumePreviewModal" tabindex="-1" role="dialog" aria-labelledby="resumePreviewModalLabel"
-    aria-hidden="true">
+<div class="modal fade fullscreen-modal" id="resumePreviewModal" tabindex="-1" role="dialog"
+    aria-labelledby="resumePreviewModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header m-4">
@@ -21,7 +21,7 @@
 <div class="modal fade" id="modal-create-postingan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content modalTambah1">
             <div class="modal-header m-4">
                 <h5 class="modal-title" id="exampleModalLabel" style="color: #6777ef; font-weight: bold;">Tambah
                     Postingan</h5>
@@ -50,7 +50,7 @@
                                         <p>{{ auth()->user()->email }}</p>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group summernoteField">
                                     <label for="konteks">Konten Postingan</label>
                                     <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
                                         type="text" required>{{ old('konteks') }}</textarea>
@@ -64,7 +64,8 @@
                                     <ul class="list-unstyled">
                                         <li class="mb-2">
                                             <!-- Gunakan label untuk mengaktifkan input file -->
-                                            <label for="mediaUploadButton" style="cursor: pointer;">
+                                            <label for="mediaUploadButton" class="imgUploadButton"
+                                                style="cursor: pointer;">
                                                 <img class="img-fluid" src="{{ asset('assets/img/Gallery Add.svg') }}">
                                                 &nbsp;&nbsp;&nbsp; Media
                                             </label>
@@ -491,80 +492,80 @@
                 <div class="col-md-12 detail-header">
                     <div class="col-md-10 mx-auto">
                         <ul class="list-unstyled">
-                            <ul class="list-unstyled d-flex justify-content-start">
+                            <ul class="list-unstyled d-flex justify-content-start title-detail">
                                 @if (Auth::user()->perusahaan && Auth::user()->perusahaan->no_hp_perusahaan != '')
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5 mt-3">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5 mt-3">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/phone.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">
                                             {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp_perusahaan : '' }}
                                         </p>
                                     </li>
                                 @else
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5 mt-3">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5 mt-3">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/phone.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;"></p>
+                                        <p class="mb-3 detail-left" style="font-size: 15px;"></p>
                                     </li>
                                 @endif
-                                <li class="col-md-10 mt-3">
+                                <li class="col-md-10 mt-3 detail-right">
                                     <h5 class="font-weight-bolder">
                                         {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->nama : '' }} -
                                         {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->pemilik : '' }}</h5>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-start text-justify">
+                            <ul class="list-unstyled d-flex justify-content-start text-justify title-detail">
                                 @if (Auth::user()->perusahaan && Auth::user()->perusahaan->email != '')
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/Email.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">
                                             {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->email : '' }}</p>
                                     </li>
                                 @else
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/Email.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">&nbsp</p>
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">&nbsp</p>
                                     </li>
                                 @endif
                                 <li class="col-md-10">
-                                    <p style="font-size: 15px;">
+                                    <p class="detail-right" style="font-size: 15px;">
                                         {!! Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' !!}
                                     </p>
                                 </li>
                             </ul>
-                            <ul class="list-unstyled d-flex justify-content-start">
+                            <ul class="list-unstyled d-flex justify-content-start title-detail">
                                 @if (Auth::user()->perusahaan && Auth::user()->perusahaan->website != '')
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5 detail-web">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/global.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">
                                             {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->website : '' }}</p>
                                     </li>
                                 @else
-                                    <li class="col-md-2 d-flex justify-content-satrt mr-5">
+                                    <li class="col-md-2 d-flex justify-content-start mr-5 detail-web">
                                         <img class="img-fluid img-icon mr-2"
                                             src="{{ asset('assets/img/landing-page/global.svg') }}">
-                                        <p class="mb-3" style="font-size: 15px;">&nbsp</p>
+                                        <p class="mb-3 detail-left" style="font-size: 15px;">&nbsp</p>
                                     </li>
                                 @endif
                             </ul>
                             @if (Auth::user()->perusahaan && Auth::user()->perusahaan->alamat_perusahaan != '')
-                                <li class="col-md-12 d-flex justify-content-end ml-5">
+                                <li class="col-md-12 d-flex justify-content-end ml-5 detail-alamat">
                                     <img class="img-fluid img-icon mr-1"
                                         src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                    <p class="mb-5" style="font-size: 15px;">
+                                    <p class="mb-5 detail-alamat-bottom" style="font-size: 15px;">
                                         {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }}
                                         {{-- ,{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->kecamatan_id : '' }},
                                 {{ $kecamatan->id }} --}}
                                     </p>
                                 </li>
                             @else
-                                <li class="col-md-12 d-flex justify-content-end ml-5">
+                                <li class="col-md-12 d-flex justify-content-end ml-5 detail-alamat">
                                     <img class="img-fluid img-icon mr-1"
                                         src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                    <p class="mb-5" style="font-size: 15px;">&nbsp&nbsp&nbsp</p>
+                                    <p class="mb-5 detail-alamat-bottom" style="font-size: 15px;">&nbsp&nbsp&nbsp</p>
                                 </li>
                             @endif
                         </ul>
@@ -575,11 +576,12 @@
                 <div class="col-md-3">
                     <div class="logo-container">
                         @if (Auth::user()->perusahaan && Auth::user()->perusahaan->logo != '')
-                            <img class="img-fluid bg-white mt-4"
+                            <img class="img-fluid bg-white mt-4 img-detail-profile"
                                 src="{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->logo) : '' }}"
                                 style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                         @else
-                            <img class="img-fluid bg-white mt-4" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
+                            <img class="img-fluid bg-white mt-4 img-detail-profile"
+                                src="{{ asset('assets/img/avatar/avatar-1.png') }}"
                                 style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                         @endif
                     </div>
@@ -592,18 +594,18 @@
         <main class="bg-light">
             <h4 class="text-center my-4" style="text-align: center; font-weight: bold;">Data Diri</h4>
             <section class="centered-section-1">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-lg-10 col-md-10 col-sm-6 py-1 card-profile1">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="profile-widget-description m-4">
                                 @if (Auth::user()->profile && Auth::user()->profile->foto != '')
                                     <img alt="image"
                                         src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
-                                        class="rounded-square profile-widget-picture img-fluid"
+                                        class="rounded-square profile-widget-picture img-fluid card-profile-img"
                                         style="width: 180px; height: 180px; border-radius:15px;">
                                 @else
                                     <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                        class="rounded-square profile-widget-picture img-fluid"
+                                        class="rounded-square profile-widget-picture img-fluid card-profile-img"
                                         style="width: 180px; height: 180px; border-radius:15px;">
                                 @endif
                             </div>
@@ -627,7 +629,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-md-11 ml-2">
+                            <div class="col-md-11 ml-2 card-profile2">
                                 @if (Auth::user()->profile && Auth::user()->profile->alamat != '')
                                     <div class="profile-widget-description mb-3"
                                         style="display: flex; align-items: center;">
@@ -636,12 +638,17 @@
                                     </div>
                                 @endif
                                 @if (Auth::user()->profile && Auth::user()->profile->resume != '')
-                                    <div class="profile-widget-description" style="display: flex; align-items: center;">
-                                        <a href="#" class="btn btn-primary" id="skill-button" data-toggle="modal"
+                                    <div class="profile-widget-description lihat-resume" style=" ">
+                                        {{-- <a href="#" class="btn btn-primary" id="skill-button" data-toggle="modal"
                                             data-target="#resumePreviewModal"
                                             data-pdf="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
                                             style="background-color:#eb9481; font-size:13px; border-radius:15px;">
                                             <i class="fas fa-eye"></i> Lihat Resume
+                                        </a> --}}
+                                        <a href = "{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
+                                            onclick="return openResume();" target="_blank"
+                                            class="btn btn-primary" style="background-color:#eb9481; font-size:13px; border-radius:15px; border-color:#eb9481;">
+                                            Lihat Resume
                                         </a>
                                     </div>
                                 @endif
@@ -653,7 +660,7 @@
             <section class="col-md-10 mx-auto mt-4 mb-0">
                 <div>
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-5 mb-2">
                             <div class="card border-primary">
                                 <div class="card-body">
                                     <div class="text-left mb-4 mt-2 ml-2">
@@ -745,7 +752,7 @@
                     </div>
                 </div>
             </section>
-            <section class="centered-section container-garis my-0">
+            <section class="centered-section container-garis my-0 garisPembatasProfile">
                 <div class="lines my-0">
                     <div class="diamond"></div>
                     <div class="circle"></div>
@@ -753,7 +760,7 @@
                 </div>
             </section>
             <section class="centered-section my-0">
-                <div class="bg-primary-section card col-md-10 py-3">
+                <div class="bg-primary-section card col-md-10 py-3 card-profile3">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -783,7 +790,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-2">
+                <div class="bg-primary-section card col-md-10 py-2 card-profile4 ">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -800,11 +807,11 @@
                                         - {{ $post->timeAgo }}
                                     </div>
                                     <br>
-                                    <div class="media mb-2">
+                                    <div class="media mb-2 p-postingan">
                                         @if (!empty($post->media))
-                                            <img class="mr-3 rounded"width="150px" height="150px"
+                                            <img class="mr-3 rounded p-img-media"width="150px" height="150px"
                                                 src="{{ asset('storage/' . $post->media) }}">
-                                            <div class="media-body col-md-9">
+                                            <div class="media-body col-md-9 p-postingan-konteks">
                                                 {!! $post->konteks !!}
                                             </div>
                                             <div class="d-flex justify-content-end" style="" id="fluid">
@@ -868,7 +875,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1 card-profile5">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -884,9 +891,9 @@
                     @if (count(auth()->user()->keahlians) > 0)
                         <div class="col-md-12 mb-4">
                             <div class="flex-grow-1 mb-2">
-                                <div class="card-header-action">
+                                <div class="card-header-action keahlianPelamar">
                                     @foreach (auth()->user()->keahlians as $keahlian)
-                                        <button class="btn btn-primary"
+                                        <button class="btn btn-primary keahlianPelamar1"
                                             id="skill-button">{{ $keahlian->keahlian }}</button>
                                     @endforeach
                                 </div>
@@ -901,7 +908,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1 card-profile6">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -915,7 +922,7 @@
                         </div>
                     </div>
                     @if (count($pendidikans) > 0)
-                        <div id="pendidikan-container">
+                        <div id="pendidikan-container" class="pendidikancardprofile">
                             @foreach ($pendidikans as $item)
                                 <hr>
                                 <div class="mr-5 ml-5">
@@ -985,7 +992,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1 card-profile7">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -999,7 +1006,7 @@
                         </div>
                     </div>
                     @if (count($pengalamans) > 0)
-                        <div id="pengalaman-container">
+                        <div id="pengalaman-container" class="pendidikancardprofile">
                             @foreach ($pengalamans as $pl)
                                 <hr>
                                 <div class="mr-5 ml-5">
@@ -1070,7 +1077,7 @@
                 </div>
             </section>
             <section class="centered-section my-4">
-                <div class="bg-primary-section card col-md-10 py-1">
+                <div class="bg-primary-section card col-md-10 py-1 card-profile8">
                     <div class="profile-widget-description m-3"
                         style="font-weight: bold; font-size: 18px; display: flex; align-items: center;">
                         <div class="flex-grow-1">
@@ -1084,7 +1091,7 @@
                         </div>
                     </div>
                     @if (count($pelatihans) > 0)
-                        <div id="pelatihan-container">
+                        <div id="pelatihan-container" class="pendidikancardprofile">
                             @foreach ($pelatihans as $lat)
                                 <hr>
                                 <div class="mr-5 ml-5">
@@ -1584,8 +1591,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="konteks">Konten Postingan</label>
-                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror" required
-                                            rows="5" cols="50">
+                                        <textarea name="konteks" id="konteks" class="form-control summernote @error('konteks') is-invalid @enderror"
+                                            required rows="5" cols="50">
                                             @isset($post)
 {!! $post->konteks !!}
 @endisset
@@ -1598,7 +1605,8 @@
                                     </div>
                                     <div class="media mb-4">
                                         <!-- Tampilkan media yang ingin diedit -->
-                                        <img id="media-preview" class="mr-3 rounded" width="700" height="300">
+                                        <img id="media-preview" class="mr-3 rounded p-m-media" width="700"
+                                            height="300">
                                     </div>
                                     <div class="col-md-12">
                                         <ul class="list-unstyled">

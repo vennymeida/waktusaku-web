@@ -10,8 +10,8 @@
                         <h4 class="font-weight-bold">Daftar Lowongan Pekerjaan</h4>
                     </div>
                     <div class="card-body">
-                        <form id="search-form" class="form-row" method="GET" action="{{ route('all-jobs.index') }}"
-                            onsubmit="handleFormSubmit()">
+                        <form id="search-form" class="form-row cardDatalowongan2" method="GET"
+                            action="{{ route('all-jobs.index') }}" onsubmit="handleFormSubmit()">
                             <div class="form-group col-md-5">
                                 <div class="input-group">
                                     <div class="input-group-prepend">

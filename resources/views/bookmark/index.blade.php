@@ -9,8 +9,8 @@
                         <h4 class="font-weight-bold">Lowongan Kerja Tersimpan</h4>
                     </div>
                     <div class="card-body">
-                        <form id="search-form" class="form-row" method="GET" action="{{ route('bookmark.index') }}"
-                            onsubmit="handleFormSubmit()">
+                        <form id="search-form" class="form-row cardDatalowongan2" method="GET"
+                            action="{{ route('bookmark.index') }}" onsubmit="handleFormSubmit()">
                             <div class="form-group col-md-4">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -30,11 +30,6 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    {{-- <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-map-marker-alt ml-2"></i>
-                                        </div>
-                                    </div> --}}
                                     <select name="lokasi" id="lokasi" class="form-control form-jobs select2">
                                         <option value="" selected>Lokasi</option>
                                         @foreach ($kecamatan as $item)
@@ -43,24 +38,12 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    {{-- <div class="input-group-prepend">
-                                        <div class="input-group-text"
-                                            style="border-left: none; border-radius: 0px 15px 15px 0px;">
-                                            <i class="fas fa-times-circle" id="clear-lokasi" style="display: none;"></i>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    {{-- <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-briefcase ml-2"></i>
-                                        </div>
-                                    </div> --}}
                                     <select name="kategori" id="kategori" class="form-control form-jobs select2 kategori"
                                         multiple>
-                                        {{-- <option value="">Pilih Kategori</option> --}}
                                         @foreach ($kategoris as $item)
                                             <option value="{{ $item->kategori }}"
                                                 @if (in_array($item->kategori, $selectedKategori)) selected @endif>
@@ -68,12 +51,6 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    {{-- <div class="input-group-prepend">
-                                        <div class="input-group-text"
-                                            style="border-left: none; border-radius: 0px 15px 15px 0px;">
-                                            <i class="fas fa-times-circle" id="clear-kategori" style="display: none;"></i>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
@@ -89,9 +66,6 @@
         <section>
             <div class="col-md-12 mt-5 mx-auto d-flex flex-wrap justify-content-center">
                 @if ($bookmarks->isEmpty())
-                    {{-- <div class="alert">
-                    <p class="mt-4">Tidak ada pekerjaan yang di-bookmark ditemukan.</p>
-                </div> --}}
                     <div class="col-md-12 text-center my-2">
                         <img src="{{ asset('assets/img/landing-page/bookmark.png') }}">
                         <p class="mt-1 text-not">Belum ada pekerjaan yang di-bookmark ditemukan.</p>
@@ -117,8 +91,8 @@
                                     <div class="card-text">
                                         <ul class="list-unstyled ml-2">
                                             <ul class="list-unstyled d-flex justify-content-between">
-                                                <li class="mb-2">
-                                                    <img class="img-fluid img-icon"
+                                                <li class="d-flex justify-content-start mb-2">
+                                                    <img class="img-fluid img-icon mr-2"
                                                         src="{{ asset('assets/img/landing-page/list.svg') }}">
                                                     @foreach ($bookmark->lowonganPekerjaan->kategori as $index => $kategori)
                                                         {{ $kategori->kategori }}@if ($index < count($bookmark->lowonganPekerjaan->kategori) - 1)
@@ -133,25 +107,30 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                            <li class="mb-2"><img class="img-fluid img-icon"
+                                            <li class="d-flex justify-content-start mb-2">
+                                                <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/money.svg') }}">
                                                 {{ 'IDR ' . $bookmark->lowonganPekerjaan->gaji_bawah }}
                                                 <span>-</span>
                                                 {{ $bookmark->lowonganPekerjaan->gaji_atas }}
                                             </li>
-                                            <li class="mb-2"><img class="img-fluid img-icon"
+                                            <li class="d-flex justify-content-start mb-2">
+                                                <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/job.svg') }}">
                                                 {{ $bookmark->lowonganPekerjaan->min_pengalaman }}
                                             </li>
-                                            <li class="mb-2"><img class="img-fluid img-icon"
+                                            <li class="d-flex justify-content-start mb-2">
+                                                <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/Graduation Cap.svg') }}">
                                                 Minimal {{ $bookmark->lowonganPekerjaan->min_pendidikan }}
                                             </li>
-                                            <li class="mb-2"><img class="img-fluid img-icon"
+                                            <li class="d-flex justify-content-start mb-2">
+                                                <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/location pin.svg') }}">
                                                 {{ $bookmark->lowonganPekerjaan->lokasi }}
                                             </li>
-                                            <li class="mb-2"><img class="img-fluid img-icon"
+                                            <li class="d-flex justify-content-start mb-2">
+                                                <img class="img-fluid img-icon mr-2"
                                                     src="{{ asset('assets/img/landing-page/Office Building.svg') }}">
                                                 {{ $bookmark->lowonganPekerjaan->perusahaan->alamat_perusahaan }},
                                                 {{ $bookmark->lowonganPekerjaan->perusahaan->kelurahan->kelurahan }},

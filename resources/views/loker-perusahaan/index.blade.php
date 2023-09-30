@@ -1,19 +1,16 @@
 @extends('landing-page.app')
-@section('title', 'WaktuSaku - Buka Lowongan Pekrjaan')
+@section('title', 'WaktuSaku - Buka Lowongan Pekerjaan')
 @section('main')
     <main class="bg-light">
         <section>
             <div class="col-md-12 py-3 mb-4">
-                {{-- <div class="col-md-10 mx-auto">
-                    @include('layouts.alert')
-                </div> --}}
                 <div class="col-md-11 mt-4 mx-auto">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-title mt-4 mb-0 ml-5">
                             <h4 class="font-weight-bold">Data Lowongan Pekerjaan</h4>
                         </div>
-                        <div class="card-body ml-4">
-                            <form id="search-form" class="form-row" method="GET"
+                        <div class="card-body ml-4 div-lowongan">
+                            <form id="search-form" class="form-row cardDatalowongan" method="GET"
                                 action="{{ route('loker-perusahaan.index') }}" onsubmit="handleFormSubmit()">
                                 <div class="form-group col-md-9">
                                     <div class="input-group">
@@ -22,8 +19,9 @@
                                                 <i class="fas fa-search ml-2"></i>
                                             </div>
                                         </div>
-                                        <input type="text" name="judul" class="form-control form-jobs clearable"
-                                            id="judul" placeholder="Cari posisi pekerjaan"
+                                        <input type="text" name="judul"
+                                            class="form-control form-jobs clearable inputSearch" id="judul"
+                                            placeholder="Cari posisi pekerjaan"
                                             value="{{ app('request')->input('judul') }}">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"
@@ -33,23 +31,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="form-group col-md-3">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-map-marker-alt ml-2"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="lokasi" class="form-control form-jobs" id="lokasi"
-                                            placeholder="Lokasi" value="{{ app('request')->input('lokasi') }}">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"
-                                                style="border-left: none; border-radius: 0px 15px 15px 0px;">
-                                                <i class="fas fa-times-circle" id="clear-lokasi" style="display: none;"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="form-group col-md-3">
                                     <div class="input-group">
                                         <button id="search-button" class="btn btn-primary mr-1 px-4" type="submit"
@@ -112,7 +93,8 @@
                                         style="font-size: 14px">
                                         Lihat Selengkapnya...
                                     </a>
-                                    <ul class="list-unstyled d-flex justify-content-between align-items-center mt-2">
+                                    <ul
+                                        class="list-unstyled d-flex justify-content-between align-items-center mt-2 status-loker">
                                         <button
                                             class="px-4 mt-2 mr-1 btn btn-status
                                         @if ($loker->status === 'Pending') btn-warning
