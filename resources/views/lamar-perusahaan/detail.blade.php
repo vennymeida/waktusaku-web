@@ -114,7 +114,7 @@
                                         <!-- Modal untuk menampilkan lebih banyak pendidikan -->
                                         <div class="modal fade" id="pendidikanModal" tabindex="-1" role="dialog"
                                             aria-labelledby="pendidikanModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
+                                            <div class="modal-dialog modal-lg" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="pendidikanModalLabel"
@@ -239,7 +239,7 @@
                                         <!-- Modal untuk menampilkan lebih banyak pengalaman -->
                                         <div class="modal fade" id="pengalamanModal" tabindex="-1" role="dialog"
                                             aria-labelledby="pengalamanModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
+                                            <div class="modal-dialog modal-lg" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="pengalamanModalLabel"
@@ -320,88 +320,90 @@
                                                 {{ optional($pelatihan->first())->tanggal_dikeluarkan ?: '-' }}
                                             </dd>
 
-                                        <dt class="col-sm-4 mt-2">Sertifikat</dt>
-                                        <dd class="col-sm-8 mt-2">
-                                            @if ($pelatihan && $pelatihan->first()->sertifikat)
-                                                <a href="{{ asset('storage/' . $pelatihan->first()->sertifikat) }}"
-                                                    onclick="return openResume();" target="_blank"
-                                                    class="btn btn-primary btn-sm">
-                                                    Lihat Sertifikat
-                                                </a>
-                                            @else
-                                                <span class="text-muted">Tidak ada sertifikat</span>
-                                            @endif
-                                        </dd>
-                                    </dl>
-                                    {{-- Tampilkan tombol "Muat Lebih Banyak" jika ada lebih dari satu pelatihan --}}
-                                    @if ($pelatihan->count() > 1)
-                                        <button id="muatLebihBanyak" class="btn btn-primary btn-sm" data-toggle="modal"
-                                            data-target="#pelatihanModal">
-                                            Muat Lebih Banyak
-                                        </button>
-                                    @endif
-                                    <!-- Modal untuk menampilkan lebih banyak pelatihan -->
-                                    <div class="modal fade" id="pelatihanModal" tabindex="-1" role="dialog"
-                                        aria-labelledby="pelatihanModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="pelatihanModalLabel"
-                                                        style="color: #6777ef; font-weight: bold;">Pelatihan</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    {{-- Tampilkan semua pelatihan dalam modal --}}
-                                                    @foreach ($pelatihan as $pelatihanItem)
-                                                        <dl class="row">
-                                                            <dt class="col-sm-4 mt-2">Nama Pelatihan</dt>
-                                                            <dd class="col-sm-8 mt-2">
-                                                                {{ optional($pelatihanItem)->nama_sertifikat ?: '-' }}</dd>
+                                            <dt class="col-sm-4 mt-2">Sertifikat</dt>
+                                            <dd class="col-sm-8 mt-2">
+                                                @if ($pelatihan && $pelatihan->first()->sertifikat)
+                                                    <a href="{{ asset('storage/' . $pelatihan->first()->sertifikat) }}"
+                                                        onclick="return openResume();" target="_blank"
+                                                        class="btn btn-primary btn-sm">
+                                                        Lihat Sertifikat
+                                                    </a>
+                                                @else
+                                                    <span class="text-muted">Tidak ada sertifikat</span>
+                                                @endif
+                                            </dd>
+                                        </dl>
+                                        {{-- Tampilkan tombol "Muat Lebih Banyak" jika ada lebih dari satu pelatihan --}}
+                                        @if ($pelatihan->count() > 1)
+                                            <button id="muatLebihBanyak" class="btn btn-primary btn-sm"
+                                                data-toggle="modal" data-target="#pelatihanModal">
+                                                Muat Lebih Banyak
+                                            </button>
+                                        @endif
+                                        <!-- Modal untuk menampilkan lebih banyak pelatihan -->
+                                        <div class="modal fade" id="pelatihanModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="pelatihanModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="pelatihanModalLabel"
+                                                            style="color: #6777ef; font-weight: bold;">Pelatihan</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{-- Tampilkan semua pelatihan dalam modal --}}
+                                                        @foreach ($pelatihan as $pelatihanItem)
+                                                            <dl class="row">
+                                                                <dt class="col-sm-4 mt-2">Nama Pelatihan</dt>
+                                                                <dd class="col-sm-8 mt-2">
+                                                                    {{ optional($pelatihanItem)->nama_sertifikat ?: '-' }}
+                                                                </dd>
 
-                                                            <dt class="col-sm-4 mt-2">Deskripsi</dt>
-                                                            <dd class="col-sm-8 mt-2">
-                                                                {{ optional($pelatihanItem)->deskripsi ?: '-' }}</dd>
+                                                                <dt class="col-sm-4 mt-2">Deskripsi</dt>
+                                                                <dd class="col-sm-8 mt-2">
+                                                                    {{ optional($pelatihanItem)->deskripsi ?: '-' }}</dd>
 
-                                                            <dt class="col-sm-4 mt-2">Dikeluarkan oleh</dt>
-                                                            <dd class="col-sm-8 mt-2">
-                                                                {{ optional($pelatihanItem)->penerbit ?: '-' }}</dd>
+                                                                <dt class="col-sm-4 mt-2">Dikeluarkan oleh</dt>
+                                                                <dd class="col-sm-8 mt-2">
+                                                                    {{ optional($pelatihanItem)->penerbit ?: '-' }}</dd>
 
-                                                            <dt class="col-sm-4 mt-2">Tanggal Dikeluarkan</dt>
-                                                            <dd class="col-sm-8 mt-2">
-                                                                {{ optional($pelatihanItem)->tanggal_dikeluarkan ?: '-' }}
-                                                            </dd>
+                                                                <dt class="col-sm-4 mt-2">Tanggal Dikeluarkan</dt>
+                                                                <dd class="col-sm-8 mt-2">
+                                                                    {{ optional($pelatihanItem)->tanggal_dikeluarkan ?: '-' }}
+                                                                </dd>
 
-                                                            <dt class="col-sm-4 mt-2">Sertifikat</dt>
-                                                            <dd class="col-sm-8 mt-2">
-                                                                @if ($pelatihanItem && $pelatihanItem->sertifikat)
-                                                                    <a href="{{ asset('storage/' . $pelatihanItem->sertifikat) }}"
-                                                                        onclick="return openResume();" target="_blank"
-                                                                        class="btn btn-primary btn-sm">
-                                                                        Lihat Sertifikat
-                                                                    </a>
-                                                                @else
-                                                                    <span class="text-muted">Tidak ada sertifikat</span>
-                                                                @endif
-                                                            </dd>
-                                                        </dl>
-                                                        <hr class="my-4">
-                                                    @endforeach
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Tutup</button>
+                                                                <dt class="col-sm-4 mt-2">Sertifikat</dt>
+                                                                <dd class="col-sm-8 mt-2">
+                                                                    @if ($pelatihanItem && $pelatihanItem->sertifikat)
+                                                                        <a href="{{ asset('storage/' . $pelatihanItem->sertifikat) }}"
+                                                                            onclick="return openResume();" target="_blank"
+                                                                            class="btn btn-primary btn-sm">
+                                                                            Lihat Sertifikat
+                                                                        </a>
+                                                                    @else
+                                                                        <span class="text-muted">Tidak ada
+                                                                            sertifikat</span>
+                                                                    @endif
+                                                                </dd>
+                                                            </dl>
+                                                            <hr class="my-4">
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Tutup</button>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @else
-                                        <div class="col-md-12 text-center my-4"><br><br>
-                                            <img src="{{ asset('assets/img/landing-page/folder.png') }}">
-                                            <p class="mt-1 text-not">Tidak Ada Pelatihan/Sertifikat Yang Di Unggah</p>
-                                        </div>
+                                        @else
+                                            <div class="col-md-12 text-center my-4"><br><br>
+                                                <img src="{{ asset('assets/img/landing-page/folder.png') }}">
+                                                <p class="mt-1 text-not">Tidak Ada Pelatihan/Sertifikat Yang Di Unggah</p>
+                                            </div>
                                     @endif
                                 </ul>
                                 <br>
