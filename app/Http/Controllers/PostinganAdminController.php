@@ -10,6 +10,12 @@ use App\Models\Postingan;
 
 class PostinganAdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:postinganadmin.index')->only('index');
+        $this->middleware('permission:postinganadmin.destroy')->only('destroy');
+    }
     public function index()
     {
         $postingans = DB::table('postingans')

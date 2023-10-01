@@ -10,6 +10,16 @@ use Illuminate\Support\Str;
 
 class PelamarListController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:pelamar.index')->only('index');
+        $this->middleware('permission:pelamar.create')->only('create', 'store');
+        $this->middleware('permission:pelamar.edit')->only('edit', 'update');
+        $this->middleware('permission:pelamar.destroy')->only('destroy');
+        $this->middleware('permission:pelamar.import')->only('import');
+        $this->middleware('permission:pelamar.export')->only('export');
+    }
     public function index(Request $request)
     {
         // Mengambil role "Pencari Kerja"

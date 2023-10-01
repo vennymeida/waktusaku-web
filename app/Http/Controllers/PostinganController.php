@@ -38,7 +38,7 @@ class PostinganController extends Controller
         $userId = Auth::user()->id;
         $postingan = Postingan::where('user_id', $userId)
         ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        ->paginate(5);
 
         foreach ($postingan as $time) {
             $time->timeAgo = $this->getTimeAgo($time->updated_at);

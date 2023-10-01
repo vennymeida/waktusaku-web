@@ -11,6 +11,17 @@ use Illuminate\Support\Str;
 
 class PerusahaanListController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:perusahaan.index')->only('index');
+        $this->middleware('permission:perusahaan.create')->only('create', 'store');
+        $this->middleware('permission:perusahaan.edit')->only('edit', 'update');
+        $this->middleware('permission:perusahaan.destroy')->only('destroy');
+        $this->middleware('permission:perusahaan.import')->only('import');
+        $this->middleware('permission:perusahaan.export')->only('export');
+    }
+
     public function index(Request $request)
     {
         // Mengambil role "Perusahaan"
