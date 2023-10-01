@@ -47,7 +47,8 @@
                                 <p class="mt-1 text-not mb-5">Belum ada rekomendasi untukmu</p>
                             </div>
                         @else
-                            <div class="row flex-nowrap overflow-auto mt-4 equal-height-cards group-card-view-mobile
+                            <div
+                                class="row flex-nowrap overflow-auto mt-4 equal-height-cards group-card-view-mobile
                             justify-content-center align-items-center">
                                 @foreach ($allRekomendasi as $key => $loker)
                                     <div class="col-md-3 mb-1 jarak-column-view-mobile">
@@ -158,10 +159,9 @@
                                 banyak
                                 pelamar.
                             </p>
-                            <a id="register-button" class="btn btn-primary px-4 py-2 tombol-register"
-                                href="{{ route('register') }}" style="border-radius: 25px;">
-                                <p class="font-weight-bold text-register">Buat Akun
-                                    Sekarang!</p>
+                            <a id="register-button" class="btn btn-primary px-4 py-2" href="{{ route('register') }}"
+                                style="border-radius: 25px;">
+                                Buat Akun Sekarang
                             </a>
                         </div>
                     @endguest

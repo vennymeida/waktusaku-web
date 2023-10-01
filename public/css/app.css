@@ -1309,17 +1309,6 @@ select.custom-select option:disabled {
         font-size: 35px;
     }
 
-    .tombol-register {
-        display: flex;
-        align-content: center;
-        flex-direction: column-reverse;
-    }
-
-    .text-register {
-        text-align: center;
-        margin-top: 10px;
-    }
-
     .card-waktusaku-view-mobile {
         height: 275px;
     }
