@@ -1692,7 +1692,7 @@
             function showError(field, message) {
                 var inputField = editModal.find('[name="' + field + '"]');
                 inputField.addClass('is-invalid');
-                inputField.closest('.form-group').find('.invalid-feedback').text(message);
+                inputField.closest('.form-group').find('.invalid-feedback').text(message)
             }
 
             // Menambahkan aturan kustom untuk memvalidasi tahun mulai dan tahun berakhir
@@ -1863,11 +1863,10 @@
             }
 
             // Validasi custom
-            $.validator.addMethod("dateGreaterThan", function(value, element, params) {
-                var startDate = new Date(value);
-                var endDate = new Date($(params).val());
-                return startDate <= endDate;
-            }, "Tanggal Mulai harus kurang dari atau sama dengan Tanggal Berakhir");
+            $.validator.addMethod("greaterThanStartDate", function(value, element) {
+                var startDate = $('#modal-edit-pengalaman input[name="tanggal_mulai"]').val();
+                return new Date(value) > new Date(startDate);
+            }, "Tanggal berakhir harus setelah tanggal mulai .");
 
             // Validasi form
             $("#modal-edit-pengalaman-form").validate({
@@ -1891,12 +1890,12 @@
                     },
                     tanggal_mulai: {
                         required: true,
-                        date: true,
+                        date: true
                     },
                     tanggal_berakhir: {
                         required: true,
                         date: true,
-                        dateGreaterThan: "#modal-edit-pengalaman input[name='tanggal_mulai']"
+                        greaterThanStartDate: true
                     }
                 },
                 messages: {
@@ -1918,13 +1917,13 @@
                         maxlength: "Inputan Gaji Maximal Puluhan Juta. Contoh Masukkan 50000000 tanpa titik/koma"
                     },
                     tanggal_mulai: {
-                        required: "Tanggal Mulai Tidak Boleh Kosong",
-                        date: "Pilih Tanggal Mulai yang valid",
+                        required: "Tanggal mulai harus diisi.",
+                        date: "Format tanggal tidak valid."
                     },
                     tanggal_berakhir: {
-                        required: "Tanggal Berakhir Tidak Boleh Kosong",
-                        date: "Pilih Tanggal Berakhir yang valid",
-                        dateGreaterThan: "Tanggal Mulai harus kurang dari atau sama dengan Tanggal Berakhir"
+                        required: "Tanggal berakhir harus diisi.",
+                        date: "Format tanggal tidak valid.",
+                        greaterThanStartDate: "Tanggal berakhir harus setelah tanggal mulai."
                     }
                 },
                 highlight: function(element, errorClass) {
@@ -2436,4 +2435,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.css" rel="stylesheet">
+
+    <style>
+        .error {
+            color: #ff0000;
+        }
+    </style>
 @endpush
