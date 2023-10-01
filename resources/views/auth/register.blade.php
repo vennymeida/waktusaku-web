@@ -108,12 +108,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-bold mb-2">Daftar sebagai:</label>
-                                        <div class="role-regis d-flex align-items-left">
+                                        <div class="role-regis d-flex align-items-left mt-2 div-role">
                                             <div class="custom-radio-image mr-2">
                                                 <input type="radio" id="pencari_kerja" name="user_type"
                                                     value="pencari_kerja"
                                                     @if (old('user_type') === 'pencari_kerja') checked @endif>
-                                                <label for="pencari_kerja">
+                                                <label class="label-role" for="pencari_kerja">
                                                     <img src="{{ asset('assets/img/registerrole/pencarikerjanobg.png') }}"
                                                         alt="Pencari Kerja">
                                                 </label>
@@ -122,7 +122,7 @@
                                                 <input type="radio" id="perusahaan" name="user_type"
                                                     value="perusahaan"
                                                     @if (old('user_type') === 'perusahaan') checked @endif>
-                                                <label for="perusahaan">
+                                                <label class="label-role" class="input-role" for="perusahaan">
                                                     <img src="{{ asset('assets/img/registerrole/perusahaannobg.png') }}"
                                                         alt="Perusahaan">
                                                 </label>
