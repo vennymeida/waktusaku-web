@@ -61,10 +61,11 @@
                                     </div>
                                     <div class="d-flex justify-content-end" style="font-size: 2.00em;">
                                         <form action="{{ route('postingan.destroy', ['postingan' => $post->id]) }}"
-                                            method="POST">
+                                            method="POST" id="delete-post{{ $post->id }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-link">
+                                            <button type="submit" class="btn btn-edu"
+                                                onclick="confirmPost({{ $post->id }})">
                                                 <img class="img-fluid" style="width: 30px; height: 30px;"
                                                     src="{{ asset('assets/img/landing-page/delete.svg') }}" alt="Hapus">
                                             </button>
@@ -102,7 +103,6 @@
                 {{-- </div> --}}
                 <div class="d-flex justify-content-center">
                     {{ $postingan->withQueryString()->links() }}
-
                 </div>
             </div>
         @else
@@ -164,8 +164,7 @@
                                     </div>
                                     <div class="media mb-4">
                                         <!-- Tampilkan media yang ingin diedit -->
-                                        <img id="media-preview" class="mr-3 rounded p-m-media" width="700"
-                                            height="300">
+                                        <img id="media-preview" class="mr-3 rounded p-m-media" width="100%">
                                     </div>
                                     <div class="col-md-12">
                                         <ul class="list-unstyled">
@@ -194,6 +193,30 @@
             </div>
         </div>
     </div>
+    <script>
+        function confirmPost(itemId) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-confirm',
+                    cancelButton: 'btn btn-cancel',
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-post' + itemId).submit();
+                }
+            });
+        }
+    </script>
     <script>
         @if (session('success') === 'success-create')
             Swal.fire({

@@ -809,7 +809,7 @@
                                     <br>
                                     <div class="media mb-2 p-postingan">
                                         @if (!empty($post->media))
-                                            <img class="mr-3 rounded p-img-media"width="150px" height="150px"
+                                            <img class="mr-3 rounded p-img-media"width="25%;"
                                                 src="{{ asset('storage/' . $post->media) }}">
                                             <div class="media-body col-md-9 p-postingan-konteks">
                                                 {!! $post->konteks !!}
@@ -823,10 +823,11 @@
                                                 </a>
                                                 <form class="m-0"
                                                     action="{{ route('profile.destroy', ['profile' => $post->id]) }}"
-                                                    method="POST">
+                                                    method="POST" id="delete-post{{ $post->id }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn">
+                                                    <button type="submit" class="btn btn-edu"
+                                                        onclick="confirmPost({{ $post->id }})">
                                                         <img class="img-fluid" style="width: 30px; height: 30px;"
                                                             src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                             alt="Hapus">
@@ -846,10 +847,11 @@
                                                 </a>
                                                 <form class="m-0"
                                                     action="{{ route('profile.destroy', ['profile' => $post->id]) }}"
-                                                    method="POST">
+                                                    method="POST" id="delete-post{{ $post->id }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn">
+                                                    <button type="submit" class="btn btn-edu"
+                                                        onclick="confirmPost({{ $post->id }})">
                                                         <img class="img-fluid" style="width: 30px; height: 30px;"
                                                             src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                             alt="Hapus">
@@ -893,8 +895,8 @@
                             <div class="flex-grow-1 mb-2">
                                 <div class="card-header-action keahlianPelamar">
                                     @foreach (auth()->user()->keahlians as $keahlian)
-                                        <button class="btn btn-primary keahlianPelamar1"
-                                            id="skill-button">{{ $keahlian->keahlian }}</button>
+                                        <button class="btn btn-skill keahlianPelamar1"
+                                            style="font-size: 14px">{{ $keahlian->keahlian }}</button>
                                     @endforeach
                                 </div>
                             </div>
@@ -944,10 +946,11 @@
                                             </a>
                                             <form class="m-0"
                                                 action="{{ route('pendidikan.destroy', ['pendidikan' => $item->id]) }}"
-                                                method="POST">
+                                                method="POST" id="delete-edu{{ $item->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn">
+                                                <button type="submit" class="btn btn-edu"
+                                                    onclick="confirmDelete({{ $item->id }})">
                                                     <img class="img-fluid" style="width: 30px; height: 30px;"
                                                         src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                         alt="Hapus">
@@ -978,10 +981,9 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="text-center mt-4">
-                            <button id="load-more" class="btn btn-primary"
-                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                                data-page="{{ $pendidikans->currentPage() }}">Muat Lebih Banyak</button>
+                        <div class="text-right mt-4 mr-4">
+                            <button id="load-more" class="btn btn-more mb-3"
+                                data-page="{{ $pendidikans->currentPage() }}">Muat Lebih Banyak . . .</button>
                         </div>
                     @else
                         <div class="col-md-12 text-center my-4"><br><br>
@@ -1028,10 +1030,11 @@
                                             </a>
                                             <form class="m-0"
                                                 action="{{ route('pengalaman.destroy', ['pengalaman' => $pl->id]) }}"
-                                                method="POST">
+                                                method="POST" id="delete-pl{{ $pl->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn">
+                                                <button type="submit" class="btn btn-edu"
+                                                    onclick="confirmPl({{ $pl->id }})">
                                                     <img class="img-fluid" style="width: 30px; height: 30px;"
                                                         src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                         alt="Hapus">
@@ -1063,10 +1066,9 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="text-center mt-4">
-                            <button id="load-more-pengalaman" class="btn btn-primary"
-                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                                data-page="{{ $pengalamans->currentPage() }}">Muat Lebih Banyak</button>
+                        <div class="text-right mt-4 mr-4">
+                            <button id="load-more-pengalaman" class="btn btn-more mb-3"
+                                data-page="{{ $pengalamans->currentPage() }}">Muat Lebih Banyak . . .</button>
                         </div>
                     @else
                         <div class="col-md-12 text-center my-4"><br><br>
@@ -1113,10 +1115,11 @@
                                             </a>
                                             <form class="m-0"
                                                 action="{{ route('pelatihan.destroy', ['pelatihan' => $lat->id]) }}"
-                                                method="POST">
+                                                method="POST" id="delete-lat{{ $lat->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn">
+                                                <button type="submit" class="btn btn-edu"
+                                                    onclick="confirmLat({{ $lat->id }})">
                                                     <img class="img-fluid" style="width: 30px; height: 30px;"
                                                         src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                         alt="Hapus">
@@ -1152,10 +1155,9 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="text-center mt-4">
-                            <button id="load-more-pelatihan" class="btn btn-primary"
-                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                                data-page="{{ $pelatihans->currentPage() }}">Muat Lebih Banyak</button>
+                        <div class="text-right mt-4 mr-4">
+                            <button id="load-more-pelatihan" class="btn btn-more mb-3"
+                                data-page="{{ $pelatihans->currentPage() }}">Muat Lebih Banyak . . .</button>
                         </div>
                     @else
                         <div class="col-md-12 text-center my-4"><br><br>
@@ -1605,8 +1607,7 @@
                                     </div>
                                     <div class="media mb-4">
                                         <!-- Tampilkan media yang ingin diedit -->
-                                        <img id="media-preview" class="mr-3 rounded p-m-media" width="700"
-                                            height="300">
+                                        <img id="media-preview" class="mr-3 rounded p-m-media" width="100%">
                                     </div>
                                     <div class="col-md-12">
                                         <ul class="list-unstyled">
@@ -1635,6 +1636,102 @@
             </div>
         </div>
     </div>
+    <script>
+        function confirmDelete(itemId) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-confirm',
+                    cancelButton: 'btn btn-cancel',
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-edu' + itemId).submit();
+                }
+            });
+        }
+    </script>
+    <script>
+        function confirmPl(itemId) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-confirm',
+                    cancelButton: 'btn btn-cancel',
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-pl' + itemId).submit();
+                }
+            });
+        }
+    </script>
+    <script>
+        function confirmLat(itemId) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-confirm',
+                    cancelButton: 'btn btn-cancel',
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-lat' + itemId).submit();
+                }
+            });
+        }
+    </script>
+    <script>
+        function confirmPost(itemId) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-confirm',
+                    cancelButton: 'btn btn-cancel',
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-post' + itemId).submit();
+                }
+            });
+        }
+    </script>
     <script>
         @if (session('success') === 'success-delete')
             Swal.fire({
