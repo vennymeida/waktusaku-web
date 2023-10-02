@@ -104,13 +104,13 @@
                     </div>
 
                     <hr class="my-4">
-                    <div class="col-md-11 mx-auto mt-5">
+                    <div class="col-md-11 mx-auto my-5">
                         <h5 class="font-weight-bolder">Persyaratan : </h5>
+                        <p class="ml-5 mt-0 text-syarat">
+                            {!! $loker->requirement !!}
+                        </p>
                     </div>
-                    {{-- <textarea id="autoSizeTextarea" class="form-control form-show ml-5" type="text" disabled>{{ $loker->requirement }}</textarea> --}}
-                    <h5 class="form-control form-show ml-4">
-                        {!! $loker->requirement !!}
-                    </h5>
+
                     <hr class="mt-3">
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="mb-5 font-weight-bold">Tentang Perusahaan</h5>

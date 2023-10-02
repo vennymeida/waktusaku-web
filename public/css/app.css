@@ -1620,6 +1620,10 @@ select.custom-select option:disabled {
     .img-detail-profile {
         margin-top: 35px !important;
     }
+
+    .text-syarat {
+        margin-left: 10px !important;
+    }
 }
 
 /* modal fullscreen */

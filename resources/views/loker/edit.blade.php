@@ -83,7 +83,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="deskripsi">Deskripsi</label>
                                     <input type="hidden" name="deskripsi" value="{{ $loker->deskripsi }}">
@@ -91,12 +91,15 @@
                                         style="height: 150px; border-radius: 15px;" disabled>{{ $loker->deskripsi }}</textarea>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="requirement">Persyaratan</label>
                                     <input type="hidden" name="requirement" value="{{ $loker->requirement }}">
-                                    <textarea id="requirement-2" class="form-control" type="text" style="height: 150px; border-radius: 15px;" disabled>{{ str_replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', "\n"], $loker->requirement) }}
-                                        </textarea>
+                                    <div class="col-md-12 px-4 py-1" style="background-color:#e9ecef; border-radius: 15px;">
+                                        <p id="requirement-2" type="text">
+                                            {!! $loker->requirement !!}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3">

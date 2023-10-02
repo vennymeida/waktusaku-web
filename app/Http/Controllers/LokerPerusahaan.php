@@ -165,7 +165,6 @@ class LokerPerusahaan extends Controller
         $kelurahan = Keahlian::all();
         $kategori = $loker_perusahaan->kategori()->pluck('kategori')->implode(', ');
         $keahlian = $loker_perusahaan->keahlian()->pluck('keahlian');
-        $loker_perusahaan->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $loker_perusahaan->requirement);
 
         $updatedDiff = $loker_perusahaan->updated_at->diffInSeconds(now());
 
