@@ -23,7 +23,7 @@
 
 </head>
 
-<body style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
+<body class="bg-login" style="background: linear-gradient(to right, #f4f4f4 50%, #fff 50%);">
     <div id="app">
         <section class="section">
             <div class="container-fluid">
