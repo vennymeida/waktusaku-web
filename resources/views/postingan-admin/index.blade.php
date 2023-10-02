@@ -17,7 +17,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-primary">
+                    <div class="card card-primary" style="border-radius: 15px;">
                         <div class="card-header">
                             <h4>Tabel Postingan Pengguna</h4>
                         </div>
@@ -46,7 +46,7 @@
                                                         <img src="{{ asset('storage/' . $postingan->media) }}"
                                                             alt="{{ $postingan->media }}" width="100">
                                                     </td>
-                                                    <td class="text-center">{!! $postingan->konteks !!}</td>
+                                                    <td>{!! $postingan->konteks !!}</td>
                                                     <td class="text-center">
                                                         <div class="d-flex justify-content-center">
                                                             <form

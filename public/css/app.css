@@ -1583,6 +1583,7 @@ select.custom-select option:disabled {
 
     .title-detail {
         display: block !important;
+        text-align: start !important;
     }
 
     .detail-left {
@@ -1617,7 +1618,7 @@ select.custom-select option:disabled {
     }
 
     .img-detail-profile {
-        margin-top: 125px !important;
+        margin-top: 35px !important;
     }
 }
 
