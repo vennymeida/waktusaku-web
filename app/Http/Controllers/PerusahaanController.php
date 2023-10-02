@@ -88,7 +88,8 @@ class PerusahaanController extends Controller
                 $oriName = $photo->getClientOriginalExtension();
 
                 $namaGambar = uniqid() . '.' . $oriName;
-                Storage::putFileAs('public/database/perusahaan/', $photo, $namaGambar);
+                // Storage::putFileAs('public/database/perusahaan/', $photo, $namaGambar);
+                Storage::putFileAs('public/perusahaan/', $photo, $namaGambar);
 
                 if ($user->perusahaan === null) {
                     $user->perusahaan = new \App\Models\Perusahaan();
@@ -98,7 +99,8 @@ class PerusahaanController extends Controller
                     Storage::delete('public/' . $user->perusahaan->logo);
                 }
 
-                $user->perusahaan->logo = 'database/perusahaan/' . $namaGambar;
+                // $user->perusahaan->logo = 'database/perusahaan/' . $namaGambar;
+                $user->perusahaan->logo = 'perusahaan/' . $namaGambar;
                 $user->perusahaan->save();
             } else {
                 if ($user->perusahaan && $user->perusahaan->logo !== null) {
@@ -116,7 +118,8 @@ class PerusahaanController extends Controller
                 $oriName = $siu->getClientOriginalExtension();
 
                 $namaSiu = uniqid() . '.' . $oriName;
-                Storage::putFileAs('public/database/siu/', $siu, $namaSiu);
+                // Storage::putFileAs('public/database/siu/', $siu, $namaSiu);
+                Storage::putFileAs('public/siu/', $siu, $namaSiu);
 
                 if ($user->perusahaan === null) {
                     $user->perusahaan = new \App\Models\Perusahaan();
@@ -126,7 +129,8 @@ class PerusahaanController extends Controller
                     Storage::delete('public/' . $user->perusahaan->siu);
                 }
 
-                $user->perusahaan->siu = 'database/siu/' . $namaSiu;
+                // $user->perusahaan->siu = 'database/siu/' . $namaSiu;
+                $user->perusahaan->siu = 'siu/' . $namaSiu;
                 $user->perusahaan->save();
             } else {
                 if ($user->perusahaan && $user->perusahaan->siu !== null) {

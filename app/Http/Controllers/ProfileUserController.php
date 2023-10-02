@@ -189,7 +189,8 @@ class ProfileUserController extends Controller
                 $oriName = $photo->getClientOriginalExtension();
 
                 $namaGambar = uniqid() . '.' . $oriName;
-                Storage::putFileAs('public/database/profile/', $photo, $namaGambar);
+                // Storage::putFileAs('public/database/profile/', $photo, $namaGambar);
+                Storage::putFileAs('public/profile/', $photo, $namaGambar);
 
                 if ($user->profile === null) {
                     $user->profile = new \App\Models\ProfileUser();
@@ -199,7 +200,8 @@ class ProfileUserController extends Controller
                     Storage::delete('public/' . $user->profile->foto);
                 }
 
-                $user->profile->foto = 'database/profile/' . $namaGambar;
+                // $user->profile->foto = 'database/profile/' . $namaGambar;
+                $user->profile->foto = 'profile/' . $namaGambar;
                 $user->profile->save();
             } else {
                 if ($user->profile && $user->profile->foto !== null) {
@@ -217,7 +219,8 @@ class ProfileUserController extends Controller
                 $oriName = $resume->getClientOriginalExtension();
 
                 $namaResume = uniqid() . '.' . $oriName;
-                Storage::putFileAs('public/database/resume/', $resume, $namaResume);
+                // Storage::putFileAs('public/database/resume/', $resume, $namaResume);
+                Storage::putFileAs('public/resume/', $resume, $namaResume);
 
                 if ($user->profile === null) {
                     $user->profile = new \App\Models\ProfileUser();
@@ -227,7 +230,8 @@ class ProfileUserController extends Controller
                     Storage::delete('public/' . $user->profile->resume);
                 }
 
-                $user->profile->resume = 'database/resume/' . $namaResume;
+                // $user->profile->resume = 'database/resume/' . $namaResume;
+                $user->profile->resume = 'resume/' . $namaResume;
                 $user->profile->save();
             } else {
                 if ($user->profile && $user->profile->resume !== null) {
@@ -252,15 +256,14 @@ class ProfileUserController extends Controller
 
     public function destroy(Postingan $profile)
     {
+        // Hapus gambar dari penyimpanan sebelum menghapus profil (atau postingan)
+        if ($profile->media) {
+            Storage::disk('public')->delete($profile->media);
+        }
+
         $profile->delete();
 
         return redirect()->route('profile.index')->with('success', 'success-delete');
     }
 
-    // public function destroyPendidikan(Pendidikan $profile)
-    // {
-    //     $profile->delete();
-
-    //     return redirect()->route('profile.index')->with('success', 'success-delete');
-    // }
 }
