@@ -16,20 +16,20 @@
                 <div class="col-md-10 mx-auto">
                     <ul class="list-unstyled">
                         <ul class="list-unstyled d-flex justify-content-start title-detail">
-                            <li class="col-md-2 d-flex justify-content-start mr-5 mt-3">
+                            <li class="col-md-4 d-flex justify-content-start mr-5 mt-3">
                                 <img class="img-fluid img-icon mr-2" src="{{ asset('assets/img/landing-page/phone.svg') }}">
                                 <p class="mb-3 detail-left" style="font-size: 15px;">{{ $detail->no_hp_perusahaan }} </p>
                             </li>
-                            <li class="col-md-10 mt-3 detail-right">
+                            <li class="col-md-8 mt-3 detail-right">
                                 <h5 class="font-weight-bolder">{{ $detail->nama }} </h5>
                             </li>
                         </ul>
                         <ul class="list-unstyled d-flex justify-content-start text-justify title-detail">
-                            <li class="col-md-2 d-flex justify-content-start mr-5">
+                            <li class="col-md-4 d-flex justify-content-start mr-5">
                                 <img class="img-fluid img-icon mr-2" src="{{ asset('assets/img/landing-page/Email.svg') }}">
                                 <p class="mb-3 detail-left" style="font-size: 15px;">{{ $detail->email }} </p>
                             </li>
-                            <li class="col-md-10">
+                            <li class="col-md-8">
                                 <p class="detail-right" style="font-size: 15px;">
                                     {{ $detail->deskripsi }} </p>
                             </li>

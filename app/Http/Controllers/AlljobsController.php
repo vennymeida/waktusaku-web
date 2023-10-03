@@ -104,8 +104,6 @@ class AlljobsController extends Controller
         $kelurahan = Kelurahan::all();
         $kategori = $loker->kategori()->pluck('kategori')->implode(', ');
         $keahlian = $loker->keahlian()->pluck('keahlian');
-        $loker->requirement = Str::replace(['<ol>', '</ol>', '<li>', '</li>', '<br>', '<p>', '</p>'], ['', '', '', "\n", '', '', ''], $loker->requirement);
-        // $loker->requirement = preg_replace('/<[^>]+>/', '', $loker->requirement);
 
         $updatedDiff = $loker->updated_at->diffInSeconds(now());
 
@@ -118,8 +116,6 @@ class AlljobsController extends Controller
         } else {
             $updatedAgo = $loker->updated_at->diffInDays(now()) . ' hari yang lalu';
         }
-
-
 
         $hasApplied = $loker->hasApplied;
         // Mengecek apakah user sudah melamar untuk loker ini

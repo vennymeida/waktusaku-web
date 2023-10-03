@@ -10,6 +10,7 @@ use App\Http\Requests\UpdatePostinganRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class PostinganController extends Controller
 {
@@ -37,8 +38,8 @@ class PostinganController extends Controller
     {
         $userId = Auth::user()->id;
         $postingan = Postingan::where('user_id', $userId)
-        ->orderBy('created_at', 'desc')
-        ->paginate(5);
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
 
         foreach ($postingan as $time) {
             $time->timeAgo = $this->getTimeAgo($time->updated_at);
@@ -103,8 +104,14 @@ class PostinganController extends Controller
 
             $postingan->konteks = $validatedData['konteks'];
 
-            // Update media if there is an uploaded file
+            // Check if there is a new uploaded file
             if ($request->hasFile('media')) {
+                // Delete the old media file if it exists
+                if ($postingan->media) {
+                    Storage::disk('public')->delete($postingan->media);
+                }
+
+                // Upload and save the new media file
                 $media = $request->file('media');
                 $filename = time() . '_' . $media->getClientOriginalName();
                 $path = $media->storeAs('media', $filename, 'public');
@@ -119,11 +126,16 @@ class PostinganController extends Controller
         }
     }
 
-
     public function destroy(Postingan $postingan)
     {
+        // Hapus gambar dari penyimpanan sebelum menghapus postingan
+        if ($postingan->media) {
+            Storage::disk('public')->delete($postingan->media);
+        }
+
         $postingan->delete();
 
         return redirect()->route('postingan.index')->with('success', 'success-delete');
     }
+
 }

@@ -88,10 +88,12 @@
                     </div>
 
                     <hr class="my-4">
-                    <div class="col-md-11 mx-auto mt-5">
+                    <div class="col-md-11 mx-auto my-5">
                         <h5 class="font-weight-bolder">Persyaratan : </h5>
+                        <p class="ml-5 mt-0 text-syarat">
+                            {!! $loker_perusahaan->requirement !!}
+                        </p>
                     </div>
-                    <textarea id="autoSizeTextarea" class="form-control form-show ml-5" type="text" disabled>{{ $loker_perusahaan->requirement }}</textarea>
 
                     <hr class="mt-3">
                     <div class="col-md-11 mx-auto mt-5">

@@ -56,8 +56,8 @@
 </div>
 
 <!-- Modal for SIU Preview -->
-<div class="modal fade fullscreen-modal" id="siuPreviewModal" tabindex="-1" role="dialog" aria-labelledby="siuPreviewModalLabel"
-    aria-hidden="true">
+<div class="modal fade fullscreen-modal" id="siuPreviewModal" tabindex="-1" role="dialog"
+    aria-labelledby="siuPreviewModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header m-4">
@@ -94,14 +94,12 @@
         <section>
             <div class="col-md-10 mx-auto mt-4">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-2">
                         <div class="card border-primary mb-2">
                             <div class="card-body">
-                                <div class="text-left mb-4 mt-2 ml-2">
-                                    <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">
-                                        Profile
-                                    </h5>
-                                </div>
+                                <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">
+                                    Profile
+                                </h5>
                                 <div class="row">
                                     <div class="col-md-4 ml-3">
                                         @if (Auth::user()->profile && Auth::user()->profile->foto != '')
@@ -146,7 +144,7 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div class="form-group col-md-12 text-right my-4">
+                                            <div class="form-group col-md-12 text-right">
                                                 <button class="btn btn-primary mr-1 px-3"
                                                     style="border-radius: 15px; font-size: 14px; font-weight: lighter;"
                                                     type="submit">Ubah Profil</button>
@@ -157,14 +155,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-2">
                         <div class="card border-primary mb-2">
                             <div class="card-body">
-                                <div class="text-left mb-4 mt-2 ml-2">
-                                    <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Ubah
-                                        Kata
-                                        Sandi</h5>
-                                </div>
+                                <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">Ubah
+                                    Kata Sandi</h5>
                                 <div class="col-md-12">
                                     <form method="POST" action="{{ route('user-password.update') }}"
                                         class="needs-validation" novalidate="">
@@ -222,12 +217,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-12 text-right my-4">
-                                                <button class="btn btn-primary mr-1 px-3"
-                                                    style="border-radius: 15px; font-size: 14px; font-weight: lighter;"
-                                                    type="submit">Ubah Kata Sandi</button>
-                                            </div>
+                                        <div class="form-group col-md-12 text-right">
+                                            <button class="btn btn-primary mr-1 px-3"
+                                                style="border-radius: 15px; font-size: 14px; font-weight: lighter;"
+                                                type="submit">Ubah Kata Sandi</button>
                                         </div>
                                     </form>
                                 </div>
@@ -240,9 +233,7 @@
                                 <div class="card-body">
                                     <div class="text-left mb-4 mt-2 ml-2">
                                         <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">
-                                            Ubah
-                                            Data
-                                            Diri</h5>
+                                            Ubah Data Diri</h5>
                                     </div>
                                     <div class="col-md-12">
                                         <form method="POST" action="{{ route('profile.user.update') }}"
@@ -385,9 +376,11 @@
                                                                 style="border-radius: 15px;">
                                                                 <i class="fas fa-eye mt-6"></i> Lihat Resume
                                                             </a> --}}
-                                                            <a href = "{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
+                                                            <a href="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->resume) : '' }}"
                                                                 onclick="return openResume();" target="_blank"
-                                                                class="btn btn-sm btn-warning btn-icon" style="border-radius:15px;"><i class="fas fa-eye mt-6"></i>
+                                                                class="btn btn-sm btn-warning btn-icon"
+                                                                style="border-radius:15px;"><i
+                                                                    class="fas fa-eye mt-6"></i>
                                                                 Lihat Resume
                                                             </a>
                                                         </div>
@@ -418,7 +411,8 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group col-md-12 col-12">
-                                                <select name="keahlian_ids[]" multiple class="form-control select2 keahlian">
+                                                <select name="keahlian_ids[]" multiple
+                                                    class="form-control select2 keahlian">
                                                     {{-- <option value="" disabled selected></option> --}}
                                                     @foreach ($keahlians as $keahlian)
                                                         <option value="{{ $keahlian->id }}"
@@ -445,9 +439,7 @@
                                 <div class="card-body">
                                     <div class="text-left mb-4 mt-2 ml-2">
                                         <h5 class="card-title font-weight-bold d-block mx-2" style="color:#6777EF;">
-                                            Ubah
-                                            Data
-                                            Perusahaan</h5>
+                                            Ubah Data Perusahaan</h5>
                                     </div>
                                     <div class="col-md-12">
                                         <form method="POST" action="{{ route('profile.perusahaan.update') }}"
@@ -646,9 +638,11 @@
                                                                 style="border-radius: 15px;">
                                                                 <i class="fas fa-eye mt-6"></i> Lihat SIU
                                                             </a> --}}
-                                                            <a href = "{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->siu) : '' }}"
+                                                            <a href="{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->siu) : '' }}"
                                                                 onclick="return openResume();" target="_blank"
-                                                                class="btn btn-sm btn-warning btn-icon" style="border-radius:15px;"><i class="fas fa-eye mt-6"></i>
+                                                                class="btn btn-sm btn-warning btn-icon"
+                                                                style="border-radius:15px;"><i
+                                                                    class="fas fa-eye mt-6"></i>
                                                                 Lihat SIU
                                                             </a>
                                                         </div>

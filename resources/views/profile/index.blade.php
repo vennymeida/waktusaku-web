@@ -477,112 +477,111 @@
 @section('main')
     @if (Auth::user()->hasRole('Perusahaan'))
         <main class="bg-light">
-            <h4 class="text-center my-4" style="text-align: center; font-weight: bold;">Data Perusahaan</h4>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-11 d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
-                        <a href="{{ url('/profile-edit') }}">
-                            <img class="img-fluid" style="width: 35px; height: 35px;"
-                                src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
-                        </a>
+            <br><br>
+            <div class="col-md-11 bg-white mx-auto py-4 mb-0" style="border-radius: 20px;">
+                <h4 class="text-center mt-4" style="text-align: center; font-weight: bold;">Data Perusahaan</h4>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-11 d-flex justify-content-end" style="font-size: 2.00em;" id="fluid">
+                            <a href="{{ url('/profile-edit') }}">
+                                <img class="img-fluid" style="width: 35px; height: 35px;"
+                                    src="{{ asset('assets/img/landing-page/edit-pencil.svg') }}">
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <section>
-                <div class="col-md-12 detail-header">
-                    <div class="col-md-10 mx-auto">
-                        <ul class="list-unstyled">
-                            <ul class="list-unstyled d-flex justify-content-start title-detail">
-                                @if (Auth::user()->perusahaan && Auth::user()->perusahaan->no_hp_perusahaan != '')
-                                    <li class="col-md-2 d-flex justify-content-start mr-5 mt-3">
-                                        <img class="img-fluid img-icon mr-2"
-                                            src="{{ asset('assets/img/landing-page/phone.svg') }}">
-                                        <p class="mb-3 detail-left" style="font-size: 15px;">
-                                            {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp_perusahaan : '' }}
+                <section>
+                    <div class="col-md-12 detail-header">
+                        <div class="col-md-10 mx-auto">
+                            <ul class="list-unstyled">
+                                <ul class="list-unstyled d-flex justify-content-start title-detail">
+                                    @if (Auth::user()->perusahaan && Auth::user()->perusahaan->no_hp_perusahaan != '')
+                                        <li class="col-md-4 d-flex justify-content-start mr-5 mt-3">
+                                            <img class="img-fluid img-icon mr-2"
+                                                src="{{ asset('assets/img/landing-page/phone.svg') }}">
+                                            <p class="mb-3 detail-left" style="font-size: 15px;">
+                                                {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->no_hp_perusahaan : '' }}
+                                            </p>
+                                        </li>
+                                    @else
+                                        <li class="col-md-4 d-flex justify-content-start mr-5 mt-3">
+                                            <img class="img-fluid img-icon mr-2"
+                                                src="{{ asset('assets/img/landing-page/phone.svg') }}">
+                                            <p class="mb-3 detail-left" style="font-size: 15px;"></p>
+                                        </li>
+                                    @endif
+                                    <li class="col-md-8 mt-3 detail-right">
+                                        <h5 class="font-weight-bolder">
+                                            {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->nama : '' }} -
+                                            {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->pemilik : '' }}</h5>
+                                    </li>
+                                </ul>
+                                <ul class="list-unstyled d-flex justify-content-start text-justify title-detail">
+                                    @if (Auth::user()->perusahaan && Auth::user()->perusahaan->email != '')
+                                        <li class="col-md-4 d-flex justify-content-start mr-5">
+                                            <img class="img-fluid img-icon mr-2"
+                                                src="{{ asset('assets/img/landing-page/Email.svg') }}">
+                                            <p class="mb-3 detail-left" style="font-size: 15px;">
+                                                {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->email : '' }}</p>
+                                        </li>
+                                    @else
+                                        <li class="col-md-4 d-flex justify-content-start mr-5">
+                                            <img class="img-fluid img-icon mr-2"
+                                                src="{{ asset('assets/img/landing-page/Email.svg') }}">
+                                            <p class="mb-3 detail-left" style="font-size: 15px;">&nbsp</p>
+                                        </li>
+                                    @endif
+                                    <li class="col-md-8">
+                                        <p class="detail-right" style="font-size: 15px;">
+                                            {!! Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' !!}
+                                        </p>
+                                    </li>
+                                </ul>
+                                <ul class="list-unstyled d-flex justify-content-start title-detail">
+                                    @if (Auth::user()->perusahaan && Auth::user()->perusahaan->website != '')
+                                        <li class="col-md-2 d-flex justify-content-start mr-5 detail-web">
+                                            <img class="img-fluid img-icon mr-2"
+                                                src="{{ asset('assets/img/landing-page/global.svg') }}">
+                                            <p class="mb-3 detail-left" style="font-size: 15px;">
+                                                {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->website : '' }}</p>
+                                        </li>
+                                    @else
+                                        <li class="col-md-2 d-flex justify-content-start mr-5 detail-web">
+                                            <img class="img-fluid img-icon mr-2"
+                                                src="{{ asset('assets/img/landing-page/global.svg') }}">
+                                            <p class="mb-3 detail-left" style="font-size: 15px;">&nbsp</p>
+                                        </li>
+                                    @endif
+                                </ul>
+                                @if (Auth::user()->perusahaan && Auth::user()->perusahaan->alamat_perusahaan != '')
+                                    <li class="col-md-12 d-flex justify-content-end ml-5 detail-alamat">
+                                        <img class="img-fluid img-icon mr-1"
+                                            src="{{ asset('assets/img/landing-page/location pin.svg') }}">
+                                        <p class="mb-5 detail-alamat-bottom" style="font-size: 15px;">
+                                            {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }}
                                         </p>
                                     </li>
                                 @else
-                                    <li class="col-md-2 d-flex justify-content-start mr-5 mt-3">
-                                        <img class="img-fluid img-icon mr-2"
-                                            src="{{ asset('assets/img/landing-page/phone.svg') }}">
-                                        <p class="mb-3 detail-left" style="font-size: 15px;"></p>
-                                    </li>
-                                @endif
-                                <li class="col-md-10 mt-3 detail-right">
-                                    <h5 class="font-weight-bolder">
-                                        {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->nama : '' }} -
-                                        {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->pemilik : '' }}</h5>
-                                </li>
-                            </ul>
-                            <ul class="list-unstyled d-flex justify-content-start text-justify title-detail">
-                                @if (Auth::user()->perusahaan && Auth::user()->perusahaan->email != '')
-                                    <li class="col-md-2 d-flex justify-content-start mr-5">
-                                        <img class="img-fluid img-icon mr-2"
-                                            src="{{ asset('assets/img/landing-page/Email.svg') }}">
-                                        <p class="mb-3 detail-left" style="font-size: 15px;">
-                                            {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->email : '' }}</p>
-                                    </li>
-                                @else
-                                    <li class="col-md-2 d-flex justify-content-start mr-5">
-                                        <img class="img-fluid img-icon mr-2"
-                                            src="{{ asset('assets/img/landing-page/Email.svg') }}">
-                                        <p class="mb-3 detail-left" style="font-size: 15px;">&nbsp</p>
-                                    </li>
-                                @endif
-                                <li class="col-md-10">
-                                    <p class="detail-right" style="font-size: 15px;">
-                                        {!! Auth::user()->perusahaan ? Auth::user()->perusahaan->deskripsi : '' !!}
-                                    </p>
-                                </li>
-                            </ul>
-                            <ul class="list-unstyled d-flex justify-content-start title-detail">
-                                @if (Auth::user()->perusahaan && Auth::user()->perusahaan->website != '')
-                                    <li class="col-md-2 d-flex justify-content-start mr-5 detail-web">
-                                        <img class="img-fluid img-icon mr-2"
-                                            src="{{ asset('assets/img/landing-page/global.svg') }}">
-                                        <p class="mb-3 detail-left" style="font-size: 15px;">
-                                            {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->website : '' }}</p>
-                                    </li>
-                                @else
-                                    <li class="col-md-2 d-flex justify-content-start mr-5 detail-web">
-                                        <img class="img-fluid img-icon mr-2"
-                                            src="{{ asset('assets/img/landing-page/global.svg') }}">
-                                        <p class="mb-3 detail-left" style="font-size: 15px;">&nbsp</p>
+                                    <li class="col-md-12 d-flex justify-content-end ml-5 detail-alamat">
+                                        <img class="img-fluid img-icon mr-1"
+                                            src="{{ asset('assets/img/landing-page/location pin.svg') }}">
+                                        <p class="mb-5 detail-alamat-bottom" style="font-size: 15px;">&nbsp&nbsp&nbsp</p>
                                     </li>
                                 @endif
                             </ul>
-                            @if (Auth::user()->perusahaan && Auth::user()->perusahaan->alamat_perusahaan != '')
-                                <li class="col-md-12 d-flex justify-content-end ml-5 detail-alamat">
-                                    <img class="img-fluid img-icon mr-1"
-                                        src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                    <p class="mb-5 detail-alamat-bottom" style="font-size: 15px;">
-                                        {{ Auth::user()->perusahaan ? Auth::user()->perusahaan->alamat_perusahaan : '' }}
-                                        {{-- ,{{ Auth::user()->perusahaan ? Auth::user()->perusahaan->kecamatan_id : '' }},
-                                {{ $kecamatan->id }} --}}
-                                    </p>
-                                </li>
-                            @else
-                                <li class="col-md-12 d-flex justify-content-end ml-5 detail-alamat">
-                                    <img class="img-fluid img-icon mr-1"
-                                        src="{{ asset('assets/img/landing-page/location pin.svg') }}">
-                                    <p class="mb-5 detail-alamat-bottom" style="font-size: 15px;">&nbsp&nbsp&nbsp</p>
-                                </li>
-                            @endif
-                        </ul>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <div class="col-md-10 mx-auto">
-                <div class="col-md-3">
-                    <div class="logo-container">
+                </section>
+                <div class="col-md-10 mx-auto mb-4">
+                    <div class="col-md-3">
                         @if (Auth::user()->perusahaan && Auth::user()->perusahaan->logo != '')
                             <img class="img-fluid bg-white mt-4 img-detail-profile"
                                 src="{{ Auth::user()->perusahaan ? Storage::url(Auth::user()->perusahaan->logo) : '' }}"
-                                style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
+                                style="width: 100%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                         @else
                             <img class="img-fluid bg-white mt-4 img-detail-profile"
                                 src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                style="width: 75%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
+                                style="width: 100%; background: linear-gradient(to bottom, rgb(196, 204, 213, 0.2), rgb(196, 204, 213, 0.7)); border-radius: 30px;">
                         @endif
                     </div>
                 </div>
@@ -728,7 +727,7 @@
                             </div>
                         </div>
                         <div class="col-md-7">
-                            <div class="card border-primary">
+                            <div class="card border-primary" style="height: 345px; overflow-y: auto;">
                                 <div class="card-body">
                                     <div class="text-left mb-4 mt-2 ml-2">
                                         <h5 class="card-title font-weight-bold d-block mx-2"
@@ -738,11 +737,12 @@
                                         <hr>
                                         @if (Auth::user()->profile && Auth::user()->profile->ringkasan != '')
                                             <div class="text-left mb-4 mt-2 ml-2"
-                                                style="color: #000000; line-height: 2; font-weight:500">
+                                                style="color: #000000; line-height: 2; font-weight:500;">
                                                 {!! Auth::user()->profile ? Auth::user()->profile->ringkasan : '' !!}</div>
                                         @else
                                             <div class="text-center mb-4 mt-2 ml-2"
-                                                style="color: #808080; font-weight:lighter"><br>Belum Ada Ringkasan Tentang
+                                                style="color: #808080; font-weight:lighter"><br>Belum Ada Ringkasan
+                                                Tentang
                                                 Diri Anda</div>
                                         @endif
                                     </div>
@@ -809,7 +809,7 @@
                                     <br>
                                     <div class="media mb-2 p-postingan">
                                         @if (!empty($post->media))
-                                            <img class="mr-3 rounded p-img-media"width="150px" height="150px"
+                                            <img class="mr-3 rounded p-img-media"width="10%;"
                                                 src="{{ asset('storage/' . $post->media) }}">
                                             <div class="media-body col-md-9 p-postingan-konteks">
                                                 {!! $post->konteks !!}
@@ -823,10 +823,11 @@
                                                 </a>
                                                 <form class="m-0"
                                                     action="{{ route('profile.destroy', ['profile' => $post->id]) }}"
-                                                    method="POST">
+                                                    method="POST" id="delete-post{{ $post->id }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn">
+                                                    <button type="submit" class="btn btn-edu"
+                                                        onclick="confirmPost({{ $post->id }})">
                                                         <img class="img-fluid" style="width: 30px; height: 30px;"
                                                             src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                             alt="Hapus">
@@ -846,10 +847,11 @@
                                                 </a>
                                                 <form class="m-0"
                                                     action="{{ route('profile.destroy', ['profile' => $post->id]) }}"
-                                                    method="POST">
+                                                    method="POST" id="delete-post{{ $post->id }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn">
+                                                    <button type="submit" class="btn btn-edu"
+                                                        onclick="confirmPost({{ $post->id }})">
                                                         <img class="img-fluid" style="width: 30px; height: 30px;"
                                                             src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                             alt="Hapus">
@@ -893,8 +895,8 @@
                             <div class="flex-grow-1 mb-2">
                                 <div class="card-header-action keahlianPelamar">
                                     @foreach (auth()->user()->keahlians as $keahlian)
-                                        <button class="btn btn-primary keahlianPelamar1"
-                                            id="skill-button">{{ $keahlian->keahlian }}</button>
+                                        <button class="btn btn-skill keahlianPelamar1"
+                                            style="font-size: 14px">{{ $keahlian->keahlian }}</button>
                                     @endforeach
                                 </div>
                             </div>
@@ -944,10 +946,11 @@
                                             </a>
                                             <form class="m-0"
                                                 action="{{ route('pendidikan.destroy', ['pendidikan' => $item->id]) }}"
-                                                method="POST">
+                                                method="POST" id="delete-edu{{ $item->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn">
+                                                <button type="submit" class="btn btn-edu"
+                                                    onclick="confirmDelete({{ $item->id }})">
                                                     <img class="img-fluid" style="width: 30px; height: 30px;"
                                                         src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                         alt="Hapus">
@@ -978,10 +981,9 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="text-center mt-4">
-                            <button id="load-more" class="btn btn-primary"
-                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                                data-page="{{ $pendidikans->currentPage() }}">Muat Lebih Banyak</button>
+                        <div class="text-right mt-4 mr-4">
+                            <button id="load-more" class="btn btn-more mb-3"
+                                data-page="{{ $pendidikans->currentPage() }}">Muat Lebih Banyak . . .</button>
                         </div>
                     @else
                         <div class="col-md-12 text-center my-4"><br><br>
@@ -1028,10 +1030,11 @@
                                             </a>
                                             <form class="m-0"
                                                 action="{{ route('pengalaman.destroy', ['pengalaman' => $pl->id]) }}"
-                                                method="POST">
+                                                method="POST" id="delete-pl{{ $pl->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn">
+                                                <button type="submit" class="btn btn-edu"
+                                                    onclick="confirmPl({{ $pl->id }})">
                                                     <img class="img-fluid" style="width: 30px; height: 30px;"
                                                         src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                         alt="Hapus">
@@ -1063,10 +1066,9 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="text-center mt-4">
-                            <button id="load-more-pengalaman" class="btn btn-primary"
-                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                                data-page="{{ $pengalamans->currentPage() }}">Muat Lebih Banyak</button>
+                        <div class="text-right mt-4 mr-4">
+                            <button id="load-more-pengalaman" class="btn btn-more mb-3"
+                                data-page="{{ $pengalamans->currentPage() }}">Muat Lebih Banyak . . .</button>
                         </div>
                     @else
                         <div class="col-md-12 text-center my-4"><br><br>
@@ -1113,10 +1115,11 @@
                                             </a>
                                             <form class="m-0"
                                                 action="{{ route('pelatihan.destroy', ['pelatihan' => $lat->id]) }}"
-                                                method="POST">
+                                                method="POST" id="delete-lat{{ $lat->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn">
+                                                <button type="submit" class="btn btn-edu"
+                                                    onclick="confirmLat({{ $lat->id }})">
                                                     <img class="img-fluid" style="width: 30px; height: 30px;"
                                                         src="{{ asset('assets/img/landing-page/delete.svg') }}"
                                                         alt="Hapus">
@@ -1152,10 +1155,9 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="text-center mt-4">
-                            <button id="load-more-pelatihan" class="btn btn-primary"
-                                style="border-radius: 15px; font-size: 12px; margin-bottom: 10px;"
-                                data-page="{{ $pelatihans->currentPage() }}">Muat Lebih Banyak</button>
+                        <div class="text-right mt-4 mr-4">
+                            <button id="load-more-pelatihan" class="btn btn-more mb-3"
+                                data-page="{{ $pelatihans->currentPage() }}">Muat Lebih Banyak . . .</button>
                         </div>
                     @else
                         <div class="col-md-12 text-center my-4"><br><br>
@@ -1605,8 +1607,7 @@
                                     </div>
                                     <div class="media mb-4">
                                         <!-- Tampilkan media yang ingin diedit -->
-                                        <img id="media-preview" class="mr-3 rounded p-m-media" width="700"
-                                            height="300">
+                                        <img id="media-preview" class="mr-3 rounded p-m-media" width="100%">
                                     </div>
                                     <div class="col-md-12">
                                         <ul class="list-unstyled">
@@ -1635,6 +1636,102 @@
             </div>
         </div>
     </div>
+    <script>
+        function confirmDelete(itemId) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-confirm',
+                    cancelButton: 'btn btn-cancel',
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-edu' + itemId).submit();
+                }
+            });
+        }
+    </script>
+    <script>
+        function confirmPl(itemId) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-confirm',
+                    cancelButton: 'btn btn-cancel',
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-pl' + itemId).submit();
+                }
+            });
+        }
+    </script>
+    <script>
+        function confirmLat(itemId) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-confirm',
+                    cancelButton: 'btn btn-cancel',
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-lat' + itemId).submit();
+                }
+            });
+        }
+    </script>
+    <script>
+        function confirmPost(itemId) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-confirm',
+                    cancelButton: 'btn btn-cancel',
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-post' + itemId).submit();
+                }
+            });
+        }
+    </script>
     <script>
         @if (session('success') === 'success-delete')
             Swal.fire({

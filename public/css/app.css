@@ -24,22 +24,6 @@ ol {
     color: #fff;
 }
 
-#skill-button {
-    border-color: #eb9481;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-#skill-button:hover {
-    background-color: #ff2f00;
-    border-color: #ff2f00;
-}
-
-#skill-button:focus {
-    background-color: #eb9481;
-    color: white;
-    border-color: #ff2f00;
-}
-
 .corner-text {
     position: absolute;
     bottom: 0;
@@ -218,6 +202,53 @@ a.btn-regis:hover {
 
 a.btn-regis:focus {
     box-shadow: none;
+}
+
+.btn-more {
+    color: #1881ff;
+    font-size: 15px;
+}
+
+.btn-more:hover {
+    color: #1881ff;
+}
+
+.btn-more:focus {
+    box-shadow: none;
+}
+
+.btn-edu:focus {
+    box-shadow: none;
+}
+
+.swal2-confirm.btn-confirm {
+    color: white;
+    font-weight: bold;
+    box-shadow: none;
+    background-color: #6777ef;
+    border-color: #6777ef;
+    margin-right: 10px;
+    padding: 5px 20px;
+}
+
+.swal2-confirm.btn-confirm:focus {
+    box-shadow: none;
+    background-color: #6777ef;
+    border-color: #6777ef;
+}
+
+.swal2-cancel.btn-cancel {
+    color: #888888;
+    font-weight: bold;
+    box-shadow: none;
+    background-color: #efefef;
+    border-color: #efefef;
+}
+
+.swal2-cancel.btn-cancel:focus {
+    box-shadow: none;
+    background-color: #efefef;
+    border-color: #efefef;
 }
 
 .lamar-warning {
@@ -772,6 +803,7 @@ h4 .badge {
 
 .custom-input {
     border-radius: 15px;
+    border-color: #edeefd;
 }
 
 .custom-input {
@@ -1495,8 +1527,8 @@ select.custom-select option:disabled {
     }
 
     .p-img-media {
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: 100%;
     }
 
     .p-m-media {
@@ -1551,6 +1583,7 @@ select.custom-select option:disabled {
 
     .title-detail {
         display: block !important;
+        text-align: start !important;
     }
 
     .detail-left {
@@ -1585,7 +1618,11 @@ select.custom-select option:disabled {
     }
 
     .img-detail-profile {
-        margin-top: 125px !important;
+        margin-top: 35px !important;
+    }
+
+    .text-syarat {
+        margin-left: 10px !important;
     }
 }
 
@@ -1717,4 +1754,16 @@ select.custom-select option:disabled {
         text-align: center !important;
         margin-bottom: 5px;
     }
+}
+
+.card::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.card::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.card::-webkit-scrollbar-thumb {
+    background-color: transparent;
 }
