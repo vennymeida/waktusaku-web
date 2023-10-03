@@ -727,7 +727,7 @@
                             </div>
                         </div>
                         <div class="col-md-7">
-                            <div class="card border-primary">
+                            <div class="card border-primary" style="height: 345px; overflow-y: auto">
                                 <div class="card-body">
                                     <div class="text-left mb-4 mt-2 ml-2">
                                         <h5 class="card-title font-weight-bold d-block mx-2"
@@ -737,11 +737,12 @@
                                         <hr>
                                         @if (Auth::user()->profile && Auth::user()->profile->ringkasan != '')
                                             <div class="text-left mb-4 mt-2 ml-2"
-                                                style="color: #000000; line-height: 2; font-weight:500">
+                                                style="color: #000000; line-height: 2; font-weight:500;">
                                                 {!! Auth::user()->profile ? Auth::user()->profile->ringkasan : '' !!}</div>
                                         @else
                                             <div class="text-center mb-4 mt-2 ml-2"
-                                                style="color: #808080; font-weight:lighter"><br>Belum Ada Ringkasan Tentang
+                                                style="color: #808080; font-weight:lighter"><br>Belum Ada Ringkasan
+                                                Tentang
                                                 Diri Anda</div>
                                         @endif
                                     </div>
@@ -808,7 +809,7 @@
                                     <br>
                                     <div class="media mb-2 p-postingan">
                                         @if (!empty($post->media))
-                                            <img class="mr-3 rounded p-img-media"width="25%;"
+                                            <img class="mr-3 rounded p-img-media"width="10%;"
                                                 src="{{ asset('storage/' . $post->media) }}">
                                             <div class="media-body col-md-9 p-postingan-konteks">
                                                 {!! $post->konteks !!}
