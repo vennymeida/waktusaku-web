@@ -727,7 +727,7 @@
                             </div>
                         </div>
                         <div class="col-md-7">
-                            <div class="card border-primary" style="height: 345px; overflow-y: auto">
+                            <div class="card border-primary" style="height: 345px; overflow-y: auto;">
                                 <div class="card-body">
                                     <div class="text-left mb-4 mt-2 ml-2">
                                         <h5 class="card-title font-weight-bold d-block mx-2"
