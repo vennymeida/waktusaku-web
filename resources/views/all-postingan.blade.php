@@ -18,7 +18,7 @@
                                                 class="profile-img">
                                         @endif
                                     </div>
-                                    <div class="text-data">
+                                    <div class="text-data ket-pos" style="height: 200px; overflow-y: auto;">
                                         <span class="profile-name" style="font-weight: bold; text-align:center;">Hi!
                                             {{ auth()->user()->name }}</span>
                                         @if (!empty($profile) && !empty($profile->ringkasan))

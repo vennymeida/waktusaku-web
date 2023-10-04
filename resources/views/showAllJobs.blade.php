@@ -127,7 +127,7 @@
 
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="font-weight-bold">Deskripsi Perusahaan</h5>
-                        <p class="text-justify">{{ $loker->perusahaan->deskripsi }}</p>
+                        <p class="text-justify">{!! $loker->perusahaan->deskripsi !!}</p>
                     </div>
 
                     <div class="col-md-11 mx-auto mt-5">

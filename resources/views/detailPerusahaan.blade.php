@@ -31,7 +31,7 @@
                             </li>
                             <li class="col-md-8">
                                 <p class="detail-right" style="font-size: 15px;">
-                                    {{ $detail->deskripsi }} </p>
+                                    {!! $detail->deskripsi !!} </p>
                             </li>
                         </ul>
                         <ul class="list-unstyled d-flex justify-content-start title-detail">

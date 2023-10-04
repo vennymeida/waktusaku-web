@@ -58,9 +58,9 @@
                             </ul>
                             <ul class="list-unstyled d-flex justify-content-between align-items-center">
                                 <button
-                                    class="px-4 mt-2 mr-1 btn btn-status 
-                                        @if ($loker_perusahaan->status === 'Pending') btn-warning 
-                                        @elseif ($loker_perusahaan->status === 'Dibuka') btn-success 
+                                    class="px-4 mt-2 mr-1 btn btn-status
+                                        @if ($loker_perusahaan->status === 'Pending') btn-warning
+                                        @elseif ($loker_perusahaan->status === 'Dibuka') btn-success
                                         @elseif ($loker_perusahaan->status === 'Ditutup') btn-secondary @endif"
                                     style="border-radius: 20px;">
                                     {{ $loker_perusahaan->status }}
@@ -111,7 +111,7 @@
 
                     <div class="col-md-11 mx-auto mt-5">
                         <h5 class="font-weight-bold">Deskripsi Perusahaan</h5>
-                        <p class="text-justify">{{ $loker_perusahaan->perusahaan->deskripsi }}</p>
+                        <p class="text-justify">{!! $loker_perusahaan->perusahaan->deskripsi !!}</p>
                     </div>
 
                     <div class="col-md-11 mx-auto mt-5">
