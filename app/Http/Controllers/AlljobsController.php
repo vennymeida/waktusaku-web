@@ -104,6 +104,21 @@ class AlljobsController extends Controller
         $kelurahan = Kelurahan::all();
         $kategori = $loker->kategori()->pluck('kategori')->implode(', ');
         $keahlian = $loker->keahlian()->pluck('keahlian');
+        $getLamarPending = lamar::select(
+            'lamars.id_loker',
+            'lamars.status'
+        )
+        ->where('id_loker', $loker->id)
+        ->where('status', 'Pending')
+        ->count();
+        $getLamarDiterima = lamar::select(
+            'lamars.id_loker',
+            'lamars.status'
+        )
+        ->where('id_loker', $loker->id)
+        ->where('status', 'Diterima')
+        ->count();
+        // dd($getLamarDiterima);
 
         $updatedDiff = $loker->updated_at->diffInSeconds(now());
 
@@ -143,7 +158,9 @@ class AlljobsController extends Controller
                 'lamaranStatus' => $lamaranStatus,
                 'updatedAgo' => $updatedAgo,
                 'kecamatan' => $kecamatan,
-                'kelurahan' => $kelurahan
+                'kelurahan' => $kelurahan,
+                'getLamarPending' => $getLamarPending,
+                'getLamarDiterima' => $getLamarDiterima,
             ]);
         } else {
             return view('auth.login');
